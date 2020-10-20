@@ -28,6 +28,12 @@ Need help? Open an issue here, or:
 
 ---
 
+## Sync
+
+Biscuit Browser can sync with Firefox. To enable sync in the mobile app, tap repeatedly on the logo in the About page, return to the settings page and then press "sign in to sync". You'll need a Firefox account, but no sync data is shared with Mozilla. Then, in Firefox for desktop, open about:config, search for identity.sync.tokenserver.uri and set it to "http://sync.cookiejarapps.com:5000/token/1.0/sync/1.5", then set identity.fxaccounts.useSessionTokensForOAuth and identity.sync.useOAuthForSyncToken to false.
+
+---
+
 ## Features
 
 - Modern, clean UI
