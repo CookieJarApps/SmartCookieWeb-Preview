@@ -2,7 +2,6 @@
 
 # BiscuitBrowser
 
-![GitHub](https://img.shields.io/github/license/cookiejarapps/BiscuitBrowser)
 ![GitHub issues](https://img.shields.io/github/issues-raw/cookiejarapps/BiscuitBrowser)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/cookiejarapps/BiscuitBrowser)
 [![Liberapay patrons](https://img.shields.io/liberapay/patrons/CookieJarApps)](https://liberapay.com/CookieJarApps)
