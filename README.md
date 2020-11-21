@@ -1,4 +1,4 @@
-<a href="#"><img src="http://storeimg.dttp.tech/images/v9Kok.png" title="SmartCookieWeb" alt="SmartCookieWeb"></a>
+<a href="#"><img src="http://storeimg.dttp.tech/images/v9Kok.png" height="256" title="SmartCookieWeb" alt="SmartCookieWeb"></a>
 
 # BiscuitBrowser
 
