@@ -7,7 +7,7 @@
 [![Liberapay patrons](https://img.shields.io/liberapay/patrons/CookieJarApps)](https://liberapay.com/CookieJarApps)
 ![GitHub stars](https://img.shields.io/github/stars/cookiejarapps/BiscuitBrowser?style=social)
 
-An experimental version of SmartCookieWeb using GeckoView and Mozilla Android Components. Adblocking, extensions and no telemetry.
+An experimental version of SmartCookieWeb using GeckoView. Adblocking, extensions and no telemetry with the same UI as SmartCookieWeb.
 
 ---
 
@@ -37,9 +37,8 @@ Biscuit Browser can sync with Firefox. To enable sync in the mobile app, tap rep
 ## Features
 
 - Modern, clean UI
-- < 4MB download
-- Tons of settings
 - Blocks ads and trackers
+- Extension support
 
 ---
 
