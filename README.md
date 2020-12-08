@@ -1,4 +1,4 @@
-<a href="#"><img src="http://storeimg.dttp.tech/images/v9Kok.png" height="256" title="SmartCookieWeb" alt="SmartCookieWeb"></a>
+<a href="#"><img src="http://storeimg.com/images/v9Kok.png" height="256" title="SmartCookieWeb" alt="SmartCookieWeb"></a>
 
 # BiscuitBrowser
 
@@ -9,6 +9,13 @@
 
 An experimental version of SmartCookieWeb using GeckoView. Adblocking, extensions and no telemetry with the same UI as SmartCookieWeb.
 
+---
+
+## Screenshots (beta)
+
+<img src="//storeimg.com/files/geyizu.png">
+
+<img src="//storeimg.com/files/tijow.png">
 ---
 
 ## Support
