@@ -13,9 +13,7 @@ An experimental version of SmartCookieWeb using GeckoView. Adblocking, extension
 
 ## Screenshots (beta)
 
-<img src="https://storeimg.com/files/geyizu.png">
-
-<img src="https://storeimg.com/files/tijow.png">
+<img src="https://storeimg.com/files/geyizu.png" width="256"><img src="https://storeimg.com/files/tijow.png" width="256">
 
 ---
 
