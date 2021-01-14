@@ -75,27 +75,11 @@
 
   </LinearLayout>
 
-  <org.mozilla.geckoview.GeckoView xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:tools="http://schemas.android.com/tools"
+  <org.mozilla.geckoview.GeckoView
       android:id="@+id/geckoview"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_below="@id/toolbar_layout"
       tools:context=".BrowserActivity" />
-
-  <TextView
-      android:id="@+id/trackers_count"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignEnd="@id/geckoview"
-      android:layout_alignBottom="@id/geckoview"
-      android:layout_margin="10dp"
-      android:background="@drawable/circle_background"
-      android:elevation="10dp"
-      android:gravity="center"
-      android:text="0"
-      android:textColor="@android:color/white"
-      android:textSize="15sp"
-      android:textStyle="bold" />
 
 </RelativeLayout>

@@ -124,8 +124,6 @@ class BrowserActivity : AppCompatActivity(), View.OnClickListener {
     geckoSession.navigationDelegate = createNavigationDelegate()
     geckoSession.settings.useTrackingProtection = true
     geckoSession.contentBlockingDelegate = createBlockingDelegate()
-    geckoSession.contentBlockingDelegate = createBlockingDelegate()
-    setupTrackersCounter()
   }
 
   private fun loadFromIntent(intent: Intent) {
@@ -239,19 +237,6 @@ class BrowserActivity : AppCompatActivity(), View.OnClickListener {
       override fun onContentBlocked(session: GeckoSession, event: ContentBlocking.BlockEvent) {
         trackersBlockedList = trackersBlockedList + event
         trackersCount.text = "${trackersBlockedList.size}"
-      }
-    }
-  }
-
-  private fun setupTrackersCounter() {
-    trackersCount = findViewById(R.id.trackers_count)
-    trackersCount.text = "0"
-
-    trackersCount.setOnClickListener {
-
-      if (trackersBlockedList.isNotEmpty()) {
-        val friendlyURLs = getFriendlyTrackersUrls()
-        showDialog(friendlyURLs)
       }
     }
   }
