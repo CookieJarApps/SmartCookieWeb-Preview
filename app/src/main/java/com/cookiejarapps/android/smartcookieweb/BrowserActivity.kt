@@ -124,6 +124,7 @@ class BrowserActivity : AppCompatActivity(), View.OnClickListener {
     geckoSession.navigationDelegate = createNavigationDelegate()
     geckoSession.settings.useTrackingProtection = true
     geckoSession.contentBlockingDelegate = createBlockingDelegate()
+    geckoSession.contentBlockingDelegate = createBlockingDelegate()
     setupTrackersCounter()
   }
 
@@ -203,7 +204,7 @@ class BrowserActivity : AppCompatActivity(), View.OnClickListener {
       override fun onProgressChange(session: GeckoSession, progress: Int) {
         progressView.progress = progress
 
-        if (progress in 1..100) {
+        if (progress in 1..99) {
           progressView.visibility = View.VISIBLE
         } else {
           progressView.visibility = View.GONE
