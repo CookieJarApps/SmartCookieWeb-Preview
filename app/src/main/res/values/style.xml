@@ -7,4 +7,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ToolbarAnim">
+        <item name="android:windowEnterAnimation">@anim/toolbar_in</item>
+        <item name="android:windowExitAnimation">@anim/toolbar_out</item>
+    </style>
+
+    <style name="ToolbarAnimReverse">
+        <item name="android:windowEnterAnimation">@anim/toolbar_out</item>
+    </style>
+
+
 </resources>

@@ -50,6 +50,7 @@ class PopupMenu {
 
         var container =  popupView.findViewById<ConstraintLayout>(R.id.transparent_container)
 
+        popupWindow.animationStyle = R.style.ToolbarAnim
         popupWindow.showAtLocation(view, Gravity.TOP or Gravity.END, 0, 0)
         relView.gravity = Gravity.TOP
 
