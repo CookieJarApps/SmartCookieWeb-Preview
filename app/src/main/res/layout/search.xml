@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="2dp"
+    android:layout_marginTop="7dp"
+    android:layout_marginRight="2dp"
+    android:layout_marginBottom="7dp"
+    android:layout_weight="1"
+    android:background="@drawable/search_background"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:descendantFocusability="beforeDescendants"
+    android:elevation="2dp"
+    android:focusableInTouchMode="true"
+    android:gravity="center"
+    android:orientation="horizontal">
+        <AutoCompleteTextView
+            android:id="@+id/location_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@null"
+            android:hint="@string/location_hint"
+            android:importantForAutofill="no"
+            android:inputType="text|textUri"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textColor="#000"
+            android:textCursorDrawable="@null" />
+</androidx.constraintlayout.widget.ConstraintLayout>

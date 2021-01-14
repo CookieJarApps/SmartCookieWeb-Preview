@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">SmartCookieWeb</string>
+  <string name="location_hint">Search or enter web address</string>
+  <string name="trackers_blocked">Trackers Blocked</string>
+  <string name="none">NONE</string>
+  <string name="analytic">ANALYTIC</string>
+  <string name="ad">AD</string>
+  <string name="test">Test</string>
+  <string name="malware">MALWARE</string>
+  <string name="unwanted">UNWANTED</string>
+  <string name="social">SOCIAL</string>
+  <string name="content">CONTENT</string>
+  <string name="harmful">HARMFUL</string>
+  <string name="phishing">PHISHING</string>
+
+  <string name="new_tab">New tab</string>
+</resources>
