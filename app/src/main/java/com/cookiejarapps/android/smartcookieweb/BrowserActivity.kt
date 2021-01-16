@@ -244,7 +244,7 @@ class BrowserActivity : AppCompatActivity(), View.OnClickListener {
   fun showAdDialog(){
     var friendlyURLs = getFriendlyTrackersUrls()
     if(friendlyURLs.isNullOrEmpty()){
-      friendlyURLs = listOf("No trackers or ads on this site!".toSpanned())
+      friendlyURLs = listOf(resources.getString(R.string.no_ads).toSpanned())
     }
     showDialog(friendlyURLs)
   }
@@ -255,7 +255,7 @@ class BrowserActivity : AppCompatActivity(), View.OnClickListener {
       val host = Uri.parse(blockEvent.uri).host
       val category = blockEvent.categoryToString()
 
-      Html.fromHtml("<b><font color='#D55C7C'>[$category]</font></b> <br/> $host", HtmlCompat.FROM_HTML_MODE_COMPACT)
+      Html.fromHtml("<b><font color='#D55C7C'>[$category]</font></b> <br> $host", HtmlCompat.FROM_HTML_MODE_COMPACT)
 
     }
   }

@@ -7,7 +7,6 @@
   <string name="analytic">ANALYTIC</string>
   <string name="ad">AD</string>
   <string name="test">Test</string>
-  <string name="malware">MALWARE</string>
   <string name="unwanted">UNWANTED</string>
   <string name="social">SOCIAL</string>
   <string name="content">CONTENT</string>
@@ -15,4 +14,5 @@
   <string name="phishing">PHISHING</string>
 
   <string name="new_tab">New tab</string>
+  <string name="no_ads">No ads or trackers</string>
 </resources>
