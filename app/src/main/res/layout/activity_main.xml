@@ -32,8 +32,8 @@
 
         <com.cookiejarapps.android.smartcookieweb.icon.TabCountView
             android:id="@+id/tab_count_view"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_gravity="center"
             android:layout_marginRight="10dp"
             app:tabIconBorderRadius="2dp"
@@ -53,8 +53,8 @@
 
           <ImageView
               android:id="@+id/overflow_image_view"
-              android:layout_width="28dp"
-              android:layout_height="28dp"
+              android:layout_width="24dp"
+              android:layout_height="24dp"
               android:layout_gravity="center"
               android:layout_marginLeft="6dp"
               android:layout_marginRight="4dp"

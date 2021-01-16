@@ -60,15 +60,15 @@ class PopupMenu {
         var drawableIds = intArrayOf(R.drawable.ic_round_add)
 
         val adapter = CustomAdapter(view.context, textString, drawableIds)
-        list = popupView.findViewById<ListView>(R.id.menuList)
+        list = popupView.findViewById(R.id.menuList)
         list?.setAdapter(adapter)
-        list?.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
+        list?.setOnItemClickListener { parent, view, position, id ->
             var positionList = intArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
 
             if (positionList[position] == 0) {
                 //uiController!!.newTabButtonClicked()
             }
             popupWindow.dismiss()
-        })
+        }
     }
 }
