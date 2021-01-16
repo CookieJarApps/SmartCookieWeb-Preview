@@ -7,9 +7,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
-/**
- * Hides the soft input window.
- */
 fun View.hideKeyboard() {
   val imm = (context.getSystemService(Context.INPUT_METHOD_SERVICE) ?: return)
       as InputMethodManager
