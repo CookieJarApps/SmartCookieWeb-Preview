@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.geckoview:geckoview-nightly:85.0.20201126093916@aar">
+    <ANNOTATIONS>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-1/files-1.1/jetified-geckoview-nightly-85.0.20201126093916.aar/3d0d640a36be2b4ae0efdbf64f7bcbee/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-1/files-1.1/jetified-geckoview-nightly-85.0.20201126093916.aar/3d0d640a36be2b4ae0efdbf64f7bcbee/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-1/files-1.1/jetified-geckoview-nightly-85.0.20201126093916.aar/3d0d640a36be2b4ae0efdbf64f7bcbee/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-1/files-1.1/jetified-geckoview-nightly-85.0.20201126093916.aar/3d0d640a36be2b4ae0efdbf64f7bcbee/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.geckoview/geckoview-nightly/85.0.20201126093916/d19fdf245e6ce63fa860248a29cb994ed715de0f/geckoview-nightly-85.0.20201126093916-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

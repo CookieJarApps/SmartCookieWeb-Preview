@@ -25,7 +25,6 @@ class BrowserActivity : AppCompatActivity(), View.OnClickListener {
   private val geckoSession = GeckoSession()
   private lateinit var urlEditText: EditText
   private lateinit var progressView: ProgressBar
-  private lateinit var trackersCount: TextView
   private lateinit var urlBar: AutoCompleteTextView
   private var sGeckoRuntime: GeckoRuntime? = null
   private var mUseMultiprocess = false
@@ -33,7 +32,6 @@ class BrowserActivity : AppCompatActivity(), View.OnClickListener {
   private val mUseTrackingProtection = false
   private val mUsePrivateBrowsing = false
   private var mEnableRemoteDebugging = false
-  private val mKillProcessOnDestroy = false
   private var mTabSessionManager: TabManager? = null
   private val USE_MULTIPROCESS_EXTRA = "use_multiprocess"
   private val FULL_ACCESSIBILITY_TREE_EXTRA = "full_accessibility_tree"
@@ -90,6 +88,7 @@ class BrowserActivity : AppCompatActivity(), View.OnClickListener {
            // .categories(ContentBlocking.AT_DEFAULT)
             .build()
         )
+        .aboutConfigEnabled(true)
       //  .crashHandler(ExampleCrashHandler::class.java)
      sGeckoRuntime = GeckoRuntime.create(this, runtimeSettingsBuilder.build())
     }
@@ -183,8 +182,6 @@ class BrowserActivity : AppCompatActivity(), View.OnClickListener {
   }
 
   fun onCommit(text: String) {
-    clearTrackersCount()
-
     if ((text.contains(".") || text.contains(":")) && !text.contains(" ")) {
       geckoSession.loadUri(text)
     } else {
@@ -236,7 +233,6 @@ class BrowserActivity : AppCompatActivity(), View.OnClickListener {
     return object : ContentBlocking.Delegate {
       override fun onContentBlocked(session: GeckoSession, event: ContentBlocking.BlockEvent) {
         trackersBlockedList = trackersBlockedList + event
-        trackersCount.text = "${trackersBlockedList.size}"
       }
     }
   }
@@ -271,11 +267,6 @@ class BrowserActivity : AppCompatActivity(), View.OnClickListener {
       else -> R.string.none
     }
     return getString(stringResource)
-  }
-
-  private fun clearTrackersCount() {
-    trackersBlockedList = emptyList()
-    trackersCount.text = "0"
   }
 
 }
