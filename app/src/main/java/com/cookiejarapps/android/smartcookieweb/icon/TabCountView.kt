@@ -7,26 +7,15 @@ import android.view.View
 import androidx.core.content.withStyledAttributes
 import com.cookiejarapps.android.smartcookieweb.R
 import java.text.NumberFormat
+import java.util.*
 
-/**
- * A view that draws a count enclosed by a border. Defaults to drawing zero, draws infinity if the
- * number is greater than 99.
- *
- * Attributes:
- * - [R.styleable.TabCountView_tabIconColor] - The color used to draw the number and border.
- * Defaults to black.
- * - [R.styleable.TabCountView_tabIconTextSize] - The count text size, defaults to 14.
- * - [R.styleable.TabCountView_tabIconBorderRadius] - The radius of the border's corners. Defaults
- * to 0.
- * - [R.styleable.TabCountView_tabIconBorderWidth] - The width of the border. Defaults to 0.
- */
 class TabCountView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    private val numberFormat = NumberFormat.getInstance()
+    private val numberFormat = NumberFormat.getInstance(Locale.US)
     private val clearMode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
     private val overMode = PorterDuffXfermode(PorterDuff.Mode.SRC_OVER)
     private val paint: Paint = Paint().apply {
@@ -38,15 +27,17 @@ class TabCountView @JvmOverloads constructor(
     private var borderWidth: Float = 0F
     private val workingRect = RectF()
 
-    private var count: Int = 1
+    private var count: Int = 0
 
     init {
+        val dp: Float = context.getResources().getDisplayMetrics().density
+
         setLayerType(LAYER_TYPE_SOFTWARE, null)
         context.withStyledAttributes(attrs, R.styleable.TabCountView) {
             paint.color = getColor(R.styleable.TabCountView_tabIconColor, Color.BLACK)
-            paint.textSize = getDimension(R.styleable.TabCountView_tabIconTextSize, 14F)
-            borderRadius = getDimension(R.styleable.TabCountView_tabIconBorderRadius, 0F)
-            borderWidth = getDimension(R.styleable.TabCountView_tabIconBorderWidth, 0F)
+            paint.textSize = getDimension(R.styleable.TabCountView_tabIconTextSize, 14 * dp)
+            borderRadius = getDimension(R.styleable.TabCountView_tabIconBorderRadius, 3 * dp)
+            borderWidth = getDimension(R.styleable.TabCountView_tabIconBorderWidth, 3 * dp)
         }
     }
 
