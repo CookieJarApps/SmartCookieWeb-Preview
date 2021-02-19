@@ -6,14 +6,14 @@ apply plugin: 'kotlin-android-extensions'
 
 ext {
     geckoview_channel = "nightly"
-    geckoview_version = "85.0.20201126093916"
+    geckoview_version = "87.0.20210218092411"
 }
 
 android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.cookiejarapps.android.smartcookieweb"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
