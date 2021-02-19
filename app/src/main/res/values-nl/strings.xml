@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">SmartCookieWeb</string>
+  <string name="location_hint">Typ een zoekopdracht of url</string>
+  <string name="trackers_blocked">Geblokkeerde trackers</string>
+  <string name="none">GEEN</string>
+  <string name="analytic">ANALYTISCH</string>
+  <string name="ad">RECLAME</string>
+  <string name="test">Testen</string>
+  <string name="unwanted">ONGEWENST</string>
+  <string name="social">SOCIAAL</string>
+  <string name="content">INHOUD</string>
+  <string name="harmful">SCHADELIJK</string>
+  <string name="phishing">PHISHING</string>
+
+  <string name="new_tab">Nieuw tabblad</string>
+  <string name="no_ads">Geen reclame of trackers</string>
+</resources>
