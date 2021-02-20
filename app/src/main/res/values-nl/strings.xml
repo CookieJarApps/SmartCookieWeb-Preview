@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">SmartCookieWeb</string>
   <string name="location_hint">Typ een zoekopdracht of url</string>
   <string name="trackers_blocked">Geblokkeerde trackers</string>
   <string name="none">GEEN</string>
