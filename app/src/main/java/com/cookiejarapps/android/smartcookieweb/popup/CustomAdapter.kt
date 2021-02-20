@@ -14,6 +14,7 @@ import androidx.annotation.Nullable
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import com.cookiejarapps.android.smartcookieweb.R
+import javax.inject.Inject
 
 class CustomAdapter(private val mContext: Context, private val Title: Array<String>, private val imge: IntArray) : BaseAdapter() {
 
@@ -38,9 +39,6 @@ class CustomAdapter(private val mContext: Context, private val Title: Array<Stri
         title.textSize = 14f
         title.text = Title[position]
         i1.setImageResource(imge[position])
-        var tint = ContextCompat.getColor(mContext, R.color.black)
-        val typedValue = TypedValue()
-        val theme = mContext.theme
         return row
     }
 

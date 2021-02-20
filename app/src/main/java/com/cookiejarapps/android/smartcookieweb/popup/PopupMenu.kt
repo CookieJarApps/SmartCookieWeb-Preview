@@ -1,6 +1,5 @@
 package com.cookiejarapps.android.smartcookieweb.popup
 
-import android.app.AppComponentFactory
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -10,11 +9,11 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.showDialog
+import com.cookiejarapps.android.smartcookieweb.SettingsActivity
+
 
 class PopupMenu {
     private var list: ListView? = null
@@ -28,7 +27,9 @@ class PopupMenu {
 
         val px = Math.round(
             TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, 228f, r.displayMetrics))
+                TypedValue.COMPLEX_UNIT_DIP, 228f, r.displayMetrics
+            )
+        )
 
         //Specify the length and width through constants
         val height = LinearLayout.LayoutParams.WRAP_CONTENT
@@ -42,10 +43,10 @@ class PopupMenu {
 
 
         popupView.findViewById<ImageButton>(R.id.back_option).setOnClickListener {
-            activity.back()
+            //activity.back()
         }
         popupView.findViewById<ImageButton>(R.id.shield).setOnClickListener {
-            activity.showAdDialog()
+            //activity.showAdDialog()
         }
 
         var container =  popupView.findViewById<ConstraintLayout>(R.id.transparent_container)
@@ -56,8 +57,11 @@ class PopupMenu {
 
         popupWindow.setBackgroundDrawable(ColorDrawable(Color.WHITE))
         val resources = view.context.resources
-        var textString = arrayOf(resources.getString(R.string.new_tab))
-        var drawableIds = intArrayOf(R.drawable.ic_round_add)
+        val textString = arrayOf(
+            resources.getString(R.string.new_tab),
+            resources.getString(R.string.settings)
+        )
+        val drawableIds = intArrayOf(R.drawable.ic_round_add, R.drawable.ic_round_settings)
 
         val adapter = CustomAdapter(view.context, textString, drawableIds)
         list = popupView.findViewById(R.id.menuList)
@@ -66,7 +70,11 @@ class PopupMenu {
             var positionList = intArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
 
             if (positionList[position] == 0) {
-                //uiController!!.newTabButtonClicked()
+                activity.createNewTab()
+            }
+            else if(positionList[position] == 1){
+                val intent = Intent(activity, SettingsActivity::class.java)
+                activity.startActivity(intent)
             }
             popupWindow.dismiss()
         }
