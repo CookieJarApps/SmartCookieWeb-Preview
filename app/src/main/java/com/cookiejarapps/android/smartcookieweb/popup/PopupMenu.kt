@@ -59,9 +59,10 @@ class PopupMenu {
         val resources = view.context.resources
         val textString = arrayOf(
             resources.getString(R.string.new_tab),
-            resources.getString(R.string.settings)
+            resources.getString(R.string.settings),
+            resources.getString(R.string.close_tab)
         )
-        val drawableIds = intArrayOf(R.drawable.ic_round_add, R.drawable.ic_round_settings)
+        val drawableIds = intArrayOf(R.drawable.ic_round_add, R.drawable.ic_round_settings, R.drawable.ic_round_close)
 
         val adapter = CustomAdapter(view.context, textString, drawableIds)
         list = popupView.findViewById(R.id.menuList)
@@ -75,6 +76,9 @@ class PopupMenu {
             else if(positionList[position] == 1){
                 val intent = Intent(activity, SettingsActivity::class.java)
                 activity.startActivity(intent)
+            }
+            else if(positionList[position] == 2){
+                activity.closeTab(activity.currentSession)
             }
             popupWindow.dismiss()
         }

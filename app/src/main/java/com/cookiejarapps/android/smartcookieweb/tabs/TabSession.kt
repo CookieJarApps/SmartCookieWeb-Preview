@@ -15,7 +15,7 @@ class TabSession : GeckoSession {
     constructor(settings: GeckoSessionSettings?) : super(settings) {}
 
     var title: String?
-        get() = if (mTitle == null || mTitle!!.length == 0) "about:blank" else mTitle
+        get() = if (mTitle == null || mTitle!!.isEmpty()) "about:blank" else mTitle
         set(title) {
             mTitle = title
         }
