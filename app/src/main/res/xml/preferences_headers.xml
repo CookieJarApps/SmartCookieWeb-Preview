@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.preference.Preference
+        android:fragment="com.cookiejarapps.android.smartcookieweb.settings.fragment.GeneralSettingsFragment"
+        android:icon="@drawable/ic_settings_general_layers"
+        android:title="@string/settings_general"
+        android:singleLineTitle="false"
+        android:summary="@string/settings_general_explain"
+        android:tint="#8e4f00"/>
+</androidx.preference.PreferenceScreen>

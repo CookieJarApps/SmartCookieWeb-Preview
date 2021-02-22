@@ -3,6 +3,7 @@
   package="com.cookiejarapps.android.smartcookieweb">
 
   <application
+      android:name=".App"
     android:allowBackup="true"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
@@ -21,7 +22,7 @@
       </intent-filter>
     </activity>
     <activity
-        android:name=".SettingsActivity"
+        android:name=".settings.activity.SettingsActivity"
         android:label="Settings"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
     </activity>

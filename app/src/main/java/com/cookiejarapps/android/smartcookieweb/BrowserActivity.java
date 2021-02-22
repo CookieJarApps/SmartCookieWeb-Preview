@@ -66,6 +66,7 @@ import android.widget.TextView;
 
 import com.cookiejarapps.android.smartcookieweb.icon.TabCountView;
 import com.cookiejarapps.android.smartcookieweb.popup.PopupMenu;
+import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences;
 import com.cookiejarapps.android.smartcookieweb.tabs.TabSession;
 import com.cookiejarapps.android.smartcookieweb.tabs.TabSessionManager;
 import com.cookiejarapps.android.smartcookieweb.utils.FileUtils;
@@ -87,8 +88,12 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.inject.Inject;
+
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
+
+import static com.cookiejarapps.android.smartcookieweb.di.Injector.getInjector;
 
 interface WebExtensionDelegate {
     default TabSession getSession(GeckoSession session) {
@@ -322,7 +327,7 @@ public class BrowserActivity
     private static final String FULL_ACCESSIBILITY_TREE_EXTRA = "full_accessibility_tree";
     private static final String SEARCH_URI_BASE = "https://www.google.com/search?q=";
     private static final String ACTION_SHUTDOWN = "org.mozilla.geckoview_example.SHUTDOWN";
-    private static final String CHANNEL_ID = "GeckoViewExample";
+    private static final String CHANNEL_ID = "SmartCookieWeb";
     private static final int REQUEST_FILE_PICKER = 1;
     private static final int REQUEST_PERMISSIONS = 2;
     private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 3;
@@ -362,6 +367,9 @@ public class BrowserActivity
 
     private int mNextActivityResultCode = 10;
     private HashMap<Integer, GeckoResult<Intent>> mPendingActivityResult = new HashMap<>();
+
+    @Inject
+    UserPreferences userPreferences;
 
     private EditText.OnEditorActionListener mCommitListener = new EditText.OnEditorActionListener() {
         @Override
@@ -565,16 +573,6 @@ public class BrowserActivity
         }
     };
 
-    private final BooleanSetting mJavascriptEnabled = new BooleanSetting(
-            R.string.key_javascript_enabled, R.bool.javascript_enabled_default,
-            /* reloadCurrentSession */ true
-    ) {
-        @Override
-        public void setValue(final GeckoRuntimeSettings settings, final Boolean value) {
-            settings.setJavaScriptEnabled(value);
-        }
-    };
-
     private final BooleanSetting mTrackingProtection = new BooleanSetting(
             R.string.key_tracking_protection, R.bool.tracking_protection_default
     ) {
@@ -635,6 +633,7 @@ public class BrowserActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getInjector(this).inject(this);
         Log.i(LOGTAG, "zerdatime " + SystemClock.elapsedRealtime() +
                 " - application start");
         createNotificationChannel();
@@ -680,7 +679,7 @@ public class BrowserActivity
                             .enhancedTrackingProtectionLevel(ContentBlocking.EtpLevel.DEFAULT)
                             .build())
                     .preferredColorScheme(mPreferredColorScheme.value())
-                    .javaScriptEnabled(mJavascriptEnabled.value())
+                    .javaScriptEnabled(userPreferences.getJavaScriptEnabled())
                     .aboutConfigEnabled(true);
 
             sGeckoRuntime = GeckoRuntime.create(this, runtimeSettingsBuilder.build());

@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../SDK/icons/material/materialiconsround/close/round_close_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../SDK/icons/material/materialiconsround/settings/round_settings_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_round_close" />
+                            <entry key="outputName" value="ic_settings_general" />
                             <entry key="sourceFile" value="D:\CookieJarApps\BiscuitBrowser" />
                           </map>
                         </option>

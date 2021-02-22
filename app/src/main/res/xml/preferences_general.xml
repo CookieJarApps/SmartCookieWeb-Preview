@@ -34,6 +34,6 @@
     <SwitchPreferenceCompat
         app:key="@string/key_javascript_enabled"
         app:title="Javascript Enabled"
-        app:defaultValue="@bool/javascript_enabled_default"/>
+        app:defaultValue="true"/>
 
 </PreferenceScreen>

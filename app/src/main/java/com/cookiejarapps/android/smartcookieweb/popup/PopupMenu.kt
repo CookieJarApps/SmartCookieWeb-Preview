@@ -12,7 +12,7 @@ import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.SettingsActivity
+import com.cookiejarapps.android.smartcookieweb.settings.activity.SettingsActivity
 
 
 class PopupMenu {
