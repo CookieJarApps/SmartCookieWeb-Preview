@@ -1,14 +1,16 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.geckoview:geckoview-nightly:87.0.20210218092411@aar">
     <ANNOTATIONS>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-1/files-1.1/jetified-geckoview-nightly-87.0.20210218092411.aar/bb9e8372d4ab25e88a384551f301f249/annotations.zip!/" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d039619a3acc4343e6d34df071e39a93/transformed/jetified-geckoview-nightly-87.0.20210218092411/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-1/files-1.1/jetified-geckoview-nightly-87.0.20210218092411.aar/bb9e8372d4ab25e88a384551f301f249/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-1/files-1.1/jetified-geckoview-nightly-87.0.20210218092411.aar/bb9e8372d4ab25e88a384551f301f249/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-1/files-1.1/jetified-geckoview-nightly-87.0.20210218092411.aar/bb9e8372d4ab25e88a384551f301f249/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d039619a3acc4343e6d34df071e39a93/transformed/jetified-geckoview-nightly-87.0.20210218092411/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d039619a3acc4343e6d34df071e39a93/transformed/jetified-geckoview-nightly-87.0.20210218092411/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d039619a3acc4343e6d34df071e39a93/transformed/jetified-geckoview-nightly-87.0.20210218092411/AndroidManifest.xml" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.geckoview/geckoview-nightly/87.0.20210218092411/2d9892a21af35ad212ff2b6fef83b834dbb47b32/geckoview-nightly-87.0.20210218092411-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.geckoview/geckoview-nightly/87.0.20210218092411/8657b8d54edf567be8d1c24d3efbd0bb7983ca88/geckoview-nightly-87.0.20210218092411-sources.jar!/" />
     </SOURCES>

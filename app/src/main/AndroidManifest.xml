@@ -26,12 +26,6 @@
         android:label="Settings"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
     </activity>
-
-    <service
-        android:name=".ExampleCrashHandler"
-        android:exported="false"
-        android:process=":crash">
-    </service>
   </application>
 
 </manifest>
