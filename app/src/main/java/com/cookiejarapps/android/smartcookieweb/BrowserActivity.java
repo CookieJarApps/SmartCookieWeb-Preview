@@ -49,6 +49,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.preference.PreferenceManager;
 import android.util.Log;
 import android.util.LruCache;
@@ -419,6 +420,9 @@ public class BrowserActivity
         mGeckoView = findViewById(R.id.gecko_view);
 
         mTabSessionManager = new TabSessionManager();
+
+        //DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        //drawerLayout.openDrawer(findViewById(R.id.left_drawer));
 
         setSupportActionBar(findViewById(R.id.toolbar));
 
