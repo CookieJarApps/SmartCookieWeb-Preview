@@ -1,1749 +1,1375 @@
-package com.cookiejarapps.android.smartcookieweb;
+package com.cookiejarapps.android.smartcookieweb
 
-import org.json.JSONObject;
+import android.Manifest
+import android.app.*
+import android.app.ActivityManager.RunningAppProcessInfo
+import android.content.Intent
+import android.content.IntentSender.SendIntentException
+import android.content.SharedPreferences
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener
+import android.content.pm.PackageManager
+import android.content.res.Resources
+import android.graphics.BitmapFactory
+import android.graphics.drawable.Icon
+import android.net.Uri
+import android.os.*
+import android.util.Log
+import android.view.MenuItem
+import android.view.View
+import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
+import android.widget.AutoCompleteTextView
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.TextView.OnEditorActionListener
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.preference.PreferenceManager
+import com.cookiejarapps.android.smartcookieweb.BrowserActivity
+import com.cookiejarapps.android.smartcookieweb.di.injector
+import com.cookiejarapps.android.smartcookieweb.icon.TabCountView
+import com.cookiejarapps.android.smartcookieweb.popup.PopupMenu
+import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import com.cookiejarapps.android.smartcookieweb.tabs.TabSession
+import com.cookiejarapps.android.smartcookieweb.tabs.TabSessionManager
+import com.cookiejarapps.android.smartcookieweb.utils.FileUtils.Companion.readBundleFromStorage
+import com.cookiejarapps.android.smartcookieweb.utils.FileUtils.Companion.writeBundleToStorage
+import io.reactivex.schedulers.Schedulers
+import org.json.JSONObject
+import org.mozilla.geckoview.*
+import org.mozilla.geckoview.ContentBlocking.BlockEvent
+import org.mozilla.geckoview.GeckoRuntime.ActivityDelegate
+import org.mozilla.geckoview.GeckoSession.*
+import org.mozilla.geckoview.GeckoSession.ContentDelegate.ContextElement
+import org.mozilla.geckoview.GeckoSession.HistoryDelegate.HistoryList
+import org.mozilla.geckoview.GeckoSession.MediaDelegate.RecordingDevice
+import org.mozilla.geckoview.GeckoSession.NavigationDelegate.LoadRequest
+import org.mozilla.geckoview.GeckoSession.PermissionDelegate.MediaCallback
+import org.mozilla.geckoview.GeckoSession.ProgressDelegate.SecurityInformation
+import org.mozilla.geckoview.WebExtension.CreateTabDetails
+import org.mozilla.geckoview.WebExtension.UpdateTabDetails
+import java.io.*
+import java.util.*
+import java.util.regex.Pattern
+import javax.inject.Inject
 
-import org.mozilla.geckoview.AllowOrDeny;
-import org.mozilla.geckoview.BasicSelectionActionDelegate;
-import org.mozilla.geckoview.ContentBlocking;
-import org.mozilla.geckoview.GeckoResult;
-import org.mozilla.geckoview.GeckoRuntime;
-import org.mozilla.geckoview.GeckoRuntimeSettings;
-import org.mozilla.geckoview.GeckoSession;
-import org.mozilla.geckoview.GeckoSessionSettings;
-import org.mozilla.geckoview.GeckoView;
-import org.mozilla.geckoview.GeckoWebExecutor;
-import org.mozilla.geckoview.Image;
-import org.mozilla.geckoview.SlowScriptResponse;
-import org.mozilla.geckoview.WebExtension;
-import org.mozilla.geckoview.WebExtensionController;
-import org.mozilla.geckoview.WebNotification;
-import org.mozilla.geckoview.WebNotificationDelegate;
-import org.mozilla.geckoview.WebRequest;
-import org.mozilla.geckoview.WebRequestError;
-import org.mozilla.geckoview.WebResponse;
+class BrowserActivity : AppCompatActivity(), ToolbarLayout.TabListener, WebExtensionDelegate, OnSharedPreferenceChangeListener {
+    private var mTabSessionManager: TabSessionManager? = null
+    private var mGeckoView: GeckoView? = null
+    private var mFullAccessibilityTree = false
+    private val mUsePrivateBrowsing = false
+    private val mCollapsed = false
+    private var mKillProcessOnDestroy = false
+    private val mDesktopMode = false
+    private var mTrackingProtectionException = false
+    private val mPopupSession: TabSession? = null
+    private val mPopupView: View? = null
+    private var mShowNotificationsRejected = false
+    private val mAcceptedPersistentStorage = ArrayList<String?>()
+    private var mToolbarView: LinearLayout? = null
+    private var mCurrentUri: String? = null
+    private var mCanGoBack = false
+    private var mCanGoForward = false
+    private var mFullScreen = false
+    private val mNotificationIDMap = HashMap<String, Int>()
+    private val mNotificationMap = HashMap<Int, WebNotification>()
+    private var mLastID = 100
+    private var mProgressView: ProgressBar? = null
+    private var mPendingDownloads = LinkedList<WebResponse>()
+    private var mNextActivityResultCode = 10
+    private val mPendingActivityResult = HashMap<Int, GeckoResult<Intent>>()
 
-import android.Manifest;
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Intent;
-import android.content.IntentSender;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Icon;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.SystemClock;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.preference.PreferenceManager;
-import android.util.Log;
-import android.util.LruCache;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import com.cookiejarapps.android.smartcookieweb.icon.TabCountView;
-import com.cookiejarapps.android.smartcookieweb.popup.PopupMenu;
-import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences;
-import com.cookiejarapps.android.smartcookieweb.tabs.TabSession;
-import com.cookiejarapps.android.smartcookieweb.tabs.TabSessionManager;
-import com.cookiejarapps.android.smartcookieweb.utils.FileUtils;
-
-import java.io.BufferedReader;
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.inject.Inject;
-
-import io.reactivex.Scheduler;
-import io.reactivex.schedulers.Schedulers;
-
-import static com.cookiejarapps.android.smartcookieweb.di.Injector.getInjector;
-
-public class BrowserActivity
-        extends AppCompatActivity
-        implements
-        ToolbarLayout.TabListener,
-        WebExtensionDelegate,
-        SharedPreferences.OnSharedPreferenceChangeListener {
-    private static final String LOGTAG = "BrowserActivity";
-    private static final String FULL_ACCESSIBILITY_TREE_EXTRA = "full_accessibility_tree";
-    private static final String SEARCH_URI_BASE = "https://www.google.com/search?q=";
-    private static final String ACTION_SHUTDOWN = "org.mozilla.geckoview_example.SHUTDOWN";
-    private static final String CHANNEL_ID = "SmartCookieWeb";
-    private static final int REQUEST_FILE_PICKER = 1;
-    private static final int REQUEST_PERMISSIONS = 2;
-    private static final int REQUEST_WRITE_EXTERNAL_STORAGE = 3;
-
-    private static GeckoRuntime sGeckoRuntime;
-
-    private static WebExtensionManager sExtensionManager;
-
-    private TabSessionManager mTabSessionManager;
-    private GeckoView mGeckoView;
-    private boolean mFullAccessibilityTree;
-    private boolean mUsePrivateBrowsing;
-    private boolean mCollapsed;
-    private boolean mKillProcessOnDestroy;
-    private boolean mDesktopMode;
-    private boolean mTrackingProtectionException;
-
-    private TabSession mPopupSession;
-    private View mPopupView;
-
-    private boolean mShowNotificationsRejected;
-    private ArrayList<String> mAcceptedPersistentStorage = new ArrayList<String>();
-
-    private LinearLayout mToolbarView;
-    private String mCurrentUri;
-    private boolean mCanGoBack;
-    private boolean mCanGoForward;
-    private boolean mFullScreen;
-
-    private HashMap<String, Integer> mNotificationIDMap = new HashMap<>();
-    private HashMap<Integer, WebNotification> mNotificationMap = new HashMap<>();
-    private int mLastID = 100;
-
-    private ProgressBar mProgressView;
-
-    private LinkedList<WebResponse> mPendingDownloads = new LinkedList<>();
-
-    private int mNextActivityResultCode = 10;
-    private HashMap<Integer, GeckoResult<Intent>> mPendingActivityResult = new HashMap<>();
-
+    @JvmField
     @Inject
-    UserPreferences userPreferences;
-
-    private EditText.OnEditorActionListener mCommitListener = new EditText.OnEditorActionListener() {
-        @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                String text = v.getText().toString();
-                if ((text.contains(".") || text.contains(":")) && !text.contains(" ")) {
-                    mTabSessionManager.getCurrentSession().loadUri(text);
-                } else {
-                    mTabSessionManager.getCurrentSession().loadUri(SEARCH_URI_BASE + text);
-                }
-                mGeckoView.requestFocus();
-                saveState();
-                return true;
+    var userPreferences: UserPreferences? = null
+    private val mCommitListener = OnEditorActionListener { v, actionId, event ->
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            val text = v.text.toString()
+            if ((text.contains(".") || text.contains(":")) && !text.contains(" ")) {
+                mTabSessionManager!!.currentSession!!.loadUri(text)
+            } else {
+                mTabSessionManager!!.currentSession!!.loadUri(SEARCH_URI_BASE + text)
             }
-            return false;
+            mGeckoView!!.requestFocus()
+            saveState()
+            return@OnEditorActionListener true
         }
-    };
-
-    private View.OnClickListener mPopupListener = v -> {
-        PopupMenu popUpClass = new PopupMenu();
-        popUpClass.showPopupWindow(v, BrowserActivity.this);
-    };
-
-    private View.OnClickListener mTabButton = v -> {
-        FrameLayout tabCountButton = mToolbarView.findViewById(R.id.tab_count_button);
-        android.widget.PopupMenu tabButtonMenu = new android.widget.PopupMenu(this, tabCountButton);
-        for(int idx = 0; idx < mTabSessionManager.sessionCount(); ++idx) {
-            tabButtonMenu.getMenu().add(0, idx, idx,
-                    mTabSessionManager.getSession(idx).getTitle());
+        false
+    }
+    private val mPopupListener = View.OnClickListener { v: View? ->
+        val popUpClass = PopupMenu()
+        popUpClass.showPopupWindow(v!!, this@BrowserActivity)
+    }
+    private val mTabButton = View.OnClickListener { v: View? ->
+        val tabCountButton = mToolbarView!!.findViewById<FrameLayout>(R.id.tab_count_button)
+        val tabButtonMenu = android.widget.PopupMenu(this, tabCountButton)
+        for (idx in 0 until mTabSessionManager!!.sessionCount()) {
+            tabButtonMenu.menu.add(0, idx, idx,
+                    mTabSessionManager!!.getSession(idx)!!.title)
         }
-        tabButtonMenu.setOnMenuItemClickListener(item -> {
-            switchToTab(item.getItemId());
-            return true;
-        });
-        tabButtonMenu.show();
-    };
-
-    @Override
-    public TabSession openNewTab(WebExtension.CreateTabDetails details) {
-        final TabSession newSession = createSession(details.cookieStoreId);
-        TabCountView tabCountView = mToolbarView.findViewById(R.id.tab_count_view);
-        tabCountView.updateCount(mTabSessionManager.sessionCount());
-        if (details.active == Boolean.TRUE) {
-            setGeckoViewSession(newSession, false);
+        tabButtonMenu.setOnMenuItemClickListener { item: MenuItem ->
+            switchToTab(item.itemId)
+            true
         }
-        saveState();
-        return newSession;
+        tabButtonMenu.show()
     }
 
-    private final List<Setting<?>> SETTINGS = new ArrayList<>();
-
-    private abstract class Setting<T> {
-        private int mKey;
-        private int mDefaultKey;
-        private final boolean mReloadCurrentSession;
-        private T mValue;
-
-        public Setting(final int key, final int defaultValueKey, final boolean reloadCurrentSession) {
-            mKey = key;
-            mDefaultKey = defaultValueKey;
-            mReloadCurrentSession = reloadCurrentSession;
-
-            SETTINGS.add(this);
+    override fun openNewTab(details: CreateTabDetails): TabSession {
+        val newSession = createSession(details.cookieStoreId)
+        val tabCountView: TabCountView = mToolbarView!!.findViewById(R.id.tab_count_view)
+        tabCountView.updateCount(mTabSessionManager!!.sessionCount())
+        if (details.active === java.lang.Boolean.TRUE) {
+            setGeckoViewSession(newSession, false)
         }
+        saveState()
+        return newSession
+    }
 
-        public void onPrefChange(SharedPreferences pref) {
-            final T defaultValue = getDefaultValue(mDefaultKey, getResources());
-            final String key = getResources().getString(this.mKey);
-            final T value = getValue(key, defaultValue, pref);
-            if (!value().equals(value)) {
-                setValue(value);
+    private val SETTINGS: MutableList<Setting<*>> = ArrayList()
+
+    private abstract inner class Setting<T>(private val mKey: Int, private val mDefaultKey: Int, private val mReloadCurrentSession: Boolean) {
+        private var mValue: T? = null
+        fun onPrefChange(pref: SharedPreferences) {
+            val defaultValue = getDefaultValue(mDefaultKey, resources)
+            val key = resources.getString(mKey)
+            val value = getValue(key, defaultValue, pref)
+            if (value() != value) {
+                setValue(value)
             }
         }
 
-        private void setValue(final T newValue) {
-            mValue = newValue;
-            for (final TabSession session : mTabSessionManager.getSessions()) {
-                setValue(session.getSettings(), value());
+        private fun setValue(newValue: T) {
+            mValue = newValue
+            for (session in mTabSessionManager!!.getSessions()) {
+                setValue(session.settings, value())
             }
             if (sGeckoRuntime != null) {
-                setValue(sGeckoRuntime.getSettings(), value());
+                setValue(sGeckoRuntime!!.settings, value())
                 if (sExtensionManager != null) {
-                    setValue(sGeckoRuntime.getWebExtensionController(), value());
+                    setValue(sGeckoRuntime!!.webExtensionController, value())
                 }
             }
-
-            final GeckoSession current = mTabSessionManager.getCurrentSession();
+            val current: GeckoSession? = mTabSessionManager!!.currentSession
             if (mReloadCurrentSession && current != null) {
-                current.reload();
+                current.reload()
             }
         }
 
-        public T value() {
-            return mValue == null ? getDefaultValue(mDefaultKey, getResources()) : mValue;
+        fun value(): T {
+            return if (mValue == null) getDefaultValue(mDefaultKey, resources) else mValue!!
         }
 
-        protected abstract T getDefaultValue(final int key, final Resources res);
-        protected abstract T getValue(final String key, final T defaultValue,
-                                      final SharedPreferences preferences);
+        protected abstract fun getDefaultValue(key: Int, res: Resources): T
+        protected abstract fun getValue(key: String?, defaultValue: T,
+                                        preferences: SharedPreferences): T
 
-        /** Override one of these to define the behavior when this setting changes. */
-        protected void setValue(final GeckoSessionSettings settings, final T value) {}
-        protected void setValue(final GeckoRuntimeSettings settings, final T value) {}
-        protected void setValue(final WebExtensionController controller, final T value) {}
-    }
+        /** Override one of these to define the behavior when this setting changes.  */
+        protected open fun setValue(settings: GeckoSessionSettings, value: T) {}
+        protected open fun setValue(settings: GeckoRuntimeSettings, value: T) {}
+        protected open fun setValue(controller: WebExtensionController, value: T) {}
 
-    private class StringSetting extends Setting<String> {
-        public StringSetting(final int key, final int defaultValueKey) {
-            this(key, defaultValueKey, false);
-        }
-
-        public StringSetting(final int key, final int defaultValueKey,
-                             final boolean reloadCurrentSession) {
-            super(key, defaultValueKey, reloadCurrentSession);
-        }
-
-        @Override
-        protected String getDefaultValue(int key, final Resources res) {
-            return res.getString(key);
-        }
-
-        @Override
-        public String getValue(final String key, final String defaultValue,
-                               final SharedPreferences preferences) {
-            return preferences.getString(key, defaultValue);
+        init {
+            SETTINGS.add(this)
         }
     }
 
-    private class BooleanSetting extends Setting<Boolean> {
-        public BooleanSetting(final int key, final int defaultValueKey) {
-            this(key, defaultValueKey, false);
+    private open inner class StringSetting @JvmOverloads constructor(key: Int, defaultValueKey: Int,
+                                                                     reloadCurrentSession: Boolean = false) : Setting<String?>(key, defaultValueKey, reloadCurrentSession) {
+        override fun getDefaultValue(key: Int, res: Resources): String? {
+            return res.getString(key)
         }
 
-        public BooleanSetting(final int key, final int defaultValueKey,
-                              final boolean reloadCurrentSession) {
-            super(key, defaultValueKey, reloadCurrentSession);
-        }
-
-        @Override
-        protected Boolean getDefaultValue(int key, Resources res) {
-            return res.getBoolean(key);
-        }
-
-        @Override
-        public Boolean getValue(final String key, final Boolean defaultValue,
-                                final SharedPreferences preferences) {
-            return preferences.getBoolean(key, defaultValue);
+        public override fun getValue(key: String?, defaultValue: String?,
+                                     preferences: SharedPreferences): String? {
+            return preferences.getString(key, defaultValue)
         }
     }
 
-    private class IntSetting extends Setting<Integer> {
-        public IntSetting(final int key, final int defaultValueKey) {
-            this(key, defaultValueKey, false);
+    private open inner class BooleanSetting @JvmOverloads constructor(key: Int, defaultValueKey: Int,
+                                                                      reloadCurrentSession: Boolean = false) : Setting<Boolean>(key, defaultValueKey, reloadCurrentSession) {
+        override fun getDefaultValue(key: Int, res: Resources): Boolean {
+            return res.getBoolean(key)
         }
 
-        public IntSetting(final int key, final int defaultValueKey,
-                          final boolean reloadCurrentSession) {
-            super(key, defaultValueKey, reloadCurrentSession);
-        }
-
-        @Override
-        protected Integer getDefaultValue(int key, Resources res) {
-            return res.getInteger(key);
-        }
-
-        @Override
-        public Integer getValue(final String key, final Integer defaultValue,
-                                final SharedPreferences preferences) {
-            return Integer.parseInt(
-                    preferences.getString(key, Integer.toString(defaultValue)));
+        public override fun getValue(key: String?, defaultValue: Boolean,
+                                     preferences: SharedPreferences): Boolean {
+            return preferences.getBoolean(key, defaultValue)
         }
     }
 
-    private final IntSetting mPreferredColorScheme = new IntSetting(
-            R.string.key_preferred_color_scheme, R.integer.preferred_color_scheme_default,
-            /* reloadCurrentSession */ true
+    private open inner class IntSetting @JvmOverloads constructor(key: Int, defaultValueKey: Int,
+                                                                  reloadCurrentSession: Boolean = false) : Setting<Int>(key, defaultValueKey, reloadCurrentSession) {
+        override fun getDefaultValue(key: Int, res: Resources): Int {
+            return res.getInteger(key)
+        }
+
+        public override fun getValue(key: String?, defaultValue: Int,
+                                     preferences: SharedPreferences): Int {
+            return preferences.getString(key, Integer.toString(defaultValue))!!.toInt()
+        }
+    }
+
+    private val mPreferredColorScheme: IntSetting = object : IntSetting(
+            R.string.key_preferred_color_scheme, R.integer.preferred_color_scheme_default,  /* reloadCurrentSession */
+            true
     ) {
-        @Override
-        public void setValue(final GeckoRuntimeSettings settings, final Integer value) {
-            settings.setPreferredColorScheme(value);
+        public override fun setValue(settings: GeckoRuntimeSettings, value: Int) {
+            settings.preferredColorScheme = value
         }
-    };
-
-    private final StringSetting mUserAgent = new StringSetting(
-            R.string.key_user_agent_override, R.string.user_agent_override_default,
-            /* reloadCurrentSession */ true
+    }
+    private val mUserAgent: StringSetting = object : StringSetting(
+            R.string.key_user_agent_override, R.string.user_agent_override_default,  /* reloadCurrentSession */
+            true
     ) {
-        @Override
-        public void setValue(final GeckoSessionSettings settings, final String value) {
-            settings.setUserAgentOverride(value.isEmpty() ? null : value);
+        override fun setValue(settings: GeckoSessionSettings, value: String?) {
+            settings.userAgentOverride = if (value!!.isEmpty()) null else value
         }
-    };
-
-    private final BooleanSetting mRemoteDebugging = new BooleanSetting(
+    }
+    private val mRemoteDebugging: BooleanSetting = object : BooleanSetting(
             R.string.key_remote_debugging, R.bool.remote_debugging_default
     ) {
-        @Override
-        public void setValue(final GeckoRuntimeSettings settings, final Boolean value) {
-            settings.setRemoteDebuggingEnabled(value);
+        public override fun setValue(settings: GeckoRuntimeSettings, value: Boolean) {
+            settings.remoteDebuggingEnabled = value
         }
-    };
-
-    private final BooleanSetting mTrackingProtection = new BooleanSetting(
+    }
+    private val mTrackingProtection: BooleanSetting = object : BooleanSetting(
             R.string.key_tracking_protection, R.bool.tracking_protection_default
     ) {
-        @Override
-        public void setValue(final GeckoRuntimeSettings settings, final Boolean value) {
-            mTabSessionManager.setUseTrackingProtection(value);
-            settings.getContentBlocking()
-                    .setStrictSocialTrackingProtection(value);
+        public override fun setValue(settings: GeckoRuntimeSettings, value: Boolean) {
+            mTabSessionManager!!.setUseTrackingProtection(value)
+            settings.contentBlocking.strictSocialTrackingProtection = value
         }
-    };
-
-    private final StringSetting mEnhancedTrackingProtection = new StringSetting(
+    }
+    private val mEnhancedTrackingProtection: StringSetting = object : StringSetting(
             R.string.key_enhanced_tracking_protection, R.string.enhanced_tracking_protection_default
     ) {
-        @Override
-        public void setValue(final GeckoRuntimeSettings settings, final String value) {
-            int etpLevel;
-            switch (value) {
-                case "disabled":
-                    etpLevel = ContentBlocking.EtpLevel.NONE;
-                    break;
-                case "standard":
-                    etpLevel = ContentBlocking.EtpLevel.DEFAULT;
-                    break;
-                case "strict":
-                    etpLevel = ContentBlocking.EtpLevel.STRICT;
-                    break;
-                default:
-                    throw new RuntimeException("Invalid ETP level: " + value);
+        override fun setValue(settings: GeckoRuntimeSettings, value: String?) {
+            val etpLevel: Int
+            etpLevel = when (value) {
+                "disabled" -> ContentBlocking.EtpLevel.NONE
+                "standard" -> ContentBlocking.EtpLevel.DEFAULT
+                "strict" -> ContentBlocking.EtpLevel.STRICT
+                else -> throw RuntimeException("Invalid ETP level: $value")
             }
-
-            settings.getContentBlocking().setEnhancedTrackingProtectionLevel(etpLevel);
+            settings.contentBlocking.enhancedTrackingProtectionLevel = etpLevel
         }
-    };
-
-    private final BooleanSetting mAllowAutoplay = new BooleanSetting(
+    }
+    private val mAllowAutoplay = BooleanSetting(
             R.string.key_autoplay, R.bool.autoplay_default, true
-    );
-
-    private final BooleanSetting mAllowExtensionsInPrivateBrowsing = new BooleanSetting(
+    )
+    private val mAllowExtensionsInPrivateBrowsing: BooleanSetting = object : BooleanSetting(
             R.string.key_allow_extensions_in_private_browsing,
             R.bool.allow_extensions_in_private_browsing_default
     ) {
-        @Override
-        public void setValue(final WebExtensionController controller, final Boolean value) {
+        public override fun setValue(controller: WebExtensionController, value: Boolean) {
             controller.setAllowedInPrivateBrowsing(
-                    sExtensionManager.extension,
-                    value);
-        }
-    };
-
-    private void onPreferencesChange(SharedPreferences preferences) {
-        for (Setting<?> setting : SETTINGS) {
-            setting.onPrefChange(preferences);
+                    sExtensionManager!!.extension,
+                    value)
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getInjector(this).inject(this);
+    private fun onPreferencesChange(preferences: SharedPreferences) {
+        for (setting in SETTINGS) {
+            setting.onPrefChange(preferences)
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        this.injector.inject(this)
         Log.i(LOGTAG, "zerdatime " + SystemClock.elapsedRealtime() +
-                " - application start");
-        createNotificationChannel();
-        setContentView(R.layout.geckoview_activity);
-        mGeckoView = findViewById(R.id.gecko_view);
-
-        mTabSessionManager = new TabSessionManager();
-
-        //DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-        //drawerLayout.openDrawer(findViewById(R.id.left_drawer));
-
-        setSupportActionBar(findViewById(R.id.toolbar));
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        preferences.registerOnSharedPreferenceChangeListener(this);
+                " - application start")
+        createNotificationChannel()
+        setContentView(R.layout.geckoview_activity)
+        mGeckoView = findViewById(R.id.gecko_view)
+        mTabSessionManager = TabSessionManager()
+        setSupportActionBar(findViewById(R.id.toolbar))
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        preferences.registerOnSharedPreferenceChangeListener(this)
         // Read initial preference state
-        onPreferencesChange(preferences);
-
-        mToolbarView = findViewById(R.id.toolbar_layout);
-
-        mFullAccessibilityTree = getIntent().getBooleanExtra(FULL_ACCESSIBILITY_TREE_EXTRA, false);
-        mProgressView = findViewById(R.id.page_progress);
-
+        onPreferencesChange(preferences)
+        mToolbarView = findViewById(R.id.toolbar_layout)
+        mFullAccessibilityTree = intent.getBooleanExtra(FULL_ACCESSIBILITY_TREE_EXTRA, false)
+        mProgressView = findViewById(R.id.page_progress)
         if (sGeckoRuntime == null) {
-            final GeckoRuntimeSettings.Builder runtimeSettingsBuilder =
-                    new GeckoRuntimeSettings.Builder();
-
+            val runtimeSettingsBuilder = GeckoRuntimeSettings.Builder()
             if (BuildConfig.DEBUG) {
                 // In debug builds, we want to load JavaScript resources fresh with
                 // each build.
-                runtimeSettingsBuilder.arguments(new String[] { "-purgecaches" });
+                runtimeSettingsBuilder.arguments(arrayOf("-purgecaches"))
             }
-
-            final Bundle extras = getIntent().getExtras();
+            val extras = intent.extras
             if (extras != null) {
-                runtimeSettingsBuilder.extras(extras);
+                runtimeSettingsBuilder.extras(extras)
             }
             runtimeSettingsBuilder
                     .remoteDebuggingEnabled(mRemoteDebugging.value())
                     .consoleOutput(true)
-                    .contentBlocking(new ContentBlocking.Settings.Builder()
-                            .antiTracking(ContentBlocking.AntiTracking.DEFAULT |
+                    .contentBlocking(ContentBlocking.Settings.Builder()
+                            .antiTracking(ContentBlocking.AntiTracking.DEFAULT or
                                     ContentBlocking.AntiTracking.STP)
                             .safeBrowsing(ContentBlocking.SafeBrowsing.DEFAULT)
                             .cookieBehavior(ContentBlocking.CookieBehavior.ACCEPT_NON_TRACKERS)
                             .enhancedTrackingProtectionLevel(ContentBlocking.EtpLevel.DEFAULT)
                             .build())
                     .preferredColorScheme(mPreferredColorScheme.value())
-                    .javaScriptEnabled(userPreferences.getJavaScriptEnabled())
-                    .aboutConfigEnabled(true);
-
-            sGeckoRuntime = GeckoRuntime.create(this, runtimeSettingsBuilder.build());
-
-            sExtensionManager = new WebExtensionManager(sGeckoRuntime, mTabSessionManager);
-            mTabSessionManager.setTabObserver(sExtensionManager);
-
-            sGeckoRuntime.getWebExtensionController().setDebuggerDelegate(sExtensionManager);
+                    .javaScriptEnabled(userPreferences!!.javaScriptEnabled)
+                    .aboutConfigEnabled(true)
+            sGeckoRuntime = GeckoRuntime.create(this, runtimeSettingsBuilder.build())
+            sExtensionManager = WebExtensionManager(sGeckoRuntime, mTabSessionManager)
+            mTabSessionManager!!.setTabObserver(sExtensionManager)
+            sGeckoRuntime!!.webExtensionController.setDebuggerDelegate(sExtensionManager!!)
 
             // `getSystemService` call requires API level 23
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                sGeckoRuntime.setWebNotificationDelegate(new WebNotificationDelegate() {
-                    NotificationManager notificationManager = getSystemService(NotificationManager.class);
-                    @Override
-                    public void onShowNotification(@NonNull WebNotification notification) {
-                        Intent clickIntent = new Intent(BrowserActivity.this, BrowserActivity.class);
-                        clickIntent.putExtra("onClick",notification.tag);
-                        PendingIntent dismissIntent = PendingIntent.getActivity(BrowserActivity.this, mLastID, clickIntent, 0);
-
-                        Notification.Builder builder = new Notification.Builder(BrowserActivity.this)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                sGeckoRuntime!!.webNotificationDelegate = object : WebNotificationDelegate {
+                    var notificationManager = getSystemService(NotificationManager::class.java)
+                    override fun onShowNotification(notification: WebNotification) {
+                        val clickIntent = Intent(this@BrowserActivity, BrowserActivity::class.java)
+                        clickIntent.putExtra("onClick", notification.tag)
+                        val dismissIntent = PendingIntent.getActivity(this@BrowserActivity, mLastID, clickIntent, 0)
+                        val builder = Notification.Builder(this@BrowserActivity)
                                 .setContentTitle(notification.title)
                                 .setContentText(notification.text)
                                 .setSmallIcon(R.drawable.ic_status_logo)
                                 .setContentIntent(dismissIntent)
-                                .setAutoCancel(true);
-
-                        mNotificationIDMap.put(notification.tag, mLastID);
-                        mNotificationMap.put(mLastID, notification);
-
-                        if (notification.imageUrl != null && notification.imageUrl.length() > 0) {
-                            final GeckoWebExecutor executor = new GeckoWebExecutor(sGeckoRuntime);
-
-                            GeckoResult<WebResponse> response = executor.fetch(
-                                    new WebRequest.Builder(notification.imageUrl)
+                                .setAutoCancel(true)
+                        mNotificationIDMap[notification.tag] = mLastID
+                        mNotificationMap[mLastID] = notification
+                        if (notification.imageUrl != null && notification.imageUrl!!.length > 0) {
+                            val executor = GeckoWebExecutor(sGeckoRuntime!!)
+                            val response = executor.fetch(
+                                    WebRequest.Builder(notification.imageUrl!!)
                                             .addHeader("Accept", "image")
-                                            .build());
-                            response.accept(value -> {
-                                Bitmap bitmap = BitmapFactory.decodeStream(value.body);
-                                builder.setLargeIcon(Icon.createWithBitmap(bitmap));
-                                notificationManager.notify(mLastID++, builder.build());
-                            });
+                                            .build())
+                            response.accept { value: WebResponse? ->
+                                val bitmap = BitmapFactory.decodeStream(value!!.body)
+                                builder.setLargeIcon(Icon.createWithBitmap(bitmap))
+                                notificationManager.notify(mLastID++, builder.build())
+                            }
                         } else {
-                            notificationManager.notify(mLastID++, builder.build());
+                            notificationManager.notify(mLastID++, builder.build())
                         }
-
                     }
 
-                    @Override
-                    public void onCloseNotification(@NonNull WebNotification notification) {
+                    override fun onCloseNotification(notification: WebNotification) {
                         if (mNotificationIDMap.containsKey(notification.tag)) {
-                            int id = mNotificationIDMap.get(notification.tag);
-                            notificationManager.cancel(id);
-                            mNotificationMap.remove(id);
-                            mNotificationIDMap.remove(notification.tag);
+                            val id = mNotificationIDMap[notification.tag]!!
+                            notificationManager.cancel(id)
+                            mNotificationMap.remove(id)
+                            mNotificationIDMap.remove(notification.tag)
                         }
                     }
-                });
-
-
+                }
             }
-
-            sGeckoRuntime.setDelegate(() -> {
-                mKillProcessOnDestroy = true;
-                finish();
-            });
-
-            sGeckoRuntime.setActivityDelegate(pendingIntent -> {
-                final GeckoResult<Intent> result = new GeckoResult<>();
+            sGeckoRuntime!!.delegate = GeckoRuntime.Delegate {
+                mKillProcessOnDestroy = true
+                finish()
+            }
+            sGeckoRuntime!!.activityDelegate = ActivityDelegate { pendingIntent: PendingIntent ->
+                val result = GeckoResult<Intent>()
                 try {
-                    final int code = mNextActivityResultCode++;
-                    mPendingActivityResult.put(code, result);
-                    BrowserActivity.this.startIntentSenderForResult(pendingIntent.getIntentSender(), code, null, 0, 0, 0);
-                } catch (IntentSender.SendIntentException e) {
-                    result.completeExceptionally(e);
+                    val code = mNextActivityResultCode++
+                    mPendingActivityResult[code] = result
+                    this@BrowserActivity.startIntentSenderForResult(pendingIntent.intentSender, code, null, 0, 0, 0)
+                } catch (e: SendIntentException) {
+                    result.completeExceptionally(e)
                 }
-                return result;
-            });
-        }
-
-        sExtensionManager.setExtensionDelegate(this);
-
-        if(savedInstanceState == null) {
-            TabSession session = getIntent().getParcelableExtra("session");
-            if (session != null) {
-                connectSession(session);
-
-                if (!session.isOpen()) {
-                    session.open(sGeckoRuntime);
-                }
-
-                mFullAccessibilityTree = session.getSettings().getFullAccessibilityTree();
-
-                mTabSessionManager.addSession(session);
-                session.open(sGeckoRuntime);
-                setGeckoViewSession(session);
-            } else {
-                session = createSession();
-                session.open(sGeckoRuntime);
-                mTabSessionManager.setCurrentSession(session);
-                mGeckoView.setSession(session);
-                sGeckoRuntime.getWebExtensionController().setTabActive(session, true);
+                result
             }
-            loadFromIntent(getIntent());
         }
+        sExtensionManager!!.setExtensionDelegate(this)
 
-        mGeckoView.setDynamicToolbarMaxHeight(findViewById(R.id.toolbar).getLayoutParams().height);
-
-        AutoCompleteTextView autoCompleteTextView = mToolbarView.findViewById(R.id.location_view);
-        autoCompleteTextView.setOnEditorActionListener(mCommitListener);
-
-        FrameLayout tabCountButton = mToolbarView.findViewById(R.id.tab_count_button);
-        tabCountButton.setOnClickListener(mTabButton);
-
-        FrameLayout moreButton = mToolbarView.findViewById(R.id.more_button);
-        moreButton.setOnClickListener(mPopupListener);
-
-        TabCountView tabCountView = mToolbarView.findViewById(R.id.tab_count_view);
-        tabCountView.updateCount(mTabSessionManager.sessionCount());
-
-        Bundle bundle = FileUtils.readBundleFromStorage(getApplication(), "SAVED_TABS.parcel");
-        if(bundle != null){
-            mTabSessionManager.closeSession(mTabSessionManager.getSession(0));
-            for (String key : bundle.keySet()) {
+        mGeckoView!!.setDynamicToolbarMaxHeight(findViewById<View>(R.id.toolbar).layoutParams.height)
+        val autoCompleteTextView = mToolbarView!!.findViewById<AutoCompleteTextView>(R.id.location_view)
+        autoCompleteTextView.setOnEditorActionListener(mCommitListener)
+        val tabCountButton = mToolbarView!!.findViewById<FrameLayout>(R.id.tab_count_button)
+        tabCountButton.setOnClickListener(mTabButton)
+        val moreButton = mToolbarView!!.findViewById<FrameLayout>(R.id.more_button)
+        moreButton.setOnClickListener(mPopupListener)
+        val tabCountView: TabCountView = mToolbarView!!.findViewById(R.id.tab_count_view)
+        tabCountView.updateCount(mTabSessionManager!!.sessionCount())
+        val bundle = readBundleFromStorage(application, "SAVED_TABS.parcel")
+        if (bundle != null) {
+            mTabSessionManager!!.closeSession(mTabSessionManager!!.getSession(0))
+            for (key in bundle.keySet()) {
                 if (bundle.getString(key) != null) {
-                    createNewTab();
-                    mTabSessionManager.getCurrentSession().loadUri(bundle.getString(key));
+                    createNewTab()
+                    mTabSessionManager!!.currentSession!!.loadUri(bundle.getString(key)!!)
                 }
             }
         }
-        }
-
-    @Override
-    public TabSession getSession(GeckoSession session) {
-        return mTabSessionManager.getSession(session);
     }
 
-    @Override
-    public TabSession getCurrentSession() {
-        return mTabSessionManager.getCurrentSession();
+    override fun getSession(session: GeckoSession): TabSession {
+        return mTabSessionManager!!.getSession(session)!!
     }
 
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-        onPreferencesChange(sharedPreferences);
+    override fun getCurrentSession(): TabSession {
+        return mTabSessionManager!!.currentSession!!
     }
 
-    private void createNotificationChannel() {
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, s: String) {
+        onPreferencesChange(sharedPreferences)
+    }
+
+    private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.app_name);
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
+            val name: CharSequence = getString(R.string.app_name)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, name, importance)
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(channel)
         }
     }
 
-    private TabSession createSession(final @Nullable String cookieStoreId) {
-        GeckoSessionSettings.Builder settingsBuilder = new GeckoSessionSettings.Builder();
+    private fun createSession(cookieStoreId: String? = null): TabSession {
+        val settingsBuilder = GeckoSessionSettings.Builder()
         settingsBuilder
                 .usePrivateMode(mUsePrivateBrowsing)
                 .fullAccessibilityTree(mFullAccessibilityTree)
-                .userAgentOverride(mUserAgent.value())
-                .viewportMode(mDesktopMode
-                        ? GeckoSessionSettings.VIEWPORT_MODE_DESKTOP
-                        : GeckoSessionSettings.VIEWPORT_MODE_MOBILE)
-                .userAgentMode(mDesktopMode
-                        ? GeckoSessionSettings.USER_AGENT_MODE_DESKTOP
-                        : GeckoSessionSettings.USER_AGENT_MODE_MOBILE)
-                .useTrackingProtection(mTrackingProtection.value());
-
+                .userAgentOverride(mUserAgent.value()!!)
+                .viewportMode(if (mDesktopMode) GeckoSessionSettings.VIEWPORT_MODE_DESKTOP else GeckoSessionSettings.VIEWPORT_MODE_MOBILE)
+                .userAgentMode(if (mDesktopMode) GeckoSessionSettings.USER_AGENT_MODE_DESKTOP else GeckoSessionSettings.USER_AGENT_MODE_MOBILE)
+                .useTrackingProtection(mTrackingProtection.value())
         if (cookieStoreId != null) {
-            settingsBuilder.contextId(cookieStoreId);
+            settingsBuilder.contextId(cookieStoreId)
         }
-
-        TabSession session = mTabSessionManager.newSession(settingsBuilder.build());
-        connectSession(session);
-
-        return session;
+        val session = mTabSessionManager!!.newSession(settingsBuilder.build())
+        connectSession(session)
+        return session
     }
 
-    private TabSession createSession() {
-        return createSession(null);
-    }
-
-    private void connectSession(GeckoSession session) {
-        session.setContentDelegate(new ExampleContentDelegate());
-        session.setHistoryDelegate(new ExampleHistoryDelegate());
-        final ExampleContentBlockingDelegate cb = new ExampleContentBlockingDelegate();
-        session.setContentBlockingDelegate(cb);
-        session.setProgressDelegate(new ExampleProgressDelegate(cb));
-        session.setNavigationDelegate(new ExampleNavigationDelegate());
-
-        final BasicGeckoViewPrompt prompt = new BasicGeckoViewPrompt(this);
-        prompt.filePickerRequestCode = REQUEST_FILE_PICKER;
-        session.setPromptDelegate(prompt);
-
-        final ExamplePermissionDelegate permission = new ExamplePermissionDelegate();
-        permission.androidPermissionRequestCode = REQUEST_PERMISSIONS;
-        session.setPermissionDelegate(permission);
-
-        session.setMediaDelegate(new ExampleMediaDelegate(this));
-
-        session.setSelectionActionDelegate(new BasicSelectionActionDelegate(this));
-        if (sExtensionManager.extension != null) {
-            final WebExtension.SessionController sessionController =
-                    session.getWebExtensionController();
-            sessionController.setActionDelegate(sExtensionManager.extension, sExtensionManager);
-            sessionController.setTabDelegate(sExtensionManager.extension, sExtensionManager);
+    private fun connectSession(session: GeckoSession) {
+        session.contentDelegate = ExampleContentDelegate()
+        session.historyDelegate = ExampleHistoryDelegate()
+        val cb = ExampleContentBlockingDelegate()
+        session.contentBlockingDelegate = cb
+        session.progressDelegate = ExampleProgressDelegate(cb)
+        session.navigationDelegate = ExampleNavigationDelegate()
+        val prompt = BasicGeckoViewPrompt(this)
+        prompt.filePickerRequestCode = REQUEST_FILE_PICKER
+        session.promptDelegate = prompt
+        val permission = ExamplePermissionDelegate()
+        permission.androidPermissionRequestCode = REQUEST_PERMISSIONS
+        session.permissionDelegate = permission
+        session.mediaDelegate = ExampleMediaDelegate(this)
+        session.selectionActionDelegate = BasicSelectionActionDelegate(this)
+        if (sExtensionManager!!.extension != null) {
+            val sessionController = session.webExtensionController
+            sessionController.setActionDelegate(sExtensionManager!!.extension, sExtensionManager)
+            sessionController.setTabDelegate(sExtensionManager!!.extension, sExtensionManager)
         }
-
-        updateDesktopMode(session);
+        updateDesktopMode(session)
     }
 
-    private void recreateSession() {
-        recreateSession(mTabSessionManager.getCurrentSession());
-    }
-
-    private void recreateSession(TabSession session) {
+    private fun recreateSession(session: TabSession? = mTabSessionManager!!.currentSession) {
+        var session = session
         if (session != null) {
-            mTabSessionManager.closeSession(session);
+            mTabSessionManager!!.closeSession(session)
         }
-
-        session = createSession();
-        session.open(sGeckoRuntime);
-        mTabSessionManager.setCurrentSession(session);
-        mGeckoView.setSession(session);
-        sGeckoRuntime.getWebExtensionController().setTabActive(session, true);
+        session = createSession()
+        session.open(sGeckoRuntime!!)
+        mTabSessionManager!!.setCurrentSession(session)
+        mGeckoView!!.setSession(session)
+        sGeckoRuntime!!.webExtensionController.setTabActive(session, true)
         if (mCurrentUri != null) {
-            session.loadUri(mCurrentUri);
+            session.loadUri(mCurrentUri!!)
         }
     }
 
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
+    public override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
         if (savedInstanceState != null) {
-            mTabSessionManager.setCurrentSession((TabSession) mGeckoView.getSession());
-            sGeckoRuntime.getWebExtensionController().setTabActive(mGeckoView.getSession(), true);
+            mTabSessionManager!!.setCurrentSession((mGeckoView!!.session as TabSession?)!!)
+            sGeckoRuntime!!.webExtensionController.setTabActive(mGeckoView!!.session!!, true)
         } else {
-            recreateSession();
+            recreateSession()
         }
     }
 
     // TODO: VERY basic tab saving - see how ReferenceBrowser / Android Components do this
-    private void saveState(){
-        Scheduler scheduler = Schedulers.io();
-        Bundle outState = new Bundle(ClassLoader.getSystemClassLoader());
-        Log.d("BrowserActivity", "Saving tab state");
-
-        for(int idx = 0; idx < mTabSessionManager.sessionCount(); ++idx) {
-            outState.putString("GECKOVIEW_" + idx, mTabSessionManager.getSession(idx).getUri());
+    private fun saveState() {
+        val scheduler = Schedulers.io()
+        val outState = Bundle(ClassLoader.getSystemClassLoader())
+        Log.d("BrowserActivity", "Saving tab state")
+        for (idx in 0 until mTabSessionManager!!.sessionCount()) {
+            outState.putString("GECKOVIEW_$idx", mTabSessionManager!!.getSession(idx)!!.uri)
         }
-
-        FileUtils.writeBundleToStorage(getApplication(), outState, "SAVED_TABS.parcel")
-                    .subscribeOn(scheduler)
-                    .subscribe();
-
+        writeBundleToStorage(application, outState, "SAVED_TABS.parcel")
+                .subscribeOn(scheduler)
+                .subscribe()
     }
 
-    private void updateDesktopMode(GeckoSession session) {
-        session.getSettings().setViewportMode(mDesktopMode
-                ? GeckoSessionSettings.VIEWPORT_MODE_DESKTOP
-                : GeckoSessionSettings.VIEWPORT_MODE_MOBILE);
-        session.getSettings().setUserAgentMode(mDesktopMode
-                ? GeckoSessionSettings.USER_AGENT_MODE_DESKTOP
-                : GeckoSessionSettings.USER_AGENT_MODE_MOBILE);
+    private fun updateDesktopMode(session: GeckoSession) {
+        session.settings.viewportMode = if (mDesktopMode) GeckoSessionSettings.VIEWPORT_MODE_DESKTOP else GeckoSessionSettings.VIEWPORT_MODE_MOBILE
+        session.settings.userAgentMode = if (mDesktopMode) GeckoSessionSettings.USER_AGENT_MODE_DESKTOP else GeckoSessionSettings.USER_AGENT_MODE_MOBILE
     }
 
-    @Override
-    public void onBackPressed() {
-        GeckoSession session = mTabSessionManager.getCurrentSession();
+    override fun onBackPressed() {
+        val session: GeckoSession? = mTabSessionManager!!.currentSession
         if (mFullScreen && session != null) {
-            session.exitFullScreen();
-            return;
+            session.exitFullScreen()
+            return
         }
-
         if (mCanGoBack && session != null) {
-            session.goBack();
-            return;
+            session.goBack()
+            return
         }
-
-        super.onBackPressed();
+        super.onBackPressed()
     }
 
-    private void updateTrackingProtectionException() {
+    private fun updateTrackingProtectionException() {
         if (sGeckoRuntime == null) {
-            return;
+            return
         }
-
-        final GeckoSession session = mTabSessionManager.getCurrentSession();
-        if (session == null) {
-            return;
-        }
-
-        sGeckoRuntime.getContentBlockingController()
+        val session = mTabSessionManager!!.currentSession ?: return
+        sGeckoRuntime!!.contentBlockingController
                 .checkException(session)
-                .accept(value -> mTrackingProtectionException = value.booleanValue());
+                .accept { value: Boolean? -> mTrackingProtectionException = value as Boolean }
     }
 
-    public void createNewTab() {
-        Double startTime = sGeckoRuntime.getProfilerController().getProfilerTime();
-        TabSession newSession = createSession();
-        newSession.open(sGeckoRuntime);
-        setGeckoViewSession(newSession);
-        TabCountView tabCountView = mToolbarView.findViewById(R.id.tab_count_view);
-        tabCountView.updateCount(mTabSessionManager.sessionCount());
-        sGeckoRuntime.getProfilerController().addMarker("Create new tab", startTime);
+    fun createNewTab() {
+        val startTime = sGeckoRuntime!!.profilerController.profilerTime
+        val newSession = createSession()
+        newSession.open(sGeckoRuntime!!)
+        setGeckoViewSession(newSession)
+        val tabCountView: TabCountView = mToolbarView!!.findViewById(R.id.tab_count_view)
+        tabCountView.updateCount(mTabSessionManager!!.sessionCount())
+        sGeckoRuntime!!.profilerController.addMarker("Create new tab", startTime)
     }
 
-    @Override
-    public void closeTab(TabSession session) {
-        saveState();
-        if (mTabSessionManager.sessionCount() > 1) {
-            mTabSessionManager.closeSession(session);
-            TabSession tabSession = mTabSessionManager.getCurrentSession();
-            setGeckoViewSession(tabSession);
-            tabSession.reload();
-            TabCountView tabCountView = mToolbarView.findViewById(R.id.tab_count_view);
-            tabCountView.updateCount(mTabSessionManager.sessionCount());
+    override fun closeTab(session: TabSession) {
+        saveState()
+        if (mTabSessionManager!!.sessionCount() > 1) {
+            mTabSessionManager!!.closeSession(session)
+            val tabSession = mTabSessionManager!!.currentSession
+            setGeckoViewSession(tabSession)
+            tabSession!!.reload()
+            val tabCountView: TabCountView = mToolbarView!!.findViewById(R.id.tab_count_view)
+            tabCountView.updateCount(mTabSessionManager!!.sessionCount())
         } else {
-            recreateSession(session);
+            recreateSession(session)
         }
     }
 
-    @Override
-    public void updateTab(TabSession session, WebExtension.UpdateTabDetails details) {
-        if (details.active == Boolean.TRUE) {
-            switchToSession(session, false);
+    override fun updateTab(session: TabSession, details: UpdateTabDetails) {
+        if (details.active === java.lang.Boolean.TRUE) {
+            switchToSession(session, false)
         }
     }
 
-    public void onBrowserActionClick() {
-        sExtensionManager.onClicked(mTabSessionManager.getCurrentSession());
+    override fun onBrowserActionClick() {
+        sExtensionManager!!.onClicked(mTabSessionManager!!.currentSession)
     }
 
-    public void switchToSession(TabSession session, boolean activateTab) {
-        TabSession currentSession = mTabSessionManager.getCurrentSession();
+    fun switchToSession(session: TabSession?, activateTab: Boolean) {
+        val currentSession = mTabSessionManager!!.currentSession
         if (session != currentSession) {
-            setGeckoViewSession(session, activateTab);
-            mCurrentUri = session.getUri();
-            if (!session.isOpen()) {
+            setGeckoViewSession(session, activateTab)
+            mCurrentUri = session!!.uri
+            if (!session.isOpen) {
                 // Session's process was previously killed; reopen
-                session.open(sGeckoRuntime);
-                session.loadUri(mCurrentUri);
+                session.open(sGeckoRuntime!!)
+                session.loadUri(mCurrentUri!!)
             }
-            AutoCompleteTextView autoCompleteTextView = mToolbarView.findViewById(R.id.location_view);
-            autoCompleteTextView.setText(mCurrentUri);
+            val autoCompleteTextView = mToolbarView!!.findViewById<AutoCompleteTextView>(R.id.location_view)
+            autoCompleteTextView.setText(mCurrentUri)
         }
     }
 
-    public void switchToTab(int index) {
-        TabSession nextSession = mTabSessionManager.getSession(index);
-        switchToSession(nextSession, true);
+    override fun switchToTab(index: Int) {
+        val nextSession = mTabSessionManager!!.getSession(index)
+        switchToSession(nextSession, true)
     }
 
-    private void setGeckoViewSession(TabSession session) {
-        setGeckoViewSession(session, true);
+    private fun setGeckoViewSession(session: TabSession?) {
+        setGeckoViewSession(session, true)
     }
 
-    private void setGeckoViewSession(TabSession session, boolean activateTab) {
-        final WebExtensionController controller = sGeckoRuntime.getWebExtensionController();
-        final GeckoSession previousSession = mGeckoView.releaseSession();
+    private fun setGeckoViewSession(session: TabSession?, activateTab: Boolean) {
+        val controller = sGeckoRuntime!!.webExtensionController
+        val previousSession = mGeckoView!!.releaseSession()
         if (previousSession != null) {
-            controller.setTabActive(previousSession, false);
+            controller.setTabActive(previousSession, false)
         }
-        mGeckoView.setSession(session);
+        mGeckoView!!.setSession(session!!)
         if (activateTab) {
-            controller.setTabActive(session, true);
+            controller.setTabActive(session, true)
         }
-        mTabSessionManager.setCurrentSession(session);
+        mTabSessionManager!!.setCurrentSession(session)
     }
 
-    @Override
-    public void onDestroy() {
+    public override fun onDestroy() {
         if (mKillProcessOnDestroy) {
-            android.os.Process.killProcess(android.os.Process.myPid());
+            Process.killProcess(Process.myPid())
         }
-
-        super.onDestroy();
+        super.onDestroy()
     }
 
-    @Override
-    protected void onNewIntent(final Intent intent) {
-        super.onNewIntent(intent);
-
-        if (ACTION_SHUTDOWN.equals(intent.getAction())) {
-            mKillProcessOnDestroy = true;
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        if (ACTION_SHUTDOWN == intent.action) {
+            mKillProcessOnDestroy = true
             if (sGeckoRuntime != null) {
-                sGeckoRuntime.shutdown();
+                sGeckoRuntime!!.shutdown()
             }
-            finish();
-            return;
+            finish()
+            return
         }
-
         if (intent.hasExtra("onClick")) {
-            int key = intent.getExtras().getInt("onClick");
-            WebNotification notification = mNotificationMap.get(key);
+            val key = intent.extras!!.getInt("onClick")
+            val notification = mNotificationMap[key]
             if (notification != null) {
-                notification.click();
-                mNotificationMap.remove(key);
+                notification.click()
+                mNotificationMap.remove(key)
             }
         }
-
-        setIntent(intent);
-
-        if (intent.getData() != null) {
-            loadFromIntent(intent);
+        setIntent(intent)
+        if (intent.data != null) {
+            loadFromIntent(intent)
         }
     }
 
-
-    private void loadFromIntent(final Intent intent) {
-        final Uri uri = intent.getData();
+    private fun loadFromIntent(intent: Intent) {
+        val uri = intent.data
         if (uri != null) {
-            mTabSessionManager.getCurrentSession().load(
-                    new GeckoSession.Loader()
+            mTabSessionManager!!.currentSession!!.load(
+                    GeckoSession.Loader()
                             .uri(uri.toString())
-                            .flags(GeckoSession.LOAD_FLAGS_EXTERNAL));
+                            .flags(GeckoSession.LOAD_FLAGS_EXTERNAL))
         }
     }
 
-    @Override
-    protected void onActivityResult(final int requestCode, final int resultCode,
-                                    final Intent data) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int,
+                                  data: Intent?) {
         if (requestCode == REQUEST_FILE_PICKER) {
-            final BasicGeckoViewPrompt prompt = (BasicGeckoViewPrompt)
-                    mTabSessionManager.getCurrentSession().getPromptDelegate();
-            prompt.onFileCallbackResult(resultCode, data);
+            val prompt = mTabSessionManager!!.currentSession!!.promptDelegate as BasicGeckoViewPrompt?
+            prompt!!.onFileCallbackResult(resultCode, data)
         } else if (mPendingActivityResult.containsKey(requestCode)) {
-            final GeckoResult<Intent> result = mPendingActivityResult.remove(requestCode);
-
-            if (resultCode == Activity.RESULT_OK) {
-                result.complete(data);
+            val result = mPendingActivityResult.remove(requestCode)!!
+            if (resultCode == RESULT_OK) {
+                result.complete(data)
             } else {
-                result.completeExceptionally(new RuntimeException("Unknown error"));
+                result.completeExceptionally(RuntimeException("Unknown error"))
             }
         } else {
-            super.onActivityResult(requestCode, resultCode, data);
+            super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(final int requestCode,
-                                           final String[] permissions,
-                                           final int[] grantResults) {
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>,
+                                            grantResults: IntArray) {
         if (requestCode == REQUEST_PERMISSIONS) {
-            final ExamplePermissionDelegate permission = (ExamplePermissionDelegate)
-                    mTabSessionManager.getCurrentSession().getPermissionDelegate();
-            permission.onRequestPermissionsResult(permissions, grantResults);
+            val permission = mTabSessionManager!!.currentSession!!.permissionDelegate as ExamplePermissionDelegate?
+            permission!!.onRequestPermissionsResult(permissions, grantResults)
         } else if (requestCode == REQUEST_WRITE_EXTERNAL_STORAGE &&
                 grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            continueDownloads();
+            continueDownloads()
         } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
     }
 
-    private void continueDownloads() {
-        final LinkedList<WebResponse> downloads = mPendingDownloads;
-        mPendingDownloads = new LinkedList<>();
-
-        for (final WebResponse response : downloads) {
-            downloadFile(response);
+    private fun continueDownloads() {
+        val downloads = mPendingDownloads
+        mPendingDownloads = LinkedList()
+        for (response in downloads) {
+            downloadFile(response)
         }
     }
 
-    private void downloadFile(final WebResponse response) {
+    private fun downloadFile(response: WebResponse) {
         if (response.body == null) {
-            return;
+            return
         }
-
-        if (ContextCompat.checkSelfPermission(BrowserActivity.this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            mPendingDownloads.add(response);
-            ActivityCompat.requestPermissions(BrowserActivity.this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    REQUEST_WRITE_EXTERNAL_STORAGE);
-            return;
+        if (ContextCompat.checkSelfPermission(this@BrowserActivity,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            mPendingDownloads.add(response)
+            ActivityCompat.requestPermissions(this@BrowserActivity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    REQUEST_WRITE_EXTERNAL_STORAGE)
+            return
         }
-
-        final String filename = getFileName(response);
-
+        val filename = getFileName(response)
         try {
-            String downloadsPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                    .getAbsolutePath() + "/" + filename;
-
-            int bufferSize = 1024; // to read in 1Mb increments
-            byte[] buffer = new byte[bufferSize];
-            try (OutputStream out = new BufferedOutputStream(new FileOutputStream(downloadsPath))) {
-                int len;
-                while ( (len = response.body.read(buffer)) != -1 ) {
-                    out.write(buffer, 0, len);
-                }
-            } catch (Throwable e) {
-                Log.i(LOGTAG, String.valueOf(e.getStackTrace()));
-            }
-        } catch (Throwable e) {
-            Log.i(LOGTAG, String.valueOf(e.getStackTrace()));
-        }
-    }
-
-    private String getFileName(final WebResponse response) {
-        String filename;
-        String contentDispositionHeader;
-        if (response.headers.containsKey("content-disposition") || android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
-            contentDispositionHeader = response.headers.get("content-disposition");
-        } else {
-            contentDispositionHeader = response.headers.getOrDefault("Content-Disposition", "default filename=GVDownload");
-        }
-        Pattern pattern = Pattern.compile("(filename=\"?)(.+)(\"?)");
-        Matcher matcher = pattern.matcher(contentDispositionHeader);
-        if (matcher.find()) {
-            filename = matcher.group(2).replaceAll("\\s", "%20");
-        } else {
-            filename = "GVEdownload";
-        }
-
-        return filename;
-    }
-
-    private static boolean isForeground() {
-        final ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
-        ActivityManager.getMyMemoryState(appProcessInfo);
-        return appProcessInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND ||
-                appProcessInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
-    }
-
-    private String mErrorTemplate;
-    private String createErrorPage(final String error) {
-        if (mErrorTemplate == null) {
-            InputStream stream = null;
-            BufferedReader reader = null;
-            StringBuilder builder = new StringBuilder();
+            val downloadsPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                    .absolutePath + "/" + filename
+            val bufferSize = 1024 // to read in 1Mb increments
+            val buffer = ByteArray(bufferSize)
             try {
-                stream = getResources().getAssets().open("error.html");
-                reader = new BufferedReader(new InputStreamReader(stream));
-
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    builder.append(line);
-                    builder.append("\n");
+                BufferedOutputStream(FileOutputStream(downloadsPath)).use { out ->
+                    var len: Int
+                    while (response.body!!.read(buffer).also { len = it } != -1) {
+                        out.write(buffer, 0, len)
+                    }
                 }
+            } catch (e: Throwable) {
+                Log.i(LOGTAG, e.stackTrace.toString())
+            }
+        } catch (e: Throwable) {
+            Log.i(LOGTAG, e.stackTrace.toString())
+        }
+    }
 
-                mErrorTemplate = builder.toString();
-            } catch (IOException e) {
-                Log.d(LOGTAG, "Failed to open error page template", e);
-                return null;
+    private fun getFileName(response: WebResponse): String {
+        val filename: String
+        val contentDispositionHeader: String?
+        contentDispositionHeader = if (response.headers.containsKey("content-disposition") || Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            response.headers["content-disposition"]
+        } else {
+            response.headers.getOrDefault("Content-Disposition", "default filename=GVDownload")
+        }
+        val pattern = Pattern.compile("(filename=\"?)(.+)(\"?)")
+        val matcher = pattern.matcher(contentDispositionHeader)
+        filename = if (matcher.find()) {
+            matcher.group(2).replace("\\s".toRegex(), "%20")
+        } else {
+            "GVEdownload"
+        }
+        return filename
+    }
+
+    private var mErrorTemplate: String? = null
+    private fun createErrorPage(error: String): String? {
+        if (mErrorTemplate == null) {
+            var stream: InputStream? = null
+            var reader: BufferedReader? = null
+            val builder = StringBuilder()
+            try {
+                stream = resources.assets.open("error.html")
+                reader = BufferedReader(InputStreamReader(stream))
+                var line: String?
+                while (reader.readLine().also { line = it } != null) {
+                    builder.append(line)
+                    builder.append("\n")
+                }
+                mErrorTemplate = builder.toString()
+            } catch (e: IOException) {
+                Log.d(LOGTAG, "Failed to open error page template", e)
+                return null
             } finally {
                 if (stream != null) {
                     try {
-                        stream.close();
-                    } catch (IOException e) {
-                        Log.e(LOGTAG, "Failed to close error page template stream", e);
+                        stream.close()
+                    } catch (e: IOException) {
+                        Log.e(LOGTAG, "Failed to close error page template stream", e)
                     }
                 }
-
                 if (reader != null) {
                     try {
-                        reader.close();
-                    } catch (IOException e) {
-                        Log.e(LOGTAG, "Failed to close error page template reader", e);
+                        reader.close()
+                    } catch (e: IOException) {
+                        Log.e(LOGTAG, "Failed to close error page template reader", e)
                     }
                 }
             }
         }
-
-        return mErrorTemplate.replace("$ERROR", error);
+        return mErrorTemplate!!.replace("\$ERROR", error)
     }
 
-    private class ExampleHistoryDelegate implements GeckoSession.HistoryDelegate {
-        private final HashSet<String> mVisitedURLs;
-
-        private ExampleHistoryDelegate() {
-            mVisitedURLs = new HashSet<String>();
+    private inner class ExampleHistoryDelegate : HistoryDelegate {
+        private val mVisitedURLs: HashSet<String>
+        override fun onVisited(session: GeckoSession, url: String,
+                               lastVisitedURL: String?, flags: Int): GeckoResult<Boolean>? {
+            Log.i(LOGTAG, "Visited URL: $url")
+            mVisitedURLs.add(url)
+            return GeckoResult.fromValue(true)
         }
 
-        @Override
-        public GeckoResult<Boolean> onVisited(GeckoSession session, String url,
-                                              String lastVisitedURL, int flags) {
-            Log.i(LOGTAG, "Visited URL: " + url);
-
-            mVisitedURLs.add(url);
-            return GeckoResult.fromValue(true);
-        }
-
-        @Override
-        public GeckoResult<boolean[]> getVisited(GeckoSession session, String[] urls) {
-            boolean[] visited = new boolean[urls.length];
-            for (int i = 0; i < urls.length; i++) {
-                visited[i] = mVisitedURLs.contains(urls[i]);
+        override fun getVisited(session: GeckoSession, urls: Array<String>): GeckoResult<BooleanArray>? {
+            val visited = BooleanArray(urls.size)
+            for (i in urls.indices) {
+                visited[i] = mVisitedURLs.contains(urls[i])
             }
-            return GeckoResult.fromValue(visited);
+            return GeckoResult.fromValue(visited)
         }
 
-        @Override
-        public void onHistoryStateChange(final GeckoSession session,
-                                         final GeckoSession.HistoryDelegate.HistoryList state) {
-            Log.i(LOGTAG, "History state updated");
+        override fun onHistoryStateChange(session: GeckoSession,
+                                          state: HistoryList) {
+            Log.i(LOGTAG, "History state updated")
+        }
+
+        init {
+            mVisitedURLs = HashSet()
         }
     }
 
-    private class ExampleContentDelegate implements GeckoSession.ContentDelegate {
-        @Override
-        public void onTitleChange(GeckoSession session, String title) {
-            Log.i(LOGTAG, "Content title changed to " + title);
-            TabSession tabSession = mTabSessionManager.getSession(session);
-            if (tabSession != null ) {
-                tabSession.setTitle(title);
+    private inner class ExampleContentDelegate : ContentDelegate {
+        override fun onTitleChange(session: GeckoSession, title: String?) {
+            Log.i(LOGTAG, "Content title changed to $title")
+            val tabSession = mTabSessionManager!!.getSession(session)
+            if (tabSession != null) {
+                tabSession.title = title
             }
         }
 
-        @Override
-        public void onFullScreen(final GeckoSession session, final boolean fullScreen) {
-            getWindow().setFlags(fullScreen ? WindowManager.LayoutParams.FLAG_FULLSCREEN : 0,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            mFullScreen = fullScreen;
+        override fun onFullScreen(session: GeckoSession, fullScreen: Boolean) {
+            window.setFlags(if (fullScreen) WindowManager.LayoutParams.FLAG_FULLSCREEN else 0,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN)
+            mFullScreen = fullScreen
             if (fullScreen) {
-                getSupportActionBar().hide();
+                supportActionBar!!.hide()
             } else {
-                getSupportActionBar().show();
+                supportActionBar!!.show()
             }
         }
 
-        @Override
-        public void onFocusRequest(final GeckoSession session) {
-            Log.i(LOGTAG, "Content requesting focus");
+        override fun onFocusRequest(session: GeckoSession) {
+            Log.i(LOGTAG, "Content requesting focus")
         }
 
-        @Override
-        public void onCloseRequest(final GeckoSession session) {
-            if (session == mTabSessionManager.getCurrentSession()) {
-                finish();
+        override fun onCloseRequest(session: GeckoSession) {
+            if (session === mTabSessionManager!!.currentSession) {
+                finish()
             }
         }
 
-        @Override
-        public void onContextMenu(final GeckoSession session,
-                                  int screenX, int screenY,
-                                  final ContextElement element) {
+        override fun onContextMenu(session: GeckoSession,
+                                   screenX: Int, screenY: Int,
+                                   element: ContextElement) {
             Log.d(LOGTAG, "onContextMenu screenX=" + screenX +
                     " screenY=" + screenY +
                     " type=" + element.type +
                     " linkUri=" + element.linkUri +
                     " title=" + element.title +
                     " alt=" + element.altText +
-                    " srcUri=" + element.srcUri);
+                    " srcUri=" + element.srcUri)
         }
 
-        @Override
-        public void onExternalResponse(@NonNull GeckoSession session, @NonNull WebResponse response) {
-            downloadFile(response);
+        override fun onExternalResponse(session: GeckoSession, response: WebResponse) {
+            downloadFile(response)
         }
 
-        @Override
-        public void onCrash(GeckoSession session) {
-            Log.e(LOGTAG, "Crashed, reopening session");
-            session.open(sGeckoRuntime);
+        override fun onCrash(session: GeckoSession) {
+            Log.e(LOGTAG, "Crashed, reopening session")
+            session.open(sGeckoRuntime!!)
         }
 
-        @Override
-        public void onKill(GeckoSession session) {
-            TabSession tabSession = mTabSessionManager.getSession(session);
-            if (tabSession == null) {
-                return;
+        override fun onKill(session: GeckoSession) {
+            val tabSession = mTabSessionManager!!.getSession(session) ?: return
+            if (tabSession != mTabSessionManager!!.currentSession) {
+                Log.e(LOGTAG, "Background session killed")
+                return
             }
-
-            if (tabSession != mTabSessionManager.getCurrentSession()) {
-                Log.e(LOGTAG, "Background session killed");
-                return;
-            }
-
-            if (isForeground()) {
-                throw new IllegalStateException("Foreground content process unexpectedly killed by OS!");
-            }
-
-            Log.e(LOGTAG, "Current session killed, reopening");
-
-            tabSession.open(sGeckoRuntime);
-            tabSession.loadUri(tabSession.getUri());
+            check(!isForeground) { "Foreground content process unexpectedly killed by OS!" }
+            Log.e(LOGTAG, "Current session killed, reopening")
+            tabSession.open(sGeckoRuntime!!)
+            tabSession.loadUri(tabSession.uri!!)
         }
 
-        @Override
-        public void onFirstComposite(final GeckoSession session) {
-            Log.d(LOGTAG, "onFirstComposite");
+        override fun onFirstComposite(session: GeckoSession) {
+            Log.d(LOGTAG, "onFirstComposite")
         }
 
-        @Override
-        public void onWebAppManifest(final GeckoSession session, JSONObject manifest) {
-            Log.d(LOGTAG, "onWebAppManifest: " + manifest);
+        override fun onWebAppManifest(session: GeckoSession, manifest: JSONObject) {
+            Log.d(LOGTAG, "onWebAppManifest: $manifest")
         }
 
-        private boolean activeAlert = false;
-
-        @Override
-        public GeckoResult<SlowScriptResponse> onSlowScript(final GeckoSession geckoSession,
-                                                            final String scriptFileName) {
-            BasicGeckoViewPrompt prompt = (BasicGeckoViewPrompt) mTabSessionManager.getCurrentSession().getPromptDelegate();
+        private var activeAlert = false
+        override fun onSlowScript(geckoSession: GeckoSession,
+                                  scriptFileName: String): GeckoResult<SlowScriptResponse>? {
+            val prompt = mTabSessionManager!!.currentSession!!.promptDelegate as BasicGeckoViewPrompt?
             if (prompt != null) {
-                GeckoResult<SlowScriptResponse> result = new GeckoResult<SlowScriptResponse>();
+                val result = GeckoResult<SlowScriptResponse>()
                 if (!activeAlert) {
-                    activeAlert = true;
-                    prompt.onSlowScriptPrompt(geckoSession, getString(R.string.slow_script), result);
+                    activeAlert = true
+                    prompt.onSlowScriptPrompt(geckoSession, getString(R.string.slow_script), result)
                 }
-                return result.then(value -> {
-                    activeAlert = false;
-                    return GeckoResult.fromValue(value);
-                });
+                return result.then { value: SlowScriptResponse? ->
+                    activeAlert = false
+                    GeckoResult.fromValue(value)
+                }
             }
-            return null;
+            return null
         }
 
-        @Override
-        public void onMetaViewportFitChange(final GeckoSession session, final String viewportFit) {
+        override fun onMetaViewportFitChange(session: GeckoSession, viewportFit: String) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-                return;
+                return
             }
-            WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-            if (viewportFit.equals("cover")) {
-                layoutParams.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-            } else if (viewportFit.equals("contain")) {
-                layoutParams.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER;
+            val layoutParams = window.attributes
+            if (viewportFit == "cover") {
+                layoutParams.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+            } else if (viewportFit == "contain") {
+                layoutParams.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER
             } else {
-                layoutParams.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT;
+                layoutParams.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT
             }
-            getWindow().setAttributes(layoutParams);
+            window.attributes = layoutParams
         }
     }
 
-    private class ExampleProgressDelegate implements GeckoSession.ProgressDelegate {
-        private ExampleContentBlockingDelegate mCb;
-
-        private ExampleProgressDelegate(final ExampleContentBlockingDelegate cb) {
-            mCb = cb;
-        }
-
-        @Override
-        public void onPageStart(GeckoSession session, String url) {
-            Log.i(LOGTAG, "Starting to load page at " + url);
+    private inner class ExampleProgressDelegate(private val mCb: ExampleContentBlockingDelegate) : ProgressDelegate {
+        override fun onPageStart(session: GeckoSession, url: String) {
+            Log.i(LOGTAG, "Starting to load page at $url")
             Log.i(LOGTAG, "zerdatime " + SystemClock.elapsedRealtime() +
-                    " - page load start");
-            mCb.clearCounters();
+                    " - page load start")
+            mCb.clearCounters()
         }
 
-        @Override
-        public void onPageStop(GeckoSession session, boolean success) {
-            Log.i(LOGTAG, "Stopping page load " + (success ? "successfully" : "unsuccessfully"));
+        override fun onPageStop(session: GeckoSession, success: Boolean) {
+            Log.i(LOGTAG, "Stopping page load " + if (success) "successfully" else "unsuccessfully")
             Log.i(LOGTAG, "zerdatime " + SystemClock.elapsedRealtime() +
-                    " - page load stop");
-            mCb.logCounters();
+                    " - page load stop")
+            mCb.logCounters()
         }
 
-        @Override
-        public void onProgressChange(GeckoSession session, int progress) {
-            Log.i(LOGTAG, "onProgressChange " + progress);
-
-            mProgressView.setProgress(progress);
-
+        override fun onProgressChange(session: GeckoSession, progress: Int) {
+            Log.i(LOGTAG, "onProgressChange $progress")
+            mProgressView!!.progress = progress
             if (progress > 0 && progress < 100) {
-                mProgressView.setVisibility(View.VISIBLE);
+                mProgressView!!.visibility = View.VISIBLE
             } else {
-                mProgressView.setVisibility(View.GONE);
+                mProgressView!!.visibility = View.GONE
             }
         }
 
-        @Override
-        public void onSecurityChange(GeckoSession session, SecurityInformation securityInfo) {
-            Log.i(LOGTAG, "Security status changed to " + securityInfo.securityMode);
+        override fun onSecurityChange(session: GeckoSession, securityInfo: SecurityInformation) {
+            Log.i(LOGTAG, "Security status changed to " + securityInfo.securityMode)
         }
 
-        @Override
-        public void onSessionStateChange(GeckoSession session, GeckoSession.SessionState state) {
-            Log.i(LOGTAG, "New Session state: " + state.toString());
+        override fun onSessionStateChange(session: GeckoSession, state: GeckoSession.SessionState) {
+            Log.i(LOGTAG, "New Session state: $state")
         }
     }
 
-    private class ExamplePermissionDelegate implements GeckoSession.PermissionDelegate {
+    private inner class ExamplePermissionDelegate : PermissionDelegate {
+        var androidPermissionRequestCode = 1
+        private var mCallback: PermissionDelegate.Callback? = null
 
-        public int androidPermissionRequestCode = 1;
-        private Callback mCallback;
-
-        class ExampleNotificationCallback implements GeckoSession.PermissionDelegate.Callback {
-            private final GeckoSession.PermissionDelegate.Callback mCallback;
-            ExampleNotificationCallback(final GeckoSession.PermissionDelegate.Callback callback) {
-                mCallback = callback;
+        internal inner class ExampleNotificationCallback(private val mCallback: PermissionDelegate.Callback) : PermissionDelegate.Callback {
+            override fun reject() {
+                mShowNotificationsRejected = true
+                mCallback.reject()
             }
 
-            @Override
-            public void reject() {
-                mShowNotificationsRejected = true;
-                mCallback.reject();
-            }
-
-            @Override
-            public void grant() {
-                mShowNotificationsRejected = false;
-                mCallback.grant();
+            override fun grant() {
+                mShowNotificationsRejected = false
+                mCallback.grant()
             }
         }
 
-        class ExamplePersistentStorageCallback implements GeckoSession.PermissionDelegate.Callback {
-            private final GeckoSession.PermissionDelegate.Callback mCallback;
-            private final String mUri;
-            ExamplePersistentStorageCallback(final GeckoSession.PermissionDelegate.Callback callback, String uri) {
-                mCallback = callback;
-                mUri = uri;
+        internal inner class ExamplePersistentStorageCallback(private val mCallback: PermissionDelegate.Callback, private val mUri: String?) : PermissionDelegate.Callback {
+            override fun reject() {
+                mCallback.reject()
             }
 
-            @Override
-            public void reject() {
-                mCallback.reject();
-            }
-
-            @Override
-            public void grant() {
-                mAcceptedPersistentStorage.add(mUri);
-                mCallback.grant();
+            override fun grant() {
+                mAcceptedPersistentStorage.add(mUri)
+                mCallback.grant()
             }
         }
 
-        public void onRequestPermissionsResult(final String[] permissions,
-                                               final int[] grantResults) {
+        fun onRequestPermissionsResult(permissions: Array<String>?,
+                                       grantResults: IntArray) {
             if (mCallback == null) {
-                return;
+                return
             }
-
-            final Callback cb = mCallback;
-            mCallback = null;
-            for (final int result : grantResults) {
+            val cb: PermissionDelegate.Callback = mCallback!!
+            mCallback = null
+            for (result in grantResults) {
                 if (result != PackageManager.PERMISSION_GRANTED) {
                     // At least one permission was not granted.
-                    cb.reject();
-                    return;
+                    cb.reject()
+                    return
                 }
             }
-            cb.grant();
+            cb.grant()
         }
 
-        @Override
-        public void onAndroidPermissionsRequest(final GeckoSession session, final String[] permissions,
-                                                final Callback callback) {
+        override fun onAndroidPermissionsRequest(session: GeckoSession, permissions: Array<String>?,
+                                                 callback: PermissionDelegate.Callback) {
             if (Build.VERSION.SDK_INT >= 23) {
                 // requestPermissions was introduced in API 23.
-                mCallback = callback;
-                requestPermissions(permissions, androidPermissionRequestCode);
+                mCallback = callback
+                requestPermissions(permissions!!, androidPermissionRequestCode)
             } else {
-                callback.grant();
+                callback.grant()
             }
         }
 
-        @Override
-        public void onContentPermissionRequest(final GeckoSession session, final String uri,
-                                               final int type, final Callback callback) {
-            final int resId;
-            Callback contentPermissionCallback = callback;
-            if (PERMISSION_GEOLOCATION == type) {
-                resId = R.string.request_geolocation;
-            } else if (PERMISSION_DESKTOP_NOTIFICATION == type) {
+        override fun onContentPermissionRequest(session: GeckoSession, uri: String?,
+                                                type: Int, callback: PermissionDelegate.Callback) {
+            val resId: Int
+            var contentPermissionCallback = callback
+            if (PermissionDelegate.PERMISSION_GEOLOCATION == type) {
+                resId = R.string.request_geolocation
+            } else if (PermissionDelegate.PERMISSION_DESKTOP_NOTIFICATION == type) {
                 if (mShowNotificationsRejected) {
-                    Log.w(LOGTAG, "Desktop notifications already denied by user.");
-                    callback.reject();
-                    return;
+                    Log.w(LOGTAG, "Desktop notifications already denied by user.")
+                    callback.reject()
+                    return
                 }
-                resId = R.string.request_notification;
-                contentPermissionCallback = new ExampleNotificationCallback(callback);
-            } else if (PERMISSION_PERSISTENT_STORAGE == type) {
+                resId = R.string.request_notification
+                contentPermissionCallback = ExampleNotificationCallback(callback)
+            } else if (PermissionDelegate.PERMISSION_PERSISTENT_STORAGE == type) {
                 if (mAcceptedPersistentStorage.contains(uri)) {
-                    Log.w(LOGTAG, "Persistent Storage for " + uri + " already granted by user.");
-                    callback.grant();
-                    return;
+                    Log.w(LOGTAG, "Persistent Storage for $uri already granted by user.")
+                    callback.grant()
+                    return
                 }
-                resId = R.string.request_storage;
-                contentPermissionCallback = new ExamplePersistentStorageCallback(callback, uri);
-            } else if (PERMISSION_XR == type) {
-                resId = R.string.request_xr;
-            } else if (PERMISSION_AUTOPLAY_AUDIBLE == type || PERMISSION_AUTOPLAY_INAUDIBLE == type) {
+                resId = R.string.request_storage
+                contentPermissionCallback = ExamplePersistentStorageCallback(callback, uri)
+            } else if (PermissionDelegate.PERMISSION_XR == type) {
+                resId = R.string.request_xr
+            } else if (PermissionDelegate.PERMISSION_AUTOPLAY_AUDIBLE == type || PermissionDelegate.PERMISSION_AUTOPLAY_INAUDIBLE == type) {
                 if (!mAllowAutoplay.value()) {
-                    Log.d(LOGTAG, "Rejecting autoplay request");
-                    callback.reject();
+                    Log.d(LOGTAG, "Rejecting autoplay request")
+                    callback.reject()
                 } else {
-                    Log.d(LOGTAG, "Granting autoplay request");
-                    callback.grant();
+                    Log.d(LOGTAG, "Granting autoplay request")
+                    callback.grant()
                 }
-                return;
-            } else if (PERMISSION_MEDIA_KEY_SYSTEM_ACCESS == type) {
-                resId = R.string.request_media_key_system_access;
+                return
+            } else if (PermissionDelegate.PERMISSION_MEDIA_KEY_SYSTEM_ACCESS == type) {
+                resId = R.string.request_media_key_system_access
             } else {
-                Log.w(LOGTAG, "Unknown permission: " + type);
-                callback.reject();
-                return;
+                Log.w(LOGTAG, "Unknown permission: $type")
+                callback.reject()
+                return
             }
-
-            final String title = getString(resId, Uri.parse(uri).getAuthority());
-            final BasicGeckoViewPrompt prompt = (BasicGeckoViewPrompt)
-                    mTabSessionManager.getCurrentSession().getPromptDelegate();
-            prompt.onPermissionPrompt(session, title, contentPermissionCallback);
+            val title = getString(resId, Uri.parse(uri).authority)
+            val prompt = mTabSessionManager!!.currentSession!!.promptDelegate as BasicGeckoViewPrompt?
+            prompt!!.onPermissionPrompt(session, title, contentPermissionCallback)
         }
 
-        private String[] normalizeMediaName(final MediaSource[] sources) {
+        private fun normalizeMediaName(sources: Array<PermissionDelegate.MediaSource>?): Array<String?>? {
             if (sources == null) {
-                return null;
+                return null
             }
-
-            String[] res = new String[sources.length];
-            for (int i = 0; i < sources.length; i++) {
-                final int mediaSource = sources[i].source;
-                final String name = sources[i].name;
-                if (MediaSource.SOURCE_CAMERA == mediaSource) {
-                    if (name.toLowerCase(Locale.ROOT).contains("front")) {
-                        res[i] = getString(R.string.media_front_camera);
+            val res = arrayOfNulls<String>(sources.size)
+            for (i in sources.indices) {
+                val mediaSource = sources[i].source
+                val name = sources[i].name
+                if (PermissionDelegate.MediaSource.SOURCE_CAMERA == mediaSource) {
+                    if (name!!.toLowerCase(Locale.ROOT).contains("front")) {
+                        res[i] = getString(R.string.media_front_camera)
                     } else {
-                        res[i] = getString(R.string.media_back_camera);
+                        res[i] = getString(R.string.media_back_camera)
                     }
-                } else if (!name.isEmpty()) {
-                    res[i] = name;
-                } else if (MediaSource.SOURCE_MICROPHONE == mediaSource) {
-                    res[i] = getString(R.string.media_microphone);
+                } else if (!name!!.isEmpty()) {
+                    res[i] = name
+                } else if (PermissionDelegate.MediaSource.SOURCE_MICROPHONE == mediaSource) {
+                    res[i] = getString(R.string.media_microphone)
                 } else {
-                    res[i] = getString(R.string.media_other);
+                    res[i] = getString(R.string.media_other)
                 }
             }
-
-            return res;
+            return res
         }
 
-        @Override
-        public void onMediaPermissionRequest(final GeckoSession session, final String uri,
-                                             final MediaSource[] video, final MediaSource[] audio,
-                                             final MediaCallback callback) {
+        override fun onMediaPermissionRequest(session: GeckoSession, uri: String,
+                                              video: Array<PermissionDelegate.MediaSource>?, audio: Array<PermissionDelegate.MediaSource>?,
+                                              callback: MediaCallback) {
             // If we don't have device permissions at this point, just automatically reject the request
             // as we will have already have requested device permissions before getting to this point
             // and if we've reached here and we don't have permissions then that means that the user
             // denied them.
             if ((audio != null
-                    && ContextCompat.checkSelfPermission(BrowserActivity.this,
-                    Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)
+                            && ContextCompat.checkSelfPermission(this@BrowserActivity,
+                            Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)
                     || (video != null
-                    && ContextCompat.checkSelfPermission(BrowserActivity.this,
-                    Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)) {
-                callback.reject();
-                return;
+                            && ContextCompat.checkSelfPermission(this@BrowserActivity,
+                            Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)) {
+                callback.reject()
+                return
             }
-
-            final String host = Uri.parse(uri).getAuthority();
-            final String title;
-            if (audio == null) {
-                title = getString(R.string.request_video, host);
+            val host = Uri.parse(uri).authority
+            val title: String
+            title = if (audio == null) {
+                getString(R.string.request_video, host)
             } else if (video == null) {
-                title = getString(R.string.request_audio, host);
+                getString(R.string.request_audio, host)
             } else {
-                title = getString(R.string.request_media, host);
+                getString(R.string.request_media, host)
             }
-
-            String[] videoNames = normalizeMediaName(video);
-            String[] audioNames = normalizeMediaName(audio);
-
-            final BasicGeckoViewPrompt prompt = (BasicGeckoViewPrompt)
-                    mTabSessionManager.getCurrentSession().getPromptDelegate();
-            prompt.onMediaPrompt(session, title, video, audio, videoNames, audioNames, callback);
+            val videoNames = normalizeMediaName(video)
+            val audioNames = normalizeMediaName(audio)
+            val prompt = mTabSessionManager!!.currentSession!!.promptDelegate as BasicGeckoViewPrompt?
+            prompt!!.onMediaPrompt(session, title, video, audio, videoNames, audioNames, callback)
         }
     }
 
-    private class ExampleNavigationDelegate implements GeckoSession.NavigationDelegate {
-        @Override
-        public void onLocationChange(GeckoSession session, final String url) {
-            AutoCompleteTextView autoCompleteTextView = mToolbarView.findViewById(R.id.location_view);
-            autoCompleteTextView.setText(url);
-            TabSession tabSession = mTabSessionManager.getSession(session);
-            if (tabSession != null) {
-                tabSession.onLocationChange(url);
-            }
-            mCurrentUri = url;
-            updateTrackingProtectionException();
+    private inner class ExampleNavigationDelegate : NavigationDelegate {
+        override fun onLocationChange(session: GeckoSession, url: String?) {
+            val autoCompleteTextView = mToolbarView!!.findViewById<AutoCompleteTextView>(R.id.location_view)
+            autoCompleteTextView.setText(url)
+            val tabSession = mTabSessionManager!!.getSession(session)
+            tabSession?.onLocationChange(url!!)
+            mCurrentUri = url
+            updateTrackingProtectionException()
         }
 
-        @Override
-        public void onCanGoBack(GeckoSession session, boolean canGoBack) {
-            mCanGoBack = canGoBack;
+        override fun onCanGoBack(session: GeckoSession, canGoBack: Boolean) {
+            mCanGoBack = canGoBack
         }
 
-        @Override
-        public void onCanGoForward(GeckoSession session, boolean canGoForward) {
-            mCanGoForward = canGoForward;
+        override fun onCanGoForward(session: GeckoSession, canGoForward: Boolean) {
+            mCanGoForward = canGoForward
         }
 
-        @Override
-        public GeckoResult<AllowOrDeny> onLoadRequest(final GeckoSession session,
-                                                      final LoadRequest request) {
+        override fun onLoadRequest(session: GeckoSession,
+                                   request: LoadRequest): GeckoResult<AllowOrDeny>? {
             Log.d(LOGTAG, "onLoadRequest=" + request.uri +
                     " triggerUri=" + request.triggerUri +
                     " where=" + request.target +
                     " isRedirect=" + request.isRedirect +
-                    " isDirectNavigation=" + request.isDirectNavigation);
-
-            return GeckoResult.fromValue(AllowOrDeny.ALLOW);
+                    " isDirectNavigation=" + request.isDirectNavigation)
+            return GeckoResult.fromValue(AllowOrDeny.ALLOW)
         }
 
-        @Override
-        public GeckoResult<AllowOrDeny> onSubframeLoadRequest(final GeckoSession session,
-                                                              final LoadRequest request) {
+        override fun onSubframeLoadRequest(session: GeckoSession,
+                                           request: LoadRequest): GeckoResult<AllowOrDeny>? {
             Log.d(LOGTAG, "onSubframeLoadRequest=" + request.uri +
                     " triggerUri=" + request.triggerUri +
                     " isRedirect=" + request.isRedirect +
-                    "isDirectNavigation=" + request.isDirectNavigation);
-
-            return GeckoResult.fromValue(AllowOrDeny.ALLOW);
+                    "isDirectNavigation=" + request.isDirectNavigation)
+            return GeckoResult.fromValue(AllowOrDeny.ALLOW)
         }
 
-        @Override
-        public GeckoResult<GeckoSession> onNewSession(final GeckoSession session, final String uri) {
-            final TabSession newSession = createSession();
-            TabCountView tabCountView = mToolbarView.findViewById(R.id.tab_count_view);
-            tabCountView.updateCount(mTabSessionManager.sessionCount());
-            setGeckoViewSession(newSession);
-            return GeckoResult.fromValue(newSession);
+        override fun onNewSession(session: GeckoSession, uri: String): GeckoResult<GeckoSession>? {
+            val newSession = createSession()
+            val tabCountView: TabCountView = mToolbarView!!.findViewById(R.id.tab_count_view)
+            tabCountView.updateCount(mTabSessionManager!!.sessionCount())
+            setGeckoViewSession(newSession)
+            return GeckoResult.fromValue(newSession)
         }
 
-        private String categoryToString(final int category) {
-            switch (category) {
-                case WebRequestError.ERROR_CATEGORY_UNKNOWN:
-                    return "ERROR_CATEGORY_UNKNOWN";
-                case WebRequestError.ERROR_CATEGORY_SECURITY:
-                    return "ERROR_CATEGORY_SECURITY";
-                case WebRequestError.ERROR_CATEGORY_NETWORK:
-                    return "ERROR_CATEGORY_NETWORK";
-                case WebRequestError.ERROR_CATEGORY_CONTENT:
-                    return "ERROR_CATEGORY_CONTENT";
-                case WebRequestError.ERROR_CATEGORY_URI:
-                    return "ERROR_CATEGORY_URI";
-                case WebRequestError.ERROR_CATEGORY_PROXY:
-                    return "ERROR_CATEGORY_PROXY";
-                case WebRequestError.ERROR_CATEGORY_SAFEBROWSING:
-                    return "ERROR_CATEGORY_SAFEBROWSING";
-                default:
-                    return "UNKNOWN";
+        private fun categoryToString(category: Int): String {
+            return when (category) {
+                WebRequestError.ERROR_CATEGORY_UNKNOWN -> "ERROR_CATEGORY_UNKNOWN"
+                WebRequestError.ERROR_CATEGORY_SECURITY -> "ERROR_CATEGORY_SECURITY"
+                WebRequestError.ERROR_CATEGORY_NETWORK -> "ERROR_CATEGORY_NETWORK"
+                WebRequestError.ERROR_CATEGORY_CONTENT -> "ERROR_CATEGORY_CONTENT"
+                WebRequestError.ERROR_CATEGORY_URI -> "ERROR_CATEGORY_URI"
+                WebRequestError.ERROR_CATEGORY_PROXY -> "ERROR_CATEGORY_PROXY"
+                WebRequestError.ERROR_CATEGORY_SAFEBROWSING -> "ERROR_CATEGORY_SAFEBROWSING"
+                else -> "UNKNOWN"
             }
         }
 
-        private String errorToString(final int error) {
-            switch (error) {
-                case WebRequestError.ERROR_UNKNOWN:
-                    return "ERROR_UNKNOWN";
-                case WebRequestError.ERROR_SECURITY_SSL:
-                    return "ERROR_SECURITY_SSL";
-                case WebRequestError.ERROR_SECURITY_BAD_CERT:
-                    return "ERROR_SECURITY_BAD_CERT";
-                case WebRequestError.ERROR_NET_RESET:
-                    return "ERROR_NET_RESET";
-                case WebRequestError.ERROR_NET_INTERRUPT:
-                    return "ERROR_NET_INTERRUPT";
-                case WebRequestError.ERROR_NET_TIMEOUT:
-                    return "ERROR_NET_TIMEOUT";
-                case WebRequestError.ERROR_CONNECTION_REFUSED:
-                    return "ERROR_CONNECTION_REFUSED";
-                case WebRequestError.ERROR_UNKNOWN_PROTOCOL:
-                    return "ERROR_UNKNOWN_PROTOCOL";
-                case WebRequestError.ERROR_UNKNOWN_HOST:
-                    return "ERROR_UNKNOWN_HOST";
-                case WebRequestError.ERROR_UNKNOWN_SOCKET_TYPE:
-                    return "ERROR_UNKNOWN_SOCKET_TYPE";
-                case WebRequestError.ERROR_UNKNOWN_PROXY_HOST:
-                    return "ERROR_UNKNOWN_PROXY_HOST";
-                case WebRequestError.ERROR_MALFORMED_URI:
-                    return "ERROR_MALFORMED_URI";
-                case WebRequestError.ERROR_REDIRECT_LOOP:
-                    return "ERROR_REDIRECT_LOOP";
-                case WebRequestError.ERROR_SAFEBROWSING_PHISHING_URI:
-                    return "ERROR_SAFEBROWSING_PHISHING_URI";
-                case WebRequestError.ERROR_SAFEBROWSING_MALWARE_URI:
-                    return "ERROR_SAFEBROWSING_MALWARE_URI";
-                case WebRequestError.ERROR_SAFEBROWSING_UNWANTED_URI:
-                    return "ERROR_SAFEBROWSING_UNWANTED_URI";
-                case WebRequestError.ERROR_SAFEBROWSING_HARMFUL_URI:
-                    return "ERROR_SAFEBROWSING_HARMFUL_URI";
-                case WebRequestError.ERROR_CONTENT_CRASHED:
-                    return "ERROR_CONTENT_CRASHED";
-                case WebRequestError.ERROR_OFFLINE:
-                    return "ERROR_OFFLINE";
-                case WebRequestError.ERROR_PORT_BLOCKED:
-                    return "ERROR_PORT_BLOCKED";
-                case WebRequestError.ERROR_PROXY_CONNECTION_REFUSED:
-                    return "ERROR_PROXY_CONNECTION_REFUSED";
-                case WebRequestError.ERROR_FILE_NOT_FOUND:
-                    return "ERROR_FILE_NOT_FOUND";
-                case WebRequestError.ERROR_FILE_ACCESS_DENIED:
-                    return "ERROR_FILE_ACCESS_DENIED";
-                case WebRequestError.ERROR_INVALID_CONTENT_ENCODING:
-                    return "ERROR_INVALID_CONTENT_ENCODING";
-                case WebRequestError.ERROR_UNSAFE_CONTENT_TYPE:
-                    return "ERROR_UNSAFE_CONTENT_TYPE";
-                case WebRequestError.ERROR_CORRUPTED_CONTENT:
-                    return "ERROR_CORRUPTED_CONTENT";
-                default:
-                    return "UNKNOWN";
+        private fun errorToString(error: Int): String {
+            return when (error) {
+                WebRequestError.ERROR_UNKNOWN -> "ERROR_UNKNOWN"
+                WebRequestError.ERROR_SECURITY_SSL -> "ERROR_SECURITY_SSL"
+                WebRequestError.ERROR_SECURITY_BAD_CERT -> "ERROR_SECURITY_BAD_CERT"
+                WebRequestError.ERROR_NET_RESET -> "ERROR_NET_RESET"
+                WebRequestError.ERROR_NET_INTERRUPT -> "ERROR_NET_INTERRUPT"
+                WebRequestError.ERROR_NET_TIMEOUT -> "ERROR_NET_TIMEOUT"
+                WebRequestError.ERROR_CONNECTION_REFUSED -> "ERROR_CONNECTION_REFUSED"
+                WebRequestError.ERROR_UNKNOWN_PROTOCOL -> "ERROR_UNKNOWN_PROTOCOL"
+                WebRequestError.ERROR_UNKNOWN_HOST -> "ERROR_UNKNOWN_HOST"
+                WebRequestError.ERROR_UNKNOWN_SOCKET_TYPE -> "ERROR_UNKNOWN_SOCKET_TYPE"
+                WebRequestError.ERROR_UNKNOWN_PROXY_HOST -> "ERROR_UNKNOWN_PROXY_HOST"
+                WebRequestError.ERROR_MALFORMED_URI -> "ERROR_MALFORMED_URI"
+                WebRequestError.ERROR_REDIRECT_LOOP -> "ERROR_REDIRECT_LOOP"
+                WebRequestError.ERROR_SAFEBROWSING_PHISHING_URI -> "ERROR_SAFEBROWSING_PHISHING_URI"
+                WebRequestError.ERROR_SAFEBROWSING_MALWARE_URI -> "ERROR_SAFEBROWSING_MALWARE_URI"
+                WebRequestError.ERROR_SAFEBROWSING_UNWANTED_URI -> "ERROR_SAFEBROWSING_UNWANTED_URI"
+                WebRequestError.ERROR_SAFEBROWSING_HARMFUL_URI -> "ERROR_SAFEBROWSING_HARMFUL_URI"
+                WebRequestError.ERROR_CONTENT_CRASHED -> "ERROR_CONTENT_CRASHED"
+                WebRequestError.ERROR_OFFLINE -> "ERROR_OFFLINE"
+                WebRequestError.ERROR_PORT_BLOCKED -> "ERROR_PORT_BLOCKED"
+                WebRequestError.ERROR_PROXY_CONNECTION_REFUSED -> "ERROR_PROXY_CONNECTION_REFUSED"
+                WebRequestError.ERROR_FILE_NOT_FOUND -> "ERROR_FILE_NOT_FOUND"
+                WebRequestError.ERROR_FILE_ACCESS_DENIED -> "ERROR_FILE_ACCESS_DENIED"
+                WebRequestError.ERROR_INVALID_CONTENT_ENCODING -> "ERROR_INVALID_CONTENT_ENCODING"
+                WebRequestError.ERROR_UNSAFE_CONTENT_TYPE -> "ERROR_UNSAFE_CONTENT_TYPE"
+                WebRequestError.ERROR_CORRUPTED_CONTENT -> "ERROR_CORRUPTED_CONTENT"
+                else -> "UNKNOWN"
             }
         }
 
-        private String createErrorPage(final int category, final int error) {
+        private fun createErrorPage(category: Int, error: Int): String? {
             if (mErrorTemplate == null) {
-                InputStream stream = null;
-                BufferedReader reader = null;
-                StringBuilder builder = new StringBuilder();
+                var stream: InputStream? = null
+                var reader: BufferedReader? = null
+                val builder = StringBuilder()
                 try {
-                    stream = getResources().getAssets().open("error.html");
-                    reader = new BufferedReader(new InputStreamReader(stream));
-
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        builder.append(line);
-                        builder.append("\n");
+                    stream = resources.assets.open("error.html")
+                    reader = BufferedReader(InputStreamReader(stream))
+                    var line: String?
+                    while (reader.readLine().also { line = it } != null) {
+                        builder.append(line)
+                        builder.append("\n")
                     }
-
-                    mErrorTemplate = builder.toString();
-                } catch (IOException e) {
-                    Log.d(LOGTAG, "Failed to open error page template", e);
-                    return null;
+                    mErrorTemplate = builder.toString()
+                } catch (e: IOException) {
+                    Log.d(LOGTAG, "Failed to open error page template", e)
+                    return null
                 } finally {
                     if (stream != null) {
                         try {
-                            stream.close();
-                        } catch (IOException e) {
-                            Log.e(LOGTAG, "Failed to close error page template stream", e);
+                            stream.close()
+                        } catch (e: IOException) {
+                            Log.e(LOGTAG, "Failed to close error page template stream", e)
                         }
                     }
-
                     if (reader != null) {
                         try {
-                            reader.close();
-                        } catch (IOException e) {
-                            Log.e(LOGTAG, "Failed to close error page template reader", e);
+                            reader.close()
+                        } catch (e: IOException) {
+                            Log.e(LOGTAG, "Failed to close error page template reader", e)
                         }
                     }
                 }
             }
-
-            return BrowserActivity.this.createErrorPage(categoryToString(category) + " : " + errorToString(error));
+            return this@BrowserActivity.createErrorPage(categoryToString(category) + " : " + errorToString(error))
         }
 
-        @Override
-        public GeckoResult<String> onLoadError(final GeckoSession session, final String uri,
-                                               final WebRequestError error) {
+        override fun onLoadError(session: GeckoSession, uri: String?,
+                                 error: WebRequestError): GeckoResult<String>? {
             Log.d(LOGTAG, "onLoadError=" + uri +
                     " error category=" + error.category +
-                    " error=" + error.code);
-
-            return GeckoResult.fromValue("data:text/html," + createErrorPage(error.category, error.code));
+                    " error=" + error.code)
+            return GeckoResult.fromValue("data:text/html," + createErrorPage(error.category, error.code))
         }
     }
 
-    private class ExampleContentBlockingDelegate
-            implements ContentBlocking.Delegate {
-        private int mBlockedAds = 0;
-        private int mBlockedAnalytics = 0;
-        private int mBlockedSocial = 0;
-        private int mBlockedContent = 0;
-        private int mBlockedTest = 0;
-        private int mBlockedStp = 0;
-
-        private void clearCounters() {
-            mBlockedAds = 0;
-            mBlockedAnalytics = 0;
-            mBlockedSocial = 0;
-            mBlockedContent = 0;
-            mBlockedTest = 0;
-            mBlockedStp = 0;
+    private inner class ExampleContentBlockingDelegate : ContentBlocking.Delegate {
+        private var mBlockedAds = 0
+        private var mBlockedAnalytics = 0
+        private var mBlockedSocial = 0
+        private var mBlockedContent = 0
+        private var mBlockedTest = 0
+        private var mBlockedStp = 0
+        fun clearCounters() {
+            mBlockedAds = 0
+            mBlockedAnalytics = 0
+            mBlockedSocial = 0
+            mBlockedContent = 0
+            mBlockedTest = 0
+            mBlockedStp = 0
         }
 
-        private void logCounters() {
+        fun logCounters() {
             Log.d(LOGTAG, "Trackers blocked: " + mBlockedAds + " ads, " +
                     mBlockedAnalytics + " analytics, " +
                     mBlockedSocial + " social, " +
                     mBlockedContent + " content, " +
                     mBlockedTest + " test, " +
-                    mBlockedStp + "stp");
+                    mBlockedStp + "stp")
         }
 
-        @Override
-        public void onContentBlocked(final GeckoSession session,
-                                     final ContentBlocking.BlockEvent event) {
+        override fun onContentBlocked(session: GeckoSession,
+                                      event: BlockEvent) {
             Log.d(LOGTAG, "onContentBlocked" +
-                    " AT: " + event.getAntiTrackingCategory() +
-                    " SB: " + event.getSafeBrowsingCategory() +
-                    " CB: " + event.getCookieBehaviorCategory() +
-                    " URI: " + event.uri);
-            if ((event.getAntiTrackingCategory() &
-                    ContentBlocking.AntiTracking.TEST) != 0) {
-                mBlockedTest++;
+                    " AT: " + event.antiTrackingCategory +
+                    " SB: " + event.safeBrowsingCategory +
+                    " CB: " + event.cookieBehaviorCategory +
+                    " URI: " + event.uri)
+            if (event.antiTrackingCategory and
+                    ContentBlocking.AntiTracking.TEST != 0) {
+                mBlockedTest++
             }
-            if ((event.getAntiTrackingCategory() &
-                    ContentBlocking.AntiTracking.AD) != 0) {
-                mBlockedAds++;
+            if (event.antiTrackingCategory and
+                    ContentBlocking.AntiTracking.AD != 0) {
+                mBlockedAds++
             }
-            if ((event.getAntiTrackingCategory() &
-                    ContentBlocking.AntiTracking.ANALYTIC) != 0) {
-                mBlockedAnalytics++;
+            if (event.antiTrackingCategory and
+                    ContentBlocking.AntiTracking.ANALYTIC != 0) {
+                mBlockedAnalytics++
             }
-            if ((event.getAntiTrackingCategory() &
-                    ContentBlocking.AntiTracking.SOCIAL) != 0) {
-                mBlockedSocial++;
+            if (event.antiTrackingCategory and
+                    ContentBlocking.AntiTracking.SOCIAL != 0) {
+                mBlockedSocial++
             }
-            if ((event.getAntiTrackingCategory() &
-                    ContentBlocking.AntiTracking.CONTENT) != 0) {
-                mBlockedContent++;
+            if (event.antiTrackingCategory and
+                    ContentBlocking.AntiTracking.CONTENT != 0) {
+                mBlockedContent++
             }
-            if ((event.getAntiTrackingCategory() &
-                    ContentBlocking.AntiTracking.STP) != 0) {
-                mBlockedStp++;
+            if (event.antiTrackingCategory and
+                    ContentBlocking.AntiTracking.STP != 0) {
+                mBlockedStp++
             }
         }
 
-        @Override
-        public void onContentLoaded(final GeckoSession session,
-                                    final ContentBlocking.BlockEvent event) {
+        override fun onContentLoaded(session: GeckoSession,
+                                     event: BlockEvent) {
             Log.d(LOGTAG, "onContentLoaded" +
-                    " AT: " + event.getAntiTrackingCategory() +
-                    " SB: " + event.getSafeBrowsingCategory() +
-                    " CB: " + event.getCookieBehaviorCategory() +
-                    " URI: " + event.uri);
+                    " AT: " + event.antiTrackingCategory +
+                    " SB: " + event.safeBrowsingCategory +
+                    " CB: " + event.cookieBehaviorCategory +
+                    " URI: " + event.uri)
         }
     }
 
-    private class ExampleMediaDelegate
-            implements GeckoSession.MediaDelegate {
-        private Integer mLastNotificationId = 100;
-        private Integer mNotificationId;
-        final private Activity mActivity;
-
-        public ExampleMediaDelegate(Activity activity) {
-            mActivity = activity;
-        }
-
-        @Override
-        public void onRecordingStatusChanged(@NonNull GeckoSession session, RecordingDevice[] devices) {
-            String message;
-            int icon;
-            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(mActivity);
-            RecordingDevice camera = null;
-            RecordingDevice microphone = null;
-
-            for (RecordingDevice device : devices) {
+    private inner class ExampleMediaDelegate(private val mActivity: Activity) : MediaDelegate {
+        private var mLastNotificationId = 100
+        private var mNotificationId: Int? = null
+        override fun onRecordingStatusChanged(session: GeckoSession, devices: Array<RecordingDevice>) {
+            val message: String
+            val icon: Int
+            val notificationManager = NotificationManagerCompat.from(mActivity)
+            var camera: RecordingDevice? = null
+            var microphone: RecordingDevice? = null
+            for (device in devices) {
                 if (device.type == RecordingDevice.Type.CAMERA) {
-                    camera = device;
+                    camera = device
                 } else if (device.type == RecordingDevice.Type.MICROPHONE) {
-                    microphone = device;
+                    microphone = device
                 }
             }
             if (camera != null && microphone != null) {
-                Log.d(LOGTAG, "ExampleDeviceDelegate:onRecordingDeviceEvent display alert_mic_camera");
-                message = getResources().getString(R.string.device_sharing_camera_and_mic);
-                icon = R.drawable.ic_mic_camera;
+                Log.d(LOGTAG, "ExampleDeviceDelegate:onRecordingDeviceEvent display alert_mic_camera")
+                message = resources.getString(R.string.device_sharing_camera_and_mic)
+                icon = R.drawable.ic_mic_camera
             } else if (camera != null) {
-                Log.d(LOGTAG, "ExampleDeviceDelegate:onRecordingDeviceEvent display alert_camera");
-                message = getResources().getString(R.string.device_sharing_camera);
-                icon = R.drawable.ic_camera;
-            } else if (microphone != null){
-                Log.d(LOGTAG, "ExampleDeviceDelegate:onRecordingDeviceEvent display alert_mic");
-                message = getResources().getString(R.string.device_sharing_microphone);
-                icon = R.drawable.ic_mic;
+                Log.d(LOGTAG, "ExampleDeviceDelegate:onRecordingDeviceEvent display alert_camera")
+                message = resources.getString(R.string.device_sharing_camera)
+                icon = R.drawable.ic_camera
+            } else if (microphone != null) {
+                Log.d(LOGTAG, "ExampleDeviceDelegate:onRecordingDeviceEvent display alert_mic")
+                message = resources.getString(R.string.device_sharing_microphone)
+                icon = R.drawable.ic_mic
             } else {
-                Log.d(LOGTAG, "ExampleDeviceDelegate:onRecordingDeviceEvent dismiss any notifications");
+                Log.d(LOGTAG, "ExampleDeviceDelegate:onRecordingDeviceEvent dismiss any notifications")
                 if (mNotificationId != null) {
-                    notificationManager.cancel(mNotificationId);
-                    mNotificationId = null;
+                    notificationManager.cancel(mNotificationId!!)
+                    mNotificationId = null
                 }
-                return;
+                return
             }
             if (mNotificationId == null) {
-                mNotificationId = ++mLastNotificationId;
+                mNotificationId = ++mLastNotificationId
             }
-
-            Intent intent = new Intent(mActivity, BrowserActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            PendingIntent pendingIntent = PendingIntent.getActivity(mActivity.getApplicationContext(), 0, intent, 0);
-
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(mActivity.getApplicationContext(), CHANNEL_ID)
+            val intent = Intent(mActivity, BrowserActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            val pendingIntent = PendingIntent.getActivity(mActivity.applicationContext, 0, intent, 0)
+            val builder = NotificationCompat.Builder(mActivity.applicationContext, CHANNEL_ID)
                     .setSmallIcon(icon)
-                    .setContentTitle(getResources().getString(R.string.app_name))
+                    .setContentTitle(resources.getString(R.string.app_name))
                     .setContentText(message)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setContentIntent(pendingIntent)
-                    .setCategory(NotificationCompat.CATEGORY_SERVICE);
-
-            notificationManager.notify(mNotificationId, builder.build());
+                    .setCategory(NotificationCompat.CATEGORY_SERVICE)
+            notificationManager.notify(mNotificationId!!, builder.build())
         }
+    }
+
+    companion object {
+        private const val LOGTAG = "BrowserActivity"
+        private const val FULL_ACCESSIBILITY_TREE_EXTRA = "full_accessibility_tree"
+        private const val SEARCH_URI_BASE = "https://www.google.com/search?q="
+        private const val ACTION_SHUTDOWN = "org.mozilla.geckoview_example.SHUTDOWN"
+        private const val CHANNEL_ID = "SmartCookieWeb"
+        private const val REQUEST_FILE_PICKER = 1
+        private const val REQUEST_PERMISSIONS = 2
+        private const val REQUEST_WRITE_EXTERNAL_STORAGE = 3
+        private var sGeckoRuntime: GeckoRuntime? = null
+        private var sExtensionManager: WebExtensionManager? = null
+        private val isForeground: Boolean
+            private get() {
+                val appProcessInfo = RunningAppProcessInfo()
+                ActivityManager.getMyMemoryState(appProcessInfo)
+                return appProcessInfo.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND ||
+                        appProcessInfo.importance == RunningAppProcessInfo.IMPORTANCE_VISIBLE
+            }
     }
 }
