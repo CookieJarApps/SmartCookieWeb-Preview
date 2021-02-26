@@ -3,6 +3,7 @@ package com.cookiejarapps.android.smartcookieweb.di
 import android.app.Application
 import com.cookiejarapps.android.smartcookieweb.App
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
+import com.cookiejarapps.android.smartcookieweb.TabsDrawerView
 import com.cookiejarapps.android.smartcookieweb.settings.activity.SettingsActivity
 import com.cookiejarapps.android.smartcookieweb.settings.fragment.GeneralSettingsFragment
 import dagger.BindsInstance

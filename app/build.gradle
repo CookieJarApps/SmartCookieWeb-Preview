@@ -68,6 +68,7 @@ dependencies {
     kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
     implementation  "org.mozilla.geckoview:geckoview-${geckoview_channel}:${geckoview_version}"
+    implementation "org.mozilla.components:browser-engine-gecko-nightly:${geckoview_version}"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
