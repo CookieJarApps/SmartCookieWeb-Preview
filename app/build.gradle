@@ -50,11 +50,6 @@ android {
             dimension "engine"
         }
 
-        // Servo
-        servo {
-            dimension "engine"
-        }
-
         // WebView
         system {
             dimension "engine"
@@ -100,18 +95,35 @@ dependencies {
     implementation "org.mozilla.components:browser-icons:73.0.2"
     implementation "org.mozilla.components:browser-awesomebar:73.0.2"
     implementation "org.mozilla.components:browser-domains:73.0.2"
+    implementation "org.mozilla.components:browser-thumbnails:73.0.2"
+    implementation "org.mozilla.components:browser-state:73.0.2"
+    implementation "org.mozilla.components:browser-toolbar:73.0.2"
+    implementation "org.mozilla.components:lib-state:73.0.2"
+
+    // Mozilla feature components
+    implementation "org.mozilla.components:feature-awesomebar:73.0.2"
+    implementation "org.mozilla.components:feature-media:73.0.2"
+    implementation "org.mozilla.components:feature-search:73.0.2"
+    implementation "org.mozilla.components:feature-session:73.0.2"
+    implementation "org.mozilla.components:feature-tabs:73.0.2"
+    implementation "org.mozilla.components:feature-toolbar:73.0.2"
     implementation "org.mozilla.components:feature-intent:73.0.2"
+    implementation "org.mozilla.components:feature-contextmenu:73.0.2"
+    implementation "org.mozilla.components:feature-app-links:73.0.2"
+    implementation "org.mozilla.components:feature-downloads:73.0.2"
+    implementation "org.mozilla.components:feature-privatemode:73.0.2"
+    implementation "org.mozilla.components:feature-prompts:73.0.2"
+    implementation "org.mozilla.components:feature-sitepermissions:73.0.2"
+
+    // Mozilla support components
     implementation "org.mozilla.components:support-base:73.0.2"
     implementation "org.mozilla.components:support-utils:73.0.2"
-    implementation "org.mozilla.components:feature-contextmenu:73.0.2"
+    implementation "org.mozilla.components:support-ktx:73.0.2"
 
     // GeckoView engines
     geckoNightlyImplementation "org.mozilla.components:browser-engine-gecko:73.0.2"
     geckoBetaImplementation "org.mozilla.components:browser-engine-gecko-beta:73.0.2"
     geckoReleaseImplementation "org.mozilla.components:browser-engine-gecko-nightly:73.0.2"
-
-    // Servo engine (unused)
-    servoImplementation "org.mozilla.components:browser-engine-servo:11.0.0"
 
     // WebView engine
     implementation "org.mozilla.components:browser-engine-system:73.0.2"
