@@ -34,6 +34,21 @@ Need help? Open an issue here, or:
 
 ---
 
+## Add-ons
+
+BiscuitBrowser currently uses the Mozilla add-on store for add-ons. Below are the currently supported add-ons:
+- NoScript
+- uBlock Origin
+- Violentmonkey
+- HTTPS Everywhere
+- Dark Reader
+
+If you want another add-on included, open an issue here. If you want to create your own add-on for the browser, submit it to the Firefox add-on store and open an issue.
+
+Eventually, the browser will switch to use its own custom add-on store.
+
+---
+
 ## Features
 
 - Modern, clean UI
