@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/settings_about">
+        <Preference
+            android:summary="@string/url_project"
+            android:title="@string/more">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/CookieJarApps/SmartCookieWeb">
+                <extra
+                    android:name="SOURCE"
+                    android:value="SELF" />
+            </intent>
+        </Preference>
+        <Preference
+            android:key="pref_version"
+            android:title="@string/version" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/licenses">
+        <Preference
+            android:summary="@string/license_gpl"
+            android:title="@string/app_name">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://www.gnu.org/licenses/gpl.html">
+                <extra
+                    android:name="SOURCE"
+                    android:value="SELF" />
+            </intent>
+        </Preference>
+        <Preference
+            android:summary="@string/apache"
+            android:title="@string/android_open_source_project">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="http://www.apache.org/licenses/LICENSE-2.0">
+                <extra
+                    android:name="SOURCE"
+                    android:value="SELF" />
+            </intent>
+        </Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
