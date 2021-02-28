@@ -19,9 +19,6 @@ public class SettingsActivity extends AppCompatActivity {
                 .replace(R.id.container, new SettingsFragment())
                 .commit();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         // add back arrow to toolbar
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
