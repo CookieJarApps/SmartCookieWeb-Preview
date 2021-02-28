@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name" translatable="false">BiscuitBrowser</string>
+  <string name="url_project" translatable="false">https://github.com/CookieJarApps/SmartCookieWeb</string>
+  <string name="app_lightning" translatable="false">Lightning</string>
   <string name="location_hint">Search or enter web address</string>
   <string name="trackers_blocked">Trackers Blocked</string>
   <string name="none">NONE</string>
@@ -13,11 +15,34 @@
   <string name="harmful">HARMFUL</string>
   <string name="phishing">PHISHING</string>
 
+  <string name="more">More Info</string>
+  <string name="version">Application version</string>
+  <string name="licenses">Open Source Licenses</string>
+  <string name="mpl_license">Mozilla Public License 2.0</string>
+  <string name="apache">Apache License 2.0</string>
+  <string name="freeware">Freeware</string>
+  <string name="android_open_source_project">Android Open Source Project</string>
+  <string name="hphosts_ad_server_list">Steven Black\'s Ad Hosts List</string>
+  <string name="snacktory">Snacktory</string>
+  <string name="jsoup">jsoup: Java HTML Parser</string>
+  <string name="mit_license">MIT License</string>
+  <string name="library_netcipher">NetCipher</string>
+  <string name="license_gnu">GNU Lesser General Public License</string>
+  <string name="license_gpl">GNU General Public License</string>
+
   <string name="no_ads">No ads or trackers</string>
 
   <string name="infinity">∞</string>
 
   <string name="tabs">Tabs</string>
+
+  <string name="action_print">Print</string>
+  <string name="action_add_to_homescreen">Add to home screen</string>
+  <string name="action_history">History</string>
+  <string name="action_bookmarks">Bookmarks</string>
+  <string name="action_downloads">Downloads</string>
+  <string name="action_add_bookmark">Add bookmark</string>
+  <string name="action_copy">Copy link</string>
 
   <string name="username">Username</string>
   <string name="password">Password</string>
@@ -128,7 +153,20 @@
   <string name="repost_confirm_cancel">Cancel</string>
 
   <string name="settings_general">General settings</string>
-  <string name="settings_general_explain">Search engine, proxy, color mode&#8230;</string>
+  <string name="settings_general_explain">JavaScript</string>
+
+  <string name="settings_addons">Add-on settings</string>
+  <string name="settings_addons_explain">Enable add-ons, remove add-ons…</string>
+
+  <string name="settings_about">About</string>
+  <string name="settings_about_explain">App version, open source licenses…</string>
 
   <string name="app_restart">Please restart the app for the change to take effect.</string>
+
+  <string name="mozac_reader_view_description">Enable Reader View</string>
+  <string name="mozac_reader_view_description_selected">Disable Reader View</string>
+
+  <string name="tab_removed">Tab removed</string>
+  <string name="undo">Undo</string>
+
 </resources>
