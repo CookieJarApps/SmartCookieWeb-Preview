@@ -67,11 +67,11 @@ dependencies {
     // Support libraries
 
     implementation "androidx.recyclerview:recyclerview:1.1.0"
-    implementation "androidx.core:core:1.3.2"
+    implementation "androidx.core:core-ktx:1.3.2"
     implementation "androidx.constraintlayout:constraintlayout:2.0.4"
     implementation "androidx.drawerlayout:drawerlayout:1.1.1"
     implementation "androidx.preference:preference-ktx:1.1.1"
-    implementation "androidx.palette:palette:1.0.0"
+    implementation "androidx.palette:palette-ktx:1.0.0"
     implementation "androidx.annotation:annotation:1.1.0"
     implementation "androidx.appcompat:appcompat:1.2.0"
 
@@ -87,46 +87,84 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
-    // GeckoView
-    implementation  "org.mozilla.geckoview:geckoview-${geckoview_channel}:${geckoview_version}"
-
+    final def mozComponentsVersion = '$mozComponentsVersion'
     // Mozilla components
-    implementation "org.mozilla.components:concept-engine:73.0.2"
-    implementation "org.mozilla.components:browser-icons:73.0.2"
-    implementation "org.mozilla.components:browser-awesomebar:73.0.2"
-    implementation "org.mozilla.components:browser-domains:73.0.2"
-    implementation "org.mozilla.components:browser-thumbnails:73.0.2"
-    implementation "org.mozilla.components:browser-state:73.0.2"
-    implementation "org.mozilla.components:browser-toolbar:73.0.2"
-    implementation "org.mozilla.components:lib-state:73.0.2"
+    implementation "org.mozilla.components:browser-icons:$mozComponentsVersion"
+    implementation "org.mozilla.components:browser-awesomebar:$mozComponentsVersion"
+    implementation "org.mozilla.components:browser-domains:$mozComponentsVersion"
+    implementation "org.mozilla.components:browser-thumbnails:$mozComponentsVersion"
+    implementation "org.mozilla.components:browser-state:$mozComponentsVersion"
+    implementation "org.mozilla.components:browser-toolbar:$mozComponentsVersion"
+    implementation "org.mozilla.components:browser-engine-system:$mozComponentsVersion"
+    implementation "org.mozilla.components:browser-session:$mozComponentsVersion"
+    implementation "org.mozilla.components:browser-session-storage:$mozComponentsVersion"
+    implementation "org.mozilla.components:browser-tabstray:$mozComponentsVersion"
+    implementation "org.mozilla.components:browser-menu:$mozComponentsVersion"
+    implementation "org.mozilla.components:browser-storage-sync:$mozComponentsVersion"
+    implementation "org.mozilla.components:browser-errorpages:$mozComponentsVersion"
+
+    // Mozilla service components
+    implementation "org.mozilla.components:service-glean:$mozComponentsVersion"
+    implementation "org.mozilla.components:service-location:$mozComponentsVersion"
+    implementation "org.mozilla.components:service-digitalassetlinks:$mozComponentsVersion"
+
+    // Mozilla concept components
+    implementation "org.mozilla.components:concept-engine:$mozComponentsVersion"
+    implementation "org.mozilla.components:concept-storage:$mozComponentsVersion"
+    implementation "org.mozilla.components:concept-toolbar:$mozComponentsVersion"
+    implementation "org.mozilla.components:concept-tabstray:$mozComponentsVersion"
+    implementation "org.mozilla.components:concept-base:$mozComponentsVersion"
+    implementation "org.mozilla.components:concept-fetch:$mozComponentsVersion"
+    implementation "org.mozilla.components:concept-awesomebar:$mozComponentsVersion"
+
+    // Mozilla lib components
+    implementation "org.mozilla.components:lib-state:$mozComponentsVersion"
+    implementation "org.mozilla.components:lib-publicsuffixlist:$mozComponentsVersion"
+    implementation "org.mozilla.components:lib-fetch-httpurlconnection:$mozComponentsVersion"
 
     // Mozilla feature components
-    implementation "org.mozilla.components:feature-awesomebar:73.0.2"
-    implementation "org.mozilla.components:feature-media:73.0.2"
-    implementation "org.mozilla.components:feature-search:73.0.2"
-    implementation "org.mozilla.components:feature-session:73.0.2"
-    implementation "org.mozilla.components:feature-tabs:73.0.2"
-    implementation "org.mozilla.components:feature-toolbar:73.0.2"
-    implementation "org.mozilla.components:feature-intent:73.0.2"
-    implementation "org.mozilla.components:feature-contextmenu:73.0.2"
-    implementation "org.mozilla.components:feature-app-links:73.0.2"
-    implementation "org.mozilla.components:feature-downloads:73.0.2"
-    implementation "org.mozilla.components:feature-privatemode:73.0.2"
-    implementation "org.mozilla.components:feature-prompts:73.0.2"
-    implementation "org.mozilla.components:feature-sitepermissions:73.0.2"
+    implementation "org.mozilla.components:feature-awesomebar:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-autofill:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-readerview:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-media:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-search:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-session:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-tabs:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-toolbar:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-intent:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-contextmenu:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-app-links:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-downloads:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-privatemode:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-customtabs:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-pwa:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-prompts:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-sitepermissions:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-webcompat:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-webnotifications:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-addons:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-findinpage:$mozComponentsVersion"
+
+    // Mozilla UI components
+    implementation "org.mozilla.components:ui-autocomplete:$mozComponentsVersion"
+    implementation "org.mozilla.components:ui-tabcounter:$mozComponentsVersion"
+    implementation "org.mozilla.components:ui-icons:$mozComponentsVersion"
+    implementation "org.mozilla.components:ui-colors:$mozComponentsVersion"
 
     // Mozilla support components
-    implementation "org.mozilla.components:support-base:73.0.2"
-    implementation "org.mozilla.components:support-utils:73.0.2"
-    implementation "org.mozilla.components:support-ktx:73.0.2"
+    implementation "org.mozilla.components:support-base:$mozComponentsVersion"
+    implementation "org.mozilla.components:support-utils:$mozComponentsVersion"
+    implementation "org.mozilla.components:support-webextensions:$mozComponentsVersion"
+    implementation "org.mozilla.components:support-ktx:$mozComponentsVersion"
+    implementation "org.mozilla.components:support-rustlog:$mozComponentsVersion"
 
     // GeckoView engines
-    geckoNightlyImplementation "org.mozilla.components:browser-engine-gecko:73.0.2"
-    geckoBetaImplementation "org.mozilla.components:browser-engine-gecko-beta:73.0.2"
-    geckoReleaseImplementation "org.mozilla.components:browser-engine-gecko-nightly:73.0.2"
+    geckoNightlyImplementation "org.mozilla.components:browser-engine-gecko:$mozComponentsVersion"
+    geckoBetaImplementation "org.mozilla.components:browser-engine-gecko-beta:$mozComponentsVersion"
+    geckoReleaseImplementation "org.mozilla.components:browser-engine-gecko-nightly:$mozComponentsVersion"
 
     // WebView engine
-    implementation "org.mozilla.components:browser-engine-system:73.0.2"
+    implementation "org.mozilla.components:browser-engine-system:$mozComponentsVersion"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
