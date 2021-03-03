@@ -1,31 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.cookiejarapps.android.smartcookieweb">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.cookiejarapps.android.smartcookieweb">
+
+  <uses-permission android:name="android.permission.CAMERA" />
+  <uses-permission android:name="android.permission.RECORD_AUDIO" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.BLUETOOTH" />
+  <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+  <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
 
   <application
-      android:name=".App"
+    android:name=".BrowserApp"
     android:allowBackup="true"
+    android:fullBackupContent="@xml/backup_rules"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppThemeNotActionBar">
 
-    <activity
-      android:name="com.cookiejarapps.android.smartcookieweb.BrowserActivity"
-      android:windowSoftInputMode="stateUnspecified|adjustResize" >
-
+    <activity android:name=".BrowserActivity"
+        android:launchMode="singleTask"
+        android:configChanges="keyboard|keyboardHidden|mcc|mnc|orientation|screenSize|locale|layoutDirection|smallestScreenSize|screenLayout">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+    <activity android:name=".ExternalAppBrowserActivity"
+        android:configChanges="keyboard|keyboardHidden|mcc|mnc|orientation|screenSize|locale|layoutDirection|smallestScreenSize|screenLayout"
+        android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
+        android:exported="false"
+        android:taskAffinity=""
+        android:persistableMode="persistNever"
+        android:autoRemoveFromRecents="false"
+        android:label="@string/app_name" />
+
+    <activity
+        android:name=".addons.AddonsActivity"
+        android:label="@string/mozac_feature_addons_addons"
+        android:parentActivityName=".BrowserActivity"
+        android:theme="@style/AppThemeAddons" />
+
     <activity
         android:name=".settings.activity.SettingsActivity"
-        android:label="Settings"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:label="@string/settings"
+        android:theme="@style/AppThemeSettings"/>
+
+    <activity
+        android:name=".addons.AddonDetailsActivity"
+        android:label="@string/mozac_feature_addons_addons"
+        android:theme="@style/AppThemeAddons" />
+
+    <activity android:name=".addons.InstalledAddonDetailsActivity"
+        android:label="@string/mozac_feature_addons_addons"
+        android:parentActivityName=".addons.AddonsActivity"
+        android:theme="@style/AppThemeAddons" />
+
+    <activity
+        android:name=".addons.PermissionsDetailsActivity"
+        android:label="@string/mozac_feature_addons_addons"
+        android:theme="@style/AppThemeAddons" />
+
+    <activity
+        android:name=".addons.AddonSettingsActivity"
+        android:label="@string/mozac_feature_addons_addons"
+        android:theme="@style/AppThemeAddons" />
+
+    <activity
+        android:name=".addons.NotYetSupportedAddonActivity"
+        android:label="@string/mozac_feature_addons_addons"
+        android:theme="@style/AppThemeAddons" />
+
+    <activity
+        android:name=".IntentReceiverActivity"
+        android:relinquishTaskIdentity="true"
+        android:taskAffinity=""
+        android:exported="true"
+        android:excludeFromRecents="true" >
+
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <category android:name="mozilla.components.pwa.category.SHORTCUT" />
+
+        <data android:scheme="http" />
+        <data android:scheme="https" />
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.intent.action.SEND" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="text/plain" />
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:scheme="http" />
+        <data android:scheme="https" />
+      </intent-filter>
+
+      <intent-filter>
+        <action android:name="mozilla.components.feature.pwa.VIEW_PWA" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:scheme="https" />
+      </intent-filter>
     </activity>
+
+    <activity android:name=".autofill.AutofillUnlockActivity"
+        android:exported="false"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+    <service
+        android:name=".autofill.AutofillService"
+        android:label="@string/app_name"
+        android:permission="android.permission.BIND_AUTOFILL_SERVICE">
+      <intent-filter>
+        <action android:name="android.service.autofill.AutofillService"/>
+      </intent-filter>
+    </service>
+
+    <service
+        android:name=".customtabs.CustomTabService"
+        android:exported="true"
+        tools:ignore="ExportedService">
+      <intent-filter>
+        <action android:name="android.support.customtabs.action.CustomTabsService" />
+        <category android:name="androidx.browser.trusted.category.TrustedWebActivities" />
+        <category android:name="androidx.browser.trusted.category.NavBarColorCustomization" />
+      </intent-filter>
+    </service>
+
+    <service android:name=".downloads.DownloadService" />
+
+    <service android:name=".media.MediaSessionService"
+        android:exported="false" />
+
   </application>
+
 
 </manifest>

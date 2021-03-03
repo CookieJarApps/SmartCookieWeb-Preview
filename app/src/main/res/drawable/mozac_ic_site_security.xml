@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:ac="http://schemas.android.com/apk/res-auto">
+    <item
+        android:drawable="@drawable/ic_baseline_lock"
+        ac:state_site_secure="true" />
+    <item
+        android:drawable="@drawable/ic_baseline_lock_open" />
+</selector>

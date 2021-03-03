@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Gradle: androidx.browser:browser:1.2.0@aar">
+    <ANNOTATIONS>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b0267840e25f7d29e0c78c1054347162/transformed/browser-1.2.0/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b0267840e25f7d29e0c78c1054347162/transformed/browser-1.2.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b0267840e25f7d29e0c78c1054347162/transformed/browser-1.2.0/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b0267840e25f7d29e0c78c1054347162/transformed/browser-1.2.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/androidx.browser/browser/1.2.0/6b08be4c87b469cf5f138398a6bef008b0b1ee11/browser-1.2.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

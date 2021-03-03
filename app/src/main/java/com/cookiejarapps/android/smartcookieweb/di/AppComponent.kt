@@ -1,10 +1,11 @@
 package com.cookiejarapps.android.smartcookieweb.di
 
 import android.app.Application
-import com.cookiejarapps.android.smartcookieweb.App
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
-import com.cookiejarapps.android.smartcookieweb.TabsDrawerView
+import com.cookiejarapps.android.smartcookieweb.BrowserApp
+import com.cookiejarapps.android.smartcookieweb.Components
 import com.cookiejarapps.android.smartcookieweb.settings.activity.SettingsActivity
+import com.cookiejarapps.android.smartcookieweb.settings.fragment.AboutSettingsFragment
 import com.cookiejarapps.android.smartcookieweb.settings.fragment.GeneralSettingsFragment
 import dagger.BindsInstance
 import dagger.Component
@@ -29,5 +30,9 @@ interface AppComponent {
 
     fun inject(generalSettingsFragment: GeneralSettingsFragment)
 
-    fun inject(app: App)
+    fun inject(aboutSettingsFragment: AboutSettingsFragment)
+
+    fun inject(app: BrowserApp)
+
+    fun inject(components: Components)
 }

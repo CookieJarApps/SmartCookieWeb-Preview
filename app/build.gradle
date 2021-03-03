@@ -104,7 +104,6 @@ dependencies {
     implementation "org.mozilla.components:browser-errorpages:$mozComponentsVersion"
 
     // Mozilla service components
-    implementation "org.mozilla.components:service-glean:$mozComponentsVersion"
     implementation "org.mozilla.components:service-location:$mozComponentsVersion"
     implementation "org.mozilla.components:service-digitalassetlinks:$mozComponentsVersion"
 
