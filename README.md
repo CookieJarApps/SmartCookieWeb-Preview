@@ -13,7 +13,7 @@ An experimental version of SmartCookieWeb using GeckoView. Adblocking, extension
 
 ## Screenshots
 
-<img src="https://storeimg.com/uploads/60328e6bd05c7.png" width="256"><img src="https://storeimg.com/uploads/60328e851de87.png" width="256"><img src="https://storeimg.com/uploads/60328e90aa412.png" width="256">
+<img src="https://storeimg.com/uploads/604275d9e0a7c.png" width="19%"> <img src="https://storeimg.com/uploads/604275557a381.png" width="19%"> <img src="https://storeimg.com/uploads/604275420a14f.png" width="19%"> <img src="https://storeimg.com/uploads/60427508dcc77.png" width="19%"> <img src="https://storeimg.com/uploads/604274c2f2bb4.png" width="19%">
 
 ---
 
