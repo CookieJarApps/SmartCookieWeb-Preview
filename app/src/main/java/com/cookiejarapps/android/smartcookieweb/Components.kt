@@ -77,6 +77,7 @@ import mozilla.components.service.location.LocationService
 import org.mozilla.geckoview.GeckoRuntime
 import org.mozilla.geckoview.GeckoRuntimeSettings
 import com.cookiejarapps.android.smartcookieweb.integration.FindInPageIntegration
+import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.request.AppRequestInterceptor
 import java.util.concurrent.TimeUnit
 
@@ -103,6 +104,7 @@ open class Components(private val applicationContext: Context) {
             remoteDebuggingEnabled = true
             supportMultipleWindows = true
             preferredColorScheme = PreferredColorScheme.Dark
+            javascriptEnabled = UserPreferences(applicationContext).javaScriptEnabled
         }
     }
 

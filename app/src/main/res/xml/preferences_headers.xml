@@ -13,7 +13,7 @@
         android:icon="@drawable/ic_settings_addons_layers"
         android:title="@string/settings_addons"
         android:singleLineTitle="false"
-        android:summary="@string/settings_general_explain"
+        android:summary="@string/settings_addons_explain"
         android:tint="#8e4f00"/>
     <androidx.preference.Preference
         android:fragment="com.cookiejarapps.android.smartcookieweb.settings.fragment.AboutSettingsFragment"

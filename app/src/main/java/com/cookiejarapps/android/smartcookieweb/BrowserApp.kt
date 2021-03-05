@@ -1,9 +1,6 @@
 package com.cookiejarapps.android.smartcookieweb
 
 import android.app.Application
-import com.cookiejarapps.android.smartcookieweb.di.AppComponent
-import com.cookiejarapps.android.smartcookieweb.di.DaggerAppComponent
-import com.cookiejarapps.android.smartcookieweb.di.injector
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -23,7 +20,6 @@ import mozilla.components.support.webextensions.WebExtensionSupport
 import java.util.concurrent.TimeUnit
 
 class BrowserApp : Application() {
-    lateinit var applicationComponent: AppComponent
 
     private val logger = Logger("BrowserApp")
 
@@ -34,11 +30,6 @@ class BrowserApp : Application() {
 
         Megazord.init()
         RustLog.enable()
-
-        applicationComponent = DaggerAppComponent.builder()
-            .application(this)
-            .build()
-        injector.inject(this)
 
         if (!isMainProcess()) {
             return

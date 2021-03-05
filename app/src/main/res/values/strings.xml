@@ -150,7 +150,7 @@
   <string name="repost_confirm_cancel">Cancel</string>
 
   <string name="settings_general">General settings</string>
-  <string name="settings_general_explain">JavaScript</string>
+  <string name="settings_general_explain">JavaScript…</string>
 
   <string name="settings_addons">Add-on settings</string>
   <string name="settings_addons_explain">Enable add-ons, remove add-ons…</string>
