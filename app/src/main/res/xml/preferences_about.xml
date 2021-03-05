@@ -41,6 +41,28 @@
                     android:value="SELF" />
             </intent>
         </Preference>
+        <Preference
+            android:summary="@string/mpl_license"
+            android:title="@string/mozac">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://www.mozilla.org/en-US/MPL/">
+                <extra
+                    android:name="SOURCE"
+                    android:value="SELF" />
+            </intent>
+        </Preference>
+        <Preference
+            android:summary="@string/mpl_license"
+            android:title="@string/geckoview">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://www.mozilla.org/en-US/MPL/">
+                <extra
+                    android:name="SOURCE"
+                    android:value="SELF" />
+            </intent>
+        </Preference>
 
     </PreferenceCategory>
 

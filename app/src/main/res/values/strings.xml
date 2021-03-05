@@ -21,12 +21,9 @@
   <string name="mpl_license">Mozilla Public License 2.0</string>
   <string name="apache">Apache License 2.0</string>
   <string name="freeware">Freeware</string>
+  <string name="mozac">Mozilla Android Components</string>
   <string name="android_open_source_project">Android Open Source Project</string>
-  <string name="hphosts_ad_server_list">Steven Black\'s Ad Hosts List</string>
-  <string name="snacktory">Snacktory</string>
-  <string name="jsoup">jsoup: Java HTML Parser</string>
-  <string name="mit_license">MIT License</string>
-  <string name="library_netcipher">NetCipher</string>
+  <string name="geckoview">GeckoView</string>
   <string name="license_gnu">GNU Lesser General Public License</string>
   <string name="license_gpl">GNU General Public License</string>
 
