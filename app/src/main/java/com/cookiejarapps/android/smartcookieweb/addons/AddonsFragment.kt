@@ -73,7 +73,9 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
                 val style = AddonsManagerAdapter.Style(
                     dividerColor = R.color.browser_actions_divider_color,
-                    dividerHeight = R.dimen.mozac_browser_menu_item_divider_height
+                    dividerHeight = R.dimen.mozac_browser_menu_item_divider_height,
+                    addonNameTextColor = R.color.black,
+                    sectionsTextColor = R.color.black
                 )
 
                 scope.launch(Dispatchers.Main) {

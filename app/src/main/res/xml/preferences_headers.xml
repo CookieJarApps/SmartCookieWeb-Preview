@@ -6,20 +6,17 @@
         android:icon="@drawable/ic_settings_general_layers"
         android:title="@string/settings_general"
         android:singleLineTitle="false"
-        android:summary="@string/settings_general_explain"
-        android:tint="#8e4f00"/>
+        android:summary="@string/settings_general_explain"/>
     <androidx.preference.Preference
         android:fragment="com.cookiejarapps.android.smartcookieweb.addons.AddonsFragment"
         android:icon="@drawable/ic_settings_addons_layers"
         android:title="@string/settings_addons"
         android:singleLineTitle="false"
-        android:summary="@string/settings_addons_explain"
-        android:tint="#8e4f00"/>
+        android:summary="@string/settings_addons_explain"/>
     <androidx.preference.Preference
         android:fragment="com.cookiejarapps.android.smartcookieweb.settings.fragment.AboutSettingsFragment"
         android:icon="@drawable/ic_settings_about_layers"
         android:title="@string/settings_about"
         android:singleLineTitle="false"
-        android:summary="@string/settings_about_explain"
-        android:tint="#8e4f00"/>
+        android:summary="@string/settings_about_explain"/>
 </androidx.preference.PreferenceScreen>

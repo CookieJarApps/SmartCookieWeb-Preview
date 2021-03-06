@@ -10,7 +10,7 @@ import com.cookiejarapps.android.smartcookieweb.R
 class AddonsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_base)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().apply {
