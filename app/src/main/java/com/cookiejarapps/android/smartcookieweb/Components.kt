@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.content.SharedPreferences
+import androidx.core.content.ContextCompat.startActivity
 import com.cookiejarapps.android.smartcookieweb.addons.AddonsActivity
 import com.cookiejarapps.android.smartcookieweb.downloads.DownloadService
 import com.cookiejarapps.android.smartcookieweb.ext.components
@@ -307,15 +308,37 @@ open class Components(private val applicationContext: Context) {
                     selectTab = true
                 )
             },
-            BrowserMenuDivider(),
+            BrowserMenuDivider()
+        )
+
+        items.add(
             BrowserMenuImageText(
-                applicationContext.getString(R.string.mozac_feature_findindpage_input),
-                R.drawable.ic_baseline_find_in_page,
+                applicationContext.resources.getString(R.string.mozac_selection_context_menu_share),
+                R.drawable.ic_baseline_share,
                 android.R.color.black
             ) {
-                FindInPageIntegration.launch?.invoke()
-            },
-            BrowserMenuDivider()
+                MainScope().launch {
+                    sessionManager.selectedSession?.let {
+                        val shareIntent = Intent(Intent.ACTION_SEND)
+                        shareIntent.type = "text/plain"
+                        if (it.title != "") {
+                            shareIntent.putExtra(Intent.EXTRA_SUBJECT, it.title)
+                        }
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, it.url)
+                        startActivity(
+                            applicationContext,
+                            Intent.createChooser(
+                                shareIntent,
+                                applicationContext.resources.getString(R.string.mozac_selection_context_menu_share)
+                            ).setFlags(FLAG_ACTIVITY_NEW_TASK),
+                            null
+                        )
+                    }
+                }
+            }.apply {
+                visible =
+                    { webAppUseCases.isPinningSupported() && sessionManager.selectedSession != null }
+            }
         )
 
         items.add(
@@ -372,6 +395,19 @@ open class Components(private val applicationContext: Context) {
                 preferences.edit().putBoolean(PREF_LAUNCH_EXTERNAL_APP, checked).apply()
             }
         )
+
+        items.add(BrowserMenuDivider())
+
+        items.add(
+            BrowserMenuImageText(
+                applicationContext.getString(R.string.mozac_feature_findindpage_input),
+                R.drawable.ic_baseline_find_in_page,
+                android.R.color.black
+            ) {
+                FindInPageIntegration.launch?.invoke()
+            }
+        )
+
         items.add(
             BrowserMenuImageText(
                 applicationContext.resources.getString(R.string.settings),
