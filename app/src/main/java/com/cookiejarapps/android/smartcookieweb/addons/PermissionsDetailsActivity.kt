@@ -5,9 +5,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.addons.ui.AddonPermissionsAdapter
 import mozilla.components.feature.addons.ui.translateName
@@ -23,6 +25,10 @@ class PermissionsDetailsActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_add_on_permissions)
         val addon = requireNotNull(intent.getParcelableExtra<Addon>("add_on"))
         title = addon.translateName(this)
+
+        if(!UserPreferences(this).followSystem){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
 
         val recyclerView = findViewById<RecyclerView>(R.id.add_ons_permissions)
         recyclerView.layoutManager = LinearLayoutManager(this)

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,7 @@ import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.addons.ui.UnsupportedAddonsAdapter
 import mozilla.components.feature.addons.ui.UnsupportedAddonsAdapterDelegate
 import com.cookiejarapps.android.smartcookieweb.ext.components
+import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 
 private const val LEARN_MORE_URL =
     "https://smartcookieweb.com/help-biscuit/extensions/#compatibility"
@@ -28,6 +30,10 @@ class NotYetSupportedAddonActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val addons = requireNotNull(intent.getParcelableArrayListExtra<Addon>("add_ons"))
+
+        if(!UserPreferences(this).followSystem){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
 
         supportFragmentManager
             .beginTransaction()

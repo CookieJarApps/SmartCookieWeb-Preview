@@ -13,4 +13,10 @@
         app:summary="@string/dark_mode_summary"
         app:defaultValue="false"/>
 
+    <SwitchPreferenceCompat
+        app:key="@string/key_follow_system"
+        app:title="@string/follow_system"
+        app:summary="@string/follow_system_summary"
+        app:defaultValue="false"/>
+
 </PreferenceScreen>

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.cookiejarapps.android.smartcookieweb.R
 import kotlinx.android.synthetic.main.fragment_add_on_settings.*
@@ -15,6 +16,7 @@ import mozilla.components.concept.engine.EngineView
 import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.addons.ui.translateName
 import com.cookiejarapps.android.smartcookieweb.ext.components
+import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 
 // An activity to show the settings of an add-on.
 
@@ -23,6 +25,10 @@ class AddonSettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_on_settings)
+
+        if(!UserPreferences(this).followSystem){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
 
         val addon = requireNotNull(intent.getParcelableExtra<Addon>("add_on"))
         title = addon.translateName(this)

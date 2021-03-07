@@ -24,6 +24,7 @@ import mozilla.components.feature.addons.ui.AddonsManagerAdapterDelegate
 import mozilla.components.feature.addons.ui.PermissionsDialogFragment
 import mozilla.components.feature.addons.ui.translateName
 import com.cookiejarapps.android.smartcookieweb.ext.components
+import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import java.util.concurrent.CancellationException
 
 // Fragment used for managing add-ons.
@@ -72,10 +73,10 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                 val addons = context.components.addonManager.getAddons()
 
                 val style = AddonsManagerAdapter.Style(
-                    dividerColor = R.color.browser_actions_divider_color,
+                    dividerColor = context.theme.resolveAttribute(android.R.attr.textColorSecondary),
                     dividerHeight = R.dimen.mozac_browser_menu_item_divider_height,
-                    addonNameTextColor = R.color.black,
-                    sectionsTextColor = R.color.black
+                    addonNameTextColor = context.theme.resolveAttribute(android.R.attr.textColorPrimary),
+                    sectionsTextColor = context.theme.resolveAttribute(android.R.attr.textColorPrimary)
                 )
 
                 scope.launch(Dispatchers.Main) {

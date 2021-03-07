@@ -40,6 +40,10 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2 {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        if(!UserPreferences(this).followSystem){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+
         if (savedInstanceState == null) {
             val sessionId = SafeIntent(intent).getSessionId()
             supportFragmentManager.beginTransaction().apply {

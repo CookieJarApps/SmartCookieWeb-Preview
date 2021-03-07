@@ -80,6 +80,7 @@ import org.mozilla.geckoview.GeckoRuntimeSettings
 import com.cookiejarapps.android.smartcookieweb.integration.FindInPageIntegration
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.request.AppRequestInterceptor
+import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import java.util.concurrent.TimeUnit
 
 
@@ -301,7 +302,7 @@ open class Components(private val applicationContext: Context) {
             BrowserMenuImageText(
                 applicationContext.getString(R.string.new_tab),
                 R.drawable.ic_round_add,
-                android.R.color.black
+                applicationContext.theme.resolveAttribute(android.R.attr.textColorPrimary)
             ) {
                 applicationContext.components.tabsUseCases.addTab.invoke(
                     "about:blank",
@@ -315,7 +316,7 @@ open class Components(private val applicationContext: Context) {
             BrowserMenuImageText(
                 applicationContext.resources.getString(R.string.mozac_selection_context_menu_share),
                 R.drawable.ic_baseline_share,
-                android.R.color.black
+                applicationContext.theme.resolveAttribute(android.R.attr.textColorPrimary)
             ) {
                 MainScope().launch {
                     sessionManager.selectedSession?.let {
@@ -345,7 +346,7 @@ open class Components(private val applicationContext: Context) {
             BrowserMenuImageText(
                 applicationContext.resources.getString(R.string.action_add_to_homescreen),
                 R.drawable.ic_round_smartphone,
-                android.R.color.black
+                applicationContext.theme.resolveAttribute(android.R.attr.textColorPrimary)
             ) {
                 MainScope().launch {
                     webAppUseCases.addToHomescreen()
@@ -360,7 +361,7 @@ open class Components(private val applicationContext: Context) {
             BrowserMenuImageText(
                 applicationContext.getString(R.string.mozac_feature_contextmenu_open_link_in_external_app),
                 R.drawable.ic_baseline_open_in_new,
-                android.R.color.black
+                applicationContext.theme.resolveAttribute(android.R.attr.textColorPrimary)
             ) {
                 val getRedirect = appLinksUseCases.appLinkRedirect
                 sessionManager.selectedSession?.let {
@@ -402,7 +403,7 @@ open class Components(private val applicationContext: Context) {
             BrowserMenuImageText(
                 applicationContext.getString(R.string.mozac_feature_findindpage_input),
                 R.drawable.ic_baseline_find_in_page,
-                android.R.color.black
+                applicationContext.theme.resolveAttribute(android.R.attr.textColorPrimary)
             ) {
                 FindInPageIntegration.launch?.invoke()
             }
@@ -412,7 +413,7 @@ open class Components(private val applicationContext: Context) {
             BrowserMenuImageText(
                 applicationContext.resources.getString(R.string.settings),
                 R.drawable.ic_round_settings,
-                android.R.color.black
+                applicationContext.theme.resolveAttribute(android.R.attr.textColorPrimary)
             ) {
                 val settings = Intent(applicationContext, SettingsActivity::class.java)
                 settings.flags = FLAG_ACTIVITY_NEW_TASK
@@ -427,7 +428,7 @@ open class Components(private val applicationContext: Context) {
     private val menuToolbar by lazy {
         val back = BrowserMenuItemToolbar.TwoStateButton(
             primaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_back,
-            primaryImageTintResource = R.color.photonBlue90,
+            primaryImageTintResource = applicationContext.theme.resolveAttribute(android.R.attr.textColorPrimary),
             primaryContentDescription = "Back",
             isInPrimaryState = {
                 sessionManager.selectedSession?.canGoBack ?: true
@@ -441,7 +442,7 @@ open class Components(private val applicationContext: Context) {
         val forward = BrowserMenuItemToolbar.TwoStateButton(
             primaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_forward,
             primaryContentDescription = "Forward",
-            primaryImageTintResource = R.color.photonBlue90,
+            primaryImageTintResource = applicationContext.theme.resolveAttribute(android.R.attr.textColorPrimary),
             isInPrimaryState = {
                 sessionManager.selectedSession?.canGoForward ?: true
             },
@@ -454,13 +455,13 @@ open class Components(private val applicationContext: Context) {
         val refresh = BrowserMenuItemToolbar.TwoStateButton(
             primaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_refresh,
             primaryContentDescription = "Refresh",
-            primaryImageTintResource = R.color.photonBlue90,
+            primaryImageTintResource = applicationContext.theme.resolveAttribute(android.R.attr.textColorPrimary),
             isInPrimaryState = {
                 sessionManager.selectedSession?.loading == false
             },
             secondaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_stop,
             secondaryContentDescription = "Stop",
-            secondaryImageTintResource = R.color.photonBlue90,
+            secondaryImageTintResource = R.color.photonGrey40,
             disableInSecondaryState = false
         ) {
             if (sessionManager.selectedSession?.loading == true) {

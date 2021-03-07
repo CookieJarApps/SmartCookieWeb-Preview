@@ -5,6 +5,7 @@
 
   <string name="key_javascript_enabled" translatable="false">javascript_enabled</string>
   <string name="key_dark_mode" translatable="false">dark_mode_enabled</string>
+  <string name="key_follow_system" translatable="false">follow_system</string>
 
   <string name="location_hint">Search or enter web address</string>
   <string name="trackers_blocked">Trackers Blocked</string>
@@ -109,6 +110,8 @@
 
   <string name="dark_mode">Web dark mode</string>
   <string name="dark_mode_summary">Darkens supported websites</string>
+  <string name="follow_system">Follow system theme</string>
+  <string name="follow_system_summary">Darkens browser UI when system dark mode is enabled</string>
   <string name="javascript_enabled">Enable JavaScript</string>
 
   <string name="app_restart">Please restart the app for the change to take effect.</string>
