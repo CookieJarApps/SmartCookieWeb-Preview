@@ -26,7 +26,9 @@ class PermissionsDetailsActivity : AppCompatActivity(), View.OnClickListener {
         val addon = requireNotNull(intent.getParcelableExtra<Addon>("add_on"))
         title = addon.translateName(this)
 
-        if(!UserPreferences(this).followSystem){
+        if(UserPreferences(this).followSystem){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        } else{
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 

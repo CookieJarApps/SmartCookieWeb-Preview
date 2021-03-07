@@ -35,10 +35,11 @@ class AddonDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if(!UserPreferences(this).followSystem){
+        if(UserPreferences(this).followSystem){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        } else{
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
-
         setContentView(R.layout.activity_add_on_details)
         val addon = requireNotNull(intent.getParcelableExtra<Addon>("add_on"))
         initViews(addon)

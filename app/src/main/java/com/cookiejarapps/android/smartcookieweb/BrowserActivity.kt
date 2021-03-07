@@ -40,7 +40,9 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2 {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if(!UserPreferences(this).followSystem){
+        if(UserPreferences(this).followSystem){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        } else{
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 

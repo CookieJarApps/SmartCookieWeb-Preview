@@ -31,7 +31,9 @@ class NotYetSupportedAddonActivity : AppCompatActivity() {
 
         val addons = requireNotNull(intent.getParcelableArrayListExtra<Addon>("add_ons"))
 
-        if(!UserPreferences(this).followSystem){
+        if(UserPreferences(this).followSystem){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        } else{
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 

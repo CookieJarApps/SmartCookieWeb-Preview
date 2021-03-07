@@ -31,7 +31,9 @@ class InstalledAddonDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_installed_add_on_details)
         val addon = requireNotNull(intent.getParcelableExtra<Addon>("add_on"))
 
-        if(!UserPreferences(this).followSystem){
+        if(UserPreferences(this).followSystem){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        } else{
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
