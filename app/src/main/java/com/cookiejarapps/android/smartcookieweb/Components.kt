@@ -191,7 +191,8 @@ open class Components(private val applicationContext: Context) {
             client,
             collectionUser = "16711598",
             collectionName = "scwknownextensions",
-            maxCacheAgeInMinutes = DAY_IN_MINUTES
+            maxCacheAgeInMinutes = DAY_IN_MINUTES,
+            serverURL = "https://addons.smartcookieweb.com"
         )
     }
 

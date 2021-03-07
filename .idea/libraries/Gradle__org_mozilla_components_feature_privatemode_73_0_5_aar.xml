@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-privatemode:73.0.5@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/783b06f014f21089b4be70c6a73491ce/transformed/jetified-feature-privatemode-73.0.2/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/783b06f014f21089b4be70c6a73491ce/transformed/jetified-feature-privatemode-73.0.2/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/783b06f014f21089b4be70c6a73491ce/transformed/jetified-feature-privatemode-73.0.2/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-privatemode/73.0.5/582ae41549fac48d05fb81b25edf11e1e95ee767/feature-privatemode-73.0.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
