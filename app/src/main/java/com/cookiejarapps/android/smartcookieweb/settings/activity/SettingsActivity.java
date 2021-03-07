@@ -3,8 +3,6 @@ package com.cookiejarapps.android.smartcookieweb.settings.activity;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.preference.PreferenceFragmentCompat;
-import androidx.appcompat.widget.Toolbar;
 
 import com.cookiejarapps.android.smartcookieweb.R;
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences;
