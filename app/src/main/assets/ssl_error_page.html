@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src resource:; object-src 'none'" />
+    <meta name="viewport" content="width=device-width; user-scalable=false;" />
+    <link rel="stylesheet" type="text/css" href="base.css" />
+    <link rel="stylesheet" type="text/css" href="ssl_error_page.css" />
+  </head>
+
+  <body>
+    <div id="container">
+      <center><img src="warning.webp" height="56" width="56"/></center>
+
+      <h1 id="title"></h1>
+
+      <div id="desc"></div>
+
+      <button id="tryAgain"></button>
+
+      <button
+        id="advancedButton"
+        class="buttonSecondary hidden"
+      ></button>
+
+      <hr id="hr" hidden />
+
+      <div id="advancedPanelContainer">
+        <div id="dropdownPanel" hidden class="advanced-panel">
+          <p id="certDesc"></p>
+           <button
+              id="goBack"
+            ></button>
+
+            <button
+              id="openAnyway"
+              class="buttonSecondary"
+            ></button>
+        </div>
+      </div>
+    </div>
+  </body>
+    <script src="./ssl_error_page.js"></script>
+</html>

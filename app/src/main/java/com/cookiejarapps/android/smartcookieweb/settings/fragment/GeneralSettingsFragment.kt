@@ -19,5 +19,15 @@ class GeneralSettingsFragment : BaseSettingsFragment() {
                 Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
             }
         )
+
+        switchPreference(
+            preference = requireContext().resources.getString(R.string.key_dark_mode),
+            isChecked = UserPreferences(requireContext()).darkModeEnabled,
+            onCheckChange = {
+                UserPreferences(requireContext()).darkModeEnabled = it
+                Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
+            }
+        )
+
     }
 }

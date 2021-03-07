@@ -4,7 +4,13 @@
 
     <SwitchPreferenceCompat
         app:key="@string/key_javascript_enabled"
-        app:title="Javascript Enabled"
+        app:title="@string/javascript_enabled"
         app:defaultValue="true"/>
+
+    <SwitchPreferenceCompat
+        app:key="@string/key_dark_mode"
+        app:title="@string/dark_mode"
+        app:summary="@string/dark_mode_summary"
+        app:defaultValue="false"/>
 
 </PreferenceScreen>

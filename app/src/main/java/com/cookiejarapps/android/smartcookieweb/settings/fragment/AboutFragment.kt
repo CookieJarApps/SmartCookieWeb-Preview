@@ -53,12 +53,11 @@ class AboutFragment : Fragment() {
         }
 
         val content = getString(R.string.settings_about)
-        val versionCode = com.cookiejarapps.android.smartcookieweb.BuildConfig.VERSION_CODE
 
         about_text.text = aboutText
         about_content.text = content
 
-        var pair: Array<Pair<String, String>> = arrayOf(
+        val pair: Array<Pair<String, String>> = arrayOf(
             Pair(resources.getString(R.string.app_name), resources.getString(R.string.license_gpl)),
             Pair(resources.getString(R.string.mozac), resources.getString(R.string.mpl_license)),
             Pair(resources.getString(R.string.geckoview), resources.getString(R.string.mpl_license))

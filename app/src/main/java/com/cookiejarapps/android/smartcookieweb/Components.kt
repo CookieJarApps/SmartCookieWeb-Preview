@@ -96,6 +96,8 @@ open class Components(private val applicationContext: Context) {
     val preferences: SharedPreferences =
         applicationContext.getSharedPreferences(SAMPLE_BROWSER_PREFERENCES, Context.MODE_PRIVATE)
 
+    val darkEnabled = if (UserPreferences(applicationContext).darkModeEnabled) PreferredColorScheme.Dark else PreferredColorScheme.Light
+
     // Engine Settings
     val engineSettings by lazy {
         DefaultSettings().apply {
@@ -103,7 +105,7 @@ open class Components(private val applicationContext: Context) {
             requestInterceptor = AppRequestInterceptor(applicationContext)
             remoteDebuggingEnabled = true
             supportMultipleWindows = true
-            preferredColorScheme = PreferredColorScheme.Dark
+            preferredColorScheme = darkEnabled
             javascriptEnabled = UserPreferences(applicationContext).javaScriptEnabled
         }
     }

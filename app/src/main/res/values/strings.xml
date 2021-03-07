@@ -2,7 +2,10 @@
 <resources>
   <string name="app_name" translatable="false">BiscuitBrowser</string>
   <string name="url_project" translatable="false">https://github.com/CookieJarApps/SmartCookieWeb</string>
-  <string name="app_lightning" translatable="false">Lightning</string>
+
+  <string name="key_javascript_enabled" translatable="false">javascript_enabled</string>
+  <string name="key_dark_mode" translatable="false">dark_mode_enabled</string>
+
   <string name="location_hint">Search or enter web address</string>
   <string name="trackers_blocked">Trackers Blocked</string>
   <string name="none">NONE</string>
@@ -85,60 +88,6 @@
   <string name="cancel">Cancel</string>
   <string name="addon_uri">WebExtension xpi URL</string>
 
-  # Preferences
-  <string name="key_tracking_protection" translatable="false">tracking_protection</string>
-  <item type="bool" name="tracking_protection_default">true</item>
-
-  <string name="key_javascript_enabled" translatable="false">javascript_enabled</string>
-
-  <string name="key_remote_debugging" translatable="false">remote_debugging</string>
-  <item type="bool" name="remote_debugging_default">true</item>
-
-  <string name="key_autoplay" translatable="false">autoplay</string>
-  <item type="bool" name="autoplay_default">false</item>
-
-  <string name="key_allow_extensions_in_private_browsing" translatable="false">allow_extensions_in_private_browsing</string>
-  <item type="bool" name="allow_extensions_in_private_browsing_default">false</item>
-
-  <string name="key_user_agent_override" translatable="false">user_agent_override</string>
-  <string name="user_agent_override_default" translatable="false"></string>
-  <string-array name="user_agent_override_display_names">
-    <item>Default</item>
-    <item>Chrome 80 on Android</item>
-    <item>Safari 12 on iPhone</item>
-  </string-array>
-  <string-array name="user_agent_override_values">
-    <item></item>
-    <item>Mozilla/5.0 (Linux; Android 10; Z832 Build/MMB29M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.162 Mobile Safari/537.36</item>
-    <item>Mozilla/5.0 (iPhone; CPU OS 10_15_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.1 Mobile/14E304 Safari/605.1.15</item>
-  </string-array>
-
-  <string name="key_enhanced_tracking_protection" translatable="false">enhanced_tracking_protection</string>
-  <string name="enhanced_tracking_protection_default" translatable="false">standard</string>
-  <string-array name="enhanced_tracking_protection_display_names">
-    <item>Disabled</item>
-    <item>Enabled (standard)</item>
-    <item>Enabled (strict)</item>
-  </string-array>
-  <string-array name="enhanced_tracking_protection_values">
-    <item>disabled</item>
-    <item>standard</item>
-    <item>strict</item>
-  </string-array>
-
-  <string name="key_preferred_color_scheme" translatable="false">preferred_color_scheme</string>
-  <item type="integer" name="preferred_color_scheme_default">-1</item>
-  <string-array name="pref_preferred_color_scheme_display_names">
-    <item>Follow System Preference</item>
-    <item>Light</item>
-    <item>Dark</item>
-  </string-array>
-  <string-array name="pref_preferred_color_scheme_values">
-    <item>-1</item>
-    <item>0</item>
-    <item>1</item>
-  </string-array>
-
   <string name="before_unload_message">This page is asking you to confirm that you want to leave - data you have entered may not be saved</string>
   <string name="before_unload_title">Are you sure?</string>
   <string name="before_unload_leave_page">Leave Page</string>
@@ -157,6 +106,10 @@
 
   <string name="settings_about">About</string>
   <string name="settings_about_explain">App version, open source licenses…</string>
+
+  <string name="dark_mode">Web dark mode</string>
+  <string name="dark_mode_summary">Darkens supported websites</string>
+  <string name="javascript_enabled">Enable JavaScript</string>
 
   <string name="app_restart">Please restart the app for the change to take effect.</string>
 

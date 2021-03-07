@@ -1,5 +1,6 @@
 package com.cookiejarapps.android.smartcookieweb.browser.tabs
 
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

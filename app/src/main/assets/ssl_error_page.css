@@ -1,0 +1,14 @@
+p {
+  line-height: 20px;
+  margin: var(--moz-vertical-spacing) 0;
+}
+
+@media (min-width: 600px) {
+  @media (min-height: 600px) {
+    #container {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+  }
+}

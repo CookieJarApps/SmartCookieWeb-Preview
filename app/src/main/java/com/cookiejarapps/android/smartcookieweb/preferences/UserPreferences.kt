@@ -12,12 +12,12 @@ class UserPreferences(private val appContext: Context): PreferencesHolder {
         appContext.getSharedPreferences(SCW_PREFERENCES, MODE_PRIVATE)
 
     var javaScriptEnabled by booleanPreference(JAVA_SCRIPT_ENABLED, true)
+    var darkModeEnabled by booleanPreference(DARK_MODE, false)
 
     companion object {
         const val SCW_PREFERENCES = "scw_preferences"
 
-        const val ENABLE_TRACKING_PROTECTION = "enable_tracking_protection"
-        const val ALLOW_AUTO_PLAY = "allow_auto_play"
+        const val DARK_MODE = "dark_mode_enabled"
         const val JAVA_SCRIPT_ENABLED = "java_script_enabled"
     }
 }

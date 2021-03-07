@@ -1,0 +1,138 @@
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --vert-space: 10px;
+  --bg-height: 32px;
+  --primary-button-color: #00d1b2;
+  --primary-button-text-color: #ffffff;
+  --secondary-button-color: #ebfffc;
+  --secondary-button-text-color: #00947e;
+  --header-color: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #363636;
+    --text-color: #ffffff;
+    --primary-button-color: #00d1b2;
+    --primary-button-text-color: #ffffff;
+    --secondary-button-color: #ebfffc;
+    --secondary-button-text-color: #00947e;
+    --header-color: #fbfbfe;
+  }
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  background-size: 64px var(--bg-height);
+  background-repeat: repeat-x;
+  padding: 0 40px;
+  font-size: 14px;
+  font-family: sharp-sans, sans-serif;
+  -moz-text-size-adjust: none;
+}
+
+ul {
+  padding: 0 1em;
+  margin: 0;
+  list-style-type: disc;
+}
+
+#errorShortDesc,
+li:not(:last-of-type) {
+  margin: var(--vert-space) 0;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  margin: var(--vert-space) 0;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+p {
+  line-height: 20px;
+  margin: var(--vert-space) 0;
+}
+
+button {
+  display: block;
+  height: 36px;
+  box-sizing: content-box;
+  width: 100%;
+  border: 0;
+  padding: 6px 0px;
+  font-family: inherit;
+  background-color: transparent;
+  color: var(--primary-button-text-color);
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+
+button::after {
+  background-color: var(--primary-button-color);
+  content: '';
+  border-radius: 5px;
+  display: block;
+  position: absolute;
+  top: 6px;
+  left: 0px;
+  right: 0px;
+  bottom: 6px;
+  z-index: -1;
+}
+
+hr {
+  height: 1px;
+  border: 0;
+  background: rgba(21, 20, 26, 0.12);
+  margin: 32px 0;
+}
+
+.horizontalLine {
+  margin-left: -40px;
+  margin-right: -40px;
+}
+
+.buttonSecondary {
+  background-color: transparent;
+  color: var(--secondary-button-text-color);
+}
+
+.buttonSecondary::after {
+  background-color: var(--secondary-button-color);
+}
+
+#container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-top: 64px;
+  min-height: calc(100% - 64px);
+}
+
+@media (min-width: 600px) {
+  button,
+  .buttonSecondary {
+    margin: var(--vert-space) auto;
+    min-width: 400px;
+    width: auto;
+  }
+}
+
+#certDesc {
+  overflow: auto;
+  white-space: pre-line;
+}
