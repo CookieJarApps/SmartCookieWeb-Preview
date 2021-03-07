@@ -13,13 +13,5 @@ fun View.hideKeyboard() {
   imm.hideSoftInputFromWindow(windowToken, 0)
 }
 
-fun AppCompatActivity.showDialog(items: List<Spanned>) {
-  AlertDialog.Builder(this)
-      .setTitle(getString(R.string.trackers_blocked))
-      .setItems(items.toTypedArray(), null)
-      .create()
-      .show()
-}
-
 const val SEARCH_URI_BASE = "https://duckduckgo.com/?q="
 const val INITIAL_URL = "https://www.mozilla.org"

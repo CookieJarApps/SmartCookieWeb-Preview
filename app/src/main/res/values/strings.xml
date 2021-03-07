@@ -7,18 +7,6 @@
   <string name="key_dark_mode" translatable="false">dark_mode_enabled</string>
   <string name="key_follow_system" translatable="false">follow_system</string>
 
-  <string name="location_hint">Search or enter web address</string>
-  <string name="trackers_blocked">Trackers Blocked</string>
-  <string name="none">NONE</string>
-  <string name="analytic">ANALYTIC</string>
-  <string name="ad">AD</string>
-  <string name="test">Test</string>
-  <string name="unwanted">UNWANTED</string>
-  <string name="social">SOCIAL</string>
-  <string name="content">CONTENT</string>
-  <string name="harmful">HARMFUL</string>
-  <string name="phishing">PHISHING</string>
-
   <string name="more">More Info</string>
   <string name="version">Application version</string>
   <string name="licenses">Open Source Licenses</string>
@@ -45,59 +33,16 @@
   <string name="action_add_bookmark">Add bookmark</string>
   <string name="action_copy">Copy link</string>
 
-  <string name="username">Username</string>
-  <string name="password">Password</string>
-  <string name="clear_field">Clear</string>
-  <string name="request_storage">Allow access to device storage for "%1$s"?</string>
-  <string name="request_geolocation">Share location with "%1$s"?</string>
-  <string name="request_notification">Allow notifications for "%1$s"?</string>
-  <string name="request_video">Share video with "%1$s"</string>
-  <string name="request_audio">Share audio with "%1$s"</string>
-  <string name="request_media">Share video and audio with "%1$s"</string>
-  <string name="request_xr">Share WebXR displays with "%1$s"?</string>
-  <string name="request_autoplay">Allow video to autoplay on "%1$s"?</string>
-  <string name="request_media_key_system_access">Allow system media key access for "%1$s"?</string>
-  <string name="media_back_camera">Back camera</string>
-  <string name="media_front_camera">Front camera</string>
-  <string name="media_microphone">Microphone</string>
-  <string name="media_other">Unknown source</string>
-
-  <string name="crash_native">Native</string>
-  <string name="crash_java">Java</string>
-  <string name="crash_content_native">Content (Native)</string>
-  <string name="tracking_protection">Tracking Protection</string>
-  <string name="tracking_protection_ex">TP exception</string>
-  <string name="private_browsing">Private Browsing</string>
-  <string name="remote_debugging">Remote Debugging</string>
   <string name="forward">Forward</string>
   <string name="reload">Reload</string>
   <string name="settings">Settings</string>
-  <string name="device_sharing_microphone">Microphone is on</string>
-  <string name="device_sharing_camera">Camera is on</string>
-  <string name="device_sharing_camera_and_mic">Camera and microphone are on</string>
   <string name="new_tab">New tab</string>
-  <string name="install_addon">Install Add-on...</string>
-  <string name="install_addon_hint">Add-on URL: https://addons.mozilla.org/...</string>
-  <string name="update_addon">Update Add-on</string>
   <string name="close_tab">Close tab</string>
   <string name="desktop_mode">Desktop site</string>
-  <string name="collapse">Collapse GV</string>
-  <string name="slow_script">A script on this page is causing your web browser to run slowly</string>
   <string name="wait">Wait</string>
   <string name="stop">Stop</string>
   <string name="install">Install</string>
   <string name="cancel">Cancel</string>
-  <string name="addon_uri">WebExtension xpi URL</string>
-
-  <string name="before_unload_message">This page is asking you to confirm that you want to leave - data you have entered may not be saved</string>
-  <string name="before_unload_title">Are you sure?</string>
-  <string name="before_unload_leave_page">Leave Page</string>
-  <string name="before_unload_stay">Stay on Page</string>
-
-  <string name="repost_confirm_message">To display this page, BiscuitBrowser must send information that will repeat any action (such as a search or order confirmation) that was performed earlier.</string>
-  <string name="repost_confirm_title">Are you sure?</string>
-  <string name="repost_confirm_resend">Resend</string>
-  <string name="repost_confirm_cancel">Cancel</string>
 
   <string name="settings_general">General settings</string>
   <string name="settings_general_explain">JavaScript…</string>
