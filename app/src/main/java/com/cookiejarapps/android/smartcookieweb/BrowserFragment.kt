@@ -1,5 +1,6 @@
 package com.cookiejarapps.android.smartcookieweb
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,8 @@ import mozilla.components.support.ktx.android.view.exitImmersiveModeIfNeeded
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import mozilla.components.feature.search.ext.toDefaultSearchEngineProvider
 import com.cookiejarapps.android.smartcookieweb.integration.ReaderModeIntegration
+import mozilla.components.browser.state.search.SearchEngine
+import mozilla.components.browser.state.state.searchEngines
 
 // Fragment containing GeckoView
 @ExperimentalCoroutinesApi
@@ -58,6 +61,18 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
             showTabs = ::showTabs,
             countBasedOnSelectedTabType = false
         )
+
+        // TODO: Search engine customization should go here
+        val engine = SearchEngine(
+            id = "duckduckgo",
+            name = "DuckDuckGo",
+            icon = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888),
+            type = SearchEngine.Type.BUNDLED,
+            resultUrls = listOf("https://www.duckduckgo.com/?q={searchTerms}"),
+            suggestUrl = "https://www.duckduckgo.com/"
+        )
+
+        requireContext().components.searchUseCases.selectSearchEngine(engine)
 
         AwesomeBarFeature(layout.awesomeBar, layout.toolbar, layout.engineView, components.icons)
             .addHistoryProvider(
