@@ -287,7 +287,7 @@ open class Components(private val applicationContext: Context) {
         WebExtensionBrowserMenuBuilder(
             menuItems,
             store = store,
-            webExtIconTintColorResource = R.color.photonGrey90,
+            webExtIconTintColorResource = R.color.photonGrey50,
             onAddonsManagerTapped = {
                 val intent = Intent(applicationContext, AddonsActivity::class.java)
                 intent.flags = FLAG_ACTIVITY_NEW_TASK
@@ -301,8 +301,7 @@ open class Components(private val applicationContext: Context) {
             menuToolbar,
             BrowserMenuImageText(
                 applicationContext.getString(R.string.new_tab),
-                R.drawable.ic_round_add,
-                applicationContext.theme.resolveAttribute(android.R.attr.textColorPrimary)
+                R.drawable.ic_round_add
             ) {
                 applicationContext.components.tabsUseCases.addTab.invoke(
                     "about:blank",
@@ -315,8 +314,7 @@ open class Components(private val applicationContext: Context) {
         items.add(
             BrowserMenuImageText(
                 applicationContext.resources.getString(R.string.mozac_selection_context_menu_share),
-                R.drawable.ic_baseline_share,
-                applicationContext.theme.resolveAttribute(android.R.attr.textColorPrimary)
+                R.drawable.ic_baseline_share
             ) {
                 MainScope().launch {
                     sessionManager.selectedSession?.let {
@@ -345,8 +343,7 @@ open class Components(private val applicationContext: Context) {
         items.add(
             BrowserMenuImageText(
                 applicationContext.resources.getString(R.string.action_add_to_homescreen),
-                R.drawable.ic_round_smartphone,
-                applicationContext.theme.resolveAttribute(android.R.attr.textColorPrimary)
+                R.drawable.ic_round_smartphone
             ) {
                 MainScope().launch {
                     webAppUseCases.addToHomescreen()
@@ -360,8 +357,7 @@ open class Components(private val applicationContext: Context) {
         items.add(
             BrowserMenuImageText(
                 applicationContext.getString(R.string.mozac_feature_contextmenu_open_link_in_external_app),
-                R.drawable.ic_baseline_open_in_new,
-                applicationContext.theme.resolveAttribute(android.R.attr.textColorPrimary)
+                R.drawable.ic_baseline_open_in_new
             ) {
                 val getRedirect = appLinksUseCases.appLinkRedirect
                 sessionManager.selectedSession?.let {
@@ -402,8 +398,7 @@ open class Components(private val applicationContext: Context) {
         items.add(
             BrowserMenuImageText(
                 applicationContext.getString(R.string.mozac_feature_findindpage_input),
-                R.drawable.ic_baseline_find_in_page,
-                applicationContext.theme.resolveAttribute(android.R.attr.textColorPrimary)
+                R.drawable.ic_baseline_find_in_page
             ) {
                 FindInPageIntegration.launch?.invoke()
             }
@@ -412,8 +407,7 @@ open class Components(private val applicationContext: Context) {
         items.add(
             BrowserMenuImageText(
                 applicationContext.resources.getString(R.string.settings),
-                R.drawable.ic_round_settings,
-                applicationContext.theme.resolveAttribute(android.R.attr.textColorPrimary)
+                R.drawable.ic_round_settings
             ) {
                 val settings = Intent(applicationContext, SettingsActivity::class.java)
                 settings.flags = FLAG_ACTIVITY_NEW_TASK
@@ -428,13 +422,13 @@ open class Components(private val applicationContext: Context) {
     private val menuToolbar by lazy {
         val back = BrowserMenuItemToolbar.TwoStateButton(
             primaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_back,
-            primaryImageTintResource = applicationContext.theme.resolveAttribute(android.R.attr.textColorPrimary),
             primaryContentDescription = "Back",
+            primaryImageTintResource = R.color.photonGrey40,
             isInPrimaryState = {
                 sessionManager.selectedSession?.canGoBack ?: true
             },
             disableInSecondaryState = true,
-            secondaryImageTintResource = R.color.photonGrey40
+            secondaryImageTintResource = R.color.photonGrey20
         ) {
             sessionUseCases.goBack()
         }
@@ -442,12 +436,12 @@ open class Components(private val applicationContext: Context) {
         val forward = BrowserMenuItemToolbar.TwoStateButton(
             primaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_forward,
             primaryContentDescription = "Forward",
-            primaryImageTintResource = applicationContext.theme.resolveAttribute(android.R.attr.textColorPrimary),
+            primaryImageTintResource = R.color.photonGrey40,
             isInPrimaryState = {
                 sessionManager.selectedSession?.canGoForward ?: true
             },
             disableInSecondaryState = true,
-            secondaryImageTintResource = R.color.photonGrey40
+            secondaryImageTintResource = R.color.photonGrey20
         ) {
             sessionUseCases.goForward()
         }
@@ -455,13 +449,13 @@ open class Components(private val applicationContext: Context) {
         val refresh = BrowserMenuItemToolbar.TwoStateButton(
             primaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_refresh,
             primaryContentDescription = "Refresh",
-            primaryImageTintResource = applicationContext.theme.resolveAttribute(android.R.attr.textColorPrimary),
+            primaryImageTintResource = R.color.photonGrey40,
             isInPrimaryState = {
                 sessionManager.selectedSession?.loading == false
             },
             secondaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_stop,
             secondaryContentDescription = "Stop",
-            secondaryImageTintResource = R.color.photonGrey40,
+            secondaryImageTintResource = R.color.photonGrey20,
             disableInSecondaryState = false
         ) {
             if (sessionManager.selectedSession?.loading == true) {

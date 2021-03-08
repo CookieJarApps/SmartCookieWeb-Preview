@@ -32,7 +32,6 @@
                 android:layout_toEndOf="@id/icon"
                 android:gravity="center_vertical"
                 android:text="@string/app_name"
-                android:textColor="@color/black"
                 android:textSize="22sp"
                 app:layout_constraintWidth_percent="0.8" />
 

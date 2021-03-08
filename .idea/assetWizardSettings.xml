@@ -308,7 +308,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../SDK/icons/material/materialicons/chrome_reader_mode/baseline_chrome_reader_mode_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../SDK/icons/material/materialiconsround/search/round_search_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -318,7 +318,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="mozac_ic_reader_mode" />
+                            <entry key="outputName" value="ic_round_search" />
                             <entry key="sourceFile" value="D:\CookieJarApps\BiscuitBrowser" />
                           </map>
                         </option>
