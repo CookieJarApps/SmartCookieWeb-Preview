@@ -1,12 +1,12 @@
-<a href="#"><img src="http://storeimg.com/images/v9Kok.png" height="180" title="SmartCookieWeb" alt="SmartCookieWeb"></a>
+<p align="center"><a href="#"><img src="http://storeimg.com/images/v9Kok.png" height="180" title="SmartCookieWeb" alt="SmartCookieWeb"></a></p>
 
 <h2 align="center"><b>BiscuitBrowser</b></h2>
 <h4 align="center">A GeckoView-based web browser for Android with extension support, no telemetry and advanced privacy features.</h4>
 <p align="center">
-![GitHub issues](https://img.shields.io/github/issues-raw/cookiejarapps/BiscuitBrowser)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/cookiejarapps/BiscuitBrowser)
-[![Liberapay patrons](https://img.shields.io/liberapay/patrons/CookieJarApps)](https://liberapay.com/CookieJarApps)
-![GitHub stars](https://img.shields.io/github/stars/cookiejarapps/BiscuitBrowser?style=social)
+<img src="https://img.shields.io/github/issues-raw/cookiejarapps/BiscuitBrowser" />
+<img src="hhttps://img.shields.io/github/v/release/cookiejarapps/BiscuitBrowser" />
+<a href="https://liberapay.com/CookieJarApps"><img src="https://img.shields.io/liberapay/patrons/CookieJarApps" /></a>
+<img src="https://img.shields.io/github/stars/cookiejarapps/BiscuitBrowser?style=social" />
  </p>
 
 ---
