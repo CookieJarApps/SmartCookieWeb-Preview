@@ -2,10 +2,12 @@ package com.cookiejarapps.android.smartcookieweb.addons
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,8 +26,11 @@ import mozilla.components.feature.addons.ui.AddonsManagerAdapterDelegate
 import mozilla.components.feature.addons.ui.PermissionsDialogFragment
 import mozilla.components.feature.addons.ui.translateName
 import com.cookiejarapps.android.smartcookieweb.ext.components
+import kotlinx.android.synthetic.main.fragment_add_ons.view.*
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
+import java.util.*
 import java.util.concurrent.CancellationException
+import kotlin.collections.ArrayList
 
 // Fragment used for managing add-ons.
 
@@ -33,11 +38,13 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     private lateinit var recyclerView: RecyclerView
     private val scope = CoroutineScope(Dispatchers.IO)
     private var adapter: AddonsManagerAdapter? = null
+    private var addons: List<Addon>? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_add_ons, container, false)
     }
 
@@ -63,14 +70,63 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.addon_menu, menu)
+        val searchItem = menu.findItem(R.id.search)
+        val searchView: SearchView = searchItem.actionView as SearchView
+        searchView.imeOptions = EditorInfo.IME_ACTION_DONE
+        searchView.queryHint = getString(R.string.search)
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return filterAddonByQuery(query.trim())
+            }
+
+            override fun onQueryTextChange(query: String): Boolean {
+                return filterAddonByQuery(query.trim())
+            }
+        })
+    }
+
+    private fun filterAddonByQuery(query: String): Boolean {
+        val filteredList = arrayListOf<Addon>()
+
+        addons?.forEach { addon ->
+            val names = addon.translatableName
+            names["en-us"]?.let { name ->
+                if (name.toLowerCase(Locale.ENGLISH).contains(query.toLowerCase(Locale.ENGLISH))) {
+                    filteredList.add(addon)
+                }
+            }
+        }
+
+        adapter?.updateAddons(filteredList)
+
+        if (filteredList.isEmpty()) {
+            view?.let { view ->
+                view.no_results.visibility = View.VISIBLE
+                view.add_ons_list.visibility = View.GONE
+            }
+        } else {
+            view?.let { view ->
+                view.no_results.visibility = View.GONE
+                view.add_ons_list.visibility = View.VISIBLE
+            }
+        }
+
+        return true
+    }
+
+
     private fun bindRecyclerView(rootView: View) {
         recyclerView = rootView.findViewById(R.id.add_ons_list)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         scope.launch {
             try {
+                addons = requireContext().components.addonManager.getAddons()
+
                 val context = requireContext()
                 val addonCollectionProvider = context.components.addonCollectionProvider
-                val addons = context.components.addonManager.getAddons()
 
                 val style = AddonsManagerAdapter.Style(
                     dividerColor = context.theme.resolveAttribute(android.R.attr.textColorSecondary),
@@ -80,16 +136,18 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                 )
 
                 scope.launch(Dispatchers.Main) {
+                    view?.no_results?.isVisible = false
+
                     if (adapter == null) {
                         adapter = AddonsManagerAdapter(
                             addonCollectionProvider = addonCollectionProvider,
                             addonsManagerDelegate = this@AddonsFragment,
-                            addons = addons,
+                            addons = addons!!,
                             style = style
                         )
                         recyclerView.adapter = adapter
                     } else {
-                        adapter?.updateAddons(addons)
+                        adapter?.updateAddons(addons!!)
                     }
                 }
             } catch (e: AddonManagerException) {

@@ -244,6 +244,7 @@ open class Components(private val applicationContext: Context) {
 
     private val runtime by lazy {
         val builder = GeckoRuntimeSettings.Builder()
+        builder.aboutConfigEnabled(true)
         GeckoRuntime.create(applicationContext, builder.build())
     }
 

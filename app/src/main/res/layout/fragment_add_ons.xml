@@ -21,4 +21,10 @@
         android:visibility="gone"
         layout="@layout/overlay_add_on_progress" />
 
+    <TextView
+        android:id="@+id/no_results"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_results" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

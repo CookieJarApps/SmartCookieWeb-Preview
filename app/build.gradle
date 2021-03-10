@@ -158,7 +158,6 @@ dependencies {
     implementation "org.mozilla.components:support-utils:$mozComponentsVersion"
     implementation "org.mozilla.components:support-webextensions:$mozComponentsVersion"
     implementation "org.mozilla.components:support-ktx:$mozComponentsVersion"
-    implementation "org.mozilla.components:support-rustlog:$mozComponentsVersion"
 
     // GeckoView engines
     geckoNightlyImplementation "org.mozilla.components:browser-engine-gecko:$mozComponentsVersion"
