@@ -21,7 +21,7 @@ typealias ViewHolderProvider = (ViewGroup) -> TabViewHolder
 // Shows tab list in drawer
 open class TabListAdapter(
     private val viewHolderProvider: ViewHolderProvider = { parent ->
-        DefaultTabViewHolder(
+        com.cookiejarapps.android.smartcookieweb.browser.tabs.TabViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.tab_list_item, parent, false)
         )
     },
