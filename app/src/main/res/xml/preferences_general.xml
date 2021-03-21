@@ -19,4 +19,9 @@
         app:summary="@string/follow_system_summary"
         app:defaultValue="false"/>
 
+    <Preference
+        app:key="@string/key_search_engine"
+        app:title="@string/search_engine"
+        app:defaultValue="false"/>
+
 </PreferenceScreen>

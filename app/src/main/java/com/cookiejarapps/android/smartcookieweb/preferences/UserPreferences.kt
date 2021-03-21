@@ -5,15 +5,23 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import mozilla.components.support.ktx.android.content.PreferencesHolder
 import mozilla.components.support.ktx.android.content.booleanPreference
+import mozilla.components.support.ktx.android.content.intPreference
+import mozilla.components.support.ktx.android.content.longPreference
 
 class UserPreferences(private val appContext: Context): PreferencesHolder {
 
     override val preferences: SharedPreferences =
         appContext.getSharedPreferences(SCW_PREFERENCES, MODE_PRIVATE)
 
+    // Saved values
+    var bookmarkFolder by booleanPreference("save_bookmark_folder", false)
+    var bookmarkFolderId by longPreference("save_bookmark_folder_id", -1L)
+
+    // Preferences
     var javaScriptEnabled by booleanPreference(JAVA_SCRIPT_ENABLED, true)
     var darkModeEnabled by booleanPreference(DARK_MODE, false)
     var followSystem by booleanPreference(FOLLOW_SYSTEM, false)
+    var searchEngineChoice by intPreference(SEARCH_ENGINE, 0)
 
     companion object {
         const val SCW_PREFERENCES = "scw_preferences"
@@ -21,5 +29,6 @@ class UserPreferences(private val appContext: Context): PreferencesHolder {
         const val DARK_MODE = "dark_mode_enabled"
         const val JAVA_SCRIPT_ENABLED = "java_script_enabled"
         const val FOLLOW_SYSTEM = "follow_system"
+        const val SEARCH_ENGINE = "search_engine"
     }
 }

@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.drawerlayout.widget.DrawerLayout
+import com.cookiejarapps.android.smartcookieweb.browser.SearchEngineList
+import com.cookiejarapps.android.smartcookieweb.browser.bookmark.ui.BookmarkFragment
 import com.cookiejarapps.android.smartcookieweb.browser.tabs.TabsTrayFragment
 import kotlinx.android.synthetic.main.fragment_browser.view.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,8 +28,8 @@ import mozilla.components.support.ktx.android.view.exitImmersiveModeIfNeeded
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import mozilla.components.feature.search.ext.toDefaultSearchEngineProvider
 import com.cookiejarapps.android.smartcookieweb.integration.ReaderModeIntegration
+import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import mozilla.components.browser.state.search.SearchEngine
-import mozilla.components.browser.state.state.searchEngines
 
 // Fragment containing GeckoView
 @ExperimentalCoroutinesApi
@@ -62,15 +64,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
             countBasedOnSelectedTabType = false
         )
 
-        // TODO: Search engine customization should go here
-        val engine = SearchEngine(
-            id = "duckduckgo",
-            name = "DuckDuckGo",
-            icon = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888),
-            type = SearchEngine.Type.BUNDLED,
-            resultUrls = listOf("https://www.duckduckgo.com/?q={searchTerms}"),
-            suggestUrl = "https://www.duckduckgo.com/"
-        )
+        val engine = SearchEngineList().engines[UserPreferences(requireContext()).searchEngineChoice]
 
         requireContext().components.searchUseCases.selectSearchEngine(engine)
 
@@ -177,6 +171,11 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
             commit()
         }
 
+        activity?.supportFragmentManager?.beginTransaction()?.apply {
+            replace(R.id.right_drawer, BookmarkFragment())
+            commit()
+        }
+
         return layout
     }
 
@@ -190,12 +189,26 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         }
     }
 
+    fun showBookmarks() {
+        val drawerLayout = activity?.findViewById<DrawerLayout>(R.id.drawer_layout)
+
+        val bookmarksDrawer = activity?.findViewById<FrameLayout>(R.id.right_drawer)
+
+        if (bookmarksDrawer != null) {
+            drawerLayout?.openDrawer(bookmarksDrawer)
+        }
+    }
+
     override fun onBackPressed(): Boolean {
         return when {
             fullScreenFeature.onBackPressed() -> true
             readerViewFeature.onBackPressed() -> true
             else -> super.onBackPressed()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     companion object {

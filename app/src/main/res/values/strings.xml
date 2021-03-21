@@ -6,6 +6,7 @@
   <string name="key_javascript_enabled" translatable="false">javascript_enabled</string>
   <string name="key_dark_mode" translatable="false">dark_mode_enabled</string>
   <string name="key_follow_system" translatable="false">follow_system</string>
+  <string name="key_search_engine" translatable="false">search_engine</string>
 
   <string name="more">More Info</string>
   <string name="version">Application version</string>
@@ -69,4 +70,42 @@
 
   <string name="search">Search</string>
   <string name="no_results">No results</string>
+
+  <string name="bookmark">Bookmark</string>
+  <string name="title">Title</string>
+  <string name="url">URL</string>
+  <string name="folder">Folder</string>
+  <string name="add_to_top">Add to top</string>
+
+  <string name="add_bookmark">Add bookmark</string>
+  <string name="edit_bookmark">Edit bookmark</string>
+  <string name="edit_folder">Edit folder</string>
+  <string name="add_folder">Add folder</string>
+  <string name="new_folder_name">New folder</string>
+  <string name="url_empty_mes">URL empty!</string>
+  <string name="title_empty_mes">Title empty!</string>
+  <string name="breadcrumb">Breadcrumb</string>
+  <string name="display">Display</string>
+  <string name="sort">Sort</string>
+  <string name="select_this_item">Select this item</string>
+  <string name="move_bookmark">Move bookmark</string>
+  <string name="open_all_new">Open all in new tabs</string>
+  <string name="open_all_bg">Open all in background tabs</string>
+  <string name="delete_bookmark">Delete bookmark</string>
+  <string name="open">Open</string>
+  <string name="open_new">Open in new tab</string>
+  <string name="open_bg">Open in background tab</string>
+
+  <string name="move_up">Move up</string>
+  <string name="move_down">Move down</string>
+
+  <string name="confirm">Are you sure you want to delete this item?</string>
+
+  <string name="start_sort">Sorting</string>
+  <string name="end_sort">Not sorting</string>
+
+  <string name="successful">Successful</string>
+  <string name="failed">Failed</string>
+
+  <string name="search_engine">Search engine</string>
 </resources>
