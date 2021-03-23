@@ -89,14 +89,14 @@ private const val DAY_IN_MINUTES = 24 * 60L
 @Suppress("LargeClass")
 open class Components(private val applicationContext: Context) {
     companion object {
-        const val SAMPLE_BROWSER_PREFERENCES = "sample_browser_preferences"
-        const val PREF_LAUNCH_EXTERNAL_APP = "sample_browser_launch_external_app"
+        const val BROWSER_PREFERENCES = "browser_preferences"
+        const val PREF_LAUNCH_EXTERNAL_APP = "launch_external_app"
     }
 
     val publicSuffixList by lazy { PublicSuffixList(applicationContext) }
 
     val preferences: SharedPreferences =
-        applicationContext.getSharedPreferences(SAMPLE_BROWSER_PREFERENCES, Context.MODE_PRIVATE)
+        applicationContext.getSharedPreferences(BROWSER_PREFERENCES, Context.MODE_PRIVATE)
 
     val darkEnabled = if (UserPreferences(applicationContext).darkModeEnabled) PreferredColorScheme.Dark else PreferredColorScheme.Light
 
@@ -186,13 +186,12 @@ open class Components(private val applicationContext: Context) {
         AddonManager(store, engine, addonCollectionProvider, addonUpdater)
     }
 
-    // TODO: Use a custom server here
     val addonCollectionProvider by lazy {
         AddonCollectionProvider(
             applicationContext,
             client,
-            collectionUser = "16711598",
-            collectionName = "scwknownextensions",
+            collectionUser = BuildConfig.VERSION_CODE.toString(),
+            collectionName = "scw",
             maxCacheAgeInMinutes = DAY_IN_MINUTES,
             serverURL = "https://addons.smartcookieweb.com"
         )
@@ -281,143 +280,6 @@ open class Components(private val applicationContext: Context) {
             ),
             CustomTabIntentProcessor(customTabsUseCases.add, applicationContext.resources)
         )
-    }
-
-    // Menu
-    val menuBuilder by lazy {
-        WebExtensionBrowserMenuBuilder(
-            menuItems,
-            store = store,
-            webExtIconTintColorResource = R.color.photonGrey50,
-            onAddonsManagerTapped = {
-                val intent = Intent(applicationContext, AddonsActivity::class.java)
-                intent.flags = FLAG_ACTIVITY_NEW_TASK
-                applicationContext.startActivity(intent)
-            }
-        )
-    }
-
-    private val menuItems by lazy {
-        val items = mutableListOf(
-            menuToolbar,
-            BrowserMenuImageText(
-                applicationContext.getString(R.string.new_tab),
-                R.drawable.ic_round_add
-            ) {
-                applicationContext.components.tabsUseCases.addTab.invoke(
-                    "about:blank",
-                    selectTab = true
-                )
-            },
-            BrowserMenuDivider()
-        )
-
-        items.add(
-            BrowserMenuImageText(
-                applicationContext.resources.getString(R.string.mozac_selection_context_menu_share),
-                R.drawable.ic_baseline_share
-            ) {
-                MainScope().launch {
-                    sessionManager.selectedSession?.let {
-                        val shareIntent = Intent(Intent.ACTION_SEND)
-                        shareIntent.type = "text/plain"
-                        if (it.title != "") {
-                            shareIntent.putExtra(Intent.EXTRA_SUBJECT, it.title)
-                        }
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, it.url)
-                        startActivity(
-                            applicationContext,
-                            Intent.createChooser(
-                                shareIntent,
-                                applicationContext.resources.getString(R.string.mozac_selection_context_menu_share)
-                            ).setFlags(FLAG_ACTIVITY_NEW_TASK),
-                            null
-                        )
-                    }
-                }
-            }.apply {
-                visible =
-                    { webAppUseCases.isPinningSupported() && sessionManager.selectedSession != null }
-            }
-        )
-
-        items.add(
-            BrowserMenuImageText(
-                applicationContext.resources.getString(R.string.action_add_to_homescreen),
-                R.drawable.ic_round_smartphone
-            ) {
-                MainScope().launch {
-                    webAppUseCases.addToHomescreen()
-                }
-            }.apply {
-                visible =
-                    { webAppUseCases.isPinningSupported() && sessionManager.selectedSession != null }
-            }
-        )
-
-        items.add(
-            BrowserMenuImageText(
-                applicationContext.getString(R.string.mozac_feature_contextmenu_open_link_in_external_app),
-                R.drawable.ic_baseline_open_in_new
-            ) {
-                val getRedirect = appLinksUseCases.appLinkRedirect
-                sessionManager.selectedSession?.let {
-                    val redirect = getRedirect.invoke(it.url)
-                    redirect.appIntent?.flags = FLAG_ACTIVITY_NEW_TASK
-                    appLinksUseCases.openAppLink.invoke(redirect.appIntent)
-                }
-            }.apply {
-                visible = {
-                    sessionManager.selectedSession?.let {
-                        appLinksUseCases.appLinkRedirect(it.url).hasExternalApp()
-                    } ?: false
-                }
-            }
-        )
-
-        items.add(BrowserMenuDivider())
-
-        items.add(
-            BrowserMenuCheckbox(applicationContext.getString(R.string.desktop_mode), {
-                store.state.selectedTab?.content?.desktopMode == true
-            }) { checked ->
-                sessionUseCases.requestDesktopSite(checked)
-            }.apply {
-                visible = { store.state.selectedTab != null }
-            }
-        )
-        items.add(
-            BrowserMenuCheckbox("Open links in apps", {
-                preferences.getBoolean(PREF_LAUNCH_EXTERNAL_APP, false)
-            }) { checked ->
-                preferences.edit().putBoolean(PREF_LAUNCH_EXTERNAL_APP, checked).apply()
-            }
-        )
-
-        items.add(BrowserMenuDivider())
-
-        items.add(
-            BrowserMenuImageText(
-                applicationContext.getString(R.string.mozac_feature_findindpage_input),
-                R.drawable.ic_baseline_find_in_page
-            ) {
-                FindInPageIntegration.launch?.invoke()
-            }
-        )
-
-        items.add(
-            BrowserMenuImageText(
-                applicationContext.resources.getString(R.string.settings),
-                R.drawable.ic_round_settings
-            ) {
-                val settings = Intent(applicationContext, SettingsActivity::class.java)
-                settings.flags = FLAG_ACTIVITY_NEW_TASK
-                applicationContext.startActivity(settings)
-            }
-        )
-        items.add(BrowserMenuDivider())
-
-        items
     }
 
     private val menuToolbar by lazy {
