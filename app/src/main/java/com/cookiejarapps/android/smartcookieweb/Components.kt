@@ -80,6 +80,7 @@ import org.mozilla.geckoview.GeckoRuntimeSettings
 import com.cookiejarapps.android.smartcookieweb.integration.FindInPageIntegration
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.request.AppRequestInterceptor
+import mozilla.components.browser.session.ext.toTabSessionState
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import java.util.concurrent.TimeUnit
 
@@ -186,6 +187,7 @@ open class Components(private val applicationContext: Context) {
         AddonManager(store, engine, addonCollectionProvider, addonUpdater)
     }
 
+    // TODO: Swap out version code for proper collection user
     val addonCollectionProvider by lazy {
         AddonCollectionProvider(
             applicationContext,
@@ -258,77 +260,6 @@ open class Components(private val applicationContext: Context) {
     // Digital Asset Links checking
     val relationChecker by lazy {
         StatementRelationChecker(StatementApi(client))
-    }
-
-    // Intent
-    val tabIntentProcessor by lazy {
-        TabIntentProcessor(tabsUseCases, sessionUseCases.loadUrl, searchUseCases.newTabSearch)
-    }
-    val externalAppIntentProcessors by lazy {
-        listOf(
-            WebAppIntentProcessor(
-                store,
-                tabsUseCases.addTab,
-                sessionUseCases.loadUrl,
-                webAppManifestStorage
-            ),
-            TrustedWebActivityIntentProcessor(
-                tabsUseCases.addTab,
-                applicationContext.packageManager,
-                relationChecker,
-                customTabsStore
-            ),
-            CustomTabIntentProcessor(customTabsUseCases.add, applicationContext.resources)
-        )
-    }
-
-    private val menuToolbar by lazy {
-        val back = BrowserMenuItemToolbar.TwoStateButton(
-            primaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_back,
-            primaryContentDescription = "Back",
-            primaryImageTintResource = R.color.photonGrey40,
-            isInPrimaryState = {
-                sessionManager.selectedSession?.canGoBack ?: true
-            },
-            disableInSecondaryState = true,
-            secondaryImageTintResource = R.color.photonGrey20
-        ) {
-            sessionUseCases.goBack()
-        }
-
-        val forward = BrowserMenuItemToolbar.TwoStateButton(
-            primaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_forward,
-            primaryContentDescription = "Forward",
-            primaryImageTintResource = R.color.photonGrey40,
-            isInPrimaryState = {
-                sessionManager.selectedSession?.canGoForward ?: true
-            },
-            disableInSecondaryState = true,
-            secondaryImageTintResource = R.color.photonGrey20
-        ) {
-            sessionUseCases.goForward()
-        }
-
-        val refresh = BrowserMenuItemToolbar.TwoStateButton(
-            primaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_refresh,
-            primaryContentDescription = "Refresh",
-            primaryImageTintResource = R.color.photonGrey40,
-            isInPrimaryState = {
-                sessionManager.selectedSession?.loading == false
-            },
-            secondaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_stop,
-            secondaryContentDescription = "Stop",
-            secondaryImageTintResource = R.color.photonGrey20,
-            disableInSecondaryState = false
-        ) {
-            if (sessionManager.selectedSession?.loading == true) {
-                sessionUseCases.stopLoading()
-            } else {
-                sessionUseCases.reload()
-            }
-        }
-
-        BrowserMenuItemToolbar(listOf(back, forward, refresh))
     }
 
     val shippedDomainsProvider by lazy {
