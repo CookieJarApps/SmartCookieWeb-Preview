@@ -1,6 +1,7 @@
 package com.cookiejarapps.android.smartcookieweb.browser.tabs
 
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -70,7 +71,7 @@ class TabViewHolder(
     internal fun showItemAsSelected() {
         styling?.let { styling ->
             titleView.setTextColor(styling.selectedItemTextColor)
-            itemView.setBackgroundColor(styling.selectedItemBackgroundColor)
+            itemView.setBackgroundColor(Color.LTGRAY)
             closeView.imageTintList = ColorStateList.valueOf(styling.selectedItemTextColor)
         }
     }
