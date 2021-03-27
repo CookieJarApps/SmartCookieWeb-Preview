@@ -155,8 +155,6 @@ open class Components(private val applicationContext: Context) {
         )
     }
 
-    val customTabsStore by lazy { CustomTabsServiceStore() }
-
     private fun findSessionById(tabId: String): Session? {
         return sessionManager.findSessionById(tabId)
     }
@@ -179,8 +177,6 @@ open class Components(private val applicationContext: Context) {
     }
 
     val sessionUseCases by lazy { SessionUseCases(store, sessionManager) }
-
-    val customTabsUseCases by lazy { CustomTabsUseCases(sessionManager, sessionUseCases.loadUrl) }
 
     // Addons
     val addonManager by lazy {
