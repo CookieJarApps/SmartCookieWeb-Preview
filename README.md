@@ -1,4 +1,4 @@
-<p align="center"><a href="#"><img src="http://storeimg.com/images/v9Kok.png" height="180" title="SmartCookieWeb" alt="SmartCookieWeb"></a></p>
+<p align="center"><a href="#"><img src="https://user-images.githubusercontent.com/44752343/112723990-1d100980-8f09-11eb-94d3-a77cfdb00cd3.png" height="180" title="SmartCookieWeb" alt="SmartCookieWeb"></a></p>
 
 <h2 align="center"><b>BiscuitBrowser</b></h2>
 <h4 align="center">A GeckoView-based web browser for Android with extension support, no telemetry and advanced privacy features.</h4>
@@ -12,8 +12,7 @@
 ---
 
 ## Screenshots
-
-<img src="https://storeimg.com/uploads/604275d9e0a7c.png" width="19%"> <img src="https://storeimg.com/uploads/604275557a381.png" width="19%"> <img src="https://storeimg.com/uploads/604275420a14f.png" width="19%"> <img src="https://storeimg.com/uploads/60427508dcc77.png" width="19%"> <img src="https://storeimg.com/uploads/604274c2f2bb4.png" width="19%">
+<img src="https://user-images.githubusercontent.com/44752343/112724028-4761c700-8f09-11eb-83ab-d3b3621f0257.png" width="19%"> <img src="https://user-images.githubusercontent.com/44752343/112724051-5ba5c400-8f09-11eb-9cf0-55e0c889a448.png" width="19%"> <img src="https://user-images.githubusercontent.com/44752343/112724060-63fdff00-8f09-11eb-847b-8f3155992279.png" width="19%"> <img src="https://user-images.githubusercontent.com/44752343/112724071-6d876700-8f09-11eb-8352-767130b16106.png" width="19%"> <img src="https://user-images.githubusercontent.com/44752343/112724082-737d4800-8f09-11eb-9236-187a34099146.png" width="19%">
 
 ---
 
