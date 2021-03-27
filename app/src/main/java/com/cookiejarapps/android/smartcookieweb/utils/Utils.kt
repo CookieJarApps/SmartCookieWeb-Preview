@@ -2,16 +2,19 @@ package com.cookiejarapps.android.smartcookieweb
 
 import android.content.Context
 import android.text.Spanned
+import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 
-fun View.hideKeyboard() {
-  val imm = (context.getSystemService(Context.INPUT_METHOD_SERVICE) ?: return)
-      as InputMethodManager
-  imm.hideSoftInputFromWindow(windowToken, 0)
+@ColorInt
+fun Context.getColorResCompat(@AttrRes id: Int): Int {
+  val resolvedAttr = TypedValue()
+  this.theme.resolveAttribute(id, resolvedAttr, true)
+  val colorRes = resolvedAttr.run { if (resourceId != 0) resourceId else data }
+  return ContextCompat.getColor(this, colorRes)
 }
-
-const val SEARCH_URI_BASE = "https://duckduckgo.com/?q="
-const val INITIAL_URL = "https://www.mozilla.org"

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-pwa:73.0.12@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/dc99848b238ccc35c44915e7394717ff/transformed/jetified-feature-pwa-73.0.12/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/dc99848b238ccc35c44915e7394717ff/transformed/jetified-feature-pwa-73.0.12/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/dc99848b238ccc35c44915e7394717ff/transformed/jetified-feature-pwa-73.0.12/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-pwa/73.0.12/fcd371931fce8758f7d0b003c36e65876b857fd8/feature-pwa-73.0.12-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

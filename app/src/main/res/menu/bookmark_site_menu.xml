@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/open"
+        android:title="@string/open" />
+
+    <item
+        android:id="@+id/openNew"
+        android:title="@string/open_new" />
+
+    <item
+        android:id="@+id/openBg"
+        android:title="@string/open_bg" />
+
+    <item
+        android:id="@+id/editBookmark"
+        android:title="@string/edit_bookmark" />
+
+    <item
+        android:id="@+id/share"
+        android:title="@string/mozac_selection_context_menu_share" />
+
+    <item
+        android:id="@+id/moveBookmark"
+        android:title="@string/move_bookmark" />
+
+    <item
+        android:id="@+id/deleteBookmark"
+        android:title="@string/delete_bookmark" />
+</menu>

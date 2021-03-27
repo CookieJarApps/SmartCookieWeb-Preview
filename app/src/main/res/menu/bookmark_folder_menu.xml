@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/editBookmark"
+        android:title="@string/edit_folder" />
+
+    <item
+        android:id="@+id/moveBookmark"
+        android:title="@string/move_bookmark" />
+
+    <item
+        android:id="@+id/deleteBookmark"
+        android:title="@string/delete_folder" />
+</menu>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/addBookmark"
+        android:title="@string/add_bookmark"
+        android:icon="@drawable/ic_baseline_bookmark_add"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/addFolder"
+        android:title="@string/add_folder"
+        android:icon="@drawable/ic_baseline_create_new_folder"
+        app:showAsAction="ifRoom"/>
+
+</menu>

@@ -1,9 +1,12 @@
 package com.cookiejarapps.android.smartcookieweb.settings.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.browser.SearchEngineList
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class GeneralSettingsFragment : BaseSettingsFragment() {
 
@@ -37,5 +40,33 @@ class GeneralSettingsFragment : BaseSettingsFragment() {
             }
         )
 
+        clickablePreference(
+            preference = resources.getString(R.string.key_search_engine),
+            onClick = { pickSearchEngine() }
+        )
+
+    }
+
+    fun pickSearchEngine(){
+        val startingChoice = UserPreferences(requireContext()).searchEngineChoice
+        val singleItems = emptyList<String>().toMutableList()
+        val checkedItem = UserPreferences(requireContext()).searchEngineChoice
+
+        for(i in SearchEngineList().engines){
+            singleItems.add(i.name)
+        }
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.search_engine))
+            .setNeutralButton(resources.getString(R.string.cancel)) { dialog, which ->
+                UserPreferences(requireContext()).searchEngineChoice = startingChoice
+            }
+            .setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { dialog, which ->
+                Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
+            }
+            .setSingleChoiceItems(singleItems.toTypedArray(), checkedItem) { dialog, which ->
+                UserPreferences(requireContext()).searchEngineChoice = which
+            }
+            .show()
     }
 }

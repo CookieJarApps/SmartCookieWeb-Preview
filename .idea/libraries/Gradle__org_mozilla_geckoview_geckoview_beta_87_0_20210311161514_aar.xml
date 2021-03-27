@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.geckoview:geckoview-beta:87.0.20210311161514@aar">
+    <ANNOTATIONS>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/9ecd96c96bc208cdc6c3b86d9c93e4b7/transformed/jetified-geckoview-beta-87.0.20210311161514/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/9ecd96c96bc208cdc6c3b86d9c93e4b7/transformed/jetified-geckoview-beta-87.0.20210311161514/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/9ecd96c96bc208cdc6c3b86d9c93e4b7/transformed/jetified-geckoview-beta-87.0.20210311161514/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/9ecd96c96bc208cdc6c3b86d9c93e4b7/transformed/jetified-geckoview-beta-87.0.20210311161514/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.geckoview/geckoview-beta/87.0.20210311161514/bd26f2143e98843d111accce9b0fd1d38e0e92c9/geckoview-beta-87.0.20210311161514-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.geckoview/geckoview-beta/87.0.20210311161514/ba2812ec8dc25a72c5ef883cb916751498a49cb5/geckoview-beta-87.0.20210311161514-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

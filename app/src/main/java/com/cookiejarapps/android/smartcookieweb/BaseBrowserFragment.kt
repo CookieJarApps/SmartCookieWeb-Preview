@@ -2,12 +2,17 @@ package com.cookiejarapps.android.smartcookieweb
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.annotation.CallSuper
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.cookiejarapps.android.smartcookieweb.addons.AddonsActivity
 import kotlinx.android.synthetic.main.fragment_browser.view.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.mapNotNull
@@ -40,6 +45,9 @@ import mozilla.components.ui.tabcounter.TabCounter
 import com.cookiejarapps.android.smartcookieweb.integration.ContextMenuIntegration
 import com.cookiejarapps.android.smartcookieweb.integration.FindInPageIntegration
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import mozilla.components.browser.menu.WebExtensionBrowserMenuBuilder
+import mozilla.components.browser.toolbar.behavior.BrowserToolbarBehavior
+import mozilla.components.browser.toolbar.behavior.ToolbarPosition
 
 // Base browser fragment
 @SuppressWarnings("LargeClass")
@@ -68,7 +76,20 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val layout = inflater.inflate(R.layout.fragment_browser, container, false)
 
-        layout.toolbar.display.menuBuilder = components.menuBuilder
+        layout.toolbar.display.menuBuilder = WebExtensionBrowserMenuBuilder(
+            BrowserMenu(
+                requireContext(),
+                onItemTapped = {
+                    onMenuItemPressed(it)
+                }).coreMenuItems,
+            store = components.store,
+            webExtIconTintColorResource = R.color.photonGrey50,
+            onAddonsManagerTapped = {
+                val intent = Intent(context, AddonsActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                requireContext().startActivity(intent)
+            }
+        )
 
         sessionFeature.set(
             feature = SessionFeature(
@@ -225,6 +246,20 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         )
 
         return layout
+    }
+
+    fun onMenuItemPressed(item: BrowserMenu.Item){
+        when(item){
+            BrowserMenu.Item.Bookmarks -> {
+                val drawerLayout = activity?.findViewById<DrawerLayout>(R.id.drawer_layout)
+
+                val bookmarksDrawer = activity?.findViewById<FrameLayout>(R.id.right_drawer)
+
+                if (bookmarksDrawer != null) {
+                    drawerLayout?.openDrawer(bookmarksDrawer)
+                }
+            }
+        }
     }
 
     @ExperimentalCoroutinesApi
