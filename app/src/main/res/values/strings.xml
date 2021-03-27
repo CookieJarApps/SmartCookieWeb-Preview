@@ -103,4 +103,6 @@
   <string name="failed">Failed</string>
 
   <string name="search_engine">Search engine</string>
+
+  <string name="loading_addons">Loading add-ons…</string>
 </resources>

@@ -104,12 +104,12 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
         if (filteredList.isEmpty()) {
             view?.let { view ->
-                view.no_results.visibility = View.VISIBLE
+                view.add_ons_no_results.visibility = View.VISIBLE
                 view.add_ons_list.visibility = View.GONE
             }
         } else {
             view?.let { view ->
-                view.no_results.visibility = View.GONE
+                view.add_ons_no_results.visibility = View.GONE
                 view.add_ons_list.visibility = View.VISIBLE
             }
         }
@@ -136,7 +136,8 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                 )
 
                 scope.launch(Dispatchers.Main) {
-                    view?.no_results?.isVisible = false
+                    view?.add_ons_no_results?.isVisible = false
+                    view?.add_ons_loading?.isVisible = false
 
                     if (adapter == null) {
                         adapter = AddonsManagerAdapter(
@@ -157,6 +158,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                         R.string.mozac_feature_addons_failed_to_query_add_ons,
                         Toast.LENGTH_SHORT
                     ).show()
+                    view?.add_ons_no_results?.isVisible = true
                 }
             }
         }

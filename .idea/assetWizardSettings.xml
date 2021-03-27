@@ -308,7 +308,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../SDK/icons/material/materialicons/create_new_folder/baseline_create_new_folder_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../SDK/icons/material/materialicons/not_listed_location/baseline_not_listed_location_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -319,7 +319,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="696969" />
-                            <entry key="outputName" value="ic_baseline_create_new_folder" />
+                            <entry key="outputName" value="ic_list_empty" />
                             <entry key="sourceFile" value="D:\CookieJarApps\BiscuitBrowser" />
                           </map>
                         </option>
