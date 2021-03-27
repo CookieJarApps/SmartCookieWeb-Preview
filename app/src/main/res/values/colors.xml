@@ -15,6 +15,8 @@
 
     <color name="colorBackgroundDark">#00a996</color>
 
+    <color name="mozac_ui_tabcounter_default_tint">#000000</color>
+
     <color name="icon_circle_0">#D7E5F8</color>
     <color name="icon_circle_1">#F8D7DF</color>
     <color name="icon_circle_2">#F8E0D7</color>

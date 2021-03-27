@@ -12,8 +12,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.getColorResCompat
 import com.google.android.material.color.MaterialColors
+import mozilla.components.support.ktx.android.content.getColorFromAttr
 
 
 class PathView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, @StyleRes defStyle: Int = R.style.TextAppearance_AppCompat_Body1) : RecyclerView(context, attrs, defStyle) {
@@ -32,8 +32,8 @@ class PathView @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         layoutManager = linearLayoutManager
 
         val a = context.theme.obtainStyledAttributes(attrs, R.styleable.TextAppearance, 0, 0)
-        highlightedTextColor = context.getColorResCompat(android.R.attr.textColorPrimary)
-        textColor = context.getColorResCompat(android.R.attr.textColorSecondary)
+        highlightedTextColor = context.getColorFromAttr(android.R.attr.textColorPrimary)
+        textColor = context.getColorFromAttr(android.R.attr.textColorSecondary)
         arrowColor = textColor
         a.recycle()
 

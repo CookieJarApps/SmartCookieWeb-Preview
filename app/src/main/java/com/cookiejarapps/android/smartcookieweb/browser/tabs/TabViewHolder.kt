@@ -8,13 +8,13 @@ import android.widget.TextView
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.AppCompatImageButton
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.getColorResCompat
 import mozilla.components.browser.tabstray.TabViewHolder
 import mozilla.components.browser.tabstray.TabsTrayStyling
 import mozilla.components.browser.tabstray.thumbnail.TabThumbnailView
 import mozilla.components.concept.tabstray.Tab
 import mozilla.components.concept.tabstray.TabsTray
 import mozilla.components.support.base.observer.Observable
+import mozilla.components.support.ktx.android.content.getColorFromAttr
 
 class TabViewHolder(
         itemView: View
@@ -80,8 +80,8 @@ class TabViewHolder(
     @VisibleForTesting
     internal fun showItemAsNotSelected() {
         styling?.let { styling ->
-            titleView.setTextColor(itemView.context.getColorResCompat(android.R.attr.textColorPrimary))
-            itemView.setBackgroundColor(itemView.context.getColorResCompat(R.attr.colorSurface))
+            titleView.setTextColor(itemView.context.getColorFromAttr(android.R.attr.textColorPrimary))
+            itemView.setBackgroundColor(itemView.context.getColorFromAttr(R.attr.colorSurface))
             closeView.imageTintList = ColorStateList.valueOf(styling.itemTextColor)
         }
     }

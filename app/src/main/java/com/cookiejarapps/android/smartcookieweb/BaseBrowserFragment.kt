@@ -48,6 +48,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import mozilla.components.browser.menu.WebExtensionBrowserMenuBuilder
 import mozilla.components.browser.toolbar.behavior.BrowserToolbarBehavior
 import mozilla.components.browser.toolbar.behavior.ToolbarPosition
+import mozilla.components.support.ktx.android.content.getColorFromAttr
 
 // Base browser fragment
 @SuppressWarnings("LargeClass")
@@ -117,17 +118,23 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         layout.toolbar.display.setUrlBackground(
             ContextCompat.getDrawable(requireContext(), R.drawable.toolbar_background))
 
-        layout.toolbar.setBackgroundColor(0xFFFFFFFF.toInt())
+        layout.toolbar.setBackgroundColor(requireContext().getColorFromAttr(R.attr.colorSurface))
 
         layout.toolbar.display.colors = layout.toolbar.display.colors.copy(
             securityIconInsecure = 0xFFd9534f.toInt(),
             securityIconSecure = 0xFF5cb85c.toInt(),
             text = 0xFF0c0c0d.toInt(),
-            menu = 0xFF20123a.toInt(),
+            menu = requireContext().getColorFromAttr(android.R.attr.textColorPrimary),
             separator = 0x1E15141a,
             trackingProtection = 0xFF20123a.toInt(),
             emptyIcon = 0xFF20123a.toInt(),
             hint = 0x1E15141a
+        )
+
+        layout.toolbar.edit.colors = layout.toolbar.edit.colors.copy(
+            text = requireContext().getColorFromAttr(android.R.attr.textColorPrimary),
+            clear = requireContext().getColorFromAttr(android.R.attr.textColorPrimary),
+            icon = requireContext().getColorFromAttr(android.R.attr.textColorPrimary)
         )
 
         layout.toolbar.elevation = 8f
