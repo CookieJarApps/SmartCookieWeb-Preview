@@ -21,6 +21,7 @@ class UserPreferences(private val appContext: Context): PreferencesHolder {
     var javaScriptEnabled by booleanPreference(JAVA_SCRIPT_ENABLED, true)
     var darkModeEnabled by booleanPreference(DARK_MODE, false)
     var followSystem by booleanPreference(FOLLOW_SYSTEM, false)
+    var showAddonsInBar by booleanPreference(SHOW_ADDONS_IN_BAR, true)
     var searchEngineChoice by intPreference(SEARCH_ENGINE, 0)
 
     companion object {
@@ -29,6 +30,7 @@ class UserPreferences(private val appContext: Context): PreferencesHolder {
         const val DARK_MODE = "dark_mode_enabled"
         const val JAVA_SCRIPT_ENABLED = "java_script_enabled"
         const val FOLLOW_SYSTEM = "follow_system"
+        const val SHOW_ADDONS_IN_BAR = "show_addons_in_bar"
         const val SEARCH_ENGINE = "search_engine"
     }
 }

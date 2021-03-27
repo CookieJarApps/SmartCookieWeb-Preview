@@ -8,6 +8,11 @@
         app:defaultValue="true"/>
 
     <SwitchPreferenceCompat
+        app:key="@string/key_show_addons_in_bar"
+        app:title="@string/show_addons_in_bar"
+        app:defaultValue="true"/>
+
+    <SwitchPreferenceCompat
         app:key="@string/key_dark_mode"
         app:title="@string/dark_mode"
         app:summary="@string/dark_mode_summary"

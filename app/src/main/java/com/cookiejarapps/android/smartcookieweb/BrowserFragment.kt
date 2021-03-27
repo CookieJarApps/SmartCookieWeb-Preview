@@ -142,14 +142,16 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
             view = layout
         )
 
-        webExtToolbarFeature.set(
-            feature = WebExtensionToolbarFeature(
-                layout.toolbar,
-                components.store
-            ),
-            owner = this,
-            view = layout
-        )
+        if(UserPreferences(requireContext()).showAddonsInBar){
+            webExtToolbarFeature.set(
+                feature = WebExtensionToolbarFeature(
+                    layout.toolbar,
+                    components.store
+                ),
+                owner = this,
+                view = layout
+            )
+        }
 
         searchFeature.set(
             feature = SearchFeature(components.store) { request, _ ->

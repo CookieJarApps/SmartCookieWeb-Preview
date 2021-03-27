@@ -40,6 +40,15 @@ class GeneralSettingsFragment : BaseSettingsFragment() {
             }
         )
 
+        switchPreference(
+            preference = requireContext().resources.getString(R.string.key_show_addons_in_bar),
+            isChecked = UserPreferences(requireContext()).showAddonsInBar,
+            onCheckChange = {
+                UserPreferences(requireContext()).showAddonsInBar = it
+                Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
+            }
+        )
+
         clickablePreference(
             preference = resources.getString(R.string.key_search_engine),
             onClick = { pickSearchEngine() }

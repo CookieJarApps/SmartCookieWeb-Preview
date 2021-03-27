@@ -7,6 +7,7 @@
   <string name="key_dark_mode" translatable="false">dark_mode_enabled</string>
   <string name="key_follow_system" translatable="false">follow_system</string>
   <string name="key_search_engine" translatable="false">search_engine</string>
+  <string name="key_show_addons_in_bar" translatable="false">show_addons_in_bar</string>
 
   <string name="more">More Info</string>
   <string name="version">Application version</string>
@@ -105,4 +106,6 @@
   <string name="search_engine">Search engine</string>
 
   <string name="loading_addons">Loading add-ons…</string>
+
+  <string name="show_addons_in_bar">Show add-ons in navbar</string>
 </resources>
