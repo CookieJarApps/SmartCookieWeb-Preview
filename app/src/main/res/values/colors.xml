@@ -17,6 +17,9 @@
 
     <color name="mozac_ui_tabcounter_default_tint">#000000</color>
 
+    <color name="primary_icon">#5e5e5e</color>
+    <color name="secondary_icon">#e3e3e3</color>
+
     <color name="icon_circle_0">#D7E5F8</color>
     <color name="icon_circle_1">#F8D7DF</color>
     <color name="icon_circle_2">#F8E0D7</color>

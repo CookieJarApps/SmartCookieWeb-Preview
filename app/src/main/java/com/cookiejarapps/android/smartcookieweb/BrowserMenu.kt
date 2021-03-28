@@ -16,8 +16,10 @@ import mozilla.components.browser.menu.item.BrowserMenuCheckbox
 import mozilla.components.browser.menu.item.BrowserMenuDivider
 import mozilla.components.browser.menu.item.BrowserMenuImageText
 import mozilla.components.browser.menu.item.BrowserMenuItemToolbar
+import mozilla.components.browser.state.selector.findTab
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.lib.publicsuffixlist.PublicSuffixList
+import mozilla.components.support.ktx.android.content.getColorFromAttr
 
 class BrowserMenu(
     private val context: Context,
@@ -35,12 +37,12 @@ class BrowserMenu(
     val coreMenuItems by lazy {val back = BrowserMenuItemToolbar.TwoStateButton(
             primaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_back,
             primaryContentDescription = "Back",
-            primaryImageTintResource = R.color.photonGrey50,
+            primaryImageTintResource = R.color.primary_icon,
             isInPrimaryState = {
-                context.components.sessionManager.selectedSession?.canGoBack ?: true
+                context.components.store.state.selectedTab?.content?.canGoBack ?: true
             },
             disableInSecondaryState = true,
-            secondaryImageTintResource = R.color.photonGrey20
+            secondaryImageTintResource = R.color.secondary_icon
     ) {
         context.components.sessionUseCases.goBack()
     }
@@ -48,12 +50,12 @@ class BrowserMenu(
         val forward = BrowserMenuItemToolbar.TwoStateButton(
                 primaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_forward,
                 primaryContentDescription = "Forward",
-                primaryImageTintResource = R.color.photonGrey50,
+                primaryImageTintResource = R.color.primary_icon,
                 isInPrimaryState = {
-                    context.components.sessionManager.selectedSession?.canGoForward ?: true
+                    context.components.store.state.selectedTab?.content?.canGoForward ?: true
                 },
                 disableInSecondaryState = true,
-                secondaryImageTintResource = R.color.photonGrey20
+                secondaryImageTintResource = R.color.secondary_icon
         ) {
             context.components.sessionUseCases.goForward()
         }
@@ -61,13 +63,13 @@ class BrowserMenu(
         val refresh = BrowserMenuItemToolbar.TwoStateButton(
                 primaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_refresh,
                 primaryContentDescription = "Refresh",
-                primaryImageTintResource = R.color.photonGrey50,
+                primaryImageTintResource = R.color.primary_icon,
                 isInPrimaryState = {
                     context.components.sessionManager.selectedSession?.loading == false
                 },
                 secondaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_stop,
                 secondaryContentDescription = "Stop",
-                secondaryImageTintResource = R.color.photonGrey20,
+                secondaryImageTintResource = R.color.secondary_icon,
                 disableInSecondaryState = false
         ) {
             if (context.components.sessionManager.selectedSession?.loading == true) {

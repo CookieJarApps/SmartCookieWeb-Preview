@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:browser-state:74.0.2@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ce86feaafefeca39d2321fadfdf0863d/transformed/jetified-browser-state-74.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ce86feaafefeca39d2321fadfdf0863d/transformed/jetified-browser-state-74.0.0/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ce86feaafefeca39d2321fadfdf0863d/transformed/jetified-browser-state-74.0.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/browser-state/74.0.2/e28c71ed58a1c1ae1f948c098690c33c50162705/browser-state-74.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
