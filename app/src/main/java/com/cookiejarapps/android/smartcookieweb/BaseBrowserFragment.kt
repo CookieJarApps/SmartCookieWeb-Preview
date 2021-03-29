@@ -2,13 +2,11 @@ package com.cookiejarapps.android.smartcookieweb
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.annotation.CallSuper
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -40,14 +38,10 @@ import mozilla.components.support.ktx.android.arch.lifecycle.addObservers
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 import com.cookiejarapps.android.smartcookieweb.downloads.DownloadService
 import com.cookiejarapps.android.smartcookieweb.ext.components
-import mozilla.components.concept.toolbar.Toolbar
-import mozilla.components.ui.tabcounter.TabCounter
 import com.cookiejarapps.android.smartcookieweb.integration.ContextMenuIntegration
 import com.cookiejarapps.android.smartcookieweb.integration.FindInPageIntegration
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import mozilla.components.browser.menu.WebExtensionBrowserMenuBuilder
-import mozilla.components.browser.toolbar.behavior.BrowserToolbarBehavior
-import mozilla.components.browser.toolbar.behavior.ToolbarPosition
 import mozilla.components.support.ktx.android.content.getColorFromAttr
 
 // Base browser fragment

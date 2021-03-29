@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.cookiejarapps.android.smartcookieweb.ext.components
+import com.cookiejarapps.android.smartcookieweb.history.HistoryActivity
 import com.cookiejarapps.android.smartcookieweb.integration.FindInPageIntegration
 import com.cookiejarapps.android.smartcookieweb.settings.activity.SettingsActivity
 import kotlinx.coroutines.MainScope
@@ -27,6 +28,7 @@ class BrowserMenu(
 ) {
     sealed class Item {
         object Bookmarks : Item()
+        object History : Item()
     }
 
     private val BROWSER_PREFERENCES = "browser_preferences"
@@ -179,12 +181,23 @@ class BrowserMenu(
                 context.startActivity(settings)
         }
 
+
+        val historyItem = BrowserMenuImageText(
+            context.resources.getString(R.string.action_history),
+            R.drawable.ic_baseline_history
+        ) {
+            val settings = Intent(context, HistoryActivity::class.java)
+            settings.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(settings)
+        }
+
         val bookmarksItem = BrowserMenuImageText(
                 context.resources.getString(R.string.action_bookmarks),
                 R.drawable.ic_baseline_bookmark
             ) {
                 onItemTapped.invoke(Item.Bookmarks)
             }
+
 
         val menuItems = listOfNotNull(
             toolbar,
@@ -195,6 +208,7 @@ class BrowserMenu(
             openLinksInAppItem,
             desktopSiteItem,
             settingsItem,
+            historyItem,
             bookmarksItem
         )
 
