@@ -207,9 +207,9 @@ class BrowserMenu(
             externalAppItem,
             openLinksInAppItem,
             desktopSiteItem,
-            settingsItem,
             historyItem,
-            bookmarksItem
+            bookmarksItem,
+            settingsItem
         )
 
         menuItems
