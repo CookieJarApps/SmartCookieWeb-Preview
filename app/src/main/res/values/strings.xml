@@ -8,6 +8,7 @@
   <string name="key_follow_system" translatable="false">follow_system</string>
   <string name="key_search_engine" translatable="false">search_engine</string>
   <string name="key_show_addons_in_bar" translatable="false">show_addons_in_bar</string>
+  <string name="key_clear_history" translatable="false">clear_history</string>
 
   <string name="more">More Info</string>
   <string name="version">Application version</string>
@@ -49,6 +50,9 @@
   <string name="settings_general">General settings</string>
   <string name="settings_general_explain">JavaScript…</string>
 
+  <string name="settings_privacy_and_security">Privacy and security settings</string>
+  <string name="settings_privacy_and_security_explain">Clear history…</string>
+
   <string name="settings_addons">Add-on settings</string>
   <string name="settings_addons_explain">Enable add-ons, remove add-ons…</string>
 
@@ -60,6 +64,7 @@
   <string name="follow_system">Follow system theme</string>
   <string name="follow_system_summary">Darkens browser UI when system dark mode is enabled</string>
   <string name="javascript_enabled">Enable JavaScript</string>
+  <string name="clear_history">Clear history</string>
 
   <string name="app_restart">Please restart the app for the change to take effect.</string>
 
@@ -106,6 +111,8 @@
   <string name="search_engine">Search engine</string>
 
   <string name="loading_addons">Loading add-ons…</string>
+
+  <string name="history_cleared">History cleared!</string>
 
   <string name="show_addons_in_bar">Show add-ons in navbar</string>
 </resources>
