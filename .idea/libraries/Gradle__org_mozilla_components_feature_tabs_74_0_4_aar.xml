@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-tabs:74.0.4@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/bbba88825509014cbd93bfaf9e3910b8/transformed/jetified-feature-tabs-74.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/bbba88825509014cbd93bfaf9e3910b8/transformed/jetified-feature-tabs-74.0.0/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/bbba88825509014cbd93bfaf9e3910b8/transformed/jetified-feature-tabs-74.0.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-tabs/74.0.4/dfd1cd70c9c5212e0ad0088c6202dcc18cdf3a04/feature-tabs-74.0.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

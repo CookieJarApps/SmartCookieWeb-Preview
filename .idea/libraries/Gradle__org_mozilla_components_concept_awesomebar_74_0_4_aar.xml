@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:concept-awesomebar:74.0.4@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/bb42a07ac52a747ce76d1ae8397b4f70/transformed/jetified-concept-awesomebar-74.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/bb42a07ac52a747ce76d1ae8397b4f70/transformed/jetified-concept-awesomebar-74.0.0/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/bb42a07ac52a747ce76d1ae8397b4f70/transformed/jetified-concept-awesomebar-74.0.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/concept-awesomebar/74.0.4/e5983f7642e3b12669e34f070495075b477ee953/concept-awesomebar-74.0.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
