@@ -133,6 +133,11 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             icon = requireContext().getColorFromAttr(android.R.attr.textColorPrimary)
         )
 
+        layout.toolbar.edit.setUrlBackground(
+                ContextCompat.getDrawable(requireContext(), R.drawable.edit_url_background))
+        layout.toolbar.edit.setIcon(
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_round_search)!!, resources.getString(R.string.search))
+
         layout.toolbar.elevation = 8f
 
         swipeRefreshFeature.set(
