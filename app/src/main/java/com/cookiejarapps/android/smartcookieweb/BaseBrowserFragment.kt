@@ -11,6 +11,8 @@ import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.cookiejarapps.android.smartcookieweb.addons.AddonsActivity
+import com.cookiejarapps.android.smartcookieweb.components.BrowserMenu
+import com.cookiejarapps.android.smartcookieweb.components.Components
 import kotlinx.android.synthetic.main.fragment_browser.view.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.mapNotNull

@@ -1,26 +1,20 @@
-package com.cookiejarapps.android.smartcookieweb
+package com.cookiejarapps.android.smartcookieweb.components
 
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.LifecycleOwner
+import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.history.HistoryActivity
 import com.cookiejarapps.android.smartcookieweb.integration.FindInPageIntegration
 import com.cookiejarapps.android.smartcookieweb.settings.activity.SettingsActivity
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import mozilla.components.browser.menu.BrowserMenuBuilder
-import mozilla.components.browser.menu.BrowserMenuHighlight
 import mozilla.components.browser.menu.item.BrowserMenuCheckbox
-import mozilla.components.browser.menu.item.BrowserMenuDivider
 import mozilla.components.browser.menu.item.BrowserMenuImageText
 import mozilla.components.browser.menu.item.BrowserMenuItemToolbar
-import mozilla.components.browser.state.selector.findTab
 import mozilla.components.browser.state.selector.selectedTab
-import mozilla.components.lib.publicsuffixlist.PublicSuffixList
-import mozilla.components.support.ktx.android.content.getColorFromAttr
 
 class BrowserMenu(
     private val context: Context,
@@ -85,7 +79,7 @@ class BrowserMenu(
 
         val newTabItem = BrowserMenuImageText(
                 context.getString(R.string.new_tab),
-                R.drawable.ic_round_add
+            R.drawable.ic_round_add
             ) {
                 context.components.tabsUseCases.addTab.invoke(
                     "about:blank",
@@ -95,7 +89,7 @@ class BrowserMenu(
 
         val shareItem = BrowserMenuImageText(
                 context.resources.getString(R.string.mozac_selection_context_menu_share),
-                R.drawable.ic_baseline_share
+            R.drawable.ic_baseline_share
             ) {
                 MainScope().launch {
                     context.components.sessionManager.selectedSession?.let {
@@ -122,7 +116,7 @@ class BrowserMenu(
 
         val homeScreenItem = BrowserMenuImageText(
                 context.resources.getString(R.string.action_add_to_homescreen),
-                R.drawable.ic_round_smartphone
+            R.drawable.ic_round_smartphone
             ) {
                 MainScope().launch {
                     context.components.webAppUseCases.addToHomescreen()
@@ -134,7 +128,7 @@ class BrowserMenu(
 
         val externalAppItem = BrowserMenuImageText(
                 context.getString(R.string.mozac_feature_contextmenu_open_link_in_external_app),
-                R.drawable.ic_baseline_open_in_new
+            R.drawable.ic_baseline_open_in_new
             ) {
                 val getRedirect = context.components.appLinksUseCases.appLinkRedirect
                 context.components.sessionManager.selectedSession?.let {
@@ -166,7 +160,7 @@ class BrowserMenu(
 
         val findInPageItem = BrowserMenuImageText(
                 context.getString(R.string.mozac_feature_findindpage_input),
-                R.drawable.ic_baseline_find_in_page
+            R.drawable.ic_baseline_find_in_page
             ) {
                 FindInPageIntegration.launch?.invoke()
             }
@@ -193,7 +187,7 @@ class BrowserMenu(
 
         val bookmarksItem = BrowserMenuImageText(
                 context.resources.getString(R.string.action_bookmarks),
-                R.drawable.ic_baseline_bookmark
+            R.drawable.ic_baseline_bookmark
             ) {
                 onItemTapped.invoke(Item.Bookmarks)
             }

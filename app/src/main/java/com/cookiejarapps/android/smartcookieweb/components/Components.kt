@@ -1,10 +1,13 @@
-package com.cookiejarapps.android.smartcookieweb
+package com.cookiejarapps.android.smartcookieweb.components
 
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.content.SharedPreferences
 import androidx.core.content.ContextCompat.startActivity
+import com.cookiejarapps.android.smartcookieweb.BrowserActivity
+import com.cookiejarapps.android.smartcookieweb.BuildConfig
+import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.addons.AddonsActivity
 import com.cookiejarapps.android.smartcookieweb.downloads.DownloadService
 import com.cookiejarapps.android.smartcookieweb.ext.components
@@ -97,7 +100,7 @@ open class Components(private val applicationContext: Context) {
     val publicSuffixList by lazy { PublicSuffixList(applicationContext) }
 
     val preferences: SharedPreferences =
-        applicationContext.getSharedPreferences(BROWSER_PREFERENCES, Context.MODE_PRIVATE)
+            applicationContext.getSharedPreferences(BROWSER_PREFERENCES, Context.MODE_PRIVATE)
 
     val darkEnabled = if (UserPreferences(applicationContext).darkModeEnabled) PreferredColorScheme.Dark else PreferredColorScheme.Light
 
@@ -114,7 +117,7 @@ open class Components(private val applicationContext: Context) {
     }
 
     val addonUpdater =
-        DefaultAddonUpdater(applicationContext, AddonUpdater.Frequency(1, TimeUnit.DAYS))
+            DefaultAddonUpdater(applicationContext, AddonUpdater.Frequency(1, TimeUnit.DAYS))
 
     // Engine
     open val engine: Engine by lazy {
@@ -139,19 +142,19 @@ open class Components(private val applicationContext: Context) {
 
     val store by lazy {
         BrowserStore(
-            middleware = listOf(
-                DownloadMiddleware(applicationContext, DownloadService::class.java),
-                ReaderViewMiddleware(),
-                ThumbnailsMiddleware(thumbnailStorage),
-                UndoMiddleware(::sessionManagerLookup),
-                RegionMiddleware(
-                    applicationContext,
-                    LocationService.default()
-                ),
-                SearchMiddleware(applicationContext),
-                RecordingDevicesMiddleware(applicationContext),
-                LastAccessMiddleware()
-            ) + EngineMiddleware.create(engine, ::findSessionById)
+                middleware = listOf(
+                        DownloadMiddleware(applicationContext, DownloadService::class.java),
+                        ReaderViewMiddleware(),
+                        ThumbnailsMiddleware(thumbnailStorage),
+                        UndoMiddleware(::sessionManagerLookup),
+                        RegionMiddleware(
+                                applicationContext,
+                                LocationService.default()
+                        ),
+                        SearchMiddleware(applicationContext),
+                        RecordingDevicesMiddleware(applicationContext),
+                        LastAccessMiddleware()
+                ) + EngineMiddleware.create(engine, ::findSessionById)
         )
     }
 
@@ -168,8 +171,8 @@ open class Components(private val applicationContext: Context) {
             icons.install(engine, store)
 
             WebNotificationFeature(
-                applicationContext, engine, icons, R.drawable.ic_notification,
-                permissionStorage, BrowserActivity::class.java
+                    applicationContext, engine, icons, R.drawable.ic_notification,
+                    permissionStorage, BrowserActivity::class.java
             )
 
             MediaSessionFeature(applicationContext, MediaSessionService::class.java, store).start()
@@ -186,21 +189,21 @@ open class Components(private val applicationContext: Context) {
     // TODO: Swap out version code for proper collection user
     val addonCollectionProvider by lazy {
         AddonCollectionProvider(
-            applicationContext,
-            client,
-            collectionUser = BuildConfig.VERSION_CODE.toString(),
-            collectionName = "scw",
-            maxCacheAgeInMinutes = DAY_IN_MINUTES,
-            serverURL = "https://addons.smartcookieweb.com"
+                applicationContext,
+                client,
+                collectionUser = BuildConfig.VERSION_CODE.toString(),
+                collectionName = "scw",
+                maxCacheAgeInMinutes = DAY_IN_MINUTES,
+                serverURL = "https://addons.smartcookieweb.com"
         )
     }
 
     val supportedAddonsChecker by lazy {
         DefaultSupportedAddonsChecker(
-            applicationContext, SupportedAddonsChecker.Frequency(
+                applicationContext, SupportedAddonsChecker.Frequency(
                 1,
                 TimeUnit.DAYS
-            )
+        )
         )
     }
 
@@ -211,9 +214,9 @@ open class Components(private val applicationContext: Context) {
     val defaultSearchUseCase by lazy {
         { searchTerms: String ->
             searchUseCases.defaultSearch.invoke(
-                searchTerms = searchTerms,
-                searchEngine = null,
-                parentSessionId = null
+                    searchTerms = searchTerms,
+                    searchEngine = null,
+                    parentSessionId = null
             )
         }
     }
@@ -221,21 +224,21 @@ open class Components(private val applicationContext: Context) {
 
     val appLinksInterceptor by lazy {
         AppLinksInterceptor(
-            applicationContext,
-            interceptLinkClicks = true,
-            launchInApp = {
-                applicationContext.components.preferences.getBoolean(
-                    PREF_LAUNCH_EXTERNAL_APP,
-                    false
-                )
-            }
+                applicationContext,
+                interceptLinkClicks = true,
+                launchInApp = {
+                    applicationContext.components.preferences.getBoolean(
+                            PREF_LAUNCH_EXTERNAL_APP,
+                            false
+                    )
+                }
         )
     }
 
     val webAppInterceptor by lazy {
         WebAppInterceptor(
-            applicationContext,
-            webAppManifestStorage
+                applicationContext,
+                webAppManifestStorage
         )
     }
 
@@ -247,9 +250,9 @@ open class Components(private val applicationContext: Context) {
 
     val webAppManifestStorage by lazy { ManifestStorage(applicationContext) }
     val webAppShortcutManager by lazy { WebAppShortcutManager(
-        applicationContext,
-        client,
-        webAppManifestStorage
+            applicationContext,
+            client,
+            webAppManifestStorage
     ) }
     val webAppUseCases by lazy { WebAppUseCases(applicationContext, store, webAppShortcutManager) }
 

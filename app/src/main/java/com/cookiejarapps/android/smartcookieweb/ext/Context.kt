@@ -1,8 +1,8 @@
 package com.cookiejarapps.android.smartcookieweb.ext
 
 import android.content.Context
-import com.cookiejarapps.android.smartcookieweb.Components
 import com.cookiejarapps.android.smartcookieweb.BrowserApp
+import com.cookiejarapps.android.smartcookieweb.components.Components
 
 // get app from context
 val Context.application: BrowserApp

@@ -47,11 +47,19 @@
   <string name="install">Install</string>
   <string name="cancel">Cancel</string>
 
+  <string name="export_bookmarks">Export bookmarks to backup</string>
+  <string name="import_backup">Import bookmarks from backup</string>
+  <string name="export_tabs">Export tabs to backup</string>
+  <string name="import_tabs">Import tabs from backup</string>
+
   <string name="settings_general">General settings</string>
   <string name="settings_general_explain">JavaScript…</string>
 
   <string name="settings_privacy_and_security">Privacy and security settings</string>
   <string name="settings_privacy_and_security_explain">Clear history…</string>
+
+  <string name="settings_import_and_export">Privacy and security settings</string>
+  <string name="settings_import_and_export_explain">Clear history…</string>
 
   <string name="settings_addons">Add-on settings</string>
   <string name="settings_addons_explain">Enable add-ons, remove add-ons…</string>
