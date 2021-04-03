@@ -1,12 +1,16 @@
 package com.cookiejarapps.android.smartcookieweb
 
 import android.app.Application
+import android.util.Log
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.cookiejarapps.android.smartcookieweb.components.Components
+import com.cookiejarapps.android.smartcookieweb.ext.components
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import mozilla.appservices.Megazord
 import mozilla.components.browser.state.action.SystemAction
+import mozilla.components.browser.state.selector.normalTabs
 import mozilla.components.feature.addons.update.GlobalAddonDependencyProvider
 import mozilla.components.support.base.facts.Facts
 import mozilla.components.support.base.facts.processor.LogFactProcessor

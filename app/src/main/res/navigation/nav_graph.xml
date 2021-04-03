@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <action
+        android:id="@+id/action_global_home"
+        app:destination="@id/homeFragment"
+        app:popUpTo="@id/homeFragment"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_global_browser"
+        app:destination="@id/browserFragment"
+        app:popUpTo="@id/homeFragment"
+        app:popUpToInclusive="false" />
+
+    <fragment
+        android:id="@+id/browserFragment"
+        android:name="com.cookiejarapps.android.smartcookieweb.BrowserFragment"
+        app:exitAnim="@anim/fade_out"
+        tools:layout="@layout/fragment_browser">
+        <argument
+            android:name="activeSessionId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.cookiejarapps.android.smartcookieweb.HomeFragment"
+        app:exitAnim="@anim/fade_out"
+        tools:layout="@layout/fragment_home">
+        <argument
+            android:name="focusOnAddressBar"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="focusOnCollection"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+</navigation>

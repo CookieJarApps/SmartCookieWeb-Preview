@@ -11,11 +11,20 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-    <FrameLayout
+    <!--<ViewStub
+        android:id="@+id/navigationToolbarStub"
+        android:inflatedId="@id/navigationToolbar"
+        android:layout="@layout/navigation_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp" />-->
+
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:ignore="MergeRootFrame" />
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
 
     <FrameLayout
         android:id="@+id/left_drawer"

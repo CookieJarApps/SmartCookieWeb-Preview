@@ -7,7 +7,11 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.R
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_tabstray.tabsTray
@@ -33,7 +37,11 @@ class TabsTrayFragment : Fragment() {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.newTab -> {
-                    components.tabsUseCases.addTab.invoke("about:blank", selectTab = true)
+                    requireActivity().findNavController(R.id.container).navigate(
+                        R.id.homeFragment
+                    )
+                    // if setting is on, do this instead
+                    // components.tabsUseCases.addTab.invoke("about:blank", selectTab = true)
                     closeTabsTray()
                 }
             }
@@ -52,7 +60,8 @@ class TabsTrayFragment : Fragment() {
                 removeTabUseCase = RemoveTabWithUndoUseCase(
                     components.tabsUseCases.removeTab,
                     view,
-                    components.tabsUseCases.undo
+                    components.tabsUseCases.undo,
+                    requireActivity() as BrowserActivity
                 ),
                 closeTabsTray = ::closeTabsTray
             ),
@@ -78,11 +87,19 @@ class TabsTrayFragment : Fragment() {
 private class RemoveTabWithUndoUseCase(
     private val actual: TabsUseCases.RemoveTabUseCase,
     private val view: View,
-    private val undo: TabsUseCases.UndoTabRemovalUseCase
+    private val undo: TabsUseCases.UndoTabRemovalUseCase,
+    private val activity: BrowserActivity
 ) : TabsUseCases.RemoveTabUseCase {
     override fun invoke(sessionId: String) {
         actual.invoke(sessionId)
-        showSnackbar()
+        if(view.context.components.sessionManager.sessions.isEmpty()){
+            activity.findNavController(R.id.container).navigate(
+                R.id.homeFragment
+            )
+        }
+        else{
+            showSnackbar()
+        }
     }
 
     private fun showSnackbar() {

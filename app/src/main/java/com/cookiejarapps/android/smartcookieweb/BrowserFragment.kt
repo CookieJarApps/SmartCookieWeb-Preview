@@ -168,16 +168,6 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         val windowFeature = WindowFeature(components.store, components.tabsUseCases)
         lifecycle.addObserver(windowFeature)
 
-        activity?.supportFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.left_drawer, TabsTrayFragment())
-            commit()
-        }
-
-        activity?.supportFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.right_drawer, BookmarkFragment())
-            commit()
-        }
-
         return layout
     }
 

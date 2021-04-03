@@ -22,7 +22,7 @@
         tools:context=".home.HomeFragment">
 
         <View
-            android:id="@+id/bottom_bar"
+            android:id="@+id/top_bar"
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:foregroundGravity="bottom"
@@ -30,18 +30,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <mozilla.components.ui.tabcounter.TabCounter
+            android:id="@+id/tab_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toBottomOf="@id/top_bar"
+            app:layout_constraintEnd_toStartOf="@id/toolbar_wrapper"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/top_bar" />
+
         <FrameLayout
             android:id="@+id/toolbar_wrapper"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="0dp"
+            android:background="@drawable/toolbar_background"
             android:clickable="true"
             android:focusable="true"
-            app:layout_constraintBottom_toBottomOf="@id/bottom_bar"
-            app:layout_constraintEnd_toStartOf="@+id/accessory_button_barrier"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/bottom_bar">
+            app:layout_constraintBottom_toBottomOf="@id/top_bar"
+            app:layout_constraintEnd_toStartOf="@id/menuButton"
+            app:layout_constraintStart_toEndOf="@id/tab_button"
+            app:layout_constraintTop_toTopOf="@id/top_bar">
 
             <ImageView
                 android:id="@+id/search_engine_icon"
@@ -51,7 +59,8 @@
                 android:layout_marginStart="8dp"
                 android:clickable="false"
                 android:focusable="false"
-                android:importantForAccessibility="no" />
+                android:importantForAccessibility="no"
+                app:srcCompat="@drawable/ic_round_search" />
 
             <TextView
                 android:id="@+id/toolbar"
@@ -68,35 +77,27 @@
                 android:textSize="15sp" />
         </FrameLayout>
 
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/accessory_button_barrier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="start"
-            app:constraint_referenced_ids="tab_button" />
-
-        <mozilla.components.ui.tabcounter.TabCounter
-            android:id="@+id/tab_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            app:layout_constraintBottom_toBottomOf="@id/bottom_bar"
-            app:layout_constraintEnd_toStartOf="@+id/menuButton"
-            app:layout_constraintStart_toEndOf="@id/toolbar_wrapper"
-            app:layout_constraintTop_toTopOf="@id/bottom_bar" />
-
         <mozilla.components.browser.menu.view.MenuButton
             android:id="@+id/menuButton"
             android:layout_width="36dp"
             android:layout_height="48dp"
-            app:layout_constraintBottom_toBottomOf="@id/bottom_bar"
+            app:layout_constraintBottom_toBottomOf="@id/top_bar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/bottom_bar" />
+            app:layout_constraintTop_toTopOf="@id/top_bar" >
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="clip_horizontal|center_horizontal|center_vertical"
+                app:srcCompat="@drawable/ic_more_vert" />
+        </mozilla.components.browser.menu.view.MenuButton>
 
         <View
             android:id="@+id/bottomBarShadow"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            app:layout_constraintBottom_toTopOf="@id/bottom_bar"
+            app:layout_constraintBottom_toTopOf="@id/top_bar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

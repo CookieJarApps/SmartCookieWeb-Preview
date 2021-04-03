@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.annotation.CallSuper
+import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.cookiejarapps.android.smartcookieweb.addons.AddonsActivity
 import com.cookiejarapps.android.smartcookieweb.components.BrowserMenu
 import com.cookiejarapps.android.smartcookieweb.components.Components
@@ -43,8 +46,11 @@ import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.integration.ContextMenuIntegration
 import com.cookiejarapps.android.smartcookieweb.integration.FindInPageIntegration
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.map
 import mozilla.components.browser.menu.WebExtensionBrowserMenuBuilder
+import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.support.ktx.android.content.getColorFromAttr
+import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
 
 // Base browser fragment
 @SuppressWarnings("LargeClass")
@@ -68,10 +74,33 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         promptFeature
     )
 
+    //TODO: DUPLICATE FUNCTION
+    internal fun observeRestoreComplete(store: BrowserStore, navController: NavController) {
+        activity as BrowserActivity
+        consumeFlow(store) { flow ->
+            flow.map { state -> state.restoreComplete }
+                .ifChanged()
+                .collect { restored ->
+                    if (restored) {
+                        // Once tab restoration is complete, if there are no tabs to show in the browser, go home
+                        val tabs =
+                            store.state.tabs
+                        if (tabs.isEmpty() || store.state.selectedTabId == null) {
+                            navController.popBackStack(R.id.homeFragment, false)
+                        }
+                    }
+                }
+        }
+    }
+
     @CallSuper
     @Suppress("LongMethod")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val layout = inflater.inflate(R.layout.fragment_browser, container, false)
+
+        if (components.sessionManager.selectedSession == null) {
+            observeRestoreComplete(components.store, findNavController())
+        }
 
         layout.toolbar.display.menuBuilder = WebExtensionBrowserMenuBuilder(
             BrowserMenu(
