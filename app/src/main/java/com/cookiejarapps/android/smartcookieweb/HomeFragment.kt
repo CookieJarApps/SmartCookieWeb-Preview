@@ -26,6 +26,7 @@ import kotlinx.coroutines.launch
 import mozilla.components.browser.state.selector.allTabs
 import mozilla.components.browser.state.selector.normalTabs
 import mozilla.components.lib.state.ext.consumeFlow
+import mozilla.components.support.ktx.kotlin.isUrl
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -61,15 +62,32 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
 
-        view.findViewById<SearchView>(R.id.search_bar).setOnQueryTextFocusChangeListener { v, hasFocus ->
+        view.search_bar.setOnQueryTextFocusChangeListener { v, hasFocus ->
                 if (!hasFocus) {
                     val imm: InputMethodManager = view.context
                         .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(view.windowToken, 0)
-                    findNavController().navigate(
-                        R.id.browserFragment
-                    )
                 }
             }
+
+        view.search_bar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(s: String): Boolean {
+                return true
+            }
+
+            override fun onQueryTextSubmit(s: String): Boolean {
+                findNavController().navigate(
+                    R.id.browserFragment
+                )
+                if(s.isUrl()){
+                    components.tabsUseCases.addTab.invoke(s, selectTab = true)
+                }
+                else{
+                    components.searchUseCases.defaultSearch.invoke(s, sessionId = null, searchEngine = null)
+                }
+                return true
+            }
+        })
     }
 }

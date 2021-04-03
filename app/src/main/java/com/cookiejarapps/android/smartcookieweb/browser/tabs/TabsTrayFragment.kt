@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.R
@@ -18,7 +16,6 @@ import kotlinx.android.synthetic.main.fragment_tabstray.tabsTray
 import kotlinx.android.synthetic.main.fragment_tabstray.toolbar
 import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.feature.tabs.tabstray.TabsFeature
-import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import com.cookiejarapps.android.smartcookieweb.ext.components
 
@@ -40,6 +37,7 @@ class TabsTrayFragment : Fragment() {
                     requireActivity().findNavController(R.id.container).navigate(
                         R.id.homeFragment
                     )
+                    components.tabsUseCases.selectTab.invoke("")
                     // if setting is on, do this instead
                     // components.tabsUseCases.addTab.invoke("about:blank", selectTab = true)
                     closeTabsTray()
@@ -56,7 +54,7 @@ class TabsTrayFragment : Fragment() {
             feature = TabsFeature(
                 tabsTray = tabsAdapter,
                 store = components.store,
-                selectTabUseCase = components.tabsUseCases.selectTab,
+                selectTabUseCase = SelectTabWithHomepageUseCase(components.tabsUseCases.selectTab, activity as BrowserActivity),
                 removeTabUseCase = RemoveTabWithUndoUseCase(
                     components.tabsUseCases.removeTab,
                     view,
@@ -81,6 +79,18 @@ class TabsTrayFragment : Fragment() {
 
     private fun createTabsAdapter(): TabListAdapter {
         return TabListAdapter()
+    }
+}
+
+private class SelectTabWithHomepageUseCase(
+    private val actual: TabsUseCases.SelectTabUseCase,
+    private val activity: BrowserActivity
+) : TabsUseCases.SelectTabUseCase {
+    override fun invoke(tabId: String) {
+        activity.findNavController(R.id.container).navigate(
+            R.id.browserFragment
+        )
+        actual.invoke(tabId)
     }
 }
 
