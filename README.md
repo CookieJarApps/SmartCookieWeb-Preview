@@ -35,7 +35,7 @@ Need help? Open an issue here, or:
 
 ## Add-ons
 
-BiscuitBrowser gets add-on data from a custom server, but download hosting is currently handled by Mozilla's Firefox add-on store. Below are the currently supported add-ons:
+BiscuitBrowser gets add-on data from a custom server, but download hosting is currently handled by Mozilla's Firefox add-on store. Below are some of the currently supported add-ons:
 
 - NoScript
 - uBlock Origin
