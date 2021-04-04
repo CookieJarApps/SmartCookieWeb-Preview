@@ -16,6 +16,7 @@ class UserPreferences(private val appContext: Context): PreferencesHolder {
     // Saved values
     var bookmarkFolder by booleanPreference("save_bookmark_folder", false)
     var bookmarkFolderId by longPreference("save_bookmark_folder_id", -1L)
+    var shortcutDrawerOpen by booleanPreference("shortcut_drawer", true)
 
     // Preferences
     var javaScriptEnabled by booleanPreference(JAVA_SCRIPT_ENABLED, true)

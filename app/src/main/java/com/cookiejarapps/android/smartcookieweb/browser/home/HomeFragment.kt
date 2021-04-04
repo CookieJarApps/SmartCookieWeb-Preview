@@ -19,6 +19,7 @@ import com.cookiejarapps.android.smartcookieweb.browser.bookmark.ui.BookmarkFrag
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.*
 import com.cookiejarapps.android.smartcookieweb.browser.tabs.TabsTrayFragment
 import com.cookiejarapps.android.smartcookieweb.ext.components
+import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.coroutines.GlobalScope
@@ -46,6 +47,24 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         activity?.supportFragmentManager?.beginTransaction()?.apply {
             replace(R.id.right_drawer, BookmarkFragment())
             commit()
+        }
+
+        if(!UserPreferences(requireContext()).shortcutDrawerOpen){
+            view.shortcut_name.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_shortcuts, 0, R.drawable.ic_baseline_chevron_up, 0)
+            view.shortcut_grid.visibility = View.GONE
+        }
+
+        view.shortcut_name.setOnClickListener {
+            if(UserPreferences(requireContext()).shortcutDrawerOpen){
+                UserPreferences(requireContext()).shortcutDrawerOpen = false
+                view.shortcut_name.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_shortcuts, 0, R.drawable.ic_baseline_chevron_up, 0)
+                view.shortcut_grid.visibility = View.GONE
+            }
+            else{
+                UserPreferences(requireContext()).shortcutDrawerOpen = true
+                view.shortcut_name.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_shortcuts, 0, R.drawable.ic_baseline_chevron_down, 0)
+                view.shortcut_grid.visibility = View.VISIBLE
+            }
         }
 
         consumeFlow(components.store) { flow ->
