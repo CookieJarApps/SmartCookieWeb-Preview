@@ -107,6 +107,7 @@
         android:id="@+id/glance_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="86dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -116,27 +117,16 @@
             android:id="@+id/app_icon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             app:srcCompat="@mipmap/ic_launcher" />
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="12:00 PM"
-            android:textAlignment="center"
-            android:textColor="@android:color/primary_text_light"
-            android:textSize="36sp"
-            android:typeface="normal" />
 
         <TextView
             android:id="@+id/location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Geneva"
+            android:text="@string/app_name"
             android:textAlignment="center"
             android:textColor="@android:color/primary_text_light"
-            android:textSize="18sp" />
+            android:textSize="35sp" />
     </LinearLayout>
 
     <SearchView
@@ -155,5 +145,42 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/glance_view" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_bar">
+
+        <TextView
+            android:id="@+id/shortcut_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_baseline_shortcuts"
+            android:drawablePadding="4dp"
+            android:text="@string/shortcuts"
+            android:textSize="18sp"
+            app:drawableEndCompat="@drawable/ic_baseline_chevron_down" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
+            <GridView
+                android:id="@+id/shortcut_grid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="5"
+                android:verticalSpacing="8dp"
+                android:horizontalSpacing="8dp" />
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

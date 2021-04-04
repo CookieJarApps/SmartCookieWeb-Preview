@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.history.HistoryActivity
@@ -22,7 +24,7 @@ class BrowserMenu(
 ) {
     sealed class Item {
         object Bookmarks : Item()
-        object History : Item()
+        object NewTab : Item()
     }
 
     private val BROWSER_PREFERENCES = "browser_preferences"
@@ -81,10 +83,7 @@ class BrowserMenu(
                 context.getString(R.string.new_tab),
             R.drawable.ic_round_add
             ) {
-                context.components.tabsUseCases.addTab.invoke(
-                    "about:blank",
-                    selectTab = true
-                )
+                onItemTapped.invoke(Item.NewTab)
             }
 
         val shareItem = BrowserMenuImageText(

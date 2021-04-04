@@ -12,6 +12,8 @@ import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.cookiejarapps.android.smartcookieweb.addons.AddonsActivity
 import com.cookiejarapps.android.smartcookieweb.components.BrowserMenu
@@ -295,6 +297,11 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 if (bookmarksDrawer != null) {
                     drawerLayout?.openDrawer(bookmarksDrawer)
                 }
+            }
+            BrowserMenu.Item.NewTab -> {
+                requireActivity().findNavController(R.id.container).navigate(
+                    R.id.homeFragment
+                )
             }
         }
     }

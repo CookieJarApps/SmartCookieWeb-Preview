@@ -40,7 +40,6 @@ android {
         }
     }
 
-
     flavorDimensions "engine"
 
     productFlavors {
@@ -100,6 +99,10 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
+
+    // Room
+    implementation "androidx.room:room-runtime:2.2.6"
+    kapt "androidx.room:room-compiler:2.2.6"
 
     final def daggerVersion = '2.26'
     implementation "com.google.dagger:dagger:$daggerVersion"

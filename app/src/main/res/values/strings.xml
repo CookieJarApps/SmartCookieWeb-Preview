@@ -123,4 +123,9 @@
   <string name="history_cleared">History cleared!</string>
 
   <string name="show_addons_in_bar">Show add-ons in navbar</string>
+
+  <string name="shortcuts">Shortcuts</string>
+  <string name="add_shortcut">Add shortcut</string>
+  <string name="edit_shortcut">Edit shortcut</string>
+  <string name="delete_shortcut">Delete shortcut</string>
 </resources>

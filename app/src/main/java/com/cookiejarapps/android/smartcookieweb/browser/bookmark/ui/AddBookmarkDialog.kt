@@ -117,9 +117,6 @@ abstract class AddBookmarkDialog<S : BookmarkItem, T>(
             if (mManager.save()) {
                 Toast.makeText(mDialog.context, R.string.successful, Toast.LENGTH_SHORT).show()
                 mOnClickListener?.onClick(mDialog, DialogInterface.BUTTON_POSITIVE)
-                        //TODO: REMOVE
-                //LocalBroadcastManager.getInstance(context)
-                //    .sendBroadcast(Intent(BROADCAST_ACTION_NOTIFY_CHANGE_WEB_STATE))
                 mDialog.dismiss()
             } else {
                 Toast.makeText(mDialog.context, R.string.failed, Toast.LENGTH_LONG).show()
