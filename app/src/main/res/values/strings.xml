@@ -9,6 +9,7 @@
   <string name="key_search_engine" translatable="false">search_engine</string>
   <string name="key_show_addons_in_bar" translatable="false">show_addons_in_bar</string>
   <string name="key_clear_history" translatable="false">clear_history</string>
+  <string name="key_homepage_type" translatable="false">homepage_type</string>
 
   <string name="more">More Info</string>
   <string name="version">Application version</string>
@@ -128,4 +129,14 @@
   <string name="add_shortcut">Add shortcut</string>
   <string name="edit_shortcut">Edit shortcut</string>
   <string name="delete_shortcut">Delete shortcut</string>
+  
+  <string name="homepage_type">Homepage type</string>
+  <string name="default_word">Default</string>
+  <string name="blank_page">Blank page</string>
+
+  <string-array name="homepage_types">
+    <item>@string/default_word</item>
+    <item>@string/blank_page</item>
+  </string-array>
+
 </resources>

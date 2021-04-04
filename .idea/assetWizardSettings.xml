@@ -308,7 +308,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../SDK/icons/material/materialiconsround/keyboard_arrow_down/round_keyboard_arrow_down_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../SDK/icons/material/materialiconsround/keyboard_arrow_up/round_keyboard_arrow_up_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -319,7 +319,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="696969" />
-                            <entry key="outputName" value="ic_baseline_chevron_down" />
+                            <entry key="outputName" value="ic_baseline_chevron_up" />
                             <entry key="sourceFile" value="D:\CookieJarApps\BiscuitBrowser" />
                           </map>
                         </option>

@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_tabstray.tabsTray
 import kotlinx.android.synthetic.main.fragment_tabstray.toolbar
@@ -18,6 +19,7 @@ import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.feature.tabs.tabstray.TabsFeature
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import com.cookiejarapps.android.smartcookieweb.ext.components
+import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 
 // A fragment for displaying the tabs tray.
 
@@ -34,12 +36,15 @@ class TabsTrayFragment : Fragment() {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.newTab -> {
-                    requireActivity().findNavController(R.id.container).navigate(
-                        R.id.homeFragment
-                    )
-                    components.tabsUseCases.selectTab.invoke("")
-                    // if setting is on, do this instead
-                    // components.tabsUseCases.addTab.invoke("about:blank", selectTab = true)
+                    if(UserPreferences(requireContext()).homepageType == HomepageChoice.VIEW.ordinal){
+                        requireActivity().findNavController(R.id.container).navigate(
+                                R.id.homeFragment
+                        )
+                        components.tabsUseCases.selectTab.invoke("")
+                    }
+                    else{
+                        components.tabsUseCases.addTab.invoke("about:blank", selectTab = true)
+                    }
                     closeTabsTray()
                 }
             }
@@ -87,9 +92,11 @@ private class SelectTabWithHomepageUseCase(
     private val activity: BrowserActivity
 ) : TabsUseCases.SelectTabUseCase {
     override fun invoke(tabId: String) {
-        activity.findNavController(R.id.container).navigate(
-            R.id.browserFragment
-        )
+        if(UserPreferences(activity).homepageType == HomepageChoice.VIEW.ordinal) {
+            activity.findNavController(R.id.container).navigate(
+                    R.id.browserFragment
+            )
+        }
         actual.invoke(tabId)
     }
 }
@@ -102,7 +109,7 @@ private class RemoveTabWithUndoUseCase(
 ) : TabsUseCases.RemoveTabUseCase {
     override fun invoke(sessionId: String) {
         actual.invoke(sessionId)
-        if(view.context.components.sessionManager.sessions.isEmpty()){
+        if(view.context.components.sessionManager.sessions.isEmpty() && UserPreferences(activity).homepageType == HomepageChoice.VIEW.ordinal){
             activity.findNavController(R.id.container).navigate(
                 R.id.homeFragment
             )

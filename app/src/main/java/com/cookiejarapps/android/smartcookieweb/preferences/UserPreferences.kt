@@ -3,6 +3,7 @@ package com.cookiejarapps.android.smartcookieweb.preferences
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
 import mozilla.components.support.ktx.android.content.PreferencesHolder
 import mozilla.components.support.ktx.android.content.booleanPreference
 import mozilla.components.support.ktx.android.content.intPreference
@@ -24,6 +25,7 @@ class UserPreferences(private val appContext: Context): PreferencesHolder {
     var followSystem by booleanPreference(FOLLOW_SYSTEM, false)
     var showAddonsInBar by booleanPreference(SHOW_ADDONS_IN_BAR, true)
     var searchEngineChoice by intPreference(SEARCH_ENGINE, 0)
+    var homepageType by intPreference(HOMEPAGE_TYPE, HomepageChoice.VIEW.ordinal)
 
     companion object {
         const val SCW_PREFERENCES = "scw_preferences"
@@ -33,5 +35,6 @@ class UserPreferences(private val appContext: Context): PreferencesHolder {
         const val FOLLOW_SYSTEM = "follow_system"
         const val SHOW_ADDONS_IN_BAR = "show_addons_in_bar"
         const val SEARCH_ENGINE = "search_engine"
+        const val HOMEPAGE_TYPE = "homepage_type"
     }
 }

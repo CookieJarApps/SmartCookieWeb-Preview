@@ -29,4 +29,9 @@
         app:title="@string/search_engine"
         app:defaultValue="false"/>
 
+    <Preference
+        app:key="@string/key_homepage_type"
+        app:title="@string/homepage_type"
+        app:defaultValue="false"/>
+
 </PreferenceScreen>

@@ -16,6 +16,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.cookiejarapps.android.smartcookieweb.addons.AddonsActivity
+import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
 import com.cookiejarapps.android.smartcookieweb.components.BrowserMenu
 import com.cookiejarapps.android.smartcookieweb.components.Components
 import kotlinx.android.synthetic.main.fragment_browser.view.*
@@ -47,6 +48,7 @@ import com.cookiejarapps.android.smartcookieweb.downloads.DownloadService
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.integration.ContextMenuIntegration
 import com.cookiejarapps.android.smartcookieweb.integration.FindInPageIntegration
+import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.map
 import mozilla.components.browser.menu.WebExtensionBrowserMenuBuilder
@@ -87,7 +89,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                         // Once tab restoration is complete, if there are no tabs to show in the browser, go home
                         val tabs =
                             store.state.tabs
-                        if (tabs.isEmpty() || store.state.selectedTabId == null) {
+                        if (tabs.isEmpty() || store.state.selectedTabId == null && UserPreferences(requireContext()).homepageType == HomepageChoice.VIEW.ordinal) {
                             navController.popBackStack(R.id.homeFragment, false)
                         }
                     }
@@ -299,9 +301,14 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 }
             }
             BrowserMenu.Item.NewTab -> {
-                requireActivity().findNavController(R.id.container).navigate(
-                    R.id.homeFragment
-                )
+                if(UserPreferences(requireContext()).homepageType == HomepageChoice.VIEW.ordinal){
+                    requireActivity().findNavController(R.id.container).navigate(
+                            R.id.homeFragment
+                    )
+                }
+                else{
+                    components.tabsUseCases.addTab.invoke("about:blank", selectTab = true)
+                }
             }
         }
     }
