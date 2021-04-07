@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.fragment.app.Fragment
 import com.cookiejarapps.android.smartcookieweb.R
-import kotlinx.android.synthetic.main.about_fragment.*
+import kotlinx.android.synthetic.main.fragment_about.*
 import org.mozilla.geckoview.BuildConfig
 
 
@@ -21,7 +21,7 @@ class AboutFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.about_fragment, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_about, container, false)
         activity?.title = getString(R.string.settings_about)
 
         return rootView
