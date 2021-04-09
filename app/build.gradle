@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
     compileSdkVersion 30
@@ -116,7 +117,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
-    final def mozComponentsVersion = '74.0.4'
+    final def mozComponentsVersion = '74.0.6'
     // Mozilla components
     implementation "org.mozilla.components:browser-icons:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-awesomebar:$mozComponentsVersion"
@@ -139,6 +140,7 @@ dependencies {
     // Mozilla concept components
     implementation "org.mozilla.components:concept-engine:$mozComponentsVersion"
     implementation "org.mozilla.components:concept-storage:$mozComponentsVersion"
+    implementation "org.mozilla.components:concept-menu:$mozComponentsVersion"
     implementation "org.mozilla.components:concept-toolbar:$mozComponentsVersion"
     implementation "org.mozilla.components:concept-tabstray:$mozComponentsVersion"
     implementation "org.mozilla.components:concept-base:$mozComponentsVersion"
@@ -178,6 +180,7 @@ dependencies {
     implementation "org.mozilla.components:ui-tabcounter:$mozComponentsVersion"
     implementation "org.mozilla.components:ui-icons:$mozComponentsVersion"
     implementation "org.mozilla.components:ui-colors:$mozComponentsVersion"
+    implementation "org.mozilla.components:ui-widgets:$mozComponentsVersion"
 
     // Mozilla support components
     implementation "org.mozilla.components:support-base:$mozComponentsVersion"
