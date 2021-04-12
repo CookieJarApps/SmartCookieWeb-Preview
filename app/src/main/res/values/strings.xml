@@ -10,6 +10,7 @@
   <string name="key_show_addons_in_bar" translatable="false">show_addons_in_bar</string>
   <string name="key_clear_history" translatable="false">clear_history</string>
   <string name="key_homepage_type" translatable="false">homepage_type</string>
+  <string name="key_move_navbar" translatable="false">move_navbar</string>
 
   <string name="more">More Info</string>
   <string name="version">Application version</string>
@@ -133,6 +134,8 @@
   <string name="homepage_type">Homepage type</string>
   <string name="default_word">Default</string>
   <string name="blank_page">Blank page</string>
+
+  <string name="move_navbar">Move navbar to bottom</string>
 
   <string-array name="homepage_types">
     <item>@string/default_word</item>

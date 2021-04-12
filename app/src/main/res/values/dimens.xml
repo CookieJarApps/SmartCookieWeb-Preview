@@ -4,4 +4,11 @@
     <dimen name="item_height">64dp</dimen>
     <dimen name="zero">0dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="browser_toolbar_height">56dp</dimen>
+    <dimen name="browser_fragment_gesture_preview_offset">48dp</dimen>
+    <dimen name="context_menu_height">48dp</dimen>
+    <dimen name="context_menu_x_offset">8dp</dimen>
+    <dimen name="browser_fragment_toolbar_elevation">16dp</dimen>
+    <dimen name="tab_counter_box_width_height">24dp</dimen>
+    <dimen name="home_fragment_top_toolbar_header_margin">60dp</dimen>
 </resources>

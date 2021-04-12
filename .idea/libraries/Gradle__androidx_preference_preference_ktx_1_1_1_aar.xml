@@ -1,9 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.preference:preference-ktx:1.1.1@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8951462d8cd43440ab9dfa49dbb18bc7/transformed/jetified-preference-ktx-1.1.1/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8951462d8cd43440ab9dfa49dbb18bc7/transformed/jetified-preference-ktx-1.1.1/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8951462d8cd43440ab9dfa49dbb18bc7/transformed/jetified-preference-ktx-1.1.1/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/233be6a65a32a1d5f617220742bebb3f/transformed/jetified-preference-ktx-1.1.1/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/81ecec05ebbf8b49df796182695d131e/transformed/jetified-preference-ktx-1.1.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/81ecec05ebbf8b49df796182695d131e/transformed/jetified-preference-ktx-1.1.1/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/81ecec05ebbf8b49df796182695d131e/transformed/jetified-preference-ktx-1.1.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

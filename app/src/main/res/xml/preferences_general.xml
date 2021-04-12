@@ -8,6 +8,11 @@
         app:defaultValue="true"/>
 
     <SwitchPreferenceCompat
+        app:key="@string/key_move_navbar"
+        app:title="@string/move_navbar"
+        app:defaultValue="false"/>
+
+    <SwitchPreferenceCompat
         app:key="@string/key_show_addons_in_bar"
         app:title="@string/show_addons_in_bar"
         app:defaultValue="true"/>

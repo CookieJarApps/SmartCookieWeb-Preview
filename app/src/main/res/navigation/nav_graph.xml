@@ -17,21 +17,15 @@
         app:popUpTo="@id/homeFragment"
         app:popUpToInclusive="false" />
 
-    <fragment
-        android:id="@+id/browserFragment"
-        android:name="com.cookiejarapps.android.smartcookieweb.BrowserFragment"
-        app:exitAnim="@anim/fade_out"
-        tools:layout="@layout/fragment_browser">
-        <argument
-            android:name="activeSessionId"
-            app:argType="string"
-            app:nullable="true" />
-    </fragment>
+    <action
+        android:id="@+id/action_global_search_dialog"
+        app:destination="@id/searchDialogFragment"
+        app:popUpTo="@id/searchDialogFragment"
+        app:popUpToInclusive="true"/>
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragment"
-        app:exitAnim="@anim/fade_out"
         tools:layout="@layout/fragment_home">
         <argument
             android:name="focusOnAddressBar"
@@ -43,4 +37,29 @@
             app:argType="long" />
     </fragment>
 
+    <dialog
+        android:id="@+id/searchDialogFragment"
+        android:name="com.cookiejarapps.android.smartcookieweb.search.SearchDialogFragment"
+        tools:layout="@layout/fragment_search_dialog">
+        <argument
+            android:name="session_id"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="pastedText"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </dialog>
+
+    <fragment
+        android:id="@+id/browserFragment"
+        android:name="com.cookiejarapps.android.smartcookieweb.BrowserFragment"
+        app:exitAnim="@anim/fade_out"
+        tools:layout="@layout/fragment_browser">
+        <argument
+            android:name="activeSessionId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>

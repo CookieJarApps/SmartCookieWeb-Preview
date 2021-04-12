@@ -2,46 +2,95 @@ package com.cookiejarapps.android.smartcookieweb
 
 import android.content.ComponentCallbacks2
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
-import android.widget.FrameLayout
+import androidx.annotation.IdRes
+import androidx.annotation.VisibleForTesting
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import com.cookiejarapps.android.smartcookieweb.addons.WebExtensionPopupFragment
+import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
+import com.cookiejarapps.android.smartcookieweb.browser.BrowsingModeManager
+import com.cookiejarapps.android.smartcookieweb.browser.DefaultBrowsingModeManager
+import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
+import com.cookiejarapps.android.smartcookieweb.browser.tabs.TabsTrayFragment
+import com.cookiejarapps.android.smartcookieweb.ext.alreadyOnDestination
 import com.cookiejarapps.android.smartcookieweb.ext.components
+import com.cookiejarapps.android.smartcookieweb.ext.nav
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
-import mozilla.components.browser.state.selector.normalTabs
+import com.cookiejarapps.android.smartcookieweb.search.SearchDialogFragmentDirections
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.navigation_toolbar.*
+import mozilla.components.browser.state.search.SearchEngine
+import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.state.WebExtensionState
+import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.feature.contextmenu.ext.DefaultSelectionActionDelegate
-import mozilla.components.feature.intent.ext.getSessionId
+import mozilla.components.feature.search.ext.legacy
 import mozilla.components.support.base.feature.UserInteractionHandler
+import mozilla.components.support.ktx.kotlin.isUrl
+import mozilla.components.support.ktx.kotlin.toNormalizedUrl
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupFeature
 
 /**
  * Activity that holds the [BrowserFragment].
  */
-open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2 {
+open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostActivity {
+
+    lateinit var browsingModeManager: BrowsingModeManager
+
+    private var isToolbarInflated = false
+    private lateinit var navigationToolbar: Toolbar
+
+    private val navHost by lazy {
+        supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment
+    }
+
+    private val externalSourceIntentProcessors by lazy {
+        listOf(
+            OpenBrowserIntentProcessor(this, ::getIntentSessionId),
+            OpenSpecificTabIntentProcessor(this)
+        )
+    }
+
     private val webExtensionPopupFeature by lazy {
         WebExtensionPopupFeature(components.store, ::openPopup)
     }
 
-    /**
-     * Returns a new instance of [BrowserFragment] to display.
-     */
-    open fun createBrowserFragment(sessionId: String?): Fragment =
-        BrowserFragment.create(sessionId)
+    protected open fun getIntentSessionId(intent: SafeIntent): String? = null
+
+    @VisibleForTesting
+    internal fun isActivityColdStarted(startingIntent: Intent, activityIcicle: Bundle?): Boolean {
+        return activityIcicle == null && startingIntent.flags and Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY == 0
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        components.publicSuffixList.prefetch()
+
+        browsingModeManager = createBrowsingModeManager(
+            if(UserPreferences(this).lastKnownPrivate) BrowsingMode.Private else BrowsingMode.Normal
+        )
+
+        if (isActivityColdStarted(
+                intent,
+                savedInstanceState
+            )) {
+            navigateToBrowserOnColdStart()
+        }
 
         if(UserPreferences(this).followSystem){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
@@ -49,24 +98,53 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2 {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
-        /*if (savedInstanceState == null) {
-            val sessionId = SafeIntent(intent).getSessionId()
-            supportFragmentManager.beginTransaction().apply {
-                replace(R.id.container, createBrowserFragment(sessionId))
-                commit()
-            }
-        }*/
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.left_drawer, TabsTrayFragment())
+            commit()
+        }
 
         lifecycle.addObserver(webExtensionPopupFeature)
     }
 
-    override fun onBackPressed() {
-        supportFragmentManager.fragments.forEach {
+    final override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        intent?.let {
+            handleNewIntent(it)
+        }
+    }
+
+    open fun handleNewIntent(intent: Intent) {
+
+        val intentProcessors = externalSourceIntentProcessors
+        val intentHandled =
+            intentProcessors.any { it.process(intent, navHost.navController, this.intent) }
+        browsingModeManager.mode = BrowsingMode.Normal
+
+        if (intentHandled) {
+            supportFragmentManager
+                .primaryNavigationFragment
+                ?.childFragmentManager
+                ?.fragments
+                ?.lastOrNull()
+        }
+    }
+
+    open fun navigateToBrowserOnColdStart() {
+        if (!browsingModeManager.mode.isPrivate) {
+            openToBrowser(BrowserDirection.FromGlobal, null)
+        }
+    }
+
+    protected open fun createBrowsingModeManager(initialMode: BrowsingMode): BrowsingModeManager {
+        return DefaultBrowsingModeManager(initialMode, UserPreferences(this)) {}
+    }
+
+    final override fun onBackPressed() {
+        supportFragmentManager.primaryNavigationFragment?.childFragmentManager?.fragments?.forEach {
             if (it is UserInteractionHandler && it.onBackPressed()) {
                 return
             }
         }
-
         super.onBackPressed()
     }
 
@@ -81,6 +159,32 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2 {
             else -> super.onCreateView(parent, name, context, attrs)
         }
 
+    override fun getSupportActionBarAndInflateIfNecessary(): ActionBar {
+        if (!isToolbarInflated) {
+            navigationToolbar = navigationToolbarStub.inflate() as Toolbar
+
+            setSupportActionBar(navigationToolbar)
+            // Add ids to this that we don't want to have a toolbar back button
+            setupNavigationToolbar()
+
+            isToolbarInflated = true
+        }
+        return supportActionBar!!
+    }
+
+    @Suppress("SpreadOperator")
+    fun setupNavigationToolbar(vararg topLevelDestinationIds: Int) {
+        NavigationUI.setupWithNavController(
+            navigationToolbar,
+            navHost.navController,
+            AppBarConfiguration.Builder(*topLevelDestinationIds).build()
+        )
+
+        navigationToolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+    }
+
     private fun openPopup(webExtensionState: WebExtensionState) {
         val fm: FragmentManager = supportFragmentManager
         val editNameDialogFragment =
@@ -93,5 +197,78 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2 {
         editNameDialogFragment.arguments = bundle
 
         editNameDialogFragment.show(fm, "fragment_edit_name")
+    }
+
+    @Suppress("LongParameterList")
+    fun openToBrowserAndLoad(
+        searchTermOrURL: String,
+        newTab: Boolean,
+        from: BrowserDirection,
+        customTabSessionId: String? = null,
+        engine: SearchEngine? = null,
+        forceSearch: Boolean = false,
+        flags: EngineSession.LoadUrlFlags = EngineSession.LoadUrlFlags.none()
+    ) {
+        openToBrowser(from, customTabSessionId)
+        load(searchTermOrURL, newTab, engine, forceSearch, flags)
+    }
+
+    fun openToBrowser(from: BrowserDirection, customTabSessionId: String? = null) {
+        if (navHost.navController.alreadyOnDestination(R.id.browserFragment)) return
+        @IdRes val fragmentId = if (from.fragmentId != 0) from.fragmentId else null
+        val directions = getNavDirections(from, customTabSessionId)
+        if (directions != null) {
+            navHost.navController.nav(fragmentId, directions)
+        }
+    }
+
+    protected open fun getNavDirections(
+        from: BrowserDirection,
+        customTabSessionId: String?
+    ): NavDirections? = when (from) {
+        BrowserDirection.FromGlobal ->
+            NavGraphDirections.actionGlobalBrowser(customTabSessionId)
+        BrowserDirection.FromHome ->
+            HomeFragmentDirections.actionGlobalBrowser(customTabSessionId)
+        BrowserDirection.FromSearchDialog ->
+            SearchDialogFragmentDirections.actionGlobalBrowser(customTabSessionId)
+    }
+
+    private fun load(
+        searchTermOrURL: String,
+        newTab: Boolean,
+        engine: SearchEngine?,
+        forceSearch: Boolean,
+        flags: EngineSession.LoadUrlFlags = EngineSession.LoadUrlFlags.none()
+    ) {
+        val mode = browsingModeManager.mode
+
+        val loadUrlUseCase = if (newTab) {
+            when (mode) {
+                BrowsingMode.Private -> components.tabsUseCases.addPrivateTab
+                BrowsingMode.Normal -> components.tabsUseCases.addTab
+            }
+        } else components.sessionUseCases.loadUrl
+
+        if ((!forceSearch && searchTermOrURL.isUrl()) || engine == null) {
+            loadUrlUseCase.invoke(searchTermOrURL.toNormalizedUrl(), flags)
+        } else {
+            if (newTab) {
+                components.searchUseCases.newTabSearch
+                    .invoke(
+                        searchTermOrURL,
+                        SessionState.Source.USER_ENTERED,
+                        true,
+                        mode.isPrivate,
+                        searchEngine = engine.legacy()
+                    )
+            } else {
+                components.searchUseCases.defaultSearch.invoke(searchTermOrURL, engine.legacy())
+            }
+        }
+    }
+
+    companion object {
+        const val OPEN_TO_BROWSER = "open_to_browser"
     }
 }

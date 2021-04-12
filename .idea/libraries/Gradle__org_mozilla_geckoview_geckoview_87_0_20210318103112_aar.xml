@@ -1,12 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.geckoview:geckoview:87.0.20210318103112@aar">
     <ANNOTATIONS>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e60b89778bd3bee31e11b7edf0f9a5e9/transformed/jetified-geckoview-87.0.20210318103112/annotations.zip!/" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8a034bf8e48d6bb0930557f46dcc2198/transformed/jetified-geckoview-87.0.20210318103112/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e60b89778bd3bee31e11b7edf0f9a5e9/transformed/jetified-geckoview-87.0.20210318103112/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e60b89778bd3bee31e11b7edf0f9a5e9/transformed/jetified-geckoview-87.0.20210318103112/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e60b89778bd3bee31e11b7edf0f9a5e9/transformed/jetified-geckoview-87.0.20210318103112/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8a034bf8e48d6bb0930557f46dcc2198/transformed/jetified-geckoview-87.0.20210318103112/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8a034bf8e48d6bb0930557f46dcc2198/transformed/jetified-geckoview-87.0.20210318103112/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8a034bf8e48d6bb0930557f46dcc2198/transformed/jetified-geckoview-87.0.20210318103112/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.geckoview/geckoview/87.0.20210318103112/3eb9abfe1a4d7559b9f6c3f0c86e594bea9028c1/geckoview-87.0.20210318103112-javadoc.jar!/" />

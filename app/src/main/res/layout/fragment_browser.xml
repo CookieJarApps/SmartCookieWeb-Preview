@@ -1,77 +1,91 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.cookiejarapps.android.smartcookieweb.browser.SwipeGestureLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gestureLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".BrowserActivity">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/browserWindow"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <mozilla.components.browser.toolbar.BrowserToolbar
-            android:id="@+id/toolbar"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/browserLayout"
             android:layout_width="match_parent"
-            android:layout_height="56dp"/>
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/loginSelectBar"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:context="browser.BrowserFragment">
 
-        <mozilla.components.feature.findinpage.view.FindInPageBar
-            android:id="@+id/findInPage"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="#FFFFFFFF"
-            android:elevation="10dp"
-            android:padding="4dp"
+            <mozilla.components.ui.widgets.VerticalSwipeRefreshLayout
+                android:id="@+id/swipeRefresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <mozilla.components.concept.engine.EngineView
+                    tools:ignore="Instantiatable"
+                    android:id="@+id/engineView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+            </mozilla.components.ui.widgets.VerticalSwipeRefreshLayout>
+
+            <ViewStub
+                android:id="@+id/stubFindInPage"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_gravity="bottom"
+                android:inflatedId="@+id/findInPageView"
+                android:layout="@layout/stub_find_in_page" />
+
+            <mozilla.components.feature.readerview.view.ReaderViewControlsBar
+                android:id="@+id/readerViewControlsBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="?attr/colorSurface"
+                android:elevation="24dp"
+                android:visibility="gone" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <mozilla.components.feature.prompts.login.LoginSelectBar
             android:visibility="gone"
-            app:findInPageNoMatchesTextColor="@color/photonRed50" />
+            android:id="@+id/loginSelectBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/browserLayout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.appbar.AppBarLayout>
+    <mozilla.components.feature.readerview.view.ReaderViewControlsBar
+        android:id="@+id/readerViewBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#FFFFFFFF"
+        android:elevation="10dp"
+        android:paddingBottom="55dp"
+        android:visibility="gone" />
 
-    <FrameLayout
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/readerViewAppearanceButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="72dp"
+        android:src="@drawable/mozac_ic_font"
+        android:visibility="gone" />
+
+    <com.cookiejarapps.android.smartcookieweb.browser.FakeTab
+        android:id="@+id/tabPreview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeToRefresh"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <mozilla.components.concept.engine.EngineView
-                tools:ignore="Instantiatable"
-                android:id="@+id/engineView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-        <mozilla.components.browser.awesomebar.BrowserAwesomeBar
-            android:id="@+id/awesomeBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="4dp"
-            android:visibility="gone" />
-
-        <mozilla.components.feature.readerview.view.ReaderViewControlsBar
-            android:id="@+id/readerViewBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="#FFFFFFFF"
-            android:elevation="10dp"
-            android:paddingBottom="55dp"
-            android:visibility="gone" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/readerViewAppearanceButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="72dp"
-            android:src="@drawable/mozac_ic_font"
-            android:visibility="gone" />
-
-    </FrameLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:clickable="false"
+        android:focusable="false"
+        android:visibility="gone" />
+</com.cookiejarapps.android.smartcookieweb.browser.SwipeGestureLayout>

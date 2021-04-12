@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="?attr/colorSurface"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <mozilla.components.browser.toolbar.BrowserToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:browserToolbarClearColor="?android:attr/textColorPrimary"
+        app:browserToolbarInsecureColor="?android:attr/textColorPrimary"
+        app:browserToolbarMenuColor="?android:attr/textColorPrimary"
+        app:browserToolbarProgressBarGravity="bottom"
+        app:browserToolbarSecureColor="?android:attr/textColorPrimary"
+        app:browserToolbarTrackingProtectionAndSecurityIndicatorSeparatorColor="?android:attr/textColorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_scrollFlags="scroll|enterAlways|snap|exitUntilCollapsed" />
+
+    <mozilla.components.browser.awesomebar.BrowserAwesomeBar
+        android:id="@+id/awesome_bar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:fadingEdge="horizontal"
+        android:fadingEdgeLength="40dp"
+        android:nestedScrollingEnabled="false"
+        android:requiresFadingEdge="vertical"
+        android:visibility="invisible"
+        app:awesomeBarDescriptionTextColor="?android:attr/textColorSecondary"
+        app:awesomeBarTitleTextColor="?android:attr/textColorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/pill_wrapper"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_barrier" />
+
+    <ViewStub
+        android:id="@+id/search_suggestions_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inflatedId="@id/search_suggestions_hint"
+        android:layout="@layout/search_suggestions_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/top_barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="search_suggestions_hint"
+        tools:layout_editor_absoluteY="48dp" />
+
+
+    <View
+        android:id="@+id/search_suggestions_hint_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/textColorPrimary"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/search_suggestions_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/fill_link_from_clipboard"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:background="?attr/colorSurface"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/link_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:importantForAccessibility="no"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/fill_link_from_clipboard"
+        app:layout_constraintStart_toStartOf="@+id/fill_link_from_clipboard"
+        app:layout_constraintTop_toTopOf="@+id/fill_link_from_clipboard"
+        app:srcCompat="@drawable/mozac_ic_link"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/clipboard_title"
+        android:textSize="15sp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:importantForAccessibility="no"
+        android:text="Fill link from clipboard"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/clipboard_url"
+        app:layout_constraintEnd_toEndOf="@+id/fill_link_from_clipboard"
+        app:layout_constraintStart_toEndOf="@id/link_icon"
+        app:layout_constraintTop_toTopOf="@id/fill_link_from_clipboard"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Title"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/clipboard_url"
+        android:textSize="12sp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:importantForAccessibility="no"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/fill_link_from_clipboard"
+        app:layout_constraintEnd_toEndOf="@+id/fill_link_from_clipboard"
+        app:layout_constraintStart_toEndOf="@id/link_icon"
+        app:layout_constraintTop_toBottomOf="@id/clipboard_title"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="url"
+        tools:visibility="visible" />
+
+    <View
+        android:id="@+id/fill_link_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/colorSurface"
+        app:layout_constraintTop_toBottomOf="@id/fill_link_from_clipboard" />
+
+    <View
+        android:id="@+id/pill_wrapper_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/colorSurface"
+        app:layout_constraintBottom_toTopOf="@id/pill_wrapper" />
+
+    <View
+        android:id="@+id/pill_wrapper"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="?attr/colorSurface"
+        android:importantForAccessibility="no"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/search_engines_shortcut_button"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:textOff="Search engine (NOTSTRING)"
+        android:textOn="Search engine (NOTSTRING)"
+        app:drawableStartCompat="@drawable/ic_round_search"
+        app:layout_constraintBottom_toBottomOf="@id/pill_wrapper"
+        app:layout_constraintStart_toStartOf="@+id/pill_wrapper"
+        app:layout_constraintTop_toTopOf="@id/pill_wrapper" />
+</androidx.constraintlayout.widget.ConstraintLayout>

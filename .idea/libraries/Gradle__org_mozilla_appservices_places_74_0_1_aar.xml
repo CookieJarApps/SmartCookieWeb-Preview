@@ -1,9 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.appservices:places:74.0.1@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e643d74ab139dba15886395d70b62b9a/transformed/jetified-places-74.0.1/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e643d74ab139dba15886395d70b62b9a/transformed/jetified-places-74.0.1/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e643d74ab139dba15886395d70b62b9a/transformed/jetified-places-74.0.1/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/0b86d0bc21fef7c6e56542876d78c890/transformed/jetified-places-74.0.1/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6eb7715cde44c9d1084de088d13e192b/transformed/jetified-places-74.0.1/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6eb7715cde44c9d1084de088d13e192b/transformed/jetified-places-74.0.1/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6eb7715cde44c9d1084de088d13e192b/transformed/jetified-places-74.0.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

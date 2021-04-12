@@ -8,10 +8,12 @@ import android.widget.FrameLayout
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
+import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_tabstray.tabsTray
 import kotlinx.android.synthetic.main.fragment_tabstray.toolbar
@@ -37,10 +39,7 @@ class TabsTrayFragment : Fragment() {
             when (it.itemId) {
                 R.id.newTab -> {
                     if(UserPreferences(requireContext()).homepageType == HomepageChoice.VIEW.ordinal){
-                        requireActivity().findNavController(R.id.container).navigate(
-                                R.id.homeFragment
-                        )
-                        components.tabsUseCases.selectTab.invoke("")
+                        findNavController().navigate(HomeFragmentDirections.actionGlobalHome(focusOnAddressBar = true))
                     }
                     else{
                         components.tabsUseCases.addTab.invoke("about:blank", selectTab = true)

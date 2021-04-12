@@ -83,6 +83,7 @@ import org.mozilla.geckoview.GeckoRuntimeSettings
 import com.cookiejarapps.android.smartcookieweb.integration.FindInPageIntegration
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.request.AppRequestInterceptor
+import com.cookiejarapps.android.smartcookieweb.utils.ClipboardHandler
 import mozilla.components.browser.session.ext.toTabSessionState
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import java.util.concurrent.TimeUnit
@@ -98,6 +99,8 @@ open class Components(private val applicationContext: Context) {
     }
 
     val publicSuffixList by lazy { PublicSuffixList(applicationContext) }
+
+    val clipboardHandler by lazy { ClipboardHandler(applicationContext) }
 
     val preferences: SharedPreferences =
             applicationContext.getSharedPreferences(BROWSER_PREFERENCES, Context.MODE_PRIVATE)
@@ -255,15 +258,6 @@ open class Components(private val applicationContext: Context) {
             webAppManifestStorage
     ) }
     val webAppUseCases by lazy { WebAppUseCases(applicationContext, store, webAppShortcutManager) }
-
-    // Digital Asset Links checking
-    val relationChecker by lazy {
-        StatementRelationChecker(StatementApi(client))
-    }
-
-    val shippedDomainsProvider by lazy {
-        ShippedDomainsProvider().also { it.initialize(applicationContext) }
-    }
 
     val tabsUseCases: TabsUseCases by lazy { TabsUseCases(store, sessionManager) }
     val downloadsUseCases: DownloadsUseCases by lazy { DownloadsUseCases(store) }
