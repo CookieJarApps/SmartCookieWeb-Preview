@@ -12,27 +12,35 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
+import com.cookiejarapps.android.smartcookieweb.browser.BrowsingModeManager
 import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
 import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_tabstray.tabsTray
-import kotlinx.android.synthetic.main.fragment_tabstray.toolbar
 import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.feature.tabs.tabstray.TabsFeature
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import kotlinx.android.synthetic.main.fragment_tabstray.*
+import mozilla.components.browser.state.state.TabSessionState
 
 // A fragment for displaying the tabs tray.
 
 class TabsTrayFragment : Fragment() {
     private val tabsFeature: ViewBoundFeatureWrapper<TabsFeature> = ViewBoundFeatureWrapper()
 
+    lateinit var browsingModeManager: BrowsingModeManager
+    lateinit var configuration: Configuration
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         inflater.inflate(R.layout.fragment_tabstray, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        browsingModeManager =  (activity as BrowserActivity).browsingModeManager
+        configuration = Configuration(if(browsingModeManager.mode == BrowsingMode.Normal) BrowserTabType.NORMAL else BrowserTabType.PRIVATE)
 
         toolbar.inflateMenu(R.menu.tabstray_menu)
         toolbar.setOnMenuItemClickListener {
@@ -65,11 +73,22 @@ class TabsTrayFragment : Fragment() {
                     components.tabsUseCases.undo,
                     requireActivity() as BrowserActivity
                 ),
+                defaultTabsFilter = { it.filterFromConfig(configuration) },
                 closeTabsTray = ::closeTabsTray
             ),
             owner = this,
             view = view
         )
+
+        normal_tab_button.setOnClickListener {
+            browsingModeManager.mode = BrowsingMode.Normal
+            tabsFeature.get()?.filterTabs { it.filterFromConfig(Configuration(BrowserTabType.NORMAL)) }
+        }
+
+        private_tab_button.setOnClickListener {
+            browsingModeManager.mode = BrowsingMode.Private
+            tabsFeature.get()?.filterTabs { it.filterFromConfig(Configuration(BrowserTabType.PRIVATE)) }
+        }
     }
 
     private fun closeTabsTray() {
@@ -129,4 +148,14 @@ private class RemoveTabWithUndoUseCase(
             undo.invoke()
         }.show()
     }
+}
+
+enum class BrowserTabType { NORMAL, PRIVATE }
+
+data class Configuration(val browserTabType: BrowserTabType)
+
+fun TabSessionState.filterFromConfig(configuration: Configuration): Boolean {
+    val isPrivate = configuration.browserTabType == BrowserTabType.PRIVATE
+
+    return content.private == isPrivate
 }

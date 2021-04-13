@@ -60,6 +60,7 @@ import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.browser.toolbar.behavior.ToolbarPosition
 import mozilla.components.lib.state.ext.consumeFlow
 import mozilla.components.lib.state.ext.consumeFrom
+import mozilla.components.support.ktx.android.content.getColorFromAttr
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
 import mozilla.components.ui.tabcounter.TabCounterMenu
 import org.mozilla.gecko.util.ThreadUtils
@@ -183,6 +184,17 @@ class HomeFragment : Fragment() {
             return@setOnItemLongClickListener true
         }
 
+        view.privateBrowsingButton.setOnClickListener {
+            if(browsingModeManager.mode == BrowsingMode.Private){
+                browsingModeManager.mode = BrowsingMode.Normal
+                view.homeLayout.background = ColorDrawable(requireContext().getColorFromAttr(R.attr.colorSurface))
+            }
+            else{
+                browsingModeManager.mode = BrowsingMode.Private
+                view.homeLayout.background = resources.getDrawable(R.drawable.private_background)
+            }
+        }
+
         appBarLayout = view.homeAppBar
 
         return view
@@ -192,6 +204,14 @@ class HomeFragment : Fragment() {
         super.onConfigurationChanged(newConfig)
 
         getMenuButton()?.dismissMenu()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (browsingModeManager.mode == BrowsingMode.Private) {
+            view?.homeLayout?.background = resources.getDrawable(R.drawable.private_background)
+        }
     }
 
     private fun getList(shortcutEntity: MutableList<ShortcutEntity>): MutableList<ShortcutEntity> {
@@ -355,24 +375,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        /*val tabCounterMenu = FenixTabCounterMenu(
-            view.context,
-            onItemTapped,
-            iconColor = if (mode == BrowsingMode.Private) {
-                ContextCompat.getColor(requireContext(), R.color.primary_text_private_theme)
-            } else {
-                null
-            }
-        )*/
-
-        val inverseBrowsingMode = when (mode) {
-            BrowsingMode.Normal -> BrowsingMode.Private
-            BrowsingMode.Private -> BrowsingMode.Normal
-        }
-
-        //tabCounterMenu.updateMenu(showOnly = inverseBrowsingMode)
         view.tab_button.setOnLongClickListener {
-            //tabCounterMenu.menuController.show(anchor = it)
             true
         }
     }
@@ -380,8 +383,6 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
 
-        //_sessionControlInteractor = null
-        //sessionControlView = null
         appBarLayout = null
         bundleArgs.clear()
         requireActivity().window.clearFlags(FLAG_SECURE)
