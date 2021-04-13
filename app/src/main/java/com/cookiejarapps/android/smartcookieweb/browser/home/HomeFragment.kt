@@ -32,6 +32,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.room.Room
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.addons.AddonsActivity
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.ui.BookmarkFragment
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutDatabase
@@ -39,6 +40,7 @@ import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutEntity
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutGridAdapter
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.ext.nav
+import com.cookiejarapps.android.smartcookieweb.history.HistoryActivity
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.settings.activity.SettingsActivity
 import com.google.android.material.appbar.AppBarLayout
@@ -64,20 +66,11 @@ import org.mozilla.gecko.util.ThreadUtils
 import java.lang.ref.WeakReference
 
 @ExperimentalCoroutinesApi
-@Suppress("TooManyFunctions", "LargeClass")
 class HomeFragment : Fragment() {
     private var database: ShortcutDatabase? = null
 
     private val args by navArgs<HomeFragmentArgs>()
     private lateinit var bundleArgs: Bundle
-
-    //private val homeViewModel: HomeScreenViewModel by activityViewModels()
-
-    private val snackbarAnchorView: View?
-        get() = when (UserPreferences(requireContext()).toolbarPosition) {
-            ToolbarPosition.BOTTOM.ordinal -> toolbarLayout
-            else -> null
-        }
 
     private val browsingModeManager get() = (activity as BrowserActivity).browsingModeManager
 
@@ -190,18 +183,8 @@ class HomeFragment : Fragment() {
             return@setOnItemLongClickListener true
         }
 
-        /*sessionControlView = SessionControlView(
-            view.sessionControlRecyclerView,
-            viewLifecycleOwner,
-            sessionControlInteractor,
-            homeViewModel
-        )
-
-        updateSessionControlView(view)*/
-
         appBarLayout = view.homeAppBar
 
-        //activity.themeManager.applyStatusBarTheme(activity)
         return view
     }
 
@@ -210,43 +193,6 @@ class HomeFragment : Fragment() {
 
         getMenuButton()?.dismissMenu()
     }
-
-    /*private fun dismissTip(tip: Tip) {
-        sessionControlInteractor.onCloseTip(tip)
-    }*/
-
-    /**
-     * Returns a [TopSitesConfig] which specifies how many top sites to display and whether or
-     * not frequently visited sites should be displayed.
-     */
-    /* @VisibleForTesting
-     internal fun getTopSitesConfig(): TopSitesConfig {
-         val settings = requireContext().settings()
-         return TopSitesConfig(
-             settings.topSitesMaxLimit,
-             if (settings.showTopFrecentSites) FrecencyThresholdOption.SKIP_ONE_TIME_PAGES else null
-         )
-     }*/
-
-    /**
-     * The [SessionControlView] is forced to update with our current state when we call
-     * [HomeFragment.onCreateView] in order to be able to draw everything at once with the current
-     * data in our store. The [View.consumeFrom] coroutine dispatch
-     * doesn't get run right away which means that we won't draw on the first layout pass.
-     */
-    /*private fun updateSessionControlView(view: View) {
-        if (browsingModeManager.mode == BrowsingMode.Private) {
-            view.consumeFrom(homeFragmentStore, viewLifecycleOwner) {
-                sessionControlView?.update(it)
-            }
-        } else {
-            sessionControlView?.update(homeFragmentStore.state)
-
-            view.consumeFrom(homeFragmentStore, viewLifecycleOwner) {
-                sessionControlView?.update(it)
-            }
-        }
-    }*/
 
     private fun getList(shortcutEntity: MutableList<ShortcutEntity>): MutableList<ShortcutEntity> {
         shortcutEntity.add(shortcutEntity.size, ShortcutEntity(url = "test", add = true))
@@ -347,47 +293,19 @@ class HomeFragment : Fragment() {
         createTabCounterMenu(view)
 
         view.menuButton.setColorFilter(
-            /*ContextCompat.getColor(
+            ContextCompat.getColor(
                 requireContext(),
-                ThemeManager.resolveAttribute(R.attr.primaryText, requireContext())
-            )*/
-        Color.BLACK
+                R.color.colorPrimary
+            )
         )
 
-        //view.toolbar.compoundDrawablePadding =
-        //    view.resources.getDimensionPixelSize(R.dimen.search_bar_search_engine_icon_padding)
         view.toolbar_wrapper.setOnClickListener {
             navigateToSearch()
-        }
-
-        view.toolbar_wrapper.setOnLongClickListener {
-            /*ToolbarPopupWindow.show(
-                WeakReference(it),
-                handlePasteAndGo = sessionControlInteractor::onPasteAndGo,
-                handlePaste = sessionControlInteractor::onPaste,
-                copyVisible = false
-            )*/
-            true
         }
 
         view.tab_button.setOnClickListener {
             openTabDrawer()
         }
-
-        /*PrivateBrowsingButtonView(
-            privateBrowsingButton,
-            browsingModeManager
-        ) { newMode ->
-            if (newMode == BrowsingMode.Private) {
-                requireContext().settings().incrementNumTimesPrivateModeOpened()
-            }
-
-            if (onboarding.userHasBeenOnboarded()) {
-                homeFragmentStore.dispatch(
-                    HomeFragmentAction.ModeChange(Mode.fromBrowsingMode(newMode))
-                )
-            }
-        }*/
 
         if (browsingModeManager.mode.isPrivate) {
             requireActivity().window.addFlags(FLAG_SECURE)
@@ -395,29 +313,14 @@ class HomeFragment : Fragment() {
             requireActivity().window.clearFlags(FLAG_SECURE)
         }
 
-        /*consumeFrom(requireComponents.core.store) {
+        consumeFrom(components.store) {
             updateTabCounter(it)
-        }*/
-
-        /*homeViewModel.sessionToDelete?.also {
-            if (it == ALL_NORMAL_TABS || it == ALL_PRIVATE_TABS) {
-                removeAllTabsAndShowSnackbar(it)
-            } else {
-                removeTabAndShowSnackbar(it)
-            }
-        }*/
-
-        //homeViewModel.sessionToDelete = null
+        }
 
         updateTabCounter(components.store.state)
 
         if (bundleArgs.getBoolean(FOCUS_ON_ADDRESS_BAR)) {
             navigateToSearch()
-        } else if (bundleArgs.getLong(FOCUS_ON_COLLECTION, -1) >= 0) {
-            // No need to scroll to async'd loaded TopSites if we want to scroll to collections.
-            //homeViewModel.shouldScrollToTopSites = false
-            /* Triggered when the user has added a tab to a collection and has tapped
-            * the View action on the [TabsTrayDialogFragment] snackbar.*/
         }
     }
 
@@ -484,39 +387,6 @@ class HomeFragment : Fragment() {
         requireActivity().window.clearFlags(FLAG_SECURE)
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        //subscribeToTabCollections()
-
-        val context = requireContext()
-        val components = context.components
-
-        /*homeFragmentStore.dispatch(
-            HomeFragmentAction.Change(
-                mode = currentMode.getCurrentMode()
-            )
-        )*/
-
-        if (browsingModeManager.mode.isPrivate &&
-            // We will be showing the search dialog and don't want to show the CFR while the dialog shows
-            !bundleArgs.getBoolean(FOCUS_ON_ADDRESS_BAR)
-            //&&
-            //context.settings().shouldShowPrivateModeCfr
-        ) {
-            recommendPrivateBrowsingShortcut()
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (browsingModeManager.mode == BrowsingMode.Private) {
-            //activity?.window?.setBackgroundDrawableResource(R.drawable.private_home_background_gradient)
-        }
-
-        //hideToolbar()
-    }
-
     override fun onPause() {
         super.onPause()
         if (browsingModeManager.mode == BrowsingMode.Private) {
@@ -531,72 +401,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun recommendPrivateBrowsingShortcut() {
-        /*context?.let { context ->
-            val layout = LayoutInflater.from(context)
-                .inflate(R.layout.pbm_shortcut_popup, null)
-            val privateBrowsingRecommend =
-                PopupWindow(
-                    layout,
-                    min(
-                        (resources.displayMetrics.widthPixels / CFR_WIDTH_DIVIDER).toInt(),
-                        (resources.displayMetrics.heightPixels / CFR_WIDTH_DIVIDER).toInt()
-                    ),
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    true
-                )
-            layout.findViewById<Button>(R.id.cfr_pos_button).apply {
-                setOnClickListener {
-                    PrivateShortcutCreateManager.createPrivateShortcut(context)
-                    privateBrowsingRecommend.dismiss()
-                }
-            }
-            layout.findViewById<Button>(R.id.cfr_neg_button).apply {
-                setOnClickListener {
-                    privateBrowsingRecommend.dismiss()
-                }
-            }
-            // We want to show the popup only after privateBrowsingButton is available.
-            // Otherwise, we will encounter an activity token error.
-            privateBrowsingButton.post {
-                runIfFragmentIsAttached {
-                    context.settings().showedPrivateModeContextualFeatureRecommender = true
-                    context.settings().lastCfrShownTimeInMillis = System.currentTimeMillis()
-                    privateBrowsingRecommend.showAsDropDown(
-                        privateBrowsingButton, 0, CFR_Y_OFFSET, Gravity.TOP or Gravity.END
-                    )
-                }
-            }
-        }*/
-    }
-
-    private fun hideOnboardingIfNeeded() {
-        /*if (!onboarding.userHasBeenOnboarded()) {
-            onboarding.finish()
-            homeFragmentStore.dispatch(
-                HomeFragmentAction.ModeChange(
-                    mode = currentMode.getCurrentMode()
-                )
-            )
-        }*/
-    }
-
-
     private fun navigateToSearch() {
-        // Dismisses the search dialog when the home content is scrolled
-        // val recyclerView = sessionControlView!!.view
-        /* val listener = object : RecyclerView.OnScrollListener() {
-             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                 super.onScrollStateChanged(recyclerView, newState)
-                 if (newState == RecyclerView.SCROLL_STATE_DRAGGING || newState == RecyclerView.SCROLL_STATE_SETTLING) {
-                     findNavController().navigateUp()
-                     recyclerView.removeOnScrollListener(this)
-                 }
-             }
-         }*/
-
-        //recyclerView.addOnScrollListener(listener)
-
         val directions =
             HomeFragmentDirections.actionGlobalSearchDialog(
                 sessionId = null
@@ -614,57 +419,27 @@ class HomeFragment : Fragment() {
             onItemTapped = {
                 when (it) {
                     HomeMenu.Item.Settings -> {
-                        hideOnboardingIfNeeded()
-
                         val settings = Intent(activity, SettingsActivity::class.java)
                         settings.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                         requireActivity().startActivity(settings)
                     }
                     HomeMenu.Item.Bookmarks -> {
-                        hideOnboardingIfNeeded()
-                       /* nav(
-                            R.id.homeFragment,
-                            HomeFragmentDirections.actionGlobalBookmarkFragment(BookmarkRoot.Mobile.id)
-                        )*/
+                        val drawerLayout = activity?.findViewById<DrawerLayout>(R.id.drawer_layout)
+                        val bookmarksDrawer = activity?.findViewById<FrameLayout>(R.id.right_drawer)
+
+                        if (bookmarksDrawer != null) {
+                            drawerLayout?.openDrawer(bookmarksDrawer)
+                        }
                     }
                     HomeMenu.Item.History -> {
-                        hideOnboardingIfNeeded()
-                        /*nav(
-                            R.id.homeFragment,
-                            HomeFragmentDirections.actionGlobalHistoryFragment()
-                        )*/
-                    }
-
-                    HomeMenu.Item.Downloads -> {
-                        hideOnboardingIfNeeded()
-                        /*nav(
-                            R.id.homeFragment,
-                            HomeFragmentDirections.actionGlobalDownloadsFragment()
-                        )*/
-                    }
-
-                    HomeMenu.Item.Help -> {
-                        hideOnboardingIfNeeded()
-                        /*(activity as HomeActivity).openToBrowserAndLoad(
-                            searchTermOrURL = SupportUtils.getSumoURLForTopic(context, HELP),
-                            newTab = true,
-                            from = BrowserDirection.FromHome
-                        )*/
-                    }
-                    HomeMenu.Item.WhatsNew -> {
-                        hideOnboardingIfNeeded()
-                        /*WhatsNew.userViewedWhatsNew(context)
-                        (activity as HomeActivity).openToBrowserAndLoad(
-                            searchTermOrURL = SupportUtils.getWhatsNewUrl(context),
-                            newTab = true,
-                            from = BrowserDirection.FromHome
-                        )*/
+                        val settings = Intent(activity, HistoryActivity::class.java)
+                        settings.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        activity?.startActivity(settings)
                     }
                     HomeMenu.Item.AddonsManager -> {
-                        /*nav(
-                            R.id.homeFragment,
-                            HomeFragmentDirections.actionGlobalAddonsManagementFragment()
-                        )*/
+                        val settings = Intent(activity, AddonsActivity::class.java)
+                        settings.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        activity?.startActivity(settings)
                     }
                 }
             },
@@ -693,6 +468,5 @@ class HomeFragment : Fragment() {
 
     companion object {
         private const val FOCUS_ON_ADDRESS_BAR = "focusOnAddressBar"
-        private const val FOCUS_ON_COLLECTION = "focusOnCollection"
     }
 }
