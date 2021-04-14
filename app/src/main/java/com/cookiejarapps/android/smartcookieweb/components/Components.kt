@@ -191,14 +191,25 @@ open class Components(private val applicationContext: Context) {
 
     // TODO: Swap out version code for proper collection user
     val addonCollectionProvider by lazy {
-        AddonCollectionProvider(
-                applicationContext,
-                client,
-                collectionUser = BuildConfig.VERSION_CODE.toString(),
-                collectionName = "scw",
-                maxCacheAgeInMinutes = DAY_IN_MINUTES,
-                serverURL = "https://addons.smartcookieweb.com"
-        )
+        if(UserPreferences(applicationContext).customAddonCollection){
+            AddonCollectionProvider(
+                    applicationContext,
+                    client,
+                    collectionUser = UserPreferences(applicationContext).customAddonCollectionUser,
+                    collectionName = UserPreferences(applicationContext).customAddonCollectionName,
+                    maxCacheAgeInMinutes = 0,
+            )
+        }
+        else{
+            AddonCollectionProvider(
+                    applicationContext,
+                    client,
+                    collectionUser = BuildConfig.VERSION_CODE.toString(),
+                    collectionName = "scw",
+                    maxCacheAgeInMinutes = DAY_IN_MINUTES,
+                    serverURL = "https://addons.smartcookieweb.com"
+            )
+        }
     }
 
     val supportedAddonsChecker by lazy {

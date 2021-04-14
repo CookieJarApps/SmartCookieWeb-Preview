@@ -4,11 +4,8 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
-import mozilla.components.support.ktx.android.content.PreferencesHolder
-import mozilla.components.support.ktx.android.content.booleanPreference
-import mozilla.components.support.ktx.android.content.intPreference
-import mozilla.components.support.ktx.android.content.longPreference
 import com.cookiejarapps.android.smartcookieweb.components.toolbar.ToolbarPosition
+import mozilla.components.support.ktx.android.content.*
 
 class UserPreferences(appContext: Context): PreferencesHolder {
 
@@ -30,6 +27,10 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var toolbarPosition by intPreference(TOOLBAR_POSITION, ToolbarPosition.TOP.ordinal)
     var homepageType by intPreference(HOMEPAGE_TYPE, HomepageChoice.VIEW.ordinal)
     var launchInApp by booleanPreference(LAUNCH_IN_APP, true)
+    var customAddonCollection by booleanPreference(CUSTOM_ADDON_BOOL, false)
+    var shownCollectionDisclaimer by booleanPreference(SHOWN_ADDON_DISCLAIMER, false)
+    var customAddonCollectionUser by stringPreference(COLLECTION_USER, "")
+    var customAddonCollectionName by stringPreference(COLLECTION_NAME, "")
 
     // TODO: make these configurable & clean up duplicates
     var shouldUseBottomToolbar: Boolean
@@ -66,5 +67,9 @@ class UserPreferences(appContext: Context): PreferencesHolder {
         const val TOOLBAR_POSITION = "toolbar_position"
         const val HOMEPAGE_TYPE = "homepage_type"
         const val LAUNCH_IN_APP = "homepage_type"
+        const val CUSTOM_ADDON_BOOL = "custom_addon_bool"
+        const val SHOWN_ADDON_DISCLAIMER = "shown_disclaimer"
+        const val COLLECTION_NAME = "collection_name"
+        const val COLLECTION_USER = "collection_user"
     }
 }

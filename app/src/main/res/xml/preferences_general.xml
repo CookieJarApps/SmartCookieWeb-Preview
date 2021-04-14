@@ -5,38 +5,63 @@
     <SwitchPreferenceCompat
         app:key="@string/key_javascript_enabled"
         app:title="@string/javascript_enabled"
+        app:singleLineTitle="false"
         app:defaultValue="true"/>
 
     <SwitchPreferenceCompat
         app:key="@string/key_move_navbar"
         app:title="@string/move_navbar"
+        app:singleLineTitle="false"
         app:defaultValue="false"/>
 
     <SwitchPreferenceCompat
         app:key="@string/key_show_addons_in_bar"
         app:title="@string/show_addons_in_bar"
+        app:singleLineTitle="false"
         app:defaultValue="true"/>
 
     <SwitchPreferenceCompat
         app:key="@string/key_dark_mode"
         app:title="@string/dark_mode"
         app:summary="@string/dark_mode_summary"
+        app:singleLineTitle="false"
         app:defaultValue="false"/>
 
     <SwitchPreferenceCompat
         app:key="@string/key_follow_system"
         app:title="@string/follow_system"
         app:summary="@string/follow_system_summary"
+        app:singleLineTitle="false"
         app:defaultValue="false"/>
 
     <Preference
         app:key="@string/key_search_engine"
         app:title="@string/search_engine"
+        app:singleLineTitle="false"
         app:defaultValue="false"/>
 
     <Preference
         app:key="@string/key_homepage_type"
         app:title="@string/homepage_type"
+        app:singleLineTitle="false"
         app:defaultValue="false"/>
+
+    <SwitchPreferenceCompat
+        app:key="@string/key_use_custom_collection"
+        app:title="@string/use_custom_collection"
+        app:singleLineTitle="false"
+        app:defaultValue="false"/>
+
+    <Preference
+        app:key="@string/key_collection_user"
+        app:title="@string/collection_user"
+        app:singleLineTitle="false"
+        app:enabled="false"/>
+
+    <Preference
+        app:key="@string/key_collection_name"
+        app:title="@string/collection_name"
+        app:singleLineTitle="false"
+        app:enabled="false"/>
 
 </PreferenceScreen>
