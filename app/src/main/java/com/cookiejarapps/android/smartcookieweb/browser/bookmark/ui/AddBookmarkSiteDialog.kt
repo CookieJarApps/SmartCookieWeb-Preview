@@ -16,7 +16,7 @@ class AddBookmarkSiteDialog : AddBookmarkDialog<BookmarkSiteItem, String> {
     override fun initView(view: View, title: String?, url: String) {
         super.initView(view, title, url)
         titleEditText.setText(title ?: url)
-        urlEditText.setText(IDN.toUnicode(url.tryGetHostFromUrl()))
+        urlEditText.setText(url)
     }
 
     override fun makeItem(item: BookmarkSiteItem?, title: String, url: String): BookmarkSiteItem? {

@@ -44,12 +44,7 @@ open class BookmarkAdapter(
         super.onBindViewHolder(holder, item, position)
 
         if (item is BookmarkSiteItem && holder is BookmarkSiteHolder) {
-            var host: String? = IDN.toUnicode(item.url.tryGetHostFromUrl())
-            if (host.isNullOrEmpty()){
-                host = item.url
-            }
-
-            holder.url.text = host
+            holder.url.text = item.url
 
             CoroutineScope(Dispatchers.Main).launch{
                 val bitmap: Bitmap

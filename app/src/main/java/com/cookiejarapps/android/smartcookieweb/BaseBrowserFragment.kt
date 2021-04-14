@@ -24,6 +24,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.cookiejarapps.android.smartcookieweb.*
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
+import com.cookiejarapps.android.smartcookieweb.browser.bookmark.ui.BookmarkFragment
 import com.cookiejarapps.android.smartcookieweb.components.StoreProvider
 import com.cookiejarapps.android.smartcookieweb.components.toolbar.*
 import com.cookiejarapps.android.smartcookieweb.ext.components
@@ -149,8 +150,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         customTabSessionId = requireArguments().getString(EXTRA_SESSION_ID)
 
         val view = inflater.inflate(R.layout.fragment_browser, container, false)
-
-        val activity = activity as BrowserActivity
 
         browserFragmentStore = StoreProvider.get(this) {
             BrowserFragmentStore(
@@ -322,50 +321,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             view = view
         )
 
-        /*promptsFeature.set(
-            feature = PromptFeature(
-                activity = activity,
-                store = store,
-                customTabId = customTabSessionId,
-                fragmentManager = parentFragmentManager,
-                loginValidationDelegate = DefaultLoginValidationDelegate(
-                    context.components.core.lazyPasswordsStorage
-                ),
-                isSaveLoginEnabled = {
-                    context.settings().shouldPromptToSaveLogins
-                },
-                loginExceptionStorage = context.components.core.loginExceptionStorage,
-                shareDelegate = object : ShareDelegate {
-                    override fun showShareSheet(
-                        context: Context,
-                        shareData: ShareData,
-                        onDismiss: () -> Unit,
-                        onSuccess: () -> Unit
-                    ) {
-                        val directions = NavGraphDirections.actionGlobalShareFragment(
-                            data = arrayOf(shareData),
-                            showPage = true,
-                            sessionId = getCurrentTab()?.id
-                        )
-                        findNavController().navigate(directions)
-                    }
-                },
-                onNeedToRequestPermissions = { permissions ->
-                    requestPermissions(permissions, REQUEST_CODE_PROMPT_PERMISSIONS)
-                },
-                loginPickerView = loginSelectBar,
-                onManageLogins = {
-                    browserAnimator.captureEngineViewAndDrawStatically {
-                        val directions =
-                            NavGraphDirections.actionGlobalSavedLoginsAuthFragment()
-                        findNavController().navigate(directions)
-                    }
-                }
-            ),
-            owner = this,
-            view = view
-        )*/
-
         sessionFeature.set(
             feature = SessionFeature(
                 requireContext().components.store,
@@ -482,6 +437,11 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 owner = this,
                 view = view
             )
+        }
+
+        activity.supportFragmentManager.beginTransaction().apply {
+            replace(R.id.right_drawer, BookmarkFragment())
+            commit()
         }
 
         initializeEngineView(toolbarHeight)

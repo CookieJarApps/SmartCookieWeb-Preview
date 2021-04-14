@@ -103,7 +103,7 @@ abstract class AddBookmarkDialog<S : BookmarkItem, T>(
                 return@setOnClickListener
             }
 
-            val item = makeItem(mItem, title.toString(), IDN.toUnicode(url.toString().tryGetHostFromUrl()))
+            val item = makeItem(mItem, title.toString(), url.toString())
             if (item != null) {
                 if (addToTopCheckBox.isChecked)
                     mManager.addFirst(mParent, item)

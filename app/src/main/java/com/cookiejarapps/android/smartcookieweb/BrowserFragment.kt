@@ -43,11 +43,6 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
             )
         )
 
-        activity?.supportFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.right_drawer, BookmarkFragment())
-            commit()
-        }
-
         thumbnailsFeature.set(
             feature = BrowserThumbnails(context, view.engineView, components.store),
             owner = this,
