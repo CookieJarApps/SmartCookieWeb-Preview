@@ -62,12 +62,11 @@
         app:constraint_referenced_ids="search_suggestions_hint"
         tools:layout_editor_absoluteY="48dp" />
 
-
     <View
         android:id="@+id/search_suggestions_hint_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="?android:attr/textColorPrimary"
+        android:background="#e3e3e3"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/search_suggestions_hint"
         app:layout_constraintEnd_toEndOf="parent"
