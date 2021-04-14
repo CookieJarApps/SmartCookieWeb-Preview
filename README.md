@@ -10,7 +10,7 @@
  </p>
 
 ---
-# Browsers
+## Browsers
 Unsure which CookieJarApps browser to choose? Look here: https://github.com/CookieJarApps#browsers
 
 ---
