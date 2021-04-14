@@ -33,19 +33,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_appbar">
 
-        <ImageButton
-            android:id="@+id/normal_tab_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_tabs" />
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-        <ImageButton
-            android:id="@+id/private_tab_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_incognito" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/normal_tab_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_tabs" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/private_tab_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_incognito" />
+
+        </com.google.android.material.tabs.TabLayout>
 
     </LinearLayout>
 
