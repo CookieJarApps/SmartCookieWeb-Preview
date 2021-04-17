@@ -5,6 +5,6 @@
         android:id="@+id/newTab"
         android:icon="@drawable/mozac_ic_tab_new"
         android:title="@string/new_tab"
-        app:iconTint="@color/black"
+        app:iconTint="?android:attr/textColorPrimary"
         app:showAsAction="ifRoom" />
 </menu>

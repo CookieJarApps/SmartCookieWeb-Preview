@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:support-base:74.0.11@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/329cf051ff3c69ee3f4dcc9608567e8f/transformed/jetified-support-base-74.0.11/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/329cf051ff3c69ee3f4dcc9608567e8f/transformed/jetified-support-base-74.0.11/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/329cf051ff3c69ee3f4dcc9608567e8f/transformed/jetified-support-base-74.0.11/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/support-base/74.0.11/667bacc9d7c816b18f984e375d2fee0fb35829af/support-base-74.0.11-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

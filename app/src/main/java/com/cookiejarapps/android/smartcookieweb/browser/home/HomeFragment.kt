@@ -315,7 +315,7 @@ class HomeFragment : Fragment() {
         view.menuButton.setColorFilter(
             ContextCompat.getColor(
                 requireContext(),
-                R.color.colorPrimary
+                R.color.main_icon
             )
         )
 
