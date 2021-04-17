@@ -21,6 +21,7 @@ import com.cookiejarapps.android.smartcookieweb.addons.WebExtensionPopupFragment
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingModeManager
 import com.cookiejarapps.android.smartcookieweb.browser.DefaultBrowsingModeManager
+import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
 import com.cookiejarapps.android.smartcookieweb.browser.tabs.TabsTrayFragment
 import com.cookiejarapps.android.smartcookieweb.ext.alreadyOnDestination
@@ -92,10 +93,12 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
             navigateToBrowserOnColdStart()
         }
 
-        if(UserPreferences(this).followSystem){
+        if(UserPreferences(this).themeChoice == ThemeChoice.SYSTEM.ordinal) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        } else{
+        } else if(UserPreferences(this).themeChoice == ThemeChoice.LIGHT.ordinal) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
 
         supportFragmentManager.beginTransaction().apply {

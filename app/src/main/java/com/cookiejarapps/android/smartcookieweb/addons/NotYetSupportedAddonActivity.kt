@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
 import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.addons.ui.UnsupportedAddonsAdapter
 import mozilla.components.feature.addons.ui.UnsupportedAddonsAdapterDelegate
@@ -31,10 +32,12 @@ class NotYetSupportedAddonActivity : AppCompatActivity() {
 
         val addons = requireNotNull(intent.getParcelableArrayListExtra<Addon>("add_ons"))
 
-        if(UserPreferences(this).followSystem){
+        if(UserPreferences(this).themeChoice == ThemeChoice.SYSTEM.ordinal) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        } else{
+        } else if(UserPreferences(this).themeChoice == ThemeChoice.LIGHT.ordinal) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
 
         supportFragmentManager

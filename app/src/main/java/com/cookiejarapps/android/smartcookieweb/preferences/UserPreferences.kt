@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
+import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.components.toolbar.ToolbarPosition
 import mozilla.components.support.ktx.android.content.*
 
@@ -20,12 +21,11 @@ class UserPreferences(appContext: Context): PreferencesHolder {
 
     // Preferences
     var javaScriptEnabled by booleanPreference(JAVA_SCRIPT_ENABLED, true)
-    var darkModeEnabled by booleanPreference(DARK_MODE, false)
-    var followSystem by booleanPreference(FOLLOW_SYSTEM, false)
     var showAddonsInBar by booleanPreference(SHOW_ADDONS_IN_BAR, false)
     var searchEngineChoice by intPreference(SEARCH_ENGINE, 0)
     var toolbarPosition by intPreference(TOOLBAR_POSITION, ToolbarPosition.TOP.ordinal)
     var homepageType by intPreference(HOMEPAGE_TYPE, HomepageChoice.VIEW.ordinal)
+    var themeChoice by intPreference(HOMEPAGE_TYPE, ThemeChoice.SYSTEM.ordinal)
     var launchInApp by booleanPreference(LAUNCH_IN_APP, true)
     var customAddonCollection by booleanPreference(CUSTOM_ADDON_BOOL, false)
     var shownCollectionDisclaimer by booleanPreference(SHOWN_ADDON_DISCLAIMER, false)

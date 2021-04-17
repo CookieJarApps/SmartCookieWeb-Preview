@@ -2,13 +2,17 @@ package com.cookiejarapps.android.smartcookieweb.components
 
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.ACTION_USER_PRESENT
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.content.SharedPreferences
+import android.content.res.Configuration
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat.startActivity
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.BuildConfig
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.addons.AddonsActivity
+import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.downloads.DownloadService
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.media.MediaSessionService
@@ -105,7 +109,18 @@ open class Components(private val applicationContext: Context) {
     val preferences: SharedPreferences =
             applicationContext.getSharedPreferences(BROWSER_PREFERENCES, Context.MODE_PRIVATE)
 
-    val darkEnabled = if (UserPreferences(applicationContext).darkModeEnabled) PreferredColorScheme.Dark else PreferredColorScheme.Light
+
+    fun darkEnabled(): PreferredColorScheme {
+        val darkOn =
+                (applicationContext.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
+                        Configuration.UI_MODE_NIGHT_YES
+        return when {
+            UserPreferences(applicationContext).themeChoice == ThemeChoice.DARK.ordinal -> PreferredColorScheme.Dark
+            UserPreferences(applicationContext).themeChoice == ThemeChoice.LIGHT.ordinal -> PreferredColorScheme.Light
+            darkOn -> PreferredColorScheme.Dark
+            else -> PreferredColorScheme.Light
+        }
+    }
 
     // Engine Settings
     val engineSettings by lazy {
@@ -114,7 +129,7 @@ open class Components(private val applicationContext: Context) {
             requestInterceptor = AppRequestInterceptor(applicationContext)
             remoteDebuggingEnabled = true
             supportMultipleWindows = true
-            preferredColorScheme = darkEnabled
+            preferredColorScheme = darkEnabled()
             javascriptEnabled = UserPreferences(applicationContext).javaScriptEnabled
         }
     }

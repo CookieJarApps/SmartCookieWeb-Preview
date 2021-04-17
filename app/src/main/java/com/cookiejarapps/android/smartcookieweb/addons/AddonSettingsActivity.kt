@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
 import kotlinx.android.synthetic.main.fragment_add_on_settings.*
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineView
@@ -26,10 +27,13 @@ class AddonSettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_on_settings)
 
-        if(UserPreferences(this).followSystem){
+
+        if(UserPreferences(this).themeChoice == ThemeChoice.SYSTEM.ordinal) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        } else{
+        } else if(UserPreferences(this).themeChoice == ThemeChoice.LIGHT.ordinal) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
 
         val addon = requireNotNull(intent.getParcelableExtra<Addon>("add_on"))

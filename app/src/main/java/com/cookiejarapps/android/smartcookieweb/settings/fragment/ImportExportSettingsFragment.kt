@@ -6,13 +6,17 @@ import android.text.InputType
 import android.widget.EditText
 import android.widget.Toast
 import androidx.preference.Preference
+import androidx.preference.Preference.OnPreferenceChangeListener
+import androidx.preference.Preference.OnPreferenceClickListener
+import androidx.preference.PreferenceFragmentCompat
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.browser.SearchEngineList
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
+class ImportExportSettingsFragment : BaseSettingsFragment() {
 
-class GeneralSettingsFragment : BaseSettingsFragment() {
+    // TODO: Import bookmarks from scw
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, s: String?) {
         addPreferencesFromResource(R.xml.preferences_general)
@@ -47,11 +51,6 @@ class GeneralSettingsFragment : BaseSettingsFragment() {
                     UserPreferences(requireContext()).showAddonsInBar = it
                     Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
                 }
-        )
-
-        clickablePreference(
-                preference = requireContext().resources.getString(R.string.key_theme_type),
-                onClick = { pickTheme() }
         )
 
         clickablePreference(
@@ -139,23 +138,6 @@ class GeneralSettingsFragment : BaseSettingsFragment() {
         builder.show()
     }
 
-    private fun pickTheme(){
-        val startingChoice = UserPreferences(requireContext()).themeChoice
-        val singleItems = resources.getStringArray(R.array.theme_types).toMutableList()
-        val checkedItem = UserPreferences(requireContext()).themeChoice
-
-        MaterialAlertDialogBuilder(requireContext())
-                .setTitle(resources.getString(R.string.homepage_type))
-                .setNeutralButton(resources.getString(R.string.cancel)) { _, _ ->
-                    UserPreferences(requireContext()).themeChoice = startingChoice
-                }
-                .setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { _, _ ->}
-                .setSingleChoiceItems(singleItems.toTypedArray(), checkedItem) { dialog, which ->
-                    UserPreferences(requireContext()).themeChoice = which
-                }
-                .show()
-    }
-
     private fun pickHomepage(){
         val startingChoice = UserPreferences(requireContext()).homepageType
         val singleItems = resources.getStringArray(R.array.homepage_types).toMutableList()
@@ -183,16 +165,16 @@ class GeneralSettingsFragment : BaseSettingsFragment() {
         }
 
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(resources.getString(R.string.search_engine))
-            .setNeutralButton(resources.getString(R.string.cancel)) { _, _ ->
-                UserPreferences(requireContext()).searchEngineChoice = startingChoice
-            }
-            .setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { _, _ ->
-                Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
-            }
-            .setSingleChoiceItems(singleItems.toTypedArray(), checkedItem) { _, which ->
-                UserPreferences(requireContext()).searchEngineChoice = which
-            }
-            .show()
+                .setTitle(resources.getString(R.string.search_engine))
+                .setNeutralButton(resources.getString(R.string.cancel)) { _, _ ->
+                    UserPreferences(requireContext()).searchEngineChoice = startingChoice
+                }
+                .setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { _, _ ->
+                    Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
+                }
+                .setSingleChoiceItems(singleItems.toTypedArray(), checkedItem) { _, which ->
+                    UserPreferences(requireContext()).searchEngineChoice = which
+                }
+                .show()
     }
 }

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.addons.ui.AddonPermissionsAdapter
@@ -26,10 +27,12 @@ class PermissionsDetailsActivity : AppCompatActivity(), View.OnClickListener {
         val addon = requireNotNull(intent.getParcelableExtra<Addon>("add_on"))
         title = addon.translateName(this)
 
-        if(UserPreferences(this).followSystem){
+        if(UserPreferences(this).themeChoice == ThemeChoice.SYSTEM.ordinal) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        } else{
+        } else if(UserPreferences(this).themeChoice == ThemeChoice.LIGHT.ordinal) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
 
         val recyclerView = findViewById<RecyclerView>(R.id.add_ons_permissions)

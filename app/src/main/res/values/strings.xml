@@ -4,8 +4,7 @@
   <string name="url_project" translatable="false">https://github.com/CookieJarApps/SmartCookieWeb</string>
 
   <string name="key_javascript_enabled" translatable="false">javascript_enabled</string>
-  <string name="key_dark_mode" translatable="false">dark_mode_enabled</string>
-  <string name="key_follow_system" translatable="false">follow_system</string>
+  <string name="key_theme_type" translatable="false">theme_type</string>
   <string name="key_search_engine" translatable="false">search_engine</string>
   <string name="key_show_addons_in_bar" translatable="false">show_addons_in_bar</string>
   <string name="key_clear_history" translatable="false">clear_history</string>
@@ -151,4 +150,16 @@
   <string name="collection_user">Collection user</string>
   <string name="collection_name">Collection name</string>
 
+  <string name="backup_bookmarks">Backup bookmarks</string>
+
+  <string name="theme">Theme</string>
+  <string name="light_theme">Light</string>
+  <string name="dark_theme">Dark</string>
+  <string name="auto">Follow system</string>
+
+  <string-array name="theme_types">
+    <item>@string/light_theme</item>
+    <item>@string/dark_theme</item>
+    <item>@string/auto</item>
+  </string-array>
 </resources>

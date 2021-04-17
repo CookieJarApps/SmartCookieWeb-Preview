@@ -16,6 +16,7 @@ import mozilla.components.feature.addons.AddonManagerException
 import mozilla.components.feature.addons.ui.translateName
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
+import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.google.android.material.switchmaterial.SwitchMaterial
 
@@ -31,10 +32,12 @@ class InstalledAddonDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_installed_add_on_details)
         val addon = requireNotNull(intent.getParcelableExtra<Addon>("add_on"))
 
-        if(UserPreferences(this).followSystem){
+        if(UserPreferences(this).themeChoice == ThemeChoice.SYSTEM.ordinal) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        } else{
+        } else if(UserPreferences(this).themeChoice == ThemeChoice.LIGHT.ordinal) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
 
         bindAddon(addon)
