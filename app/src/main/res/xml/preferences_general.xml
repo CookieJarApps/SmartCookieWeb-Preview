@@ -21,8 +21,16 @@
         app:defaultValue="true"/>
 
     <Preference
-        app:key="@string/key_theme_type"
+        app:key="@string/key_app_theme_type"
         app:title="@string/theme"
+        app:summary="@string/theme_explain"
+        app:singleLineTitle="false"
+        app:defaultValue="false"/>
+
+    <Preference
+        app:key="@string/key_web_theme_type"
+        app:title="@string/web_theme"
+        app:summary="@string/web_theme_explain"
         app:singleLineTitle="false"
         app:defaultValue="false"/>
 

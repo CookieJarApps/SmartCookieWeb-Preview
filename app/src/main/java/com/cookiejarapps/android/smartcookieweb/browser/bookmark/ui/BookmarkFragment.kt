@@ -52,6 +52,7 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val activity = requireActivity()
 
+        // TODO: swap actionbar for menu + title to fix disappearing options
         (activity as AppCompatActivity).run {
             setSupportActionBar(binding.toolBar)
         }

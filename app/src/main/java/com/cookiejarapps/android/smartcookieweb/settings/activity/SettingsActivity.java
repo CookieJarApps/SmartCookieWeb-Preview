@@ -15,9 +15,9 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        if(new UserPreferences(this).getThemeChoice() == ThemeChoice.SYSTEM.ordinal()) {
+        if(new UserPreferences(this).getAppThemeChoice() == ThemeChoice.SYSTEM.ordinal()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        } else if(new UserPreferences(this).getThemeChoice() == ThemeChoice.LIGHT.ordinal()) {
+        } else if(new UserPreferences(this).getAppThemeChoice() == ThemeChoice.LIGHT.ordinal()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);

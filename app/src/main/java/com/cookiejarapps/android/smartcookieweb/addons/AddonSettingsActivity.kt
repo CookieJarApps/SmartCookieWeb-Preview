@@ -28,9 +28,9 @@ class AddonSettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_on_settings)
 
 
-        if(UserPreferences(this).themeChoice == ThemeChoice.SYSTEM.ordinal) {
+        if(UserPreferences(this).appThemeChoice == ThemeChoice.SYSTEM.ordinal) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        } else if(UserPreferences(this).themeChoice == ThemeChoice.LIGHT.ordinal) {
+        } else if(UserPreferences(this).appThemeChoice == ThemeChoice.LIGHT.ordinal) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

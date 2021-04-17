@@ -50,8 +50,13 @@ class GeneralSettingsFragment : BaseSettingsFragment() {
         )
 
         clickablePreference(
-                preference = requireContext().resources.getString(R.string.key_theme_type),
-                onClick = { pickTheme() }
+                preference = requireContext().resources.getString(R.string.key_app_theme_type),
+                onClick = { pickAppTheme() }
+        )
+
+        clickablePreference(
+            preference = requireContext().resources.getString(R.string.key_web_theme_type),
+            onClick = { pickWebTheme() }
         )
 
         clickablePreference(
@@ -139,21 +144,38 @@ class GeneralSettingsFragment : BaseSettingsFragment() {
         builder.show()
     }
 
-    private fun pickTheme(){
-        val startingChoice = UserPreferences(requireContext()).themeChoice
+    private fun pickAppTheme(){
+        val startingChoice = UserPreferences(requireContext()).appThemeChoice
         val singleItems = resources.getStringArray(R.array.theme_types).toMutableList()
-        val checkedItem = UserPreferences(requireContext()).themeChoice
+        val checkedItem = UserPreferences(requireContext()).appThemeChoice
 
         MaterialAlertDialogBuilder(requireContext())
-                .setTitle(resources.getString(R.string.homepage_type))
+                .setTitle(resources.getString(R.string.theme))
                 .setNeutralButton(resources.getString(R.string.cancel)) { _, _ ->
-                    UserPreferences(requireContext()).themeChoice = startingChoice
+                    UserPreferences(requireContext()).appThemeChoice = startingChoice
                 }
                 .setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { _, _ ->}
                 .setSingleChoiceItems(singleItems.toTypedArray(), checkedItem) { dialog, which ->
-                    UserPreferences(requireContext()).themeChoice = which
+                    UserPreferences(requireContext()).appThemeChoice = which
                 }
                 .show()
+    }
+
+    private fun pickWebTheme(){
+        val startingChoice = UserPreferences(requireContext()).webThemeChoice
+        val singleItems = resources.getStringArray(R.array.theme_types).toMutableList()
+        val checkedItem = UserPreferences(requireContext()).webThemeChoice
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.theme))
+            .setNeutralButton(resources.getString(R.string.cancel)) { _, _ ->
+                UserPreferences(requireContext()).webThemeChoice = startingChoice
+            }
+            .setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { _, _ ->}
+            .setSingleChoiceItems(singleItems.toTypedArray(), checkedItem) { dialog, which ->
+                UserPreferences(requireContext()).webThemeChoice = which
+            }
+            .show()
     }
 
     private fun pickHomepage(){

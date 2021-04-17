@@ -115,8 +115,8 @@ open class Components(private val applicationContext: Context) {
                 (applicationContext.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) ==
                         Configuration.UI_MODE_NIGHT_YES
         return when {
-            UserPreferences(applicationContext).themeChoice == ThemeChoice.DARK.ordinal -> PreferredColorScheme.Dark
-            UserPreferences(applicationContext).themeChoice == ThemeChoice.LIGHT.ordinal -> PreferredColorScheme.Light
+            UserPreferences(applicationContext).webThemeChoice == ThemeChoice.DARK.ordinal -> PreferredColorScheme.Dark
+            UserPreferences(applicationContext).webThemeChoice == ThemeChoice.LIGHT.ordinal -> PreferredColorScheme.Light
             darkOn -> PreferredColorScheme.Dark
             else -> PreferredColorScheme.Light
         }

@@ -32,9 +32,9 @@ class NotYetSupportedAddonActivity : AppCompatActivity() {
 
         val addons = requireNotNull(intent.getParcelableArrayListExtra<Addon>("add_ons"))
 
-        if(UserPreferences(this).themeChoice == ThemeChoice.SYSTEM.ordinal) {
+        if(UserPreferences(this).appThemeChoice == ThemeChoice.SYSTEM.ordinal) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        } else if(UserPreferences(this).themeChoice == ThemeChoice.LIGHT.ordinal) {
+        } else if(UserPreferences(this).appThemeChoice == ThemeChoice.LIGHT.ordinal) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
