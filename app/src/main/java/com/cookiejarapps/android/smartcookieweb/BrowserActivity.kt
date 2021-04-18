@@ -82,6 +82,10 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
 
         components.publicSuffixList.prefetch()
 
+        if(UserPreferences(this).firstLaunch){
+            UserPreferences(this).firstLaunch = false
+        }
+
         browsingModeManager = createBrowsingModeManager(
             if(UserPreferences(this).lastKnownPrivate) BrowsingMode.Private else BrowsingMode.Normal
         )

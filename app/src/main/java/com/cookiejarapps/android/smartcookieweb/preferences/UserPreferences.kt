@@ -18,6 +18,7 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var bookmarkFolderId by longPreference("save_bookmark_folder_id", -1L)
     var shortcutDrawerOpen by booleanPreference("shortcut_drawer", true)
     var lastKnownPrivate by booleanPreference("last_known_mode_private", false)
+    var firstLaunch by booleanPreference("first_launch", true)
 
     // Preferences
     var javaScriptEnabled by booleanPreference(JAVA_SCRIPT_ENABLED, true)
