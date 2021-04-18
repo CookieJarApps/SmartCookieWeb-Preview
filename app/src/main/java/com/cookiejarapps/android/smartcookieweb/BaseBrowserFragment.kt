@@ -83,6 +83,8 @@ import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.support.base.log.logger.Logger.Companion.debug
 import com.cookiejarapps.android.smartcookieweb.components.toolbar.ToolbarPosition
 import com.cookiejarapps.android.smartcookieweb.integration.ReaderModeIntegration
+import mozilla.components.concept.engine.prompt.ShareData
+import mozilla.components.feature.prompts.share.ShareDelegate
 import org.mozilla.fenix.home.HomeScreenViewModel
 import org.mozilla.fenix.home.SharedViewModel
 import java.lang.ref.WeakReference
@@ -288,6 +290,45 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 browserToolbarView.view,
                 readerViewBar,
                 readerViewAppearanceButton
+            ),
+            owner = this,
+            view = view
+        )
+
+        promptsFeature.set(
+            feature = PromptFeature(
+                activity = activity,
+                store = store,
+                customTabId = customTabSessionId,
+                fragmentManager = parentFragmentManager,
+                loginValidationDelegate = null,
+                isSaveLoginEnabled = { false },
+                loginExceptionStorage = null,
+                shareDelegate = object : ShareDelegate {
+                    override fun showShareSheet(
+                        context: Context,
+                        shareData: ShareData,
+                        onDismiss: () -> Unit,
+                        onSuccess: () -> Unit
+                    ) {
+                        val sendIntent: Intent = Intent().apply {
+                            action = Intent.ACTION_SEND
+                            if(shareData.text !== null) putExtra(Intent.EXTRA_TEXT, shareData.text)
+                            if(shareData.url !== null) putExtra(Intent.EXTRA_TEXT, shareData.url)
+                            if(shareData.title !== null) putExtra(Intent.EXTRA_TITLE, shareData.title)
+
+                            type = "text/plain"
+                        }
+
+                        val shareIntent = Intent.createChooser(sendIntent, null)
+                        startActivity(shareIntent)
+                    }
+                },
+                onNeedToRequestPermissions = { permissions ->
+                    requestPermissions(permissions, REQUEST_CODE_PROMPT_PERMISSIONS)
+                },
+                loginPickerView = loginSelectBar,
+                onManageLogins = {}
             ),
             owner = this,
             view = view
