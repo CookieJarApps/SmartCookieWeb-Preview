@@ -37,13 +37,13 @@ class DefaultBrowserToolbarMenuController(
 
         when (item) {
             is ToolbarMenu.Item.Back -> {
-                if (customTabSessionId != null) {
-                    sessionUseCases.goBack.invoke(customTabSessionId)
+                currentSession?.let {
+                    sessionUseCases.goBack.invoke(it.id)
                 }
             }
             is ToolbarMenu.Item.Forward -> {
-                if (customTabSessionId != null) {
-                    sessionUseCases.goForward.invoke(customTabSessionId)
+                currentSession?.let {
+                    sessionUseCases.goForward.invoke(it.id)
                 }
             }
             is ToolbarMenu.Item.Reload -> {
@@ -53,8 +53,8 @@ class DefaultBrowserToolbarMenuController(
                     LoadUrlFlags.none()
                 }
 
-                if (customTabSessionId != null) {
-                    sessionUseCases.reload.invoke(customTabSessionId, flags = flags)
+                currentSession?.let {
+                    sessionUseCases.reload.invoke(it.id, flags = flags)
                 }
             }
             is ToolbarMenu.Item.Stop -> customTabSessionId?.let {
