@@ -103,9 +103,6 @@ dependencies {
 
     // Room
     implementation "androidx.room:room-runtime:2.2.6"
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'org.junit.jupiter:junit-jupiter'
     kapt "androidx.room:room-compiler:2.2.6"
 
     final def daggerVersion = '2.26'
@@ -199,6 +196,10 @@ dependencies {
 
     // WebView engine
     implementation "org.mozilla.components:browser-engine-system:$mozComponentsVersion"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     // JSON parsing
     implementation"com.squareup.moshi:moshi:1.11.0"
