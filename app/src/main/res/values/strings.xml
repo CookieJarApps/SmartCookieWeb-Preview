@@ -66,6 +66,12 @@
   <string name="settings_import_and_export">Privacy and security settings</string>
   <string name="settings_import_and_export_explain">Clear history…</string>
 
+  <string name="settings_customization">Customization settings</string>
+  <string name="settings_customization_explain">App theme, bottom navbar…</string>
+
+  <string name="settings_advanced">Advanced settings</string>
+  <string name="settings_advanced_explain">Add-on collection…</string>
+
   <string name="settings_addons">Add-on settings</string>
   <string name="settings_addons_explain">Enable add-ons, remove add-ons…</string>
 

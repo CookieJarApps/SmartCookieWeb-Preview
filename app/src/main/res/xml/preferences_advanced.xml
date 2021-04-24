@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        app:key="@string/key_use_custom_collection"
+        app:title="@string/use_custom_collection"
+        app:singleLineTitle="false"
+        app:defaultValue="false"/>
+
+    <Preference
+        app:key="@string/key_collection_user"
+        app:title="@string/collection_user"
+        app:singleLineTitle="false"
+        app:enabled="false"/>
+
+    <Preference
+        app:key="@string/key_collection_name"
+        app:title="@string/collection_name"
+        app:singleLineTitle="false"
+        app:enabled="false"/>
+
+</PreferenceScreen>

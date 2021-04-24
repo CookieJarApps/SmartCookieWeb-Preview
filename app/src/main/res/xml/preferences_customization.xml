@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        app:key="@string/key_move_navbar"
+        app:title="@string/move_navbar"
+        app:singleLineTitle="false"
+        app:defaultValue="false"/>
+
+    <SwitchPreferenceCompat
+        app:key="@string/key_show_addons_in_bar"
+        app:title="@string/show_addons_in_bar"
+        app:singleLineTitle="false"
+        app:defaultValue="true"/>
+
+    <Preference
+        app:key="@string/key_app_theme_type"
+        app:title="@string/theme"
+        app:summary="@string/theme_explain"
+        app:singleLineTitle="false"
+        app:defaultValue="false"/>
+
+    <Preference
+        app:key="@string/key_web_theme_type"
+        app:title="@string/web_theme"
+        app:summary="@string/web_theme_explain"
+        app:singleLineTitle="false"
+        app:defaultValue="false"/>
+
+</PreferenceScreen>

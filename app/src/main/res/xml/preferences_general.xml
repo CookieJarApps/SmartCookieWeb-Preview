@@ -8,32 +8,6 @@
         app:singleLineTitle="false"
         app:defaultValue="true"/>
 
-    <SwitchPreferenceCompat
-        app:key="@string/key_move_navbar"
-        app:title="@string/move_navbar"
-        app:singleLineTitle="false"
-        app:defaultValue="false"/>
-
-    <SwitchPreferenceCompat
-        app:key="@string/key_show_addons_in_bar"
-        app:title="@string/show_addons_in_bar"
-        app:singleLineTitle="false"
-        app:defaultValue="true"/>
-
-    <Preference
-        app:key="@string/key_app_theme_type"
-        app:title="@string/theme"
-        app:summary="@string/theme_explain"
-        app:singleLineTitle="false"
-        app:defaultValue="false"/>
-
-    <Preference
-        app:key="@string/key_web_theme_type"
-        app:title="@string/web_theme"
-        app:summary="@string/web_theme_explain"
-        app:singleLineTitle="false"
-        app:defaultValue="false"/>
-
     <Preference
         app:key="@string/key_search_engine"
         app:title="@string/search_engine"
@@ -45,23 +19,5 @@
         app:title="@string/homepage_type"
         app:singleLineTitle="false"
         app:defaultValue="false"/>
-
-    <SwitchPreferenceCompat
-        app:key="@string/key_use_custom_collection"
-        app:title="@string/use_custom_collection"
-        app:singleLineTitle="false"
-        app:defaultValue="false"/>
-
-    <Preference
-        app:key="@string/key_collection_user"
-        app:title="@string/collection_user"
-        app:singleLineTitle="false"
-        app:enabled="false"/>
-
-    <Preference
-        app:key="@string/key_collection_name"
-        app:title="@string/collection_name"
-        app:singleLineTitle="false"
-        app:enabled="false"/>
 
 </PreferenceScreen>

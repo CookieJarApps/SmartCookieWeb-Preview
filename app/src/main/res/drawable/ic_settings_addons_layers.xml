@@ -3,7 +3,7 @@
     <item>
       <shape android:shape="oval">
         <solid
-            android:color="@color/icon_circle_2" />
+            android:color="@color/icon_circle_4" />
         <size
             android:width="36dp"
             android:height="36dp" />

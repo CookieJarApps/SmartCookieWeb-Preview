@@ -14,6 +14,18 @@
         android:singleLineTitle="false"
         android:summary="@string/settings_privacy_and_security_explain"/>
     <androidx.preference.Preference
+        android:fragment="com.cookiejarapps.android.smartcookieweb.settings.fragment.CustomizationSettingsFragment"
+        android:icon="@drawable/ic_settings_customize_layers"
+        android:title="@string/settings_customization"
+        android:singleLineTitle="false"
+        android:summary="@string/settings_customization_explain"/>
+    <androidx.preference.Preference
+        android:fragment="com.cookiejarapps.android.smartcookieweb.settings.fragment.AdvancedSettingsFragment"
+        android:icon="@drawable/ic_settings_advanced_layers"
+        android:title="@string/settings_advanced"
+        android:singleLineTitle="false"
+        android:summary="@string/settings_advanced_explain"/>
+    <androidx.preference.Preference
         android:fragment="com.cookiejarapps.android.smartcookieweb.addons.AddonsFragment"
         android:icon="@drawable/ic_settings_addons_layers"
         android:title="@string/settings_addons"
