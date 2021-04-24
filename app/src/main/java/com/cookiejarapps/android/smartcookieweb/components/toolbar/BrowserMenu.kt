@@ -36,7 +36,7 @@ class BrowserMenu(
             menuItems,
             endOfMenuAlwaysVisible = !shouldReverseItems,
             store = store,
-            style = WebExtensionBrowserMenuBuilder.Style(webExtIconTintColorResource = primaryTextColor()),
+            //style = WebExtensionBrowserMenuBuilder.Style(webExtIconTintColorResource = primaryTextColor()),
             onAddonsManagerTapped = {
                 val intent = Intent(context, AddonsActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
