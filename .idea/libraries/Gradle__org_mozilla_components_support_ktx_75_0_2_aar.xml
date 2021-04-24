@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:support-ktx:75.0.2@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/bbfd33e10236db9f780d7c90a6ed18a8/transformed/jetified-support-ktx-75.0.2/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/bbfd33e10236db9f780d7c90a6ed18a8/transformed/jetified-support-ktx-75.0.2/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/bbfd33e10236db9f780d7c90a6ed18a8/transformed/jetified-support-ktx-75.0.2/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/support-ktx/75.0.2/3d9b43fe0835bda86c1c20f4bbdac3a057b33d3b/support-ktx-75.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

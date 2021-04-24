@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:concept-fetch:75.0.2@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/76fc9303f25b947aa0ba87f667e408a9/transformed/jetified-concept-fetch-75.0.2/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/76fc9303f25b947aa0ba87f667e408a9/transformed/jetified-concept-fetch-75.0.2/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/76fc9303f25b947aa0ba87f667e408a9/transformed/jetified-concept-fetch-75.0.2/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/concept-fetch/75.0.2/de7c45562b2685de7a44d39621fdab3f0e661e60/concept-fetch-75.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

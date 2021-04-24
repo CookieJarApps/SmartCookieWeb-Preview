@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-sitepermissions:75.0.2@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/842c8b83400ff310e5975b49ba8de4e9/transformed/jetified-feature-sitepermissions-75.0.2/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/842c8b83400ff310e5975b49ba8de4e9/transformed/jetified-feature-sitepermissions-75.0.2/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/842c8b83400ff310e5975b49ba8de4e9/transformed/jetified-feature-sitepermissions-75.0.2/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-sitepermissions/75.0.2/eaa584dcec343610b852aa2c26468e7f6fcd5a99/feature-sitepermissions-75.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
