@@ -260,7 +260,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 engineView = engineView,
                 toolbarInfo = FindInPageIntegration.ToolbarInfo(
                     browserToolbarView.view,
-                    UserPreferences(context).shouldUseFixedTopToolbar && UserPreferences(context).isDynamicToolbarEnabled,
+                    UserPreferences(context).hideBarWhileScrolling,
                     !UserPreferences(context).shouldUseBottomToolbar
                 )
             ),
@@ -582,7 +582,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     internal fun initializeEngineView(toolbarHeight: Int) {
         val context = requireContext()
 
-        if (!UserPreferences(context).shouldUseFixedTopToolbar && UserPreferences(context).isDynamicToolbarEnabled) {
+        if (UserPreferences(context).hideBarWhileScrolling) {
             engineView.setDynamicToolbarMaxHeight(toolbarHeight)
 
             val toolbarPosition = if (UserPreferences(context).shouldUseBottomToolbar) {

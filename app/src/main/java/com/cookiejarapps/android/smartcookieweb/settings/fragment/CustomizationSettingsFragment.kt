@@ -28,6 +28,19 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
         )
 
         switchPreference(
+            preference = requireContext().resources.getString(R.string.key_hide_url_bar),
+            isChecked = UserPreferences(requireContext()).hideBarWhileScrolling,
+            onCheckChange = {
+                UserPreferences(requireContext()).hideBarWhileScrolling = it
+                Toast.makeText(
+                    context,
+                    requireContext().resources.getText(R.string.app_restart),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+
+        switchPreference(
             preference = requireContext().resources.getString(R.string.key_show_addons_in_bar),
             isChecked = UserPreferences(requireContext()).showAddonsInBar,
             onCheckChange = {

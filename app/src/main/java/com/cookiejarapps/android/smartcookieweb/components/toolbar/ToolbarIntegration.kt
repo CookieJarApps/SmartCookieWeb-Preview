@@ -113,7 +113,7 @@ class DefaultToolbarIntegration(
         toolbar.display.colors = toolbar.display.colors.copy(
             securityIconInsecure = 0xFFd9534f.toInt(),
             securityIconSecure = 0xFF5cb85c.toInt(),
-            text = 0xFF0c0c0d.toInt(),
+            text = context.getColorFromAttr(android.R.attr.textColorPrimary),
             menu = context.getColorFromAttr(android.R.attr.textColorPrimary),
             separator = 0x1E15141a,
             trackingProtection = 0xFF20123a.toInt(),

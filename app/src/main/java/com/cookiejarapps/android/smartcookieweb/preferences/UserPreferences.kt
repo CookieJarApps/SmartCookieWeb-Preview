@@ -35,6 +35,7 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var customAddonCollectionName by stringPreference(COLLECTION_NAME, "")
     var autoFontSize by booleanPreference(AUTO_FONT_SIZE, true)
     var fontSizeFactor by floatPreference(FONT_SIZE_FACTOR, 1f)
+    var hideBarWhileScrolling by booleanPreference(HIDE_URL_BAR, true)
 
     // TODO: make these configurable & clean up duplicates
     var shouldUseBottomToolbar: Boolean
@@ -50,22 +51,10 @@ class UserPreferences(appContext: Context): PreferencesHolder {
             return if(toolbarPosition == ToolbarPosition.BOTTOM.ordinal) ToolbarPosition.BOTTOM else ToolbarPosition.TOP
         }
 
-    val isDynamicToolbarEnabled: Boolean
-        get() {
-            return true
-        }
-
-    val shouldUseFixedTopToolbar: Boolean
-        get() {
-            return false
-        }
-
     companion object {
         const val SCW_PREFERENCES = "scw_preferences"
 
-        const val DARK_MODE = "dark_mode_enabled"
         const val JAVA_SCRIPT_ENABLED = "java_script_enabled"
-        const val FOLLOW_SYSTEM = "follow_system"
         const val SHOW_ADDONS_IN_BAR = "show_addons_in_bar"
         const val SEARCH_ENGINE = "search_engine"
         const val TOOLBAR_POSITION = "toolbar_position"
@@ -77,5 +66,6 @@ class UserPreferences(appContext: Context): PreferencesHolder {
         const val COLLECTION_USER = "collection_user"
         const val AUTO_FONT_SIZE = "auto_font_size"
         const val FONT_SIZE_FACTOR = "font_size_factor"
+        const val HIDE_URL_BAR = "hide_url_bar"
     }
 }

@@ -5,4 +5,5 @@
     <color name="main_icon">#FFFFFF</color>
     <color name="primary_icon">#e3e3e3</color>
     <color name="secondary_icon">#5e5e5e</color>
+    <color name="toolbar_background">#5C5C5C</color>
 </resources>

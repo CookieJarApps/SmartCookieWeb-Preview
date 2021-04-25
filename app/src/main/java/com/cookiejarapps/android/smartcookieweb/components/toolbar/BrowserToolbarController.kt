@@ -99,7 +99,7 @@ class DefaultBrowserToolbarController(
     }
 
     override fun handleScroll(offset: Int) {
-        if (UserPreferences(activity).isDynamicToolbarEnabled) {
+        if (UserPreferences(activity).hideBarWhileScrolling) {
             engineView.setVerticalClipping(offset)
         }
     }

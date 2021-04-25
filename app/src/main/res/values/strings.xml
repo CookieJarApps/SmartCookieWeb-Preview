@@ -16,6 +16,7 @@
   <string name="key_collection_user" translatable="false">collection_user</string>
   <string name="key_auto_font_size" translatable="false">auto_font_size</string>
   <string name="key_font_size_factor" translatable="false">font_size_factor</string>
+  <string name="key_hide_url_bar" translatable="false">hide_url_bar</string>
 
   <string name="more">More Info</string>
   <string name="version">Application version</string>
@@ -94,6 +95,8 @@
 
   <string name="tab_removed">Tab removed</string>
   <string name="undo">Undo</string>
+
+  <string name="hide_url_bar">Hide URL bar while scrolling</string>
 
   <string name="search">Search</string>
   <string name="no_results">No results</string>
