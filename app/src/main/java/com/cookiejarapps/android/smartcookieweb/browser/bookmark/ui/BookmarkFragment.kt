@@ -22,6 +22,7 @@ import com.cookiejarapps.android.smartcookieweb.browser.bookmark.repository.Book
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBookmarkBinding
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import kotlinx.android.synthetic.main.fragment_bookmark.*
 
 class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener, PathView.OnPathViewClickListener {
 
@@ -52,13 +53,26 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val activity = requireActivity()
 
-        // TODO: swap actionbar for menu + title to fix disappearing options
-        (activity as AppCompatActivity).run {
-            setSupportActionBar(binding.toolBar)
-        }
-
         val recyclerView = binding.recyclerView
         val breadCrumbsView = binding.pathView
+
+        tool_bar.inflateMenu(R.menu.bookmark_menu)
+
+        tool_bar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.addBookmark -> {
+                    AddBookmarkSiteDialog(activity, context?.components?.sessionManager?.selectedSession?.title ?: "", context?.components?.sessionManager?.selectedSession?.url ?: "")
+                        .setOnClickListener { _, _ -> adapter.notifyDataSetChanged() }
+                        .show()
+                }
+                R.id.addFolder -> {
+                    AddBookmarkFolderDialog(activity, manager, getString(R.string.new_folder_name), currentFolder)
+                        .setOnClickListener { _, _ -> adapter.notifyDataSetChanged() }
+                        .show()
+                }
+            }
+            true
+        }
 
         recyclerView.layoutManager = LinearLayoutManager(activity)
         val helper = ItemTouchHelper(Touch())
@@ -106,8 +120,7 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener,
     private fun setList(folder: BookmarkFolderItem) {
         val activity = requireActivity()
 
-        val actionBar = (activity as AppCompatActivity).supportActionBar ?: return
-        actionBar.setTitle(R.string.action_bookmarks)
+        tool_bar.setTitle(R.string.action_bookmarks)
 
         currentFolder = folder
         setPath(folder)
@@ -178,27 +191,6 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener,
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.bookmark_menu, menu)
         showPathHeader(false)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val activity = requireActivity()
-
-        when (item.itemId) {
-            R.id.addBookmark -> {
-
-                AddBookmarkSiteDialog(activity, context?.components?.sessionManager?.selectedSession?.title ?: "", context?.components?.sessionManager?.selectedSession?.url ?: "")
-                    .setOnClickListener { _, _ -> adapter.notifyDataSetChanged() }
-                    .show()
-                return true
-            }
-            R.id.addFolder -> {
-                AddBookmarkFolderDialog(activity, manager, getString(R.string.new_folder_name), currentFolder)
-                    .setOnClickListener { _, _ -> adapter.notifyDataSetChanged() }
-                    .show()
-                return true
-            }
-        }
-        return false
     }
 
     private fun showContextMenu(v: View, index: Int) {
