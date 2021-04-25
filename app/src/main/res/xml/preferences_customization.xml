@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <SwitchPreferenceCompat
         app:key="@string/key_move_navbar"
@@ -27,5 +27,20 @@
         app:summary="@string/web_theme_explain"
         app:singleLineTitle="false"
         app:defaultValue="false"/>
+
+    <SwitchPreferenceCompat
+        app:key="@string/key_auto_font_size"
+        app:title="@string/auto_font"
+        app:singleLineTitle="false"
+        app:defaultValue="true"/>
+
+    <SeekBarPreference
+        android:max="150"
+        app:min="50"
+        app:key="@string/key_font_size_factor"
+        app:title="@string/font_size"
+        app:showSeekBarValue="true"
+        app:singleLineTitle="false"
+        app:defaultValue="100"/>
 
 </PreferenceScreen>

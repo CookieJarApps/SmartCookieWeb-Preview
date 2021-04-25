@@ -129,6 +129,10 @@ open class Components(private val applicationContext: Context) {
             requestInterceptor = AppRequestInterceptor(applicationContext)
             remoteDebuggingEnabled = true
             supportMultipleWindows = true
+            if(!UserPreferences(applicationContext).autoFontSize){
+                fontSizeFactor = UserPreferences(applicationContext).fontSizeFactor
+                automaticFontSizeAdjustment = false
+            }
             preferredColorScheme = darkEnabled()
             javascriptEnabled = UserPreferences(applicationContext).javaScriptEnabled
         }
@@ -273,8 +277,12 @@ open class Components(private val applicationContext: Context) {
 
     private val runtime by lazy {
         val builder = GeckoRuntimeSettings.Builder()
-        builder.aboutConfigEnabled(true)
-        GeckoRuntime.create(applicationContext, builder.build())
+
+        val runtimeSettings = builder
+            .aboutConfigEnabled(true)
+            .build()
+
+        GeckoRuntime.create(applicationContext, runtimeSettings)
     }
 
     val webAppManifestStorage by lazy { ManifestStorage(applicationContext) }

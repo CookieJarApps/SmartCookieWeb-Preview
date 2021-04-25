@@ -1,5 +1,6 @@
 package com.cookiejarapps.android.smartcookieweb.settings.fragment
 
+import androidx.preference.Preference
 import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
@@ -49,6 +50,23 @@ abstract class BaseSettingsFragment : PreferenceFragmentCompat() {
         val summaryUpdate = SummaryUpdater(this)
         onPreferenceClickListener = OnPreferenceClickListener {
             onClick(summaryUpdate)
+            true
+        }
+    }
+
+    protected fun seekbarPreference(
+        preference: String,
+        isEnabled: Boolean = true,
+        summary: String? = null,
+        onStateChanged: (Int) -> Unit
+    ) = findPreference<androidx.preference.SeekBarPreference>(preference)?.apply {
+        this.isEnabled = isEnabled
+        summary?.let {
+            this.summary = summary
+        }
+        val summaryUpdate = SummaryUpdater(this)
+        onPreferenceChangeListener = OnPreferenceChangeListener { preference: Preference, newValue: Any ->
+            onStateChanged(newValue as Int)
             true
         }
     }

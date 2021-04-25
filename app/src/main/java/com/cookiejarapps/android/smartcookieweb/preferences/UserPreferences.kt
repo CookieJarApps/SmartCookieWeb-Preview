@@ -33,6 +33,8 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var shownCollectionDisclaimer by booleanPreference(SHOWN_ADDON_DISCLAIMER, false)
     var customAddonCollectionUser by stringPreference(COLLECTION_USER, "")
     var customAddonCollectionName by stringPreference(COLLECTION_NAME, "")
+    var autoFontSize by booleanPreference(AUTO_FONT_SIZE, true)
+    var fontSizeFactor by floatPreference(FONT_SIZE_FACTOR, 1f)
 
     // TODO: make these configurable & clean up duplicates
     var shouldUseBottomToolbar: Boolean
@@ -73,5 +75,7 @@ class UserPreferences(appContext: Context): PreferencesHolder {
         const val SHOWN_ADDON_DISCLAIMER = "shown_disclaimer"
         const val COLLECTION_NAME = "collection_name"
         const val COLLECTION_USER = "collection_user"
+        const val AUTO_FONT_SIZE = "auto_font_size"
+        const val FONT_SIZE_FACTOR = "font_size_factor"
     }
 }

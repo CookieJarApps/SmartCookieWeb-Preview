@@ -1,13 +1,10 @@
 package com.cookiejarapps.android.smartcookieweb.settings.fragment
 
-import android.app.AlertDialog
 import android.os.Bundle
-import android.text.InputType
-import android.widget.EditText
 import android.widget.Toast
 import androidx.preference.Preference
+import androidx.preference.SeekBarPreference
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.browser.SearchEngineList
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -18,31 +15,58 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
         addPreferencesFromResource(R.xml.preferences_customization)
 
         switchPreference(
-                preference = requireContext().resources.getString(R.string.key_move_navbar),
-                isChecked = UserPreferences(requireContext()).shouldUseBottomToolbar,
-                onCheckChange = {
-                    UserPreferences(requireContext()).shouldUseBottomToolbar = it
-                    Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
-                }
+            preference = requireContext().resources.getString(R.string.key_move_navbar),
+            isChecked = UserPreferences(requireContext()).shouldUseBottomToolbar,
+            onCheckChange = {
+                UserPreferences(requireContext()).shouldUseBottomToolbar = it
+                Toast.makeText(
+                    context,
+                    requireContext().resources.getText(R.string.app_restart),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         )
 
         switchPreference(
-                preference = requireContext().resources.getString(R.string.key_show_addons_in_bar),
-                isChecked = UserPreferences(requireContext()).showAddonsInBar,
-                onCheckChange = {
-                    UserPreferences(requireContext()).showAddonsInBar = it
-                    Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
-                }
+            preference = requireContext().resources.getString(R.string.key_show_addons_in_bar),
+            isChecked = UserPreferences(requireContext()).showAddonsInBar,
+            onCheckChange = {
+                UserPreferences(requireContext()).showAddonsInBar = it
+                Toast.makeText(
+                    context,
+                    requireContext().resources.getText(R.string.app_restart),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         )
 
         clickablePreference(
-                preference = requireContext().resources.getString(R.string.key_app_theme_type),
-                onClick = { pickAppTheme() }
+            preference = requireContext().resources.getString(R.string.key_app_theme_type),
+            onClick = { pickAppTheme() }
         )
 
         clickablePreference(
             preference = requireContext().resources.getString(R.string.key_web_theme_type),
             onClick = { pickWebTheme() }
+        )
+
+        switchPreference(
+            preference = requireContext().resources.getString(R.string.key_auto_font_size),
+            isChecked = UserPreferences(requireContext()).autoFontSize,
+            onCheckChange = {
+                UserPreferences(requireContext()).autoFontSize = it
+                preferenceScreen.findPreference<SeekBarPreference>(resources.getString(R.string.key_font_size_factor))!!.isEnabled = !it
+                Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
+            }
+        )
+
+        seekbarPreference(
+                preference = requireContext().resources.getString(R.string.key_font_size_factor),
+                isEnabled = !UserPreferences(requireContext()).autoFontSize,
+                onStateChanged = {
+                    UserPreferences(requireContext()).fontSizeFactor = it.toFloat() / 100
+                    Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
+                }
         )
 
     }

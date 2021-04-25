@@ -14,6 +14,8 @@
   <string name="key_use_custom_collection" translatable="false">use_custom_collection</string>
   <string name="key_collection_name" translatable="false">collection_name</string>
   <string name="key_collection_user" translatable="false">collection_user</string>
+  <string name="key_auto_font_size" translatable="false">auto_font_size</string>
+  <string name="key_font_size_factor" translatable="false">font_size_factor</string>
 
   <string name="more">More Info</string>
   <string name="version">Application version</string>
@@ -166,6 +168,9 @@
   <string name="light_theme">Light</string>
   <string name="dark_theme">Dark</string>
   <string name="auto">Follow system</string>
+
+  <string name="auto_font">Auto font size</string>
+  <string name="font_size">Font size</string>
 
   <string-array name="theme_types">
     <item>@string/light_theme</item>
