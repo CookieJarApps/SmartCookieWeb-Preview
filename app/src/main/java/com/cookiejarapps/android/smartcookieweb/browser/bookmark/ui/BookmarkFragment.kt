@@ -14,15 +14,20 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.items.BookmarkFolderItem
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.items.BookmarkItem
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.items.BookmarkSiteItem
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.repository.BookmarkManager
+import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutDatabase
+import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutEntity
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBookmarkBinding
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import kotlinx.android.synthetic.main.fragment_bookmark.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener, PathView.OnPathViewClickListener {
 
@@ -240,6 +245,17 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener,
                         ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
                         null
                 )
+            }
+            R.id.addShortcut -> if (item is BookmarkSiteItem) {
+                val database = Room.databaseBuilder(
+                    requireContext(),
+                    ShortcutDatabase::class.java, "shortcut-database"
+                ).build()
+
+                GlobalScope.launch {
+                    // UPDATE HOMEPAGE
+                    database.shortcutDao().insertAll(ShortcutEntity(url = item.url))
+                }
             }
             R.id.editBookmark -> if (item is BookmarkSiteItem) {
                 AddBookmarkSiteDialog(activity, manager, item)

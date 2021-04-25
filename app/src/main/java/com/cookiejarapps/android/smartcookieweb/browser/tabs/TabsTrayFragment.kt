@@ -82,8 +82,6 @@ class TabsTrayFragment : Fragment() {
                 view = view
         )
 
-        tabLayout.selectTab(tabLayout.getTabAt(if(browsingModeManager.mode == BrowsingMode.Normal) 0 else 1))
-
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when(tab.position){

@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.Display.FLAG_SECURE
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -176,7 +177,7 @@ class HomeFragment : Fragment() {
                 .setItems(items) { _, which ->
                     when(which){
                         0 -> showEditShortcutDialog(position, view.shortcut_grid.adapter as ShortcutGridAdapter)
-                        1 -> deleteShortcut(view.shortcut_grid.adapter.getItem(which) as ShortcutEntity, view.shortcut_grid.adapter as ShortcutGridAdapter)
+                        1 -> deleteShortcut(view.shortcut_grid.adapter.getItem(position) as ShortcutEntity, view.shortcut_grid.adapter as ShortcutGridAdapter)
                     }
                 }
                 .show()
@@ -266,7 +267,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun deleteShortcut(shortcutEntity: ShortcutEntity, adapter: ShortcutGridAdapter) {
-        adapter.list.remove(shortcutEntity)
+        val list = adapter.list
+        list.remove(shortcutEntity)
+        adapter.list = list
         adapter.notifyDataSetChanged()
 
         GlobalScope.launch {
