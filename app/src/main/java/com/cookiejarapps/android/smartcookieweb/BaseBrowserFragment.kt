@@ -672,11 +672,11 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         super.onResume()
         val components = requireContext().components
 
-        /*val preferredColorScheme = components.getPreferredColorScheme()
+        val preferredColorScheme = components.darkEnabled()
         if (components.engine.settings.preferredColorScheme != preferredColorScheme) {
             components.engine.settings.preferredColorScheme = preferredColorScheme
             components.sessionUseCases.reload()
-        }*/
+        }
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
 
         components.store.state.findTabOrCustomTabOrSelectedTab(customTabSessionId)?.let {
