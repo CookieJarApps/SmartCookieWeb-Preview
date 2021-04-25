@@ -29,7 +29,6 @@ import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.search.*
 import kotlinx.android.synthetic.main.fragment_search_dialog.*
 import kotlinx.android.synthetic.main.fragment_search_dialog.view.*
-import kotlinx.android.synthetic.main.search_suggestions_hint.view.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
@@ -217,7 +216,6 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
             * */
             if (it.url != it.query) firstUpdate = false
             awesome_bar?.visibility = if (shouldShowAwesomebar(it)) View.VISIBLE else View.INVISIBLE
-            updateSearchSuggestionsHintVisibility(it)
             updateClipboardSuggestion(it, requireContext().components.clipboardHandler.url)
             updateToolbarContentDescription(it)
             updateSearchShortcutsIcon(it)
@@ -283,9 +281,6 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
                 clear(pill_wrapper.id, BOTTOM)
                 connect(pill_wrapper.id, BOTTOM, toolbar.id, TOP)
 
-                clear(search_suggestions_hint.id, TOP)
-                connect(search_suggestions_hint.id, TOP, PARENT_ID, TOP)
-
                 clear(fill_link_from_clipboard.id, TOP)
                 connect(fill_link_from_clipboard.id, BOTTOM, pill_wrapper.id, TOP)
 
@@ -294,14 +289,6 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
 
                 applyTo(search_wrapper)
             }
-        }
-    }
-
-    private fun updateSearchSuggestionsHintVisibility(state: SearchFragmentState) {
-        view?.apply {
-            val showHint = state.showSearchSuggestionsHint && !state.showSearchShortcuts
-            findViewById<View>(R.id.search_suggestions_hint)?.isVisible = showHint
-            search_suggestions_hint_divider?.isVisible = showHint
         }
     }
 

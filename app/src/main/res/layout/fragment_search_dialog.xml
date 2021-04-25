@@ -44,23 +44,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_barrier" />
 
-    <ViewStub
-        android:id="@+id/search_suggestions_hint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inflatedId="@id/search_suggestions_hint"
-        android:layout="@layout/search_suggestions_hint"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/top_barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="search_suggestions_hint"
-        tools:layout_editor_absoluteY="48dp" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <View
         android:id="@+id/search_suggestions_hint_divider"
@@ -68,7 +57,7 @@
         android:layout_height="1dp"
         android:background="#e3e3e3"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/search_suggestions_hint"
+        app:layout_constraintTop_toBottomOf="@id/top_barrier"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
