@@ -156,7 +156,7 @@
             android:layout_alignParentEnd="true"
             android:contentDescription="@string/mozac_feature_addons_home_page"
             app:srcCompat="@drawable/ic_baseline_link"
-            app:tint="@android:color/black" />
+            app:tint="?android:attr/textColorPrimary" />
 
     </RelativeLayout>
 </ScrollView>
