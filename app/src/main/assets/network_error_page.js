@@ -14,7 +14,7 @@ function injectValues(queryMap) {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('errorTryAgain').addEventListener('click', () => window.location.reload());
+    document.getElementById('tryAgain').addEventListener('click', () => window.location.reload());
 });
 
 parseQuery(document.documentURI);
