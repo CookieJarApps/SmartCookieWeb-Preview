@@ -15,34 +15,69 @@
         android:paddingStart="?android:attr/listPreferredItemPaddingStart"
         android:paddingEnd="?android:attr/listPreferredItemPaddingEnd">
 
+        <ImageView
+            android:id="@+id/addon_icon"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_marginBottom="8dp"
+            tools:srcCompat="@drawable/ic_settings_addons_layers" />
+
+        <TextView
+            android:id="@+id/addon_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/addon_icon"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="24sp"
+            tools:text="Add-on" />
+
+        <RatingBar
+            android:id="@+id/rating_view"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_below="@+id/author_text"
+            android:layout_marginTop="2dp"
+            android:isIndicator="true"
+            android:numStars="5" />
+
+        <TextView
+            android:id="@+id/users_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/author_text"
+            android:layout_alignParentEnd="false"
+            android:layout_marginStart="6dp"
+            android:layout_toEndOf="@id/rating_view"
+            android:textColor="?android:attr/textColorPrimary"
+            tools:text="1,234" />
+
         <TextView
             android:id="@+id/details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/rating_view"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="20dp"
             tools:text="@tools:sample/lorem" />
 
         <TextView
-            android:id="@+id/author_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/details"
-            android:text="@string/mozac_feature_addons_authors"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/author_text"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/details"
-            android:layout_alignParentEnd="true"
+            android:layout_height="20dp"
+            android:layout_below="@id/addon_icon"
+            android:layout_alignParentEnd="false"
+            android:layout_marginTop="4dp"
+            android:textColor="?android:attr/textColorPrimary"
             tools:text="@tools:sample/full_names" />
 
         <View
             android:id="@+id/author_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/author_label"
+            android:layout_below="@+id/details"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="@color/photonGrey40"
@@ -117,43 +152,6 @@
             android:contentDescription="@string/mozac_feature_addons_home_page"
             app:srcCompat="@drawable/ic_baseline_link"
             app:tint="@android:color/black" />
-
-        <View
-            android:id="@+id/home_page_divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/home_page_label"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/photonGrey40"
-            android:importantForAccessibility="no" />
-
-        <TextView
-            android:id="@+id/rating_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/home_page_divider"
-            android:text="@string/mozac_feature_addons_rating"
-            android:textStyle="bold" />
-
-        <RatingBar
-            android:id="@+id/rating_view"
-            style="@style/Widget.AppCompat.RatingBar.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_below="@+id/home_page_divider"
-            android:layout_toStartOf="@+id/users_count"
-            android:isIndicator="true"
-            android:numStars="5" />
-
-        <TextView
-            android:id="@+id/users_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/home_page_divider"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="6dp"
-            tools:text="1,234" />
 
     </RelativeLayout>
 </ScrollView>

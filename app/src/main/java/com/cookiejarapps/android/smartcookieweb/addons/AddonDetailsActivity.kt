@@ -1,10 +1,14 @@
 package com.cookiejarapps.android.smartcookieweb.addons
 
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.TransitionDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -12,19 +16,18 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.text.HtmlCompat
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
+import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.android.synthetic.main.fragment_about.view.*
+import kotlinx.coroutines.*
 import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.addons.ui.showInformationDialog
-import mozilla.components.feature.addons.ui.translateName
 import mozilla.components.feature.addons.ui.translateDescription
+import mozilla.components.feature.addons.ui.translateName
 import mozilla.components.feature.addons.update.DefaultAddonUpdater
 import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.util.Locale
+import java.util.*
 
 // An activity to show the details of an add-on.
 class AddonDetailsActivity : AppCompatActivity() {
@@ -50,13 +53,31 @@ class AddonDetailsActivity : AppCompatActivity() {
     }
 
     private fun initViews(addon: Addon) {
-        title = addon.translateName(this)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        title = resources.getString(R.string.mozac_feature_addons_details)
+
+        val iconView = findViewById<ImageView>(R.id.addon_icon)
+        val titleView = findViewById<TextView>(R.id.addon_title)
 
         val detailsView = findViewById<TextView>(R.id.details)
         val detailsText = addon.translateDescription(this)
 
         val htmlText = detailsText.replace("\n", "<br>")
         val text = HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val iconBitmap = components.addonCollectionProvider.getAddonIconBitmap(addon)
+            runOnUiThread {
+                val bitmapDrawable = BitmapDrawable(resources, iconBitmap)
+                val animation = TransitionDrawable(arrayOf(bitmapDrawable))
+                animation.isCrossFadeEnabled = true
+                iconView.setImageDrawable(animation)
+                animation.startTransition(1700)
+
+                iconView.setImageBitmap(iconBitmap)
+            }
+        }
+        titleView.text = addon.translateName(this)
 
         detailsView.text = text
         detailsView.movementMethod = LinkMovementMethod.getInstance()
@@ -92,7 +113,7 @@ class AddonDetailsActivity : AppCompatActivity() {
             val ratingNum = findViewById<TextView>(R.id.users_count)
             val ratingView = findViewById<RatingBar>(R.id.rating_view)
 
-            ratingNum.text = getFormattedAmount(it.reviews)
+            ratingNum.text = "(${getFormattedAmount(it.reviews)})"
 
             val ratingContentDescription = getString(R.string.mozac_feature_addons_rating_content_description)
             ratingView.contentDescription = String.format(ratingContentDescription, it.average)
@@ -117,4 +138,15 @@ class AddonDetailsActivity : AppCompatActivity() {
         val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
         return DateFormat.getDateInstance().format(formatter.parse(text)!!)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                super.onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }
