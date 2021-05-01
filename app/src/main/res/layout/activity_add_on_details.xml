@@ -25,12 +25,17 @@
         <TextView
             android:id="@+id/addon_title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="54dp"
+            android:layout_alignParentTop="true"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
             android:layout_toEndOf="@id/addon_icon"
+            android:gravity="center_vertical"
+            android:maxLines="2"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="24sp"
+            app:autoSizeMaxTextSize="24sp"
+            app:autoSizeStepGranularity="2sp"
+            app:autoSizeTextType="uniform"
             tools:text="Add-on" />
 
         <RatingBar
