@@ -52,7 +52,10 @@ class TabsTrayFragment : Fragment() {
                     if (UserPreferences(requireContext()).homepageType == HomepageChoice.VIEW.ordinal) {
                         findNavController().navigate(HomeFragmentDirections.actionGlobalHome(focusOnAddressBar = true))
                     } else {
-                        components.tabsUseCases.addTab.invoke("about:blank", selectTab = true)
+                        when(browsingModeManager.mode){
+                            BrowsingMode.Normal -> components.tabsUseCases.addTab.invoke("about:blank", selectTab = true)
+                            BrowsingMode.Private -> components.tabsUseCases.addPrivateTab.invoke("about:blank", selectTab = true)
+                        }
                     }
                     closeTabsTray()
                 }
