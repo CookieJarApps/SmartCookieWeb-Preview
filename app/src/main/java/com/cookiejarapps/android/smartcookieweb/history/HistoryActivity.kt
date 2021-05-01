@@ -25,7 +25,7 @@ class HistoryActivity: AppCompatActivity(), SearchView.OnQueryTextListener {
         val recyclerView = findViewById<RecyclerView>(R.id.list)
         recyclerView.layoutManager = LinearLayoutManager(this)
         GlobalScope.launch {
-            val history = components.historyStorage.getDetailedVisits(0)
+            val history = components.historyStorage.getDetailedVisits(0).reversed()
             runOnUiThread {
                 recyclerView.adapter = HistoryItemRecyclerViewAdapter(
                     history
