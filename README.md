@@ -24,8 +24,10 @@ Unsure which CookieJarApps browser to choose? Look here: https://github.com/Cook
 
 Need help? Open an issue here, or:
 
+- Visit the [help page](https://smartcookieweb.com/help-biscuit/)
 - Email me at `support@cookiejarapps.com`
-- Join the Matrix chat at https://matrix.to/#/#smartcookieweb:matrix.org
+- Join the [Telegram chat](https://t.me/scwgroup)
+- Join the [Matrix chat](https://matrix.to/#/#smartcookieweb:matrix.org)
 
 ---
 
