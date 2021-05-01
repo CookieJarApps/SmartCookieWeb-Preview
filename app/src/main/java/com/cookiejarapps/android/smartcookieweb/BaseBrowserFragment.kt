@@ -296,42 +296,16 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         )
 
         promptsFeature.set(
-            feature = PromptFeature(
-                activity = activity,
-                store = store,
-                customTabId = customTabSessionId,
-                fragmentManager = parentFragmentManager,
-                loginValidationDelegate = null,
-                isSaveLoginEnabled = { false },
-                loginExceptionStorage = null,
-                shareDelegate = object : ShareDelegate {
-                    override fun showShareSheet(
-                        context: Context,
-                        shareData: ShareData,
-                        onDismiss: () -> Unit,
-                        onSuccess: () -> Unit
-                    ) {
-                        val sendIntent: Intent = Intent().apply {
-                            action = Intent.ACTION_SEND
-                            if(shareData.text !== null) putExtra(Intent.EXTRA_TEXT, shareData.text)
-                            if(shareData.url !== null) putExtra(Intent.EXTRA_TEXT, shareData.url)
-                            if(shareData.title !== null) putExtra(Intent.EXTRA_TITLE, shareData.title)
-
-                            type = "text/plain"
-                        }
-
-                        val shareIntent = Intent.createChooser(sendIntent, null)
-                        startActivity(shareIntent)
-                    }
-                },
-                onNeedToRequestPermissions = { permissions ->
-                    requestPermissions(permissions, REQUEST_CODE_PROMPT_PERMISSIONS)
-                },
-                loginPickerView = loginSelectBar,
-                onManageLogins = {}
-            ),
-            owner = this,
-            view = view
+                feature = PromptFeature(
+                        fragment = this,
+                        store = components.store,
+                        customTabId = customTabSessionId,
+                        fragmentManager = parentFragmentManager,
+                        onNeedToRequestPermissions = { permissions ->
+                            requestPermissions(permissions, REQUEST_CODE_PROMPT_PERMISSIONS)
+                        }),
+                owner = this,
+                view = view
         )
 
         fullScreenMediaSessionFeature.set(

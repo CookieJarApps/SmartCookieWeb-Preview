@@ -8,18 +8,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import kotlinx.android.synthetic.main.fragment_extension_popup.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import mozilla.components.browser.state.action.ContentAction
+import mozilla.components.browser.state.action.CustomTabListAction
 import mozilla.components.browser.state.action.WebExtensionAction
+import mozilla.components.browser.state.state.CustomTabSessionState
+import mozilla.components.browser.state.state.EngineState
+import mozilla.components.browser.state.state.SessionState
+import mozilla.components.browser.state.state.createCustomTab
 import mozilla.components.concept.engine.EngineSession
+import mozilla.components.concept.engine.prompt.PromptRequest
 import mozilla.components.concept.engine.window.WindowRequest
+import mozilla.components.feature.prompts.PromptFeature
 import mozilla.components.lib.state.ext.consumeFrom
+import mozilla.components.support.base.feature.UserInteractionHandler
+import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 
 
-class WebExtensionPopupFragment : DialogFragment(), EngineSession.Observer {
-    private var engineSession: EngineSession? = null
+class WebExtensionPopupFragment : DialogFragment(), UserInteractionHandler, EngineSession.Observer {
+    private val promptsFeature = ViewBoundFeatureWrapper<PromptFeature>()
+
+    protected var session: SessionState? = null
+    protected var engineSession: EngineSession? = null
+    private var canGoBack: Boolean = false
+
     private lateinit var webExtensionId: String
 
     override fun onCreateView(
@@ -27,9 +43,11 @@ class WebExtensionPopupFragment : DialogFragment(), EngineSession.Observer {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         webExtensionId = requireNotNull(arguments?.getString("web_extension_id"))
-        engineSession = components.store.state.extensions[webExtensionId]?.popupSession
+
+        components.store.state.extensions[webExtensionId]?.popupSession?.let {
+            initializeSession(it)
+        }
 
         dialog?.window?.setGravity(Gravity.END or Gravity.TOP)
         dialog?.window?.attributes?.windowAnimations = R.style.ExtensionPopupStyle
@@ -42,10 +60,23 @@ class WebExtensionPopupFragment : DialogFragment(), EngineSession.Observer {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val session = engineSession
-        if (session != null) {
-            addonPopupEngineView.render(session)
-            session.register(this, view)
+        session?.let {
+            promptsFeature.set(
+                    feature = PromptFeature(
+                            fragment = this,
+                            store = components.store,
+                            customTabId = it.id,
+                            fragmentManager = parentFragmentManager,
+                            onNeedToRequestPermissions = { permissions ->
+                                requestPermissions(permissions, REQUEST_CODE_PROMPT_PERMISSIONS)
+                            }),
+                    owner = this,
+                    view = view
+            )
+        }
+
+        if (engineSession != null) {
+            addonPopupEngineView.render(engineSession!!)
             consumePopupSession()
         } else {
             consumeFrom(requireContext().components.store) { state ->
@@ -63,6 +94,30 @@ class WebExtensionPopupFragment : DialogFragment(), EngineSession.Observer {
         }
     }
 
+    override fun onDestroyView() {
+        engineSession?.close()
+        session?.let {
+            components.store.dispatch(CustomTabListAction.RemoveCustomTabAction(it.id))
+        }
+        super.onDestroyView()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        engineSession?.register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        engineSession?.unregister(this)
+    }
+
+    protected fun initializeSession(fromEngineSession: EngineSession? = null) {
+        engineSession = fromEngineSession ?: components.engine.createSession()
+        session = createCustomTab("").copy(engineState = EngineState(engineSession))
+        components.store.dispatch(CustomTabListAction.AddCustomTabAction(session as CustomTabSessionState))
+    }
+
     override fun onWindowRequest(windowRequest: WindowRequest) {
         if (windowRequest.type == WindowRequest.Type.CLOSE) {
             dismiss()
@@ -70,10 +125,46 @@ class WebExtensionPopupFragment : DialogFragment(), EngineSession.Observer {
             engineSession?.loadUrl(windowRequest.url)
         }
     }
+
     private fun consumePopupSession() {
         components.store.dispatch(
             WebExtensionAction.UpdatePopupSessionAction(webExtensionId, popupSession = null)
         )
+    }
+
+    override fun onBackPressed(): Boolean {
+        return if (this.canGoBack) {
+            engineSession?.goBack()
+            true
+        } else {
+            false
+        }
+    }
+
+    override fun onPromptRequest(promptRequest: PromptRequest) {
+        session?.let { session ->
+            components.store.dispatch(
+                    ContentAction.UpdatePromptRequestAction(
+                            session.id,
+                            promptRequest
+                    )
+            )
+        }
+    }
+
+    override fun onNavigationStateChange(canGoBack: Boolean?, canGoForward: Boolean?) {
+        canGoBack?.let { this.canGoBack = canGoBack }
+    }
+
+
+    override fun onRequestPermissionsResult(
+            requestCode: Int,
+            permissions: Array<String>,
+            grantResults: IntArray
+    ) {
+        when (requestCode) {
+            REQUEST_CODE_PROMPT_PERMISSIONS -> promptsFeature.get()?.onPermissionsResult(permissions, grantResults)
+        }
     }
 
     companion object {
@@ -82,5 +173,6 @@ class WebExtensionPopupFragment : DialogFragment(), EngineSession.Observer {
                 putString("web_extension_id", webExtensionId)
             }
         }
+        private const val REQUEST_CODE_PROMPT_PERMISSIONS = 1
     }
 }
