@@ -2,7 +2,6 @@ package com.cookiejarapps.android.smartcookieweb.addons
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
@@ -71,7 +70,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.addon_menu, menu)
+        inflater.inflate(R.menu.search_menu, menu)
         val searchItem = menu.findItem(R.id.search)
         val searchView: SearchView = searchItem.actionView as SearchView
         searchView.imeOptions = EditorInfo.IME_ACTION_DONE

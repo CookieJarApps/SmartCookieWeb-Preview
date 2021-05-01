@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:browser-toolbar:74.0.12@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/744c9261b47954f76246291091492768/transformed/jetified-browser-toolbar-74.0.10/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/744c9261b47954f76246291091492768/transformed/jetified-browser-toolbar-74.0.10/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/744c9261b47954f76246291091492768/transformed/jetified-browser-toolbar-74.0.10/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/browser-toolbar/74.0.12/cedec3c1cc06bc13be6481668d886be278fdfb2a/browser-toolbar-74.0.12-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

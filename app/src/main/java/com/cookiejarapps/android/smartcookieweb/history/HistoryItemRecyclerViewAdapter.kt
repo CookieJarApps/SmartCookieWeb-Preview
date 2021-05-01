@@ -1,19 +1,54 @@
 package com.cookiejarapps.android.smartcookieweb.history
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.cookiejarapps.android.smartcookieweb.R
+import java.util.*
 
 open class HistoryItemRecyclerViewAdapter(
-        private val values: List<String>)
+    private var values: List<String>
+)
     : RecyclerView.Adapter<HistoryItemRecyclerViewAdapter.ViewHolder>() {
+
+    lateinit var filtered: MutableList<String>
+    lateinit var oldList: MutableList<String>
+
+    open fun getFilter(): Filter? {
+        return object : Filter() {
+            override fun performFiltering(charSequence: CharSequence): FilterResults {
+                val charString = charSequence.toString()
+
+                filtered = if (charString.isEmpty()) {
+                    oldList
+                } else {
+                    val filteredList: MutableList<String> = ArrayList<String>()
+                    for (row in oldList) {
+                        if (row.toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(row)
+                        }
+                    }
+                    filteredList
+                }
+                val filterResults = FilterResults()
+                filterResults.values = filtered
+                return filterResults
+            }
+
+            override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
+                values = filterResults.values as MutableList<String>
+                notifyDataSetChanged()
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.history_list_item, parent, false)
+        oldList = values as MutableList<String>
         return ViewHolder(view)
     }
 

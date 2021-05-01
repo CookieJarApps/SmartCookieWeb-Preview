@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:concept-tabstray:74.0.12@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/1ea4e6ae6808a83957e7a55874648dfb/transformed/jetified-concept-tabstray-74.0.4/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/1ea4e6ae6808a83957e7a55874648dfb/transformed/jetified-concept-tabstray-74.0.4/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/1ea4e6ae6808a83957e7a55874648dfb/transformed/jetified-concept-tabstray-74.0.4/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/concept-tabstray/74.0.12/769a4b92cd68fa171aef12c535a2e8597c3810e6/concept-tabstray-74.0.12-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
