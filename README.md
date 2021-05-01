@@ -41,6 +41,8 @@ Need help? Open an issue here, or:
 
 A limited set of FireFox add-ons are available in BiscuitBrowser. If you would like another add-on already on the Mozilla add-on store to be included, just open an issue here. If you've made your own add-on and want it to be included in the browser, you should either upload it to Mozilla's add-on store and open an issue here, or submit the add-on for signing to Mozilla and open an issue with a link to the signed XPI file.
 
+Add-ons can be rated or reported [here](https://addons.smartcookieweb.com/).
+
 ---
 
 ## Features
