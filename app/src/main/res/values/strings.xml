@@ -180,4 +180,6 @@
     <item>@string/dark_theme</item>
     <item>@string/auto</item>
   </string-array>
+
+  <string name="rate">Rate</string>
 </resources>
