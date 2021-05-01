@@ -27,7 +27,6 @@ interface SearchController {
     fun handleClickSearchEngineSettings()
     fun handleExistingSessionSelected(tabId: String)
     fun handleSearchShortcutsButtonClicked()
-    fun handleCameraPermissionsNeeded()
 }
 
 @Suppress("TooManyFunctions", "LongParameterList")
@@ -71,7 +70,6 @@ class SearchDialogController(
     }
 
     override fun handleTextChanged(text: String) {
-        // Display the search shortcuts on each entry of the search fragment (see #5308)
         val textMatchesCurrentUrl = fragmentStore.state.url == text
         val textMatchesCurrentSearch = fragmentStore.state.searchTerms == text
 
@@ -79,17 +77,12 @@ class SearchDialogController(
         fragmentStore.dispatch(
             SearchFragmentAction.ShowSearchShortcutEnginePicker(
                 (textMatchesCurrentUrl || textMatchesCurrentSearch || text.isEmpty())
-                //&&
-                //settings.shouldShowSearchShortcuts
             )
         )
         fragmentStore.dispatch(
             SearchFragmentAction.AllowSearchSuggestionsInPrivateModePrompt(
                 text.isNotEmpty() &&
                         activity.browsingModeManager.mode.isPrivate
-                //&&
-                // !settings.shouldShowSearchSuggestionsInPrivate &&
-                // !settings.showSearchSuggestionsInPrivateOnboardingFinished
             )
         )
     }
@@ -130,8 +123,6 @@ class SearchDialogController(
 
     override fun handleClickSearchEngineSettings() {
         clearToolbarFocus()
-        //val directions = SearchDialogFragmentDirections.actionGlobalSearchEngineFragment()
-        //navController.navigateSafe(R.id.searchDialogFragment, directions)
     }
 
     override fun handleExistingSessionSelected(tabId: String) {
@@ -142,51 +133,5 @@ class SearchDialogController(
         activity.openToBrowser(
             from = BrowserDirection.FromSearchDialog
         )
-    }
-
-    /**
-     * Creates and shows an [AlertDialog] when camera permissions are needed.
-     *
-     * In versions above M, [AlertDialog.BUTTON_POSITIVE] takes the user to the app settings. This
-     * intent only exists in M and above. Below M, [AlertDialog.BUTTON_POSITIVE] routes to a SUMO
-     * help page to find the app settings.
-     *
-     * [AlertDialog.BUTTON_NEGATIVE] dismisses the dialog.
-     */
-    override fun handleCameraPermissionsNeeded() {
-        val dialog = buildDialog()
-        dialog.show()
-    }
-
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun buildDialog(): AlertDialog.Builder {
-        return AlertDialog.Builder(activity).apply {
-            val spannableText = SpannableString(
-                "CAMERA PERMISSION NEEDED (NOSTRING)"
-            )
-            setMessage(spannableText)
-            setNegativeButton("CAMERA PERMISSION NEEDED (NOSTRING)") { _, _ ->
-                dismissDialog()
-            }
-            setPositiveButton("CAMERA PERMISSION NEEDED (NOSTRING)") {
-                    dialog: DialogInterface, _ ->
-                // TODO: M ONLY
-                val intent: Intent = Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                /*else {
-                    SupportUtils.createCustomTabIntent(
-                        activity,
-                        SupportUtils.getSumoURLForTopic(
-                            activity,
-                            SupportUtils.SumoTopic.QR_CAMERA_ACCESS
-                        )
-                    )
-                }*/
-                val uri = Uri.fromParts("package", activity.packageName, null)
-                intent.data = uri
-                dialog.cancel()
-                activity.startActivity(intent)
-            }
-            create()
-        }
     }
 }

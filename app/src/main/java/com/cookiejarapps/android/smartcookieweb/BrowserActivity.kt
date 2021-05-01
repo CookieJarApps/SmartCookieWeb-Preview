@@ -18,10 +18,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.cookiejarapps.android.smartcookieweb.addons.WebExtensionPopupFragment
-import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
-import com.cookiejarapps.android.smartcookieweb.browser.BrowsingModeManager
-import com.cookiejarapps.android.smartcookieweb.browser.DefaultBrowsingModeManager
-import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
+import com.cookiejarapps.android.smartcookieweb.browser.*
 import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
 import com.cookiejarapps.android.smartcookieweb.browser.tabs.TabsTrayFragment
 import com.cookiejarapps.android.smartcookieweb.ext.alreadyOnDestination
@@ -34,6 +31,7 @@ import kotlinx.android.synthetic.main.navigation_toolbar.*
 import mozilla.components.browser.state.search.SearchEngine
 import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.state.WebExtensionState
+import mozilla.components.browser.state.state.searchEngines
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.feature.contextmenu.ext.DefaultSelectionActionDelegate
@@ -85,6 +83,9 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
         if(UserPreferences(this).firstLaunch){
             UserPreferences(this).firstLaunch = false
         }
+
+        //TODO: Move to settings page so app restart no longer required
+        components.searchUseCases.selectSearchEngine(SearchEngineList().engines[UserPreferences(this).searchEngineChoice])
 
         browsingModeManager = createBrowsingModeManager(
             if(UserPreferences(this).lastKnownPrivate) BrowsingMode.Private else BrowsingMode.Normal
