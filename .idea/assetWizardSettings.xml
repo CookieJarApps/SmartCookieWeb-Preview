@@ -308,7 +308,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../SDK/icons/material/materialicons/rate_review/baseline_rate_review_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../SDK/icons/material/materialicons/report/baseline_report_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -319,7 +319,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="696969" />
-                            <entry key="outputName" value="ic_baseline_rate_review" />
+                            <entry key="outputName" value="ic_baseline_report" />
                             <entry key="sourceFile" value="D:\CookieJarApps\BiscuitBrowser" />
                           </map>
                         </option>

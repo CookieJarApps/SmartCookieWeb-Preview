@@ -97,12 +97,26 @@
             app:drawableStartCompat="@drawable/ic_baseline_rate_review"
             app:drawableTint="?android:attr/textColorPrimary" />
 
+        <TextView
+            android:id="@+id/report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rate"
+            android:background="?android:attr/selectableItemBackground"
+            android:drawablePadding="6dp"
+            android:padding="16dp"
+            android:text="@string/report"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp"
+            app:drawableStartCompat="@drawable/ic_baseline_report"
+            app:drawableTint="?android:attr/textColorPrimary" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/remove_add_on"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rate"
+            android:layout_below="@id/report"
             android:layout_marginTop="16dp"
             android:text="@string/mozac_feature_addons_remove"
             android:textColor="@color/colorPrimaryDark" />

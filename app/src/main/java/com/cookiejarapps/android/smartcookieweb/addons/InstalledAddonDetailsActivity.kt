@@ -84,6 +84,8 @@ class InstalledAddonDetailsActivity : AppCompatActivity() {
 
         bindRate(addon)
 
+        bindReport(addon)
+
         bindAllowInPrivateBrowsingSwitch(addon)
 
         bindRemoveButton(addon)
@@ -178,6 +180,20 @@ class InstalledAddonDetailsActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(
                     "https://addons.smartcookieweb.com/addon?id=${addon.id}&rate=true")
+            intent.setPackage(BuildConfig.APPLICATION_ID)
+            this.startActivity(intent)
+        }
+    }
+
+    private fun bindReport(addon: Addon) {
+        if(UserPreferences(applicationContext).customAddonCollection){
+            findViewById<View>(R.id.report).visibility = View.GONE
+        }
+
+        findViewById<View>(R.id.report).setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(
+                "https://addons.smartcookieweb.com/addon?id=${addon.id}&report=true")
             intent.setPackage(BuildConfig.APPLICATION_ID)
             this.startActivity(intent)
         }
