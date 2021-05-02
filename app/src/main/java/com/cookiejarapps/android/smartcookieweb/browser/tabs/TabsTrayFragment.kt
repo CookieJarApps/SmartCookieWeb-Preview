@@ -69,7 +69,6 @@ class TabsTrayFragment : Fragment() {
         // TODO: tab grid setting could be added here
         val layoutManager = LinearLayoutManager(context)
         layoutManager.stackFromEnd = UserPreferences(requireContext()).stackFromBottom
-        layoutManager.reverseLayout = !UserPreferences(requireContext()).stackFromBottom
         tabsTray.layoutManager = layoutManager
 
         tabsFeature.set(

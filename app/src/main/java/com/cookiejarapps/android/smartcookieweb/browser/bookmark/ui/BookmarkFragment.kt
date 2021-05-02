@@ -82,7 +82,6 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener,
 
         val layoutManager = LinearLayoutManager(context)
         layoutManager.stackFromEnd = UserPreferences(requireContext()).stackFromBottom
-        layoutManager.reverseLayout = !UserPreferences(requireContext()).stackFromBottom
         recyclerView.layoutManager = layoutManager
         val helper = ItemTouchHelper(Touch())
         helper.attachToRecyclerView(recyclerView)
