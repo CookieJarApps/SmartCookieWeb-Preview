@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.AppCompatImageButton
+import androidx.core.content.ContextCompat
 import com.cookiejarapps.android.smartcookieweb.R
 import mozilla.components.browser.tabstray.TabViewHolder
 import mozilla.components.browser.tabstray.TabsTrayStyling
@@ -70,19 +71,15 @@ class TabViewHolder(
 
     @VisibleForTesting
     internal fun showItemAsSelected() {
-        styling?.let { styling ->
-            titleView.setTextColor(styling.selectedItemTextColor)
-            itemView.setBackgroundColor(Color.LTGRAY)
-            closeView.imageTintList = ColorStateList.valueOf(styling.selectedItemTextColor)
-        }
+        titleView.setTextColor(itemView.context.getColorFromAttr(android.R.attr.textColorPrimary))
+        itemView.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.selected_tab))
+        closeView.imageTintList = ColorStateList.valueOf(itemView.context.getColorFromAttr(android.R.attr.textColorPrimary))
     }
 
     @VisibleForTesting
     internal fun showItemAsNotSelected() {
-        styling?.let { styling ->
-            titleView.setTextColor(itemView.context.getColorFromAttr(android.R.attr.textColorPrimary))
-            itemView.setBackgroundColor(itemView.context.getColorFromAttr(R.attr.colorSurface))
-            closeView.imageTintList = ColorStateList.valueOf(styling.itemTextColor)
-        }
+        titleView.setTextColor(itemView.context.getColorFromAttr(android.R.attr.textColorPrimary))
+        itemView.setBackgroundColor(itemView.context.getColorFromAttr(R.attr.colorSurface))
+        closeView.imageTintList = ColorStateList.valueOf(itemView.context.getColorFromAttr(android.R.attr.textColorPrimary))
     }
 }

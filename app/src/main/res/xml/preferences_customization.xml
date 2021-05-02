@@ -15,6 +15,18 @@
         app:defaultValue="true"/>
 
     <SwitchPreferenceCompat
+        app:key="@string/key_swap_drawers"
+        app:title="@string/swap_bookmarks_and_tabs"
+        app:singleLineTitle="false"
+        app:defaultValue="true"/>
+
+    <SwitchPreferenceCompat
+        app:key="@string/key_stack_from_bottom"
+        app:title="@string/stack_items_reverse"
+        app:singleLineTitle="false"
+        app:defaultValue="true"/>
+
+    <SwitchPreferenceCompat
         app:key="@string/key_show_addons_in_bar"
         app:title="@string/show_addons_in_bar"
         app:singleLineTitle="false"

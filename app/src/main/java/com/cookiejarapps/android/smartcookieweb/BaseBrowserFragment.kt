@@ -25,6 +25,7 @@ import androidx.navigation.fragment.findNavController
 import com.cookiejarapps.android.smartcookieweb.*
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.ui.BookmarkFragment
+import com.cookiejarapps.android.smartcookieweb.browser.tabs.TabsTrayFragment
 import com.cookiejarapps.android.smartcookieweb.components.StoreProvider
 import com.cookiejarapps.android.smartcookieweb.components.toolbar.*
 import com.cookiejarapps.android.smartcookieweb.ext.components
@@ -218,9 +219,10 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 thumbnailsFeature.get()?.requestScreenshot()
 
                 val drawerLayout = activity.findViewById<DrawerLayout>(R.id.drawer_layout)
-                val bookmarksDrawer = activity.findViewById<FrameLayout>(R.id.left_drawer)
-                if (bookmarksDrawer != null) {
-                    drawerLayout?.openDrawer(bookmarksDrawer)
+                val tabDrawer = if(UserPreferences(activity).swapDrawers) activity.findViewById<FrameLayout>(R.id.right_drawer) else activity.findViewById<FrameLayout>(R.id.left_drawer)
+
+                if (tabDrawer != null) {
+                    drawerLayout?.openDrawer(tabDrawer)
                 }
             }
         )
@@ -452,11 +454,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 owner = this,
                 view = view
             )
-        }
-
-        activity.supportFragmentManager.beginTransaction().apply {
-            replace(R.id.right_drawer, BookmarkFragment())
-            commit()
         }
 
         initializeEngineView(toolbarHeight)

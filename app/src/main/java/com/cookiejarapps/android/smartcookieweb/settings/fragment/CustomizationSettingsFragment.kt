@@ -41,6 +41,32 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
         )
 
         switchPreference(
+            preference = requireContext().resources.getString(R.string.key_swap_drawers),
+            isChecked = UserPreferences(requireContext()).swapDrawers,
+            onCheckChange = {
+                UserPreferences(requireContext()).swapDrawers = it
+                Toast.makeText(
+                    context,
+                    requireContext().resources.getText(R.string.app_restart),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+
+        switchPreference(
+            preference = requireContext().resources.getString(R.string.key_stack_from_bottom),
+            isChecked = UserPreferences(requireContext()).stackFromBottom,
+            onCheckChange = {
+                UserPreferences(requireContext()).stackFromBottom = it
+                Toast.makeText(
+                    context,
+                    requireContext().resources.getText(R.string.app_restart),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+
+        switchPreference(
             preference = requireContext().resources.getString(R.string.key_show_addons_in_bar),
             isChecked = UserPreferences(requireContext()).showAddonsInBar,
             onCheckChange = {

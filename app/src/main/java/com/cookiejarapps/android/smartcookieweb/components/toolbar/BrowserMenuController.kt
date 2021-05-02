@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import com.cookiejarapps.android.smartcookieweb.*
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.history.HistoryActivity
+import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.settings.activity.SettingsActivity
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -118,7 +119,7 @@ class DefaultBrowserToolbarMenuController(
             }
             is ToolbarMenu.Item.Bookmarks -> browserAnimator.captureEngineViewAndDrawStatically {
                 val drawerLayout = activity.findViewById<DrawerLayout>(R.id.drawer_layout)
-                val bookmarksDrawer = activity.findViewById<FrameLayout>(R.id.right_drawer)
+                val bookmarksDrawer = if(UserPreferences(activity).swapDrawers) activity.findViewById<FrameLayout>(R.id.left_drawer) else activity.findViewById<FrameLayout>(R.id.right_drawer)
 
                 if (bookmarksDrawer != null) {
                     drawerLayout?.openDrawer(bookmarksDrawer)

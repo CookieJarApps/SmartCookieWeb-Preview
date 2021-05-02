@@ -36,6 +36,8 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var autoFontSize by booleanPreference(AUTO_FONT_SIZE, true)
     var fontSizeFactor by floatPreference(FONT_SIZE_FACTOR, 1f)
     var hideBarWhileScrolling by booleanPreference(HIDE_URL_BAR, true)
+    var swapDrawers by booleanPreference(SWAP_DRAWERS, false)
+    var stackFromBottom by booleanPreference(STACK_FROM_BOTTOM, false)
 
     // TODO: make these configurable & clean up duplicates
     var shouldUseBottomToolbar: Boolean
@@ -67,5 +69,7 @@ class UserPreferences(appContext: Context): PreferencesHolder {
         const val AUTO_FONT_SIZE = "auto_font_size"
         const val FONT_SIZE_FACTOR = "font_size_factor"
         const val HIDE_URL_BAR = "hide_url_bar"
+        const val SWAP_DRAWERS = "swap_drawers"
+        const val STACK_FROM_BOTTOM = "stack_from_bottom"
     }
 }

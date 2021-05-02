@@ -100,11 +100,6 @@ class HomeFragment : Fragment() {
         val activity = activity as BrowserActivity
         val components = requireContext().components
 
-        activity.supportFragmentManager.beginTransaction().apply {
-            replace(R.id.right_drawer, BookmarkFragment())
-            commit()
-        }
-
         updateLayout(view)
 
         if(!UserPreferences(requireContext()).shortcutDrawerOpen){
@@ -429,7 +424,7 @@ class HomeFragment : Fragment() {
                     }
                     HomeMenu.Item.Bookmarks -> {
                         val drawerLayout = activity?.findViewById<DrawerLayout>(R.id.drawer_layout)
-                        val bookmarksDrawer = activity?.findViewById<FrameLayout>(R.id.right_drawer)
+                        val bookmarksDrawer = if(UserPreferences(requireContext()).swapDrawers) requireActivity().findViewById<FrameLayout>(R.id.left_drawer) else requireActivity().findViewById<FrameLayout>(R.id.right_drawer)
 
                         if (bookmarksDrawer != null) {
                             drawerLayout?.openDrawer(bookmarksDrawer)
@@ -453,10 +448,10 @@ class HomeFragment : Fragment() {
 
     private fun openTabDrawer() {
         val drawerLayout = activity?.findViewById<DrawerLayout>(R.id.drawer_layout)
-        val tabsDrawer = activity?.findViewById<FrameLayout>(R.id.left_drawer)
+        val tabDrawer = if(UserPreferences(requireContext()).swapDrawers) requireActivity().findViewById<FrameLayout>(R.id.right_drawer) else requireActivity().findViewById<FrameLayout>(R.id.left_drawer)
 
-        if (tabsDrawer != null) {
-            drawerLayout?.openDrawer(tabsDrawer)
+        if (tabDrawer != null) {
+            drawerLayout?.openDrawer(tabDrawer)
         }
     }
 

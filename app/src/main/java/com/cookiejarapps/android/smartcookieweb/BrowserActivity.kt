@@ -19,6 +19,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.cookiejarapps.android.smartcookieweb.addons.WebExtensionPopupFragment
 import com.cookiejarapps.android.smartcookieweb.browser.*
+import com.cookiejarapps.android.smartcookieweb.browser.bookmark.ui.BookmarkFragment
 import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
 import com.cookiejarapps.android.smartcookieweb.browser.tabs.TabsTrayFragment
 import com.cookiejarapps.android.smartcookieweb.ext.alreadyOnDestination
@@ -106,8 +107,16 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
 
+        val rightDrawer = if(UserPreferences(this).swapDrawers) TabsTrayFragment() else BookmarkFragment()
+        val leftDrawer = if(UserPreferences(this).swapDrawers) BookmarkFragment() else TabsTrayFragment()
+
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.left_drawer, TabsTrayFragment())
+            replace(R.id.right_drawer, rightDrawer)
+            commit()
+        }
+
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.left_drawer, leftDrawer)
             commit()
         }
 

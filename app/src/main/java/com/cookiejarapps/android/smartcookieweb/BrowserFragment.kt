@@ -2,7 +2,6 @@ package com.cookiejarapps.android.smartcookieweb
 
 import android.view.View
 import com.cookiejarapps.android.smartcookieweb.browser.ToolbarGestureHandler
-import com.cookiejarapps.android.smartcookieweb.browser.bookmark.ui.BookmarkFragment
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import kotlinx.android.synthetic.main.fragment_browser.*

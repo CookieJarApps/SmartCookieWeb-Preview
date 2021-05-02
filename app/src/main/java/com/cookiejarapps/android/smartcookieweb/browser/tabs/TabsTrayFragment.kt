@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
@@ -65,7 +66,11 @@ class TabsTrayFragment : Fragment() {
 
         val tabsAdapter = createTabsAdapter()
         tabsTray.adapter = tabsAdapter
-        tabsTray.layoutManager = GridLayoutManager(context, 1)
+        // TODO: tab grid setting could be added here
+        val layoutManager = LinearLayoutManager(context)
+        layoutManager.stackFromEnd = UserPreferences(requireContext()).stackFromBottom
+        layoutManager.reverseLayout = !UserPreferences(requireContext()).stackFromBottom
+        tabsTray.layoutManager = layoutManager
 
         tabsFeature.set(
                 feature = TabsFeature(

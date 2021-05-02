@@ -79,7 +79,11 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener,
             true
         }
 
-        recyclerView.layoutManager = LinearLayoutManager(activity)
+
+        val layoutManager = LinearLayoutManager(context)
+        layoutManager.stackFromEnd = UserPreferences(requireContext()).stackFromBottom
+        layoutManager.reverseLayout = !UserPreferences(requireContext()).stackFromBottom
+        recyclerView.layoutManager = layoutManager
         val helper = ItemTouchHelper(Touch())
         helper.attachToRecyclerView(recyclerView)
         recyclerView.addItemDecoration(helper)
@@ -187,7 +191,8 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener,
 
     private fun closeDrawer(){
         val drawerLayout = activity?.findViewById<DrawerLayout>(R.id.drawer_layout)
-        val bookmarksDrawer = activity?.findViewById<FrameLayout>(R.id.right_drawer)
+        val bookmarksDrawer = if(UserPreferences(requireContext()).swapDrawers) requireActivity().findViewById<FrameLayout>(R.id.left_drawer) else requireActivity().findViewById<FrameLayout>(R.id.right_drawer)
+
         if (bookmarksDrawer != null) {
             drawerLayout?.closeDrawer(bookmarksDrawer)
         }
