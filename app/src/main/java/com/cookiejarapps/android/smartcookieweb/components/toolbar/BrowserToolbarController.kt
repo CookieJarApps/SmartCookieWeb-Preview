@@ -13,13 +13,11 @@ import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
 import mozilla.components.browser.state.selector.getNormalOrPrivateTabs
 import mozilla.components.browser.state.selector.selectedTab
-import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.concept.engine.EngineView
-import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.support.ktx.kotlin.isUrl
-import mozilla.components.ui.tabcounter.TabCounterMenu
-import org.mozilla.fenix.home.HomeScreenViewModel
+import mozilla.components.ui.tabcounter.TabCounterMenu.Item
+import com.cookiejarapps.android.smartcookieweb.components.toolbar.TabCounterMenu
 
 interface BrowserToolbarController {
     fun handleScroll(offset: Int)
@@ -27,7 +25,7 @@ interface BrowserToolbarController {
     fun handleToolbarPasteAndGo(text: String)
     fun handleToolbarClick()
     fun handleTabCounterClick()
-    fun handleTabCounterItemInteraction(item: TabCounterMenu.Item)
+    fun handleTabCounterItemInteraction(item: Item)
 }
 
 class DefaultBrowserToolbarController(
@@ -81,19 +79,40 @@ class DefaultBrowserToolbarController(
         onTabCounterClicked.invoke()
     }
 
-    override fun handleTabCounterItemInteraction(item: TabCounterMenu.Item) {
+    override fun handleTabCounterItemInteraction(item: Item) {
         when (item) {
-            is TabCounterMenu.Item.NewTab -> {
+            is Item.NewTab -> {
                 activity.browsingModeManager.mode = BrowsingMode.Normal
                 navController.navigate(
                     BrowserFragmentDirections.actionGlobalHome(focusOnAddressBar = true)
                 )
             }
-            is TabCounterMenu.Item.NewPrivateTab -> {
+            is Item.NewPrivateTab -> {
                 activity.browsingModeManager.mode = BrowsingMode.Private
                 navController.navigate(
                     BrowserFragmentDirections.actionGlobalHome(focusOnAddressBar = true)
                 )
+            }
+            is Item.CloseTab -> {
+                store.state.selectedTab?.let {
+                    if (store.state.getNormalOrPrivateTabs(it.content.private).count() == 1) {
+                        navController.navigate(
+                            BrowserFragmentDirections.actionGlobalHome()
+                        )
+                    } else {
+                        activity.components.tabsUseCases.removeTab(it.id, selectParentIfExists = true)
+                    }
+                }
+            }
+            is TabCounterMenu.ExtendedItem.DuplicateTab -> {
+                store.state.selectedTab?.let {
+                    if(activity.browsingModeManager.mode == BrowsingMode.Normal){
+                        activity.components.tabsUseCases.addTab.invoke(it.content.url, true)
+                    }
+                    else{
+                        activity.components.tabsUseCases.addPrivateTab.invoke(it.content.url, true)
+                    }
+                }
             }
         }
     }

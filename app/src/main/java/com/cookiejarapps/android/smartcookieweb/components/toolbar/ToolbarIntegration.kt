@@ -24,7 +24,7 @@ import mozilla.components.lib.publicsuffixlist.PublicSuffixList
 import mozilla.components.support.base.feature.LifecycleAwareFeature
 import mozilla.components.support.ktx.android.content.getColorFromAttr
 import mozilla.components.support.ktx.android.view.hideKeyboard
-import org.mozilla.fenix.components.toolbar.TabCounterMenu
+import com.cookiejarapps.android.smartcookieweb.components.toolbar.TabCounterMenu
 import org.mozilla.fenix.components.toolbar.MenuPresenter
 
 @ExperimentalCoroutinesApi

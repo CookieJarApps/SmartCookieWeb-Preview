@@ -50,6 +50,9 @@
   <string name="reload">Reload</string>
   <string name="settings">Settings</string>
   <string name="new_tab">New tab</string>
+  <string name="duplicate_tab">Duplicate tab</string>
+  <string name="move_to_private">Move to private mode</string>
+  <string name="move_to_normal">Move to normal mode</string>
   <string name="close_tab">Close tab</string>
   <string name="desktop_mode">Desktop site</string>
   <string name="wait">Wait</string>
