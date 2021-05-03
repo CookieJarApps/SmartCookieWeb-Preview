@@ -191,4 +191,7 @@
 
   <string name="swap_bookmarks_and_tabs">Swap bookmark and tab drawers</string>
   <string name="stack_items_reverse">Stack items from bottom of drawer</string>
+
+  <string name="browser_sync">Browser sync</string>
+  <string name="browser_sync_disclaimer">When using syncing, the browser syncs your tabs with your Firefox account. This means that the browser will store your data in encrypted form on the Firefox Sync servers operated by Mozilla. This service is not affiliated with or endorsed by Mozilla and CookieJarApps is not required to provide support service, warranty, or updates.</string>
 </resources>

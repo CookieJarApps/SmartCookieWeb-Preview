@@ -25,16 +25,28 @@
     <string name="reload">Recarregar</string>
     <string name="settings">Definições</string>
     <string name="new_tab">Novo separador</string>
+    <string name="move_to_private">Move to private mode</string>
+    <string name="move_to_normal">Move to normal mode</string>
     <string name="close_tab">Fechar separador</string>
     <string name="desktop_mode">Site para desktop</string>
     <string name="wait">Aguarde</string>
     <string name="stop">Parar</string>
     <string name="install">Instalar</string>
     <string name="cancel">Cancelar</string>
+    <string name="export_bookmarks">Export bookmarks to backup</string>
+    <string name="import_backup">Import bookmarks from backup</string>
+    <string name="export_tabs">Export tabs to backup</string>
+    <string name="import_tabs">Import tabs from backup</string>
     <string name="settings_general">Definições gerais</string>
     <string name="settings_general_explain">JavaScript…</string>
     <string name="settings_privacy_and_security">Definições de privacidade e de segurança</string>
     <string name="settings_privacy_and_security_explain">Limpar histórico</string>
+    <string name="settings_import_and_export">Privacy and security settings</string>
+    <string name="settings_import_and_export_explain">Clear history…</string>
+    <string name="settings_customization">Customization settings</string>
+    <string name="settings_customization_explain">App theme, bottom navbar…</string>
+    <string name="settings_advanced">Advanced settings</string>
+    <string name="settings_advanced_explain">Add-on collection…</string>
     <string name="settings_addons">Definições do add-on</string>
     <string name="settings_addons_explain">Ativar add-ons, remover add-ons…</string>
     <string name="settings_about">Acerca</string>
@@ -50,6 +62,7 @@
     <string name="mozac_reader_view_description_selected">Desativar modo de leitura</string>
     <string name="tab_removed">Separador removido</string>
     <string name="undo">Desfazer</string>
+    <string name="hide_url_bar">Hide URL bar while scrolling</string>
     <string name="search">Pesquisar</string>
     <string name="no_results">Sem resultados</string>
     <string name="bookmark">Marcador</string>
@@ -83,4 +96,40 @@
     <string name="loading_addons">Carregando add-ons…</string>
     <string name="history_cleared">Histórico eliminado!</string>
     <string name="show_addons_in_bar">Mostrar add-ons na barra de navegação</string>
+    <string name="shortcuts">Shortcuts</string>
+    <string name="add_shortcut">Add shortcut</string>
+    <string name="edit_shortcut">Edit shortcut</string>
+    <string name="delete_shortcut">Delete shortcut</string>
+    <string name="homepage_type">Homepage type</string>
+    <string name="default_word">Default</string>
+    <string name="blank_page">Blank page</string>
+    <string name="move_navbar">Move navbar to bottom</string>
+    <string-array name="homepage_types">
+        <item>@string/default_word</item>
+        <item>@string/blank_page</item>
+    </string-array>
+    <string name="custom_collection">Custom add-on collection</string>
+    <string name="use_custom_collection">Use custom add-on collection</string>
+    <string name="use_custom_collection_disclaimer">When using a custom add-on collection, the browser queries Mozilla\'s servers for add-ons. CookieJarApps cannot gurarantee that these add-ons are safe or will function correctly on your device.</string>
+    <string name="collection_user">Collection user</string>
+    <string name="collection_name">Collection name</string>
+    <string name="backup_bookmarks">Backup bookmarks</string>
+    <string name="theme">App theme</string>
+    <string name="theme_explain">The theme of the browser\'s UI elements.</string>
+    <string name="web_theme">Web theme</string>
+    <string name="web_theme_explain">The theme that the browser asks extensions and website to use.</string>
+    <string name="light_theme">Light</string>
+    <string name="dark_theme">Dark</string>
+    <string name="auto">Follow system</string>
+    <string name="auto_font">Auto font size</string>
+    <string name="font_size">Font size</string>
+    <string-array name="theme_types">
+        <item>@string/light_theme</item>
+        <item>@string/dark_theme</item>
+        <item>@string/auto</item>
+    </string-array>
+    <string name="rate">Rate</string>
+    <string name="report">Report</string>
+    <string name="swap_bookmarks_and_tabs">Swap bookmark and tab drawers</string>
+    <string name="stack_items_reverse">Stack items from bottom of drawer</string>
 </resources>
