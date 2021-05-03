@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.cookiejarapps.android.smartcookieweb.utils.Utils
 import kotlinx.coroutines.*
 import mozilla.components.browser.icons.IconRequest
 import mozilla.components.support.ktx.android.net.hostWithoutCommonPrefixes
+import org.mozilla.gecko.util.ThreadUtils.runOnUiThread
 
 
 internal class ShortcutGridAdapter(
@@ -62,10 +64,9 @@ internal class ShortcutGridAdapter(
             )
         }
         else{
-            // TODO: add a loader for URL favicon before fallback
             val protocolUrl = if(shortcuts[position].url!!.startsWith("http")) shortcuts[position].url else "https://" +  shortcuts[position].url
-            val fallback: Bitmap = Utils().createImage(name = getUrlCharacter(protocolUrl!!), context = context)
-            imageView.setImageBitmap(fallback)
+            val icon: Bitmap = Utils().createImage(name = getUrlCharacter(protocolUrl!!), context = context)
+            imageView.setImageBitmap(icon)
         }
 
         return convertView

@@ -151,8 +151,7 @@ class BrowserMenu(
     private val settings = BrowserMenuImageText(
         label = context.getString(R.string.settings),
         imageResource = R.drawable.ic_round_settings,
-        iconTintColorResource = primaryTextColor(),
-        textColorResource = primaryTextColor()
+        iconTintColorResource = primaryTextColor()
     ) {
         onItemTapped.invoke(ToolbarMenu.Item.Settings)
     }

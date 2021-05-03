@@ -1,4 +1,4 @@
-package org.mozilla.fenix.components.toolbar
+package com.cookiejarapps.android.smartcookieweb.components.toolbar
 
 import android.view.View
 import kotlinx.coroutines.CoroutineScope

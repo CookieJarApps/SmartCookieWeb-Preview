@@ -7,6 +7,10 @@ import android.util.DisplayMetrics
 import android.util.TypedValue
 import androidx.core.content.ContextCompat
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.ext.components
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import mozilla.components.browser.icons.IconRequest
 
 
 open class Utils {
