@@ -26,8 +26,8 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var searchEngineChoice by intPreference(SEARCH_ENGINE, 0)
     var toolbarPosition by intPreference(TOOLBAR_POSITION, ToolbarPosition.TOP.ordinal)
     var homepageType by intPreference(HOMEPAGE_TYPE, HomepageChoice.VIEW.ordinal)
-    var appThemeChoice by intPreference(HOMEPAGE_TYPE, ThemeChoice.SYSTEM.ordinal)
-    var webThemeChoice by intPreference(HOMEPAGE_TYPE, ThemeChoice.SYSTEM.ordinal)
+    var appThemeChoice by intPreference(APP_THEME_CHOICE, ThemeChoice.SYSTEM.ordinal)
+    var webThemeChoice by intPreference(WEB_THEME_CHOICE, ThemeChoice.SYSTEM.ordinal)
     var launchInApp by booleanPreference(LAUNCH_IN_APP, true)
     var customAddonCollection by booleanPreference(CUSTOM_ADDON_BOOL, false)
     var shownCollectionDisclaimer by booleanPreference(SHOWN_ADDON_DISCLAIMER, false)
@@ -61,7 +61,9 @@ class UserPreferences(appContext: Context): PreferencesHolder {
         const val SEARCH_ENGINE = "search_engine"
         const val TOOLBAR_POSITION = "toolbar_position"
         const val HOMEPAGE_TYPE = "homepage_type"
-        const val LAUNCH_IN_APP = "homepage_type"
+        const val APP_THEME_CHOICE = "app_theme_choice"
+        const val WEB_THEME_CHOICE = "web_theme_choice"
+        const val LAUNCH_IN_APP = "launch_in_app"
         const val CUSTOM_ADDON_BOOL = "custom_addon_bool"
         const val SHOWN_ADDON_DISCLAIMER = "shown_disclaimer"
         const val COLLECTION_NAME = "collection_name"
