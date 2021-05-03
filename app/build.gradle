@@ -16,7 +16,7 @@ android {
         targetSdkVersion 30
         // Increment by 4 with each update
         versionCode 16
-        versionName "4.0"
+        versionName "5.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     kotlinOptions {
