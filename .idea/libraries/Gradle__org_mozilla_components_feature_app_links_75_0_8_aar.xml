@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-app-links:75.0.8@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6fdde0cf8728f02c93cec479ff4c811f/transformed/jetified-feature-app-links-75.0.8/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6fdde0cf8728f02c93cec479ff4c811f/transformed/jetified-feature-app-links-75.0.8/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6fdde0cf8728f02c93cec479ff4c811f/transformed/jetified-feature-app-links-75.0.8/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-app-links/75.0.8/3d5f9b232f409272c57a4d1d1178b9e163c09a4e/feature-app-links-75.0.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -18,18 +18,6 @@ class TabCounterMenu(
         object DuplicateTab : Item()
     }
 
-    var duplicateTabItem: TextMenuCandidate = TextMenuCandidate(
-        text = context.getString(R.string.duplicate_tab),
-        start = DrawableMenuIcon(
-            context,
-            R.drawable.mozac_ic_tab,
-            tint = iconColor ?: getColor(context, R.color.mozac_ui_tabcounter_default_text)
-        ),
-        textStyle = TextStyle()
-    ) {
-        onItemTapped(ExtendedItem.DuplicateTab)
-    }
-
     @VisibleForTesting
     internal fun menuItems(toolbarPosition: ToolbarPosition): List<MenuCandidate> {
 
