@@ -3,10 +3,10 @@
 <h2 align="center"><b>SmartCookieWeb Preview</b></h2>
 <h4 align="center">A GeckoView-based web browser for Android with extension support, no telemetry and advanced privacy features.</h4>
 <p align="center">
-<img src="https://img.shields.io/github/issues-raw/cookiejarapps/BiscuitBrowser" />
-<img src="hhttps://img.shields.io/github/v/release/cookiejarapps/BiscuitBrowser" />
+<img src="https://img.shields.io/github/issues-raw/cookiejarapps/SmartCookieWeb-Preview" />
+<img src="hhttps://img.shields.io/github/v/release/cookiejarapps/SmartCookieWeb-Preview" />
 <a href="https://liberapay.com/CookieJarApps"><img src="https://img.shields.io/liberapay/patrons/CookieJarApps" /></a>
-<img src="https://img.shields.io/github/stars/cookiejarapps/BiscuitBrowser?style=social" />
+<img src="https://img.shields.io/github/stars/cookiejarapps/SmartCookieWeb-Preview?style=social" />
  </p>
 
 ---
