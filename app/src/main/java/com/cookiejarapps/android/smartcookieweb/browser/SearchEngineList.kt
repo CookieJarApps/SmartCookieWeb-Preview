@@ -1,11 +1,15 @@
 package com.cookiejarapps.android.smartcookieweb.browser
 
+import android.content.Context
 import android.graphics.Bitmap
+import com.cookiejarapps.android.smartcookieweb.ext.components
 import mozilla.components.browser.state.search.SearchEngine
+import mozilla.components.browser.state.state.availableSearchEngines
+import mozilla.components.browser.state.state.searchEngines
 
-open class SearchEngineList {
-    val engines =
-        listOf(
+class SearchEngineList {
+    fun getEngines(): List<SearchEngine> {
+        return listOf(
             SearchEngine(
                 id = "google",
                 name = "Google",
@@ -34,7 +38,7 @@ open class SearchEngineList {
                 id = "baidu",
                 name = "Baidu",
                 icon = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888),
-                type = SearchEngine.Type.BUNDLED,
+                type = SearchEngine.Type.CUSTOM,
                 resultUrls = listOf("https://www.baidu.com/s?wd={searchTerms}"),
                 suggestUrl = "https://www.baidu.com/"
             ),
@@ -42,7 +46,7 @@ open class SearchEngineList {
                 id = "yandex",
                 name = "Yandex",
                 icon = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888),
-                type = SearchEngine.Type.BUNDLED,
+                type = SearchEngine.Type.CUSTOM,
                 resultUrls = listOf("https://yandex.com/search/?text={searchTerms}"),
                 suggestUrl = "https://www.yandex.com/"
             ),
@@ -50,7 +54,7 @@ open class SearchEngineList {
                 id = "naver",
                 name = "Naver",
                 icon = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888),
-                type = SearchEngine.Type.BUNDLED,
+                type = SearchEngine.Type.CUSTOM,
                 resultUrls = listOf("https://www.naver.com/search.naver?query={searchTerms}"),
                 suggestUrl = "https://www.naver.com/"
             ),
@@ -58,9 +62,9 @@ open class SearchEngineList {
                 id = "qwant",
                 name = "Qwant",
                 icon = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888),
-                type = SearchEngine.Type.BUNDLED,
-                resultUrls = listOf("https://qwant.com/?q={searchTerms}"),
-                suggestUrl = "https://qwant.com/"
+                type = SearchEngine.Type.CUSTOM,
+                resultUrls = listOf("https://qwant.com/?q={searchTerms}")
             )
         )
+    }
 }

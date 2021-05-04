@@ -60,7 +60,7 @@ class GeneralSettingsFragment : BaseSettingsFragment() {
         val singleItems = emptyList<String>().toMutableList()
         val checkedItem = UserPreferences(requireContext()).searchEngineChoice
 
-        for(i in SearchEngineList().engines){
+        for(i in SearchEngineList().getEngines()){
             singleItems.add(i.name)
         }
 

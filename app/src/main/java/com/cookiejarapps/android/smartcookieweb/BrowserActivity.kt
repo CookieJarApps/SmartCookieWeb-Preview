@@ -86,7 +86,11 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
         }
 
         //TODO: Move to settings page so app restart no longer required
-        components.searchUseCases.selectSearchEngine(SearchEngineList().engines[UserPreferences(this).searchEngineChoice])
+        //TODO: Adding search engine to list every time isn't great, but fixes search engine issues
+        components.searchUseCases.addSearchEngine(SearchEngineList().getEngines()[UserPreferences(this).searchEngineChoice])
+        components.searchUseCases.selectSearchEngine(
+            SearchEngineList().getEngines()[UserPreferences(this).searchEngineChoice]
+        )
 
         browsingModeManager = createBrowsingModeManager(
             if(UserPreferences(this).lastKnownPrivate) BrowsingMode.Private else BrowsingMode.Normal
