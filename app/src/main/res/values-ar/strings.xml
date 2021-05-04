@@ -25,16 +25,28 @@
     <string name="reload">إعادة تحميل</string>
     <string name="settings">الإعدادات</string>
     <string name="new_tab">تبويب جديد</string>
+    <string name="move_to_private">نقل إلى الوضع الخاص</string>
+    <string name="move_to_normal">الانتقال إلى الوضع العادي</string>
     <string name="close_tab">إغلاق التبويب</string>
     <string name="desktop_mode">موقع سطح المكتب</string>
     <string name="wait">انتظر</string>
     <string name="stop">إيقاف</string>
     <string name="install">تثبيت</string>
     <string name="cancel">إلغاء</string>
+    <string name="export_bookmarks">تصدير الإشارات المرجعية إلى نسخة احتياطية</string>
+    <string name="import_backup">استيراد الإشارات المرجعية من النسخة الاحتياطية</string>
+    <string name="export_tabs">تصدير علامات التبويب إلى النسخة الاحتياطية</string>
+    <string name="import_tabs">استيراد علامات التبويب من النسخة الاحتياطية</string>
     <string name="settings_general">الاعدادات العامة</string>
     <string name="settings_general_explain">جافا سكريبت…</string>
     <string name="settings_privacy_and_security">إعدادات الخصوصية والأمان</string>
     <string name="settings_privacy_and_security_explain">مسح السجل…</string>
+    <string name="settings_import_and_export">إعدادات الخصوصية والأمان</string>
+    <string name="settings_import_and_export_explain">مسح السجل…</string>
+    <string name="settings_customization">إعدادات التخصص</string>
+    <string name="settings_customization_explain">مظهر التطبيق، شريط التنقل السفلي…</string>
+    <string name="settings_advanced">الإعدادات المتقدمة</string>
+    <string name="settings_advanced_explain">مجموعة إضافات…</string>
     <string name="settings_addons">إعدادات الإضافات</string>
     <string name="settings_addons_explain">تمكين الإضافات ، إزالة الإضافات…</string>
     <string name="settings_about">حول التطبيق</string>
@@ -50,6 +62,7 @@
     <string name="mozac_reader_view_description_selected">تعطيل عرض القارئ</string>
     <string name="tab_removed">تم إزالة التبويب</string>
     <string name="undo">تراجع</string>
+    <string name="hide_url_bar">إخفاء شريط عنوان URL أثناء التمرير</string>
     <string name="search">البحث</string>
     <string name="no_results">لا توجد نتائج</string>
     <string name="bookmark">الإشارات المرجعيّة</string>
@@ -83,4 +96,40 @@
     <string name="loading_addons">جاري تحميل الإضافات…</string>
     <string name="history_cleared">تم مسح سجل التصفح!</string>
     <string name="show_addons_in_bar">إظهار الإضافات في شريط التنقل</string>
+    <string name="shortcuts">الاختصارات</string>
+    <string name="add_shortcut">إضافة اختصار</string>
+    <string name="edit_shortcut">تعديل الاختصار</string>
+    <string name="delete_shortcut">حذف الاختصار</string>
+    <string name="homepage_type">نوع الصفحة الرئيسية</string>
+    <string name="default_word">إفتراضي</string>
+    <string name="blank_page">صفحة فارغة</string>
+    <string name="move_navbar">تحريك شريط التنقل إلى الأسفل</string>
+    <string-array name="homepage_types">
+        <item>@string/default_word</item>
+        <item>@string/blank_page</item>
+    </string-array>
+    <string name="custom_collection">مجموعة إضافات مخصصة</string>
+    <string name="use_custom_collection">استخدام مجموعة إضافات مخصصة</string>
+    <string name="use_custom_collection_disclaimer">عند استخدام مجموعة إضافات مخصصة، يبحث المتصفح عن خوادم موزيلا للإضافات. لا يمكن لـ CookieJarApps ضمان أن هذه الإضافات آمنة أو ستعمل بشكل صحيح على جهازك.</string>
+    <string name="collection_user">مجموعة المستخدم</string>
+    <string name="collection_name">اسم المجموعة</string>
+    <string name="backup_bookmarks">نسخ احتياطي للعلامات المرجعية</string>
+    <string name="theme">مظهر التطبيق</string>
+    <string name="theme_explain">موضوع عناصر واجهة المستخدم للمتصفح.</string>
+    <string name="web_theme">سمة الويب</string>
+    <string name="web_theme_explain">السمة التي يطلب المتصفح ملحقات وموقع الويب لاستخدامها.</string>
+    <string name="light_theme">فاتح</string>
+    <string name="dark_theme">داكن</string>
+    <string name="auto">اتبع النظام</string>
+    <string name="auto_font">حجم نص تلقائي</string>
+    <string name="font_size">حجم الخط</string>
+    <string-array name="theme_types">
+        <item>@string/light_theme</item>
+        <item>@string/dark_theme</item>
+        <item>@string/auto</item>
+    </string-array>
+    <string name="rate">تقييم</string>
+    <string name="report">إبلاغ</string>
+    <string name="swap_bookmarks_and_tabs">تبديل درج الإشارات المرجعية وعلامة التبويب</string>
+    <string name="stack_items_reverse">تكدس العناصر من أسفل القائمة</string>
 </resources>
