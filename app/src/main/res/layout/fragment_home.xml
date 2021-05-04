@@ -37,7 +37,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="128dp"
+                android:layout_height="156dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="64dp"
                 android:orientation="vertical">
@@ -57,6 +57,10 @@
                     android:id="@+id/app_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+                    android:maxLines="2"
+                    android:singleLine="false"
                     android:text="@string/app_name"
                     android:textAlignment="center"
                     android:textColor="?android:attr/textColorPrimary"
