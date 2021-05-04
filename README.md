@@ -1,6 +1,6 @@
 <p align="center"><a href="#"><img src="https://user-images.githubusercontent.com/44752343/112723990-1d100980-8f09-11eb-94d3-a77cfdb00cd3.png" height="180" title="SmartCookieWeb" alt="SmartCookieWeb"></a></p>
 
-<h2 align="center"><b>BiscuitBrowser</b></h2>
+<h2 align="center"><b>SmartCookieWeb Preview</b></h2>
 <h4 align="center">A GeckoView-based web browser for Android with extension support, no telemetry and advanced privacy features.</h4>
 <p align="center">
 <img src="https://img.shields.io/github/issues-raw/cookiejarapps/BiscuitBrowser" />
@@ -41,7 +41,7 @@ Need help? Open an issue here, or:
 
 ## Add-ons
 
-A limited set of FireFox add-ons are available in BiscuitBrowser. If you would like another add-on already on the Mozilla add-on store to be included, just open an issue here. If you've made your own add-on and want it to be included in the browser, you should either upload it to Mozilla's add-on store and open an issue here, or submit the add-on for signing to Mozilla and open an issue with a link to the signed XPI file.
+A limited set of FireFox add-ons are available in SmartCookieWeb Preview. If you would like another add-on already on the Mozilla add-on store to be included, just open an issue here. If you've made your own add-on and want it to be included in the browser, you should either upload it to Mozilla's add-on store and open an issue here, or submit the add-on for signing to Mozilla and open an issue with a link to the signed XPI file.
 
 Add-ons can be rated or reported [here](https://addons.smartcookieweb.com/).
 
