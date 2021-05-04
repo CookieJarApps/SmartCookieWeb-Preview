@@ -17,11 +17,6 @@ class GeneralSettingsFragment : BaseSettingsFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, s: String?) {
         addPreferencesFromResource(R.xml.preferences_general)
 
-        if(UserPreferences(requireContext()).customAddonCollection){
-            preferenceScreen.findPreference<Preference>(resources.getString(R.string.key_collection_user))!!.isEnabled = true
-            preferenceScreen.findPreference<Preference>(resources.getString(R.string.key_collection_name))!!.isEnabled = true
-        }
-
         switchPreference(
                 preference = requireContext().resources.getString(R.string.key_javascript_enabled),
                 isChecked = UserPreferences(requireContext()).javaScriptEnabled,
