@@ -18,8 +18,6 @@ class IntentReceiverActivity : Activity() {
         MainScope().launch {
             val intent = intent?.let { Intent(it) } ?: Intent()
 
-            val value = intent.data ?: intent.getStringExtra(Intent.EXTRA_TEXT)
-
             intent.flags = intent.flags and Intent.FLAG_ACTIVITY_NEW_TASK.inv()
             intent.flags = intent.flags and Intent.FLAG_ACTIVITY_CLEAR_TASK.inv()
 
@@ -31,7 +29,6 @@ class IntentReceiverActivity : Activity() {
 
             finish()
             startActivity(intent)
-            components.tabsUseCases.addTab.invoke(value.toString())
         }
     }
 }
