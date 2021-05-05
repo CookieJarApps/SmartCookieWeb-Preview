@@ -2,6 +2,7 @@ package com.cookiejarapps.android.smartcookieweb.settings.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.text.Editable
 import android.text.InputType
 import android.widget.EditText
 import android.widget.Toast
@@ -65,6 +66,8 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 
+        input.setText(UserPreferences(requireContext()).customAddonCollectionUser)
+
         builder.setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { dialog, which ->
             val text = input.text.toString()
             UserPreferences(requireContext()).customAddonCollectionUser = text
@@ -82,6 +85,8 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
         val input = EditText(requireContext())
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
+
+        input.setText(UserPreferences(requireContext()).customAddonCollectionName)
 
         builder.setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { dialog, which ->
             val text = input.text.toString()
