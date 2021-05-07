@@ -193,9 +193,9 @@ dependencies {
     implementation "org.mozilla.components:support-locale:$mozComponentsVersion"
 
     // GeckoView engines
-    geckoNightlyImplementation "org.mozilla.components:browser-engine-gecko:$mozComponentsVersion"
+    geckoReleaseImplementation "org.mozilla.components:browser-engine-gecko:$mozComponentsVersion"
     geckoBetaImplementation "org.mozilla.components:browser-engine-gecko-beta:$mozComponentsVersion"
-    geckoReleaseImplementation "org.mozilla.components:browser-engine-gecko-nightly:$mozComponentsVersion"
+    geckoNightlyImplementation "org.mozilla.components:browser-engine-gecko-nightly:$mozComponentsVersion"
 
     // WebView engine
     implementation "org.mozilla.components:browser-engine-system:$mozComponentsVersion"
