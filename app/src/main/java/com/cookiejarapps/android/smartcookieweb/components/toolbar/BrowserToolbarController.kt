@@ -104,7 +104,7 @@ class DefaultBrowserToolbarController(
                     }
                 }
             }
-            is TabCounterMenu.ExtendedItem.DuplicateTab -> {
+            is Item.DuplicateTab -> {
                 store.state.selectedTab?.let {
                     if(activity.browsingModeManager.mode == BrowsingMode.Normal){
                         activity.components.tabsUseCases.addTab.invoke(it.content.url, true)

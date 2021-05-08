@@ -1,6 +1,9 @@
 package com.cookiejarapps.android.smartcookieweb.components.toolbar
 
 import android.content.Intent
+import android.os.Environment
+import com.cookiejarapps.android.smartcookieweb.utils.PrintUtils
+import android.util.Log
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -11,10 +14,18 @@ import com.cookiejarapps.android.smartcookieweb.history.HistoryActivity
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.settings.activity.SettingsActivity
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
 import mozilla.components.browser.state.store.BrowserStore
+import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineSession.LoadUrlFlags
+import mozilla.components.concept.engine.webextension.MessageHandler
+import mozilla.components.lib.state.ext.flowScoped
+import mozilla.components.support.ktx.kotlinx.coroutines.flow.filterChanged
+import java.io.File
+
 
 interface BrowserToolbarMenuController {
     fun handleToolbarItemInteraction(item: ToolbarMenu.Item)
@@ -76,6 +87,53 @@ class DefaultBrowserToolbarMenuController(
                     )
                 }
             }
+            is ToolbarMenu.Item.Print -> {
+                var printExtension: mozilla.components.concept.engine.webextension.WebExtension? =
+                    null
+
+                val messageDelegate: MessageHandler = object :
+                    MessageHandler {
+                    override fun onMessage(
+                        message: Any, source: EngineSession?
+                    ): Any {
+
+                        val converter = PrintUtils.instance
+                        val htmlString = message.toString()
+                        converter!!.convert(activity, htmlString)
+                        printExtension?.let { activity.components.engine.uninstallWebExtension(it) }
+
+                        return ""
+                    }
+                }
+
+                activity.components.engine.installWebExtension(
+                    "print@cookiejarapps.com",
+                    "resource://android/assets/print/",
+                    onSuccess = { extension ->
+                        printExtension = extension
+                        val store = activity.components.store
+                        store.flowScoped { flow ->
+                            flow.map { it.tabs }
+                                .filterChanged { it.engineState.engineSession }
+                                .collect { state ->
+                                    val session = state.engineState.engineSession ?: return@collect
+
+                                    extension.registerContentMessageHandler(
+                                        session,
+                                        "browser",
+                                        messageDelegate
+                                    )
+                                }
+                        }
+                    }
+                )
+                /*activity.components.runtime.webExtensionController
+                    .installBuiltIn("resource://android/assets/print/")
+                    .accept {
+                        activity.components.engine.
+                        it?.setMessageDelegate(messageDelegate, "browser")
+                    }*/
+            }
             is ToolbarMenu.Item.AddToHomeScreen -> {
                 MainScope().launch {
                     with(activity.components.webAppUseCases) {
@@ -119,7 +177,10 @@ class DefaultBrowserToolbarMenuController(
             }
             is ToolbarMenu.Item.Bookmarks -> browserAnimator.captureEngineViewAndDrawStatically {
                 val drawerLayout = activity.findViewById<DrawerLayout>(R.id.drawer_layout)
-                val bookmarksDrawer = if(UserPreferences(activity).swapDrawers) activity.findViewById<FrameLayout>(R.id.left_drawer) else activity.findViewById<FrameLayout>(R.id.right_drawer)
+                val bookmarksDrawer =
+                    if (UserPreferences(activity).swapDrawers) activity.findViewById<FrameLayout>(
+                        R.id.left_drawer
+                    ) else activity.findViewById<FrameLayout>(R.id.right_drawer)
 
                 if (bookmarksDrawer != null) {
                     drawerLayout?.openDrawer(bookmarksDrawer)

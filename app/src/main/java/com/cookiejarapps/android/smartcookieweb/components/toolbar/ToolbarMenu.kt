@@ -18,6 +18,7 @@ interface ToolbarMenu {
         object OpenInApp : Item()
         object Bookmarks : Item()
         object History : Item()
+        object Print : Item()
     }
 
     val menuBuilder: BrowserMenuBuilder

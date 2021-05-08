@@ -132,6 +132,7 @@ class BrowserMenu(
             historyItem,
             bookmarksItem,
             BrowserMenuDivider(),
+            printItem,
             addToHomescreen.apply { visible = ::canAddToHomescreen },
             externalAppItem,
             desktopMode,
@@ -188,6 +189,14 @@ class BrowserMenu(
         primaryTextColor()
     ) {
         onItemTapped.invoke(ToolbarMenu.Item.History)
+    }
+
+    val printItem = BrowserMenuImageText(
+        context.getString(R.string.action_print),
+        R.drawable.ic_baseline_print,
+        primaryTextColor()
+    ) {
+        onItemTapped.invoke(ToolbarMenu.Item.Print)
     }
 
     val newTabItem = BrowserMenuImageText(

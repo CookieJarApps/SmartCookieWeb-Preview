@@ -1,0 +1,1 @@
+browser.runtime.sendNativeMessage("browser", document.documentElement.innerHTML);

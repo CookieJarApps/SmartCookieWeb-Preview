@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "name": "print",
+  "version": "1.0",
+  "description": "Prints a page.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "print@cookiejarapps.com"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*"],
+      "js": ["print.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "nativeMessaging",
+    "nativeMessagingFromContent",
+    "geckoViewAddons",
+    "tabs",
+    "<all_urls>"
+  ]
+}
