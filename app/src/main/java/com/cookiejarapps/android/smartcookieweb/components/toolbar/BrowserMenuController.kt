@@ -99,7 +99,7 @@ class DefaultBrowserToolbarMenuController(
 
                         val converter = PrintUtils.instance
                         val htmlString = message.toString()
-                        converter!!.convert(activity, htmlString)
+                        converter!!.convert(activity, htmlString, activity.components.sessionManager.selectedSession?.url)
                         printExtension?.let { activity.components.engine.uninstallWebExtension(it) }
 
                         return ""

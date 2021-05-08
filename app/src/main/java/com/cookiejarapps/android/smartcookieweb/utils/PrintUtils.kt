@@ -12,6 +12,7 @@ import android.webkit.WebViewClient
 class PrintUtils private constructor() : Runnable {
     private var mContext: Context? = null
     private var mHtmlString: String? = null
+    private var mUrl: String? = null
     private var mAlreadyRunning = false
     private var mWebView: WebView? = null
 
@@ -29,13 +30,14 @@ class PrintUtils private constructor() : Runnable {
                 destroy()
             }
         }
-        mWebView!!.loadDataWithBaseURL("", mHtmlString!!, "text/HTML", "UTF-8", null)
+        mWebView!!.loadDataWithBaseURL(mUrl!!, mHtmlString!!, "text/HTML", "UTF-8", null)
     }
 
-    fun convert(context: Context?, htmlString: String?) {
+    fun convert(context: Context?, htmlString: String?, url: String?) {
         if (mAlreadyRunning) return
         mContext = context
         mHtmlString = htmlString
+        mUrl = url
         mAlreadyRunning = true
         runOnUiThread(this)
     }
@@ -48,6 +50,7 @@ class PrintUtils private constructor() : Runnable {
     private fun destroy() {
         mContext = null
         mHtmlString = null
+        mUrl = null
         mAlreadyRunning = false
         mWebView = null
     }
