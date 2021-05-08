@@ -299,7 +299,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         promptsFeature.set(
                 feature = PromptFeature(
-                        fragment = this,
+                        activity = activity,
                         store = components.store,
                         customTabId = customTabSessionId,
                         fragmentManager = parentFragmentManager,

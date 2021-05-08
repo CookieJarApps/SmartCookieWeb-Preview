@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:ui-colors:75.0.11@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5834dc974ab24c30ab5424926b1d2bf5/transformed/jetified-ui-colors-75.0.8/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5834dc974ab24c30ab5424926b1d2bf5/transformed/jetified-ui-colors-75.0.8/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5834dc974ab24c30ab5424926b1d2bf5/transformed/jetified-ui-colors-75.0.8/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/ui-colors/75.0.11/7c72303bb735ae7af6aa22e3591dcab6238eac8/ui-colors-75.0.11-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
