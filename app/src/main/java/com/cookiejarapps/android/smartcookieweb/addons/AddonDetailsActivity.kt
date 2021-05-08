@@ -18,7 +18,6 @@ import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
-import kotlinx.android.synthetic.main.fragment_about.view.*
 import kotlinx.coroutines.*
 import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.addons.ui.showInformationDialog

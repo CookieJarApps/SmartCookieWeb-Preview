@@ -127,12 +127,6 @@ class DefaultBrowserToolbarMenuController(
                         }
                     }
                 )
-                /*activity.components.runtime.webExtensionController
-                    .installBuiltIn("resource://android/assets/print/")
-                    .accept {
-                        activity.components.engine.
-                        it?.setMessageDelegate(messageDelegate, "browser")
-                    }*/
             }
             is ToolbarMenu.Item.AddToHomeScreen -> {
                 MainScope().launch {

@@ -2,13 +2,20 @@ package com.cookiejarapps.android.smartcookieweb
 
 import android.content.ComponentCallbacks2
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
@@ -32,7 +39,6 @@ import kotlinx.android.synthetic.main.navigation_toolbar.*
 import mozilla.components.browser.state.search.SearchEngine
 import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.state.WebExtensionState
-import mozilla.components.browser.state.state.searchEngines
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.feature.contextmenu.ext.DefaultSelectionActionDelegate
@@ -43,6 +49,7 @@ import mozilla.components.support.ktx.kotlin.isUrl
 import mozilla.components.support.ktx.kotlin.toNormalizedUrl
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupFeature
+
 
 /**
  * Activity that holds the [BrowserFragment].
@@ -88,13 +95,17 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
 
         //TODO: Move to settings page so app restart no longer required
         //TODO: Adding search engine to list every time isn't great, but fixes search engine issues
-        components.searchUseCases.addSearchEngine(SearchEngineList().getEngines()[UserPreferences(this).searchEngineChoice])
+        components.searchUseCases.addSearchEngine(
+            SearchEngineList().getEngines()[UserPreferences(
+                this
+            ).searchEngineChoice]
+        )
         components.searchUseCases.selectSearchEngine(
             SearchEngineList().getEngines()[UserPreferences(this).searchEngineChoice]
         )
 
         browsingModeManager = createBrowsingModeManager(
-            if(UserPreferences(this).lastKnownPrivate) BrowsingMode.Private else BrowsingMode.Normal
+            if (UserPreferences(this).lastKnownPrivate) BrowsingMode.Private else BrowsingMode.Normal
         )
 
         if (isActivityColdStarted(
@@ -138,8 +149,11 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
     open fun handleNewIntent(intent: Intent) {
         openToBrowser(BrowserDirection.FromGlobal, null)
         val value = intent.data ?: intent.getStringExtra(Intent.EXTRA_TEXT)
-        if(value != null){
+        if(value != null && !value.toString().startsWith("content://")){
             components.tabsUseCases.addTab.invoke(value.toString())
+        }
+        else if(value.toString().startsWith("content://")){
+            handleInstallAddon(value as Uri)
         }
 
         val intentProcessors = externalSourceIntentProcessors
@@ -154,6 +168,51 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
                 ?.fragments
                 ?.lastOrNull()
         }
+    }
+
+    open fun handleInstallAddon(value: Uri){
+        var result: String? = null
+        if (value.getScheme().equals("content")) {
+            val cursor: Cursor? = contentResolver.query(value, null, null, null, null)
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                }
+            } finally {
+                cursor!!.close()
+            }
+        }
+        if (result == null) {
+            result = value.path
+            val cut = result?.lastIndexOf('/')
+            if (cut != -1) {
+                if (cut != null) {
+                    result = result!!.substring(cut + 1)
+                }
+            }
+        }
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(R.string.load_xpi)
+
+        builder.setMessage(resources.getString(R.string.load_xpi_description, result))
+            .setCancelable(false)
+            .setPositiveButton(R.string.mozac_feature_prompts_ok) { dialog, id ->
+                components.engine.installWebExtension("", value.toString(), onSuccess = {
+                    Toast.makeText(this, "INSTALLED!", Toast.LENGTH_LONG).show()
+                },
+                onError = { exception, e ->
+                   Log.d("gdsgsd", e.stackTraceToString())
+                })
+            }
+            .setNegativeButton(
+                R.string.cancel
+            ) { dialog, id ->
+                dialog.cancel()
+            }
+
+        val alert: AlertDialog = builder.create()
+        alert.show()
     }
 
     open fun navigateToBrowserOnColdStart() {

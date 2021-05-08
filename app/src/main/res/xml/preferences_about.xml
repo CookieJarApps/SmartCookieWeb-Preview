@@ -17,6 +17,12 @@
         <Preference
             android:key="pref_version"
             android:title="@string/version" />
+        <Preference
+            android:key="pref_version_geckoview"
+            android:title="@string/geckoview" />
+        <Preference
+            android:key="pref_version_mozac"
+            android:title="@string/mozac" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/licenses">
         <Preference

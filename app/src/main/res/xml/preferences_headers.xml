@@ -32,7 +32,7 @@
         android:singleLineTitle="false"
         android:summary="@string/settings_addons_explain"/>
     <androidx.preference.Preference
-        android:fragment="com.cookiejarapps.android.smartcookieweb.settings.fragment.AboutFragment"
+        android:fragment="com.cookiejarapps.android.smartcookieweb.settings.fragment.AboutSettingsFragment"
         android:icon="@drawable/ic_settings_about_layers"
         android:title="@string/settings_about"
         android:singleLineTitle="false"
