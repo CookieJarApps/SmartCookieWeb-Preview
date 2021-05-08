@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tab_tray_grid_item"
+    android:layout_width="match_parent"
+    android:layout_height="128dp"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:padding="8dp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        app:strokeColor="@color/photonLightGrey30"
+        app:strokeWidth="1dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tab_grid_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <TextView
+                android:id="@+id/mozac_browser_tabstray_title"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:ellipsize="none"
+                android:fadingEdgeLength="10dp"
+                android:paddingHorizontal="7dp"
+                android:paddingVertical="5dp"
+                android:requiresFadingEdge="horizontal"
+                android:singleLine="true"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="14sp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toStartOf="@id/mozac_browser_tabstray_close"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="SmartCookieWeb" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/mozac_browser_tabstray_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/close_tab"
+                app:layout_constraintBottom_toTopOf="@+id/horizonatal_divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/mozac_ic_close"
+                app:tint="?android:attr/textColorPrimary" />
+
+            <View
+                android:id="@+id/horizonatal_divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/photonLightGrey30"
+                app:layout_constraintTop_toBottomOf="@+id/mozac_browser_tabstray_title" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/mozac_browser_tabstray_card"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:cardBackgroundColor="@color/photonWhite"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/horizonatal_divider">
+
+                <ImageView
+                    android:id="@+id/default_tab_thumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:importantForAccessibility="no"
+                    android:padding="22dp"
+                    app:srcCompat="@drawable/mozac_ic_globe" />
+
+                <mozilla.components.browser.tabstray.thumbnail.TabThumbnailView
+                    android:id="@+id/mozac_browser_tabstray_thumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/mozac_browser_tabstray_open_tab" />
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</FrameLayout>

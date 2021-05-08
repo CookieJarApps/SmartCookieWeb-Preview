@@ -19,6 +19,7 @@
   <string name="key_hide_url_bar" translatable="false">hide_url_bar</string>
   <string name="key_swap_drawers" translatable="false">swap_drawers</string>
   <string name="key_stack_from_bottom" translatable="false">stack_from_bottom</string>
+  <string name="key_show_tabs_in_grid" translatable="false">show_tabs_in_grid</string>
 
   <string name="more">More Info</string>
   <string name="version">Application version</string>
@@ -37,6 +38,8 @@
   <string name="infinity">∞</string>
 
   <string name="tabs">Tabs</string>
+
+  <string name="tab_grid">Show tabs in grid</string>
 
   <string name="action_print">Print</string>
   <string name="action_add_to_homescreen">Add to home screen</string>

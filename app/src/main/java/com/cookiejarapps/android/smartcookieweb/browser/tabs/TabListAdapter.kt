@@ -1,18 +1,17 @@
 package com.cookiejarapps.android.smartcookieweb.browser.tabs
 
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cookiejarapps.android.smartcookieweb.R
-import mozilla.components.browser.tabstray.DefaultTabViewHolder
+import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import mozilla.components.browser.tabstray.TabViewHolder
 import mozilla.components.browser.tabstray.TabsTrayStyling
+import mozilla.components.concept.base.images.ImageLoader
 import mozilla.components.concept.tabstray.Tabs
 import mozilla.components.concept.tabstray.TabsTray
 import mozilla.components.support.base.observer.Observable
 import mozilla.components.support.base.observer.ObserverRegistry
-import mozilla.components.concept.base.images.ImageLoader
 
 // Function responsible for creating a `TabViewHolder` in the `TabsAdapter`.
 
@@ -20,10 +19,17 @@ typealias ViewHolderProvider = (ViewGroup) -> TabViewHolder
 
 // Shows tab list in drawer
 open class TabListAdapter(
+    thumbnailLoader: ImageLoader? = null,
     private val viewHolderProvider: ViewHolderProvider = { parent ->
-        com.cookiejarapps.android.smartcookieweb.browser.tabs.TabViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.tab_list_item, parent, false)
-        )
+        if(UserPreferences(parent.context).showTabsInGrid)
+            TabGridViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.tab_grid_item, parent, false),
+                thumbnailLoader
+            )
+        else
+            TabListViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.tab_list_item, parent, false)
+            )
     },
     delegate: Observable<TabsTray.Observer> = ObserverRegistry()
 ) : RecyclerView.Adapter<TabViewHolder>(), TabsTray, Observable<TabsTray.Observer> by delegate {

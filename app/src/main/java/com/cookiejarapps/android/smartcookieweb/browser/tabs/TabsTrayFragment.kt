@@ -24,6 +24,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import kotlinx.android.synthetic.main.fragment_tabstray.*
 import mozilla.components.browser.state.state.TabSessionState
+import mozilla.components.browser.thumbnails.loader.ThumbnailLoader
 import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.feature.tabs.tabstray.TabsFeature
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
@@ -66,8 +67,7 @@ class TabsTrayFragment : Fragment() {
 
         val tabsAdapter = createTabsAdapter()
         tabsTray.adapter = tabsAdapter
-        // TODO: tab grid setting could be added here
-        val layoutManager = LinearLayoutManager(context)
+        val layoutManager = if(UserPreferences(requireContext()).showTabsInGrid) GridLayoutManager(context, 2) else LinearLayoutManager(context)
         layoutManager.stackFromEnd = UserPreferences(requireContext()).stackFromBottom
         tabsTray.layoutManager = layoutManager
 
@@ -118,7 +118,8 @@ class TabsTrayFragment : Fragment() {
     }
 
     private fun createTabsAdapter(): TabListAdapter {
-        return TabListAdapter()
+        val thumbnailLoader = ThumbnailLoader(components.thumbnailStorage)
+        return TabListAdapter(thumbnailLoader)
     }
 }
 

@@ -38,6 +38,7 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var hideBarWhileScrolling by booleanPreference(HIDE_URL_BAR, true)
     var swapDrawers by booleanPreference(SWAP_DRAWERS, false)
     var stackFromBottom by booleanPreference(STACK_FROM_BOTTOM, false)
+    var showTabsInGrid by booleanPreference(SHOW_TABS_IN_GRID, false)
 
     // TODO: make these configurable & clean up duplicates
     var shouldUseBottomToolbar: Boolean
@@ -73,5 +74,6 @@ class UserPreferences(appContext: Context): PreferencesHolder {
         const val HIDE_URL_BAR = "hide_url_bar"
         const val SWAP_DRAWERS = "swap_drawers"
         const val STACK_FROM_BOTTOM = "stack_from_bottom"
+        const val SHOW_TABS_IN_GRID = "show_tabs_in_grid"
     }
 }

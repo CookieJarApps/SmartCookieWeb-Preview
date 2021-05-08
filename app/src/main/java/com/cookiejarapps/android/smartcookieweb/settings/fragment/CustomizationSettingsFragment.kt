@@ -41,6 +41,19 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
         )
 
         switchPreference(
+            preference = requireContext().resources.getString(R.string.key_show_tabs_in_grid),
+            isChecked = UserPreferences(requireContext()).showTabsInGrid,
+            onCheckChange = {
+                UserPreferences(requireContext()).showTabsInGrid = it
+                Toast.makeText(
+                    context,
+                    requireContext().resources.getText(R.string.app_restart),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+
+        switchPreference(
             preference = requireContext().resources.getString(R.string.key_swap_drawers),
             isChecked = UserPreferences(requireContext()).swapDrawers,
             onCheckChange = {
