@@ -1,8 +1,11 @@
 package com.cookiejarapps.android.smartcookieweb.addons
 
-import androidx.appcompat.app.AppCompatActivity
+import android.R.attr.fragment
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.FragmentManager
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
@@ -15,6 +18,8 @@ class AddonsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_base)
 
+        val sessionId = intent.getStringExtra("ADDON_ID")
+
         if(UserPreferences(this).appThemeChoice == ThemeChoice.SYSTEM.ordinal) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         } else if(UserPreferences(this).appThemeChoice == ThemeChoice.LIGHT.ordinal) {
@@ -24,10 +29,14 @@ class AddonsActivity : AppCompatActivity() {
         }
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().apply {
-                replace(R.id.container, AddonsFragment())
-                commit()
-            }
+            val fm: FragmentManager = supportFragmentManager
+            val arguments = Bundle()
+            if(sessionId != null) arguments.putString("ADDON_ID", sessionId)
+
+            val addonFragment = AddonsFragment()
+            addonFragment.arguments = arguments
+
+            fm.beginTransaction().replace(R.id.container, addonFragment).commit()
         }
     }
 }

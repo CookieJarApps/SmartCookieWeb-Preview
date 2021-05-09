@@ -2,16 +2,20 @@ package com.cookiejarapps.android.smartcookieweb.addons
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.ext.components
 import kotlinx.android.synthetic.main.fragment_add_ons.*
+import kotlinx.android.synthetic.main.fragment_add_ons.view.*
 import kotlinx.android.synthetic.main.overlay_add_on_progress.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,13 +23,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.addons.AddonManagerException
-import mozilla.components.feature.addons.ui.AddonInstallationDialogFragment
-import mozilla.components.feature.addons.ui.AddonsManagerAdapter
-import mozilla.components.feature.addons.ui.AddonsManagerAdapterDelegate
-import mozilla.components.feature.addons.ui.PermissionsDialogFragment
-import mozilla.components.feature.addons.ui.translateName
-import com.cookiejarapps.android.smartcookieweb.ext.components
-import kotlinx.android.synthetic.main.fragment_add_ons.view.*
+import mozilla.components.feature.addons.ui.*
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import java.util.*
 import java.util.concurrent.CancellationException
@@ -146,6 +144,13 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                             style = style
                         )
                         recyclerView.adapter = adapter
+
+
+                        val bundle: Bundle? = arguments
+                        if (bundle?.getString("ADDON_ID") != null) {
+                            val addonId = bundle.getString("ADDON_ID", "")
+                            installAddonById(addons!!, addonId)
+                        }
                     } else {
                         adapter?.updateAddons(addons!!)
                     }
@@ -159,6 +164,23 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                     ).show()
                     view?.add_ons_no_results?.isVisible = true
                 }
+            }
+        }
+    }
+
+    @VisibleForTesting
+    internal fun installAddonById(supportedAddons: List<Addon>, id: String) {
+        val addonToInstall = supportedAddons.find { it.downloadId == id }
+        if (addonToInstall == null) {
+            Log.d("gdsgds", "NOTFOUND!")
+            //showErrorSnackBar(getString(R.string.addon_not_supported_error))
+        } else {
+            if (addonToInstall.isInstalled()) {
+                Log.d("gdsgds", "ERROR!")
+                //showErrorSnackBar(getString(R.string.addon_already_installed))
+            } else {
+                Log.d("gdsgds", "INSTALL!")
+                showPermissionDialog(addonToInstall)
             }
         }
     }
@@ -262,9 +284,9 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                 if (e !is CancellationException) {
                     Toast.makeText(
                         requireContext(), getString(
-                        R.string.mozac_feature_addons_failed_to_install,
-                        addon.translateName(requireContext())
-                ),
+                            R.string.mozac_feature_addons_failed_to_install,
+                            addon.translateName(requireContext())
+                        ),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
