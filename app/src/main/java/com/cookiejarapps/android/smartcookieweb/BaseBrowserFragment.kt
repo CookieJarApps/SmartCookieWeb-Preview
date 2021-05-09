@@ -546,7 +546,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     @VisibleForTesting
     internal fun shouldPullToRefreshBeEnabled(inFullScreen: Boolean): Boolean {
-        return true
+        return UserPreferences(requireContext()).swipeToRefresh
     }
 
     @VisibleForTesting
