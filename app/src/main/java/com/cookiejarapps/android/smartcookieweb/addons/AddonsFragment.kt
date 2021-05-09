@@ -7,6 +7,7 @@ import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -172,14 +173,19 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     internal fun installAddonById(supportedAddons: List<Addon>, id: String) {
         val addonToInstall = supportedAddons.find { it.downloadId == id }
         if (addonToInstall == null) {
-            Log.d("gdsgds", "NOTFOUND!")
-            //showErrorSnackBar(getString(R.string.addon_not_supported_error))
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setMessage(resources.getString(R.string.addon_not_available))
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.mozac_feature_prompts_ok) { dialog, id ->
+                        dialog.cancel()
+                    }
+
+            val alert: AlertDialog = builder.create()
+            alert.show()
         } else {
             if (addonToInstall.isInstalled()) {
-                Log.d("gdsgds", "ERROR!")
-                //showErrorSnackBar(getString(R.string.addon_already_installed))
+                // error
             } else {
-                Log.d("gdsgds", "INSTALL!")
                 showPermissionDialog(addonToInstall)
             }
         }

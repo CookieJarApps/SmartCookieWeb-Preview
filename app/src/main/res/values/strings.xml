@@ -20,6 +20,7 @@
   <string name="key_swap_drawers" translatable="false">swap_drawers</string>
   <string name="key_stack_from_bottom" translatable="false">stack_from_bottom</string>
   <string name="key_show_tabs_in_grid" translatable="false">show_tabs_in_grid</string>
+  <string name="key_sideload_xpi" translatable="false">sideload_xpi</string>
 
   <string name="more">More Info</string>
   <string name="version">Application version</string>
@@ -198,6 +199,8 @@
   <string name="browser_sync">Browser sync</string>
   <string name="browser_sync_disclaimer">When using syncing, the browser syncs your tabs with your Firefox account. This means that the browser will store your data in encrypted form on the Firefox Sync servers operated by Mozilla. This service is not affiliated with or endorsed by Mozilla and CookieJarApps is not required to provide support service, warranty, or updates.</string>
 
-  <string name="load_xpi">Load XPI</string>
+  <string name="load_xpi">Sideload XPI</string>
   <string name="load_xpi_description">Are you sure you want to install %1$s to this browser? This add-on has not been checked for security or stability by CookieJarApps.</string>
+
+  <string name="addon_not_available">This add-on is not available from the add-on store. You can sideload custom add-ons in Advanced Settings.</string>
 </resources>

@@ -18,7 +18,7 @@ class AddonsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_base)
 
-        val sessionId = intent.getStringExtra("ADDON_ID")
+        val addonId = intent.getStringExtra("ADDON_ID")
 
         if(UserPreferences(this).appThemeChoice == ThemeChoice.SYSTEM.ordinal) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
@@ -31,7 +31,7 @@ class AddonsActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             val fm: FragmentManager = supportFragmentManager
             val arguments = Bundle()
-            if(sessionId != null) arguments.putString("ADDON_ID", sessionId)
+            if(addonId != null) arguments.putString("ADDON_ID", addonId)
 
             val addonFragment = AddonsFragment()
             addonFragment.arguments = arguments
