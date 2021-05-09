@@ -20,15 +20,12 @@ import mozilla.components.feature.addons.ui.UnsupportedAddonsAdapterDelegate
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 
-private const val LEARN_MORE_URL =
-    "https://smartcookieweb.com/help-biscuit/extensions/#compatibility"
-
 // Activity for managing unsupported add-ons, or add-ons that were installed but are no longer available.
 
 class NotYetSupportedAddonActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_base)
 
         val addons = requireNotNull(intent.getParcelableArrayListExtra<Addon>("add_ons"))
 
@@ -57,7 +54,7 @@ class NotYetSupportedAddonActivity : AppCompatActivity() {
             savedInstanceState: Bundle?
         ): View? {
             addons = requireNotNull(arguments?.getParcelableArrayList("add_ons"))
-            return inflater.inflate(R.layout.fragment_not_yet_supported_addons, container, false)
+            return inflater.inflate(R.layout.fragment_other_addons, container, false)
         }
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,11 +70,6 @@ class NotYetSupportedAddonActivity : AppCompatActivity() {
 
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = adapter
-
-            view.findViewById<View>(R.id.learn_more_label).setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(LEARN_MORE_URL))
-                startActivity(intent)
-            }
         }
 
         override fun onUninstallError(addonId: String, throwable: Throwable) {

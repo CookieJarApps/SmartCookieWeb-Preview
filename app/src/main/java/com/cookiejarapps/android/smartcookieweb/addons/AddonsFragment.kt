@@ -211,6 +211,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
     override fun onNotYetSupportedSectionClicked(unsupportedAddons: List<Addon>) {
         val intent = Intent(context, NotYetSupportedAddonActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         intent.putExtra("add_ons", ArrayList(unsupportedAddons))
         requireContext().startActivity(intent)
     }
