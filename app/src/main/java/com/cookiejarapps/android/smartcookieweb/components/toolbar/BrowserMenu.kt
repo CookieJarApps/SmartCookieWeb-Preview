@@ -132,7 +132,6 @@ class BrowserMenu(
             historyItem,
             bookmarksItem,
             BrowserMenuDivider(),
-            printItem,
             addToHomescreen.apply { visible = ::canAddToHomescreen },
             externalAppItem,
             desktopMode,
