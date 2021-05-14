@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="new_private_tab"
+        android:enabled="true"
+        android:icon="@drawable/shortcut_new_private_tab"
+        android:shortcutShortLabel="@string/mozac_browser_menu_new_private_tab"
+        android:shortcutLongLabel="@string/mozac_browser_menu_new_private_tab">
+        <intent
+            android:action="com.cookiejarapps.android.smartcookieweb.NEWPRIVATETAB"
+            android:targetPackage="com.cookiejarapps.android.smartcookieweb"
+            android:targetClass="com.cookiejarapps.android.smartcookieweb.IntentReceiverActivity" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="new_tab"
+        android:enabled="true"
+        android:icon="@drawable/shortcut_new_tab"
+        android:shortcutShortLabel="@string/new_tab"
+        android:shortcutLongLabel="@string/new_tab">
+        <intent
+            android:action="com.cookiejarapps.android.smartcookieweb.NEWTAB"
+            android:targetPackage="com.cookiejarapps.android.smartcookieweb"
+            android:targetClass="com.cookiejarapps.android.smartcookieweb.IntentReceiverActivity" />
+    </shortcut>
+</shortcuts>
