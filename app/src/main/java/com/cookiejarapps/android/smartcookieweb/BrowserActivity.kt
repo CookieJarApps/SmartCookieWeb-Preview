@@ -91,6 +91,8 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
         if(UserPreferences(this).firstLaunch){
             UserPreferences(this).firstLaunch = false
         }
+        //TODO: remove this once most people have updated
+        if(UserPreferences(this).showTabsInGrid && UserPreferences(this).stackFromBottom) UserPreferences(this).stackFromBottom = false
 
         //TODO: Move to settings page so app restart no longer required
         //TODO: Adding search engine to list every time isn't great, but fixes search engine issues

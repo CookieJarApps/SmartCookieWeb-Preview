@@ -68,7 +68,7 @@ class TabsTrayFragment : Fragment() {
         val tabsAdapter = createTabsAdapter()
         tabsTray.adapter = tabsAdapter
         val layoutManager = if(UserPreferences(requireContext()).showTabsInGrid) GridLayoutManager(context, 2) else LinearLayoutManager(context)
-        layoutManager.stackFromEnd = UserPreferences(requireContext()).stackFromBottom
+        layoutManager.stackFromEnd = !UserPreferences(requireContext()).showTabsInGrid && UserPreferences(requireContext()).stackFromBottom
         tabsTray.layoutManager = layoutManager
 
         tabsFeature.set(

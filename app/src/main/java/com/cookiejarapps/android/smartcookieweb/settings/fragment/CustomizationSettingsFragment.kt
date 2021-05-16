@@ -1,9 +1,11 @@
 package com.cookiejarapps.android.smartcookieweb.settings.fragment
 
 import android.os.Bundle
+import android.os.UserManager
 import android.widget.Toast
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
+import androidx.preference.SwitchPreference
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -56,6 +58,7 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
         switchPreference(
             preference = requireContext().resources.getString(R.string.key_show_tabs_in_grid),
             isChecked = UserPreferences(requireContext()).showTabsInGrid,
+            isEnabled = !UserPreferences(requireContext()).stackFromBottom,
             onCheckChange = {
                 UserPreferences(requireContext()).showTabsInGrid = it
                 Toast.makeText(
@@ -63,6 +66,7 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
                     requireContext().resources.getText(R.string.app_restart),
                     Toast.LENGTH_LONG
                 ).show()
+                preferenceScreen.findPreference<SwitchPreference>(requireContext().resources.getString(R.string.key_stack_from_bottom))?.isEnabled = !it
             }
         )
 
@@ -82,6 +86,7 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
         switchPreference(
             preference = requireContext().resources.getString(R.string.key_stack_from_bottom),
             isChecked = UserPreferences(requireContext()).stackFromBottom,
+            isEnabled = !UserPreferences(requireContext()).showTabsInGrid,
             onCheckChange = {
                 UserPreferences(requireContext()).stackFromBottom = it
                 Toast.makeText(
@@ -89,6 +94,7 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
                     requireContext().resources.getText(R.string.app_restart),
                     Toast.LENGTH_LONG
                 ).show()
+                preferenceScreen.findPreference<SwitchPreference>(requireContext().resources.getString(R.string.key_show_tabs_in_grid))?.isEnabled = !it
             }
         )
 
