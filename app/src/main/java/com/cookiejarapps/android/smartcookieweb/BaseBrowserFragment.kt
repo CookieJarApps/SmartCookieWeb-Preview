@@ -5,8 +5,10 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
-import android.view.*
-import android.view.WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.accessibility.AccessibilityManager
 import android.widget.FrameLayout
 import androidx.annotation.CallSuper
@@ -14,7 +16,6 @@ import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -806,14 +807,13 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             // Close find in page bar if opened
             findInPageIntegration.onBackPressed()
 
-            val insetsControllerCompat = WindowInsetsControllerCompat(requireActivity().window, requireActivity().window.decorView)
-
-            insetsControllerCompat.hide(WindowInsets.Type.statusBars())
-            insetsControllerCompat.hide(WindowInsets.Type.navigationBars())
-            insetsControllerCompat.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-
             requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-            requireActivity().window.setDecorFitsSystemWindows(false)
+            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+            requireActivity().window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
 
             browserToolbarView.collapse()
             browserToolbarView.view.isVisible = false
