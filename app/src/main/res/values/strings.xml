@@ -208,4 +208,6 @@
   <string name="addon_not_available">This add-on is not available from the add-on store. You can sideload custom add-ons in Advanced Settings.</string>
 
   <string name="swipe_to_refresh">Swipe to refresh</string>
+
+  <string name="sideloaded_addons">Sideloaded add-ons</string>
 </resources>

@@ -35,7 +35,7 @@ import kotlin.collections.ArrayList
 class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     private lateinit var recyclerView: RecyclerView
     private val scope = CoroutineScope(Dispatchers.IO)
-    private var adapter: AddonsManagerAdapter? = null
+    private var adapter: AddonsAdapter? = null
     private var addons: List<Addon>? = null
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -126,7 +126,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                 val context = requireContext()
                 val addonCollectionProvider = context.components.addonCollectionProvider
 
-                val style = AddonsManagerAdapter.Style(
+                val style = AddonsAdapter.Style(
                     dividerColor = context.theme.resolveAttribute(android.R.attr.textColorSecondary),
                     dividerHeight = R.dimen.mozac_browser_menu_item_divider_height,
                     addonNameTextColor = context.theme.resolveAttribute(android.R.attr.textColorPrimary),
@@ -138,7 +138,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                     view?.add_ons_loading?.isVisible = false
 
                     if (adapter == null) {
-                        adapter = AddonsManagerAdapter(
+                        adapter = AddonsAdapter(
                             addonCollectionProvider = addonCollectionProvider,
                             addonsManagerDelegate = this@AddonsFragment,
                             addons = addons!!,

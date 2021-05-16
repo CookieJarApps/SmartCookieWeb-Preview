@@ -74,6 +74,16 @@ class InstalledAddonDetailsActivity : AppCompatActivity() {
     private fun bindUI(addon: Addon) {
         title = addon.translateName(this)
 
+        // Hide irrelevant items when add-on has been sideloaded
+        if(!addon.isSupported()){
+            findViewById<SwitchMaterial>(R.id.enable_switch).visibility = View.GONE
+            findViewById<SwitchCompat>(R.id.allow_in_private_browsing_switch).visibility = View.GONE
+            findViewById<View>(R.id.details).visibility = View.GONE
+            findViewById<View>(R.id.permissions).visibility = View.GONE
+            findViewById<View>(R.id.rate).visibility = View.GONE
+            findViewById<View>(R.id.report).visibility = View.GONE
+        }
+
         bindEnableSwitch(addon)
 
         bindSettings(addon)
