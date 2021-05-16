@@ -147,6 +147,7 @@
   <string name="search_engine">Search engine</string>
 
   <string name="loading_addons">Loading add-ons…</string>
+  <string name="loading">Loading…</string>
 
   <string name="history_cleared">History cleared!</string>
 
@@ -210,4 +211,7 @@
   <string name="swipe_to_refresh">Swipe to refresh</string>
 
   <string name="sideloaded_addons">Sideloaded add-ons</string>
+  <string name="already_available">This add-on is already available in the official add-on store. Add-ons available in the official store cannot be sideloaded.</string>
+  <string name="installed">Installed successfully</string>
+  <string name="error">Error</string>
 </resources>

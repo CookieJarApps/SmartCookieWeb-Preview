@@ -1,18 +1,21 @@
 package com.cookiejarapps.android.smartcookieweb.settings.fragment
 
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.os.Bundle
-import android.text.Editable
 import android.text.InputType
-import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.preference.Preference
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.browser.SearchEngineList
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.mozilla.gecko.util.ThreadUtils.runOnUiThread
 
 
 class AdvancedSettingsFragment : BaseSettingsFragment() {
@@ -20,17 +23,21 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, s: String?) {
         addPreferencesFromResource(R.xml.preferences_advanced)
 
-        preferenceScreen.findPreference<Preference>(resources.getString(R.string.key_collection_user))!!.isEnabled = UserPreferences(requireContext()).customAddonCollection
-        preferenceScreen.findPreference<Preference>(resources.getString(R.string.key_collection_name))!!.isEnabled = UserPreferences(requireContext()).customAddonCollection
+        preferenceScreen.findPreference<Preference>(resources.getString(R.string.key_collection_user))!!.isEnabled = UserPreferences(
+            requireContext()
+        ).customAddonCollection
+        preferenceScreen.findPreference<Preference>(resources.getString(R.string.key_collection_name))!!.isEnabled = UserPreferences(
+            requireContext()
+        ).customAddonCollection
 
         clickablePreference(
-                preference = resources.getString(R.string.key_sideload_xpi),
-                onClick = { sideloadXpi() }
+            preference = resources.getString(R.string.key_sideload_xpi),
+            onClick = { sideloadXpi() }
         )
 
         switchPreference(
-                preference = requireContext().resources.getString(R.string.key_use_custom_collection),
-                isChecked = UserPreferences(requireContext()).customAddonCollection
+            preference = requireContext().resources.getString(R.string.key_use_custom_collection),
+            isChecked = UserPreferences(requireContext()).customAddonCollection
         ) {
             if (it && !UserPreferences(requireContext()).shownCollectionDisclaimer) {
                 AlertDialog.Builder(context)
@@ -49,18 +56,22 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
                 UserPreferences(requireContext()).customAddonCollection = it
                 preferenceScreen.findPreference<Preference>(resources.getString(R.string.key_collection_user))!!.isEnabled = it
                 preferenceScreen.findPreference<Preference>(resources.getString(R.string.key_collection_name))!!.isEnabled = it
-                if(!it) Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
+                if(!it) Toast.makeText(
+                    context,
+                    requireContext().resources.getText(R.string.app_restart),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
 
         clickablePreference(
-                preference = resources.getString(R.string.key_collection_user),
-                onClick = { pickCollectionUser() }
+            preference = resources.getString(R.string.key_collection_user),
+            onClick = { pickCollectionUser() }
         )
 
         clickablePreference(
-                preference = resources.getString(R.string.key_collection_name),
-                onClick = { pickCollectionName() }
+            preference = resources.getString(R.string.key_collection_name),
+            onClick = { pickCollectionName() }
         )
 
     }
@@ -75,13 +86,39 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
         builder.setView(input)
 
         builder.setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { dialog, which ->
+            val loadingDialog = ProgressDialog.show(
+                activity, "",
+                requireContext().resources.getString(R.string.loading), true
+            )
 
             components.engine.installWebExtension("", input.text.toString(), onSuccess = {
-                Toast.makeText(requireContext(), "INSTALLED!", Toast.LENGTH_LONG).show()
+                CoroutineScope(Dispatchers.IO).launch {
+                    val addons = requireContext().components.addonCollectionProvider.getAvailableAddons()
+                    for(i in addons){
+                        if(i.id == it.id){
+                            runOnUiThread {
+                                MaterialAlertDialogBuilder(requireContext())
+                                    .setTitle(resources.getString(R.string.error))
+                                    .setMessage(resources.getString(R.string.already_available))
+                                    .setNeutralButton(resources.getString(R.string.mozac_feature_prompts_ok)) { dialog, which ->
+                                        dialog.dismiss()
+                                    }
+                                    .show()
+                                components.engine.uninstallWebExtension(it)
+                            }
+                            loadingDialog.dismiss()
+                            return@launch
+                        }
+                    }
+                    runOnUiThread {
+                        loadingDialog.dismiss()
+                        Toast.makeText(requireContext(), requireContext().resources.getString(R.string.installed), Toast.LENGTH_LONG).show()
+                    }
+                }
             },
-                    onError = { exception, e ->
-                        Toast.makeText(requireContext(), "ERROR!", Toast.LENGTH_LONG).show()
-                    })
+                onError = { exception, e ->
+                    Toast.makeText(requireContext(), requireContext().resources.getString(R.string.error), Toast.LENGTH_LONG).show()
+                })
         }
         builder.setNegativeButton(resources.getString(R.string.cancel)) { dialog, which -> dialog.cancel() }
 
@@ -108,7 +145,11 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
         builder.setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { dialog, which ->
             val text = input.text.toString()
             UserPreferences(requireContext()).customAddonCollectionUser = text
-            Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                context,
+                requireContext().resources.getText(R.string.app_restart),
+                Toast.LENGTH_LONG
+            ).show()
         }
         builder.setNegativeButton(resources.getString(R.string.cancel)) { dialog, which -> dialog.cancel() }
 
@@ -128,7 +169,11 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
         builder.setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { dialog, which ->
             val text = input.text.toString()
             UserPreferences(requireContext()).customAddonCollectionName = text
-            Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                context,
+                requireContext().resources.getText(R.string.app_restart),
+                Toast.LENGTH_LONG
+            ).show()
         }
         builder.setNegativeButton(resources.getString(R.string.cancel)) { dialog, which -> dialog.cancel() }
 
