@@ -5,9 +5,8 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 import android.view.accessibility.AccessibilityManager
 import android.widget.FrameLayout
 import androidx.annotation.CallSuper
@@ -15,6 +14,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -805,14 +805,16 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         if (inFullScreen) {
             // Close find in page bar if opened
             findInPageIntegration.onBackPressed()
-            /*FenixSnackbar.make(
-                view = requireView().browserLayout,
-                duration = Snackbar.LENGTH_SHORT,
-                isDisplayedWithBrowserToolbar = false
-            )
-                .setText(getString(R.string.full_screen_notification))
-                .show()*/
-            activity?.enterToImmersiveMode()
+
+            val insetsControllerCompat = WindowInsetsControllerCompat(requireActivity().window, requireActivity().window.decorView)
+
+            insetsControllerCompat.hide(WindowInsets.Type.statusBars())
+            insetsControllerCompat.hide(WindowInsets.Type.navigationBars())
+            insetsControllerCompat.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+
+            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            requireActivity().window.setDecorFitsSystemWindows(false)
+
             browserToolbarView.collapse()
             browserToolbarView.view.isVisible = false
             val browserEngine = swipeRefresh.layoutParams as CoordinatorLayout.LayoutParams
