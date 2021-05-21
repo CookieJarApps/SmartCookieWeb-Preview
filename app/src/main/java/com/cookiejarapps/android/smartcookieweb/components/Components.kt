@@ -127,7 +127,7 @@ open class Components(private val applicationContext: Context) {
         DefaultSettings().apply {
             historyTrackingDelegate = HistoryDelegate(lazyHistoryStorage)
             requestInterceptor = AppRequestInterceptor(applicationContext)
-            remoteDebuggingEnabled = true
+            remoteDebuggingEnabled = UserPreferences(applicationContext).remoteDebugging
             supportMultipleWindows = true
             if(!UserPreferences(applicationContext).autoFontSize){
                 fontSizeFactor = UserPreferences(applicationContext).fontSizeFactor

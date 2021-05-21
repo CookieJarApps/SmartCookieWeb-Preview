@@ -40,6 +40,7 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var stackFromBottom by booleanPreference(STACK_FROM_BOTTOM, false)
     var showTabsInGrid by booleanPreference(SHOW_TABS_IN_GRID, false)
     var swipeToRefresh by booleanPreference(SWIPE_TO_REFRESH, true)
+    var remoteDebugging by booleanPreference(REMOTE_DEBUGGING, false)
 
     // TODO: make these configurable & clean up duplicates
     var shouldUseBottomToolbar: Boolean
@@ -77,5 +78,6 @@ class UserPreferences(appContext: Context): PreferencesHolder {
         const val STACK_FROM_BOTTOM = "stack_from_bottom"
         const val SHOW_TABS_IN_GRID = "show_tabs_in_grid"
         const val SWIPE_TO_REFRESH = "swipe_to_refresh"
+        const val REMOTE_DEBUGGING = "remote_debugging"
     }
 }

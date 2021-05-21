@@ -22,6 +22,7 @@
   <string name="key_show_tabs_in_grid" translatable="false">show_tabs_in_grid</string>
   <string name="key_sideload_xpi" translatable="false">sideload_xpi</string>
   <string name="key_swipe_refresh" translatable="false">swipe_refresh</string>
+  <string name="key_remote_debugging" translatable="false">remote_debugging</string>
 
   <string name="more">More Info</string>
   <string name="version">Application version</string>
@@ -214,4 +215,6 @@
   <string name="already_available">This add-on is already available in the official add-on store. Add-ons available in the official store cannot be sideloaded.</string>
   <string name="installed">Installed successfully</string>
   <string name="error">Error</string>
+
+  <string name="remote_debugging">Remote debugging</string>
 </resources>

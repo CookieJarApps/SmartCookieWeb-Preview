@@ -36,6 +36,18 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
         )
 
         switchPreference(
+                preference = requireContext().resources.getString(R.string.key_remote_debugging),
+                isChecked = UserPreferences(requireContext()).remoteDebugging
+        ) {
+            UserPreferences(requireContext()).remoteDebugging = it
+               Toast.makeText(
+                        context,
+                        requireContext().resources.getText(R.string.app_restart),
+                        Toast.LENGTH_LONG
+                ).show()
+        }
+
+        switchPreference(
             preference = requireContext().resources.getString(R.string.key_use_custom_collection),
             isChecked = UserPreferences(requireContext()).customAddonCollection
         ) {
@@ -77,7 +89,7 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
     }
 
     private fun sideloadXpi() {
-        val builder = AlertDialog.Builder(requireContext())
+        val builder = MaterialAlertDialogBuilder(requireContext())
         builder.setTitle(resources.getString(R.string.load_xpi))
 
         val input = EditText(requireContext())

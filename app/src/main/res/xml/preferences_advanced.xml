@@ -2,6 +2,12 @@
 <PreferenceScreen
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <SwitchPreferenceCompat
+        app:key="@string/key_remote_debugging"
+        app:title="@string/remote_debugging"
+        app:singleLineTitle="false"
+        app:defaultValue="false"/>
+
     <Preference
         app:key="@string/key_sideload_xpi"
         app:title="@string/load_xpi"
