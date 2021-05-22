@@ -14,6 +14,7 @@
     <string name="no_ads">Sem anúncios ou rastreadores</string>
     <string name="infinity">∞</string>
     <string name="tabs">Abas</string>
+    <string name="tab_grid">Mostrar abas em grade</string>
     <string name="action_print">Imprimir</string>
     <string name="action_add_to_homescreen">Adicionar à tela inicial</string>
     <string name="action_history">Histórico</string>
@@ -25,6 +26,7 @@
     <string name="reload">Recarregar</string>
     <string name="settings">Configurações</string>
     <string name="new_tab">Nova aba</string>
+    <string name="duplicate_tab">Duplicar aba</string>
     <string name="move_to_private">Mudar para o modo privado</string>
     <string name="move_to_normal">Mudar para o modo normal</string>
     <string name="close_tab">Fechar aba</string>
@@ -60,6 +62,7 @@
     <string name="app_restart">Por favor, reinicie o aplicativo para que a alteração entre em vigor.</string>
     <string name="mozac_reader_view_description">Ativar Visão do Leitor</string>
     <string name="mozac_reader_view_description_selected">Desativar Visão do Leitor</string>
+    <string name="other_addons">Outras extensões</string>
     <string name="tab_removed">Aba removida</string>
     <string name="undo">Desfazer</string>
     <string name="hide_url_bar">Ocultar barra de endereço ao rolar</string>
@@ -94,6 +97,7 @@
     <string name="failed">Falhou</string>
     <string name="search_engine">Motor de busca</string>
     <string name="loading_addons">Carregando extensões…</string>
+    <string name="loading">Carregando…</string>
     <string name="history_cleared">Histórico limpo!</string>
     <string name="show_addons_in_bar">Mostrar extensões na barra de navegação</string>
     <string name="shortcuts">Atalhos</string>
@@ -132,4 +136,20 @@
     <string name="report">Reportar</string>
     <string name="swap_bookmarks_and_tabs">Inverter os menus de abas e favoritos</string>
     <string name="stack_items_reverse">Empilhar itens da parte inferior do menu</string>
+    <string name="browser_sync">Sincronização do navegador</string>
+    <string name="browser_sync_disclaimer">Ao usar a sincronização, o navegador sincroniza suas abas com sua conta do Firefox. Isso significa que o navegador armazenará seus dados em forma criptografada nos servidores Firefox Sync operados pela Mozilla. Este serviço não é afiliado ou endossado pela Mozilla e o CookieJarApps não é necessário para fornecer serviço de suporte, garantia ou atualizações.</string>
+    <string name="load_xpi">Carregar XPI externo</string>
+    <string name="load_xpi_description">Tem certeza de que deseja instalar %1$s neste navegador? Esta extensão não foi verificada quanto a segurança ou estabilidade por CookieJarApps.</string>
+    <string name="addon_not_available">Esta extensão não está disponível na loja de extensões. Você pode carregar extensões personalizadas em Configurações Avançadas.</string>
+    <string name="swipe_to_refresh">Deslize para atualizar</string>
+    <string name="sideloaded_addons">Extensões carregadas externamente</string>
+    <string name="already_available">Esta extensão já está disponível na loja oficial de extensões. As extensões disponíveis na loja oficial não podem ser carregadas externamente.</string>
+    <string name="installed">Instalada com sucesso</string>
+    <string name="error">Erro</string>
+    <string name="remote_debugging">Depuração remota</string>
+    <string name="export_settings">Exportar backup de configurações</string>
+    <string name="import_settings">Importar backup de configurações</string>
+    <string name="clear_settings">Redefinir configurações</string>
+    <string name="backup_settings">Backup de configurações</string>
+    <string name="prompt_external_downloader">Perguntar qual aplicativo usar para baixar arquivos</string>
 </resources>
