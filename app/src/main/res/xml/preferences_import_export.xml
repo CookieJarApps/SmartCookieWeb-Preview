@@ -3,13 +3,40 @@
 
     <PreferenceCategory android:title="@string/backup_bookmarks">
         <Preference
-            android:key="export_bookmark"
-            android:singleLineTitle="false"
-            android:title="@string/export_bookmarks"/>
-        <Preference
-            android:key="import_bookmark"
+            android:key="@string/key_import_bookmarks"
             android:singleLineTitle="false"
             android:title="@string/import_backup"/>
+        <Preference
+            android:key="@string/key_export_bookmarks"
+            android:singleLineTitle="false"
+            android:title="@string/export_bookmarks"/>
     </PreferenceCategory>
+
+    <!--<PreferenceCategory android:title="@string/backup_tabs">
+        <Preference
+            android:key="export_tab"
+            android:singleLineTitle="false"
+            android:title="@string/export_tabs"/>
+        <Preference
+            android:key="import_tab"
+            android:singleLineTitle="false"
+            android:title="@string/import_tabs"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/backup_settings">
+        <Preference
+            android:key="export_settings"
+            android:singleLineTitle="false"
+            android:title="@string/export_settings"/>
+        <Preference
+            android:key="import_settings"
+            android:singleLineTitle="false"
+            android:title="@string/import_settings"/>
+        <Preference
+            android:key="clear_settings"
+            android:singleLineTitle="false"
+            android:title="@string/clear_settings"/>
+
+    </PreferenceCategory>-->
 
 </PreferenceScreen>

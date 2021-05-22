@@ -4,7 +4,7 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24"
-    android:tint="@color/icon_inside_3">
+    android:tint="@color/icon_inside_4">
 
   <path
       android:pathData="M0 0h24v24H0V0z" />

@@ -1,180 +1,161 @@
 package com.cookiejarapps.android.smartcookieweb.settings.fragment
 
-import android.app.AlertDialog
+import android.R.attr.data
+import android.app.Activity
+import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.text.InputType
-import android.widget.EditText
+import android.util.Log
 import android.widget.Toast
-import androidx.preference.Preference
-import androidx.preference.Preference.OnPreferenceChangeListener
-import androidx.preference.Preference.OnPreferenceClickListener
-import androidx.preference.PreferenceFragmentCompat
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.browser.SearchEngineList
+import com.cookiejarapps.android.smartcookieweb.browser.bookmark.items.BookmarkFolderItem
+import com.cookiejarapps.android.smartcookieweb.browser.bookmark.items.BookmarkItem
+import com.cookiejarapps.android.smartcookieweb.browser.bookmark.items.BookmarkSiteItem
+import com.cookiejarapps.android.smartcookieweb.browser.bookmark.repository.BookmarkManager
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.cookiejarapps.android.smartcookieweb.utils.BookmarkUtils
+import org.json.JSONArray
+import org.json.JSONObject
+import org.json.JSONTokener
+import java.io.*
+import java.util.*
+
 
 class ImportExportSettingsFragment : BaseSettingsFragment() {
 
-    // TODO: Import bookmarks from scw
-
     override fun onCreatePreferences(savedInstanceState: Bundle?, s: String?) {
-        addPreferencesFromResource(R.xml.preferences_general)
+        addPreferencesFromResource(R.xml.preferences_import_export)
 
-        if(UserPreferences(requireContext()).customAddonCollection){
-            preferenceScreen.findPreference<Preference>(resources.getString(R.string.key_collection_user))!!.isEnabled = true
-            preferenceScreen.findPreference<Preference>(resources.getString(R.string.key_collection_name))!!.isEnabled = true
+        clickablePreference(
+                preference = requireContext().resources.getString(R.string.key_import_bookmarks),
+                onClick = { requestBookmarkImport() }
+        )
+
+        clickablePreference(
+                preference = requireContext().resources.getString(R.string.key_export_bookmarks),
+                onClick = { requestBookmarkExport() }
+        )
+    }
+
+    private fun requestBookmarkImport(){
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "text/*"
+            putExtra("android.content.extra.SHOW_ADVANCED", true)
+        }
+        startActivityForResult(intent, IMPORT_BOOKMARKS)
+    }
+
+    private fun requestBookmarkExport(){
+        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "text/*"
+            putExtra(Intent.EXTRA_TITLE, "BookmarkExport.txt")
+            putExtra("android.content.extra.SHOW_ADVANCED", true)
+        }
+        startActivityForResult(intent, EXPORT_BOOKMARKS)
+    }
+
+    private fun importBookmarks(uri: Uri){
+        val manager = BookmarkManager.getInstance(requireActivity())
+        val bookmarkFile = manager.file
+
+        val input: InputStream? = requireActivity().contentResolver.openInputStream(uri)
+
+        val bufferSize = 1024
+        val buffer = CharArray(bufferSize)
+        val out = StringBuilder()
+        val `in`: Reader = InputStreamReader(input, "UTF-8")
+        while (true) {
+            val rsz = `in`.read(buffer, 0, buffer.size)
+            if (rsz < 0) break
+            out.append(buffer, 0, rsz)
         }
 
-        switchPreference(
-                preference = requireContext().resources.getString(R.string.key_javascript_enabled),
-                isChecked = UserPreferences(requireContext()).javaScriptEnabled,
-                onCheckChange = {
-                    UserPreferences(requireContext()).javaScriptEnabled = it
-                    Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
+        val content = out.toString()
+
+        val itemArray = JSONTokener(content).nextValue()
+
+        // If the imported file is JSON and is an array, assume it's an export from this browser, or if it's an object, assume it's a legacy export
+        if (itemArray is JSONArray) {
+            val bookmarks = FileOutputStream(bookmarkFile, false)
+            val contents: ByteArray = content.toByteArray()
+            bookmarks.write(contents)
+            bookmarks.flush()
+            bookmarks.close()
+
+            manager.initialize()
+        }
+        else if(itemArray is JSONObject) {
+            bookmarkFile.delete()
+            manager.initialize()
+
+            val scanner = Scanner(content)
+            while (scanner.hasNextLine()) {
+                val line = scanner.nextLine()
+                val `object` = JSONObject(line)
+                val folderName: String = `object`.getString(KEY_FOLDER)
+
+                var folder = manager.root
+                if(folderName != "") {
+                    val importedFolder = BookmarkFolderItem(folderName, manager.root, BookmarkUtils.getNewId())
+                    manager.root.add(importedFolder)
+                    folder = importedFolder
                 }
-        )
 
-        switchPreference(
-                preference = requireContext().resources.getString(R.string.key_move_navbar),
-                isChecked = UserPreferences(requireContext()).shouldUseBottomToolbar,
-                onCheckChange = {
-                    UserPreferences(requireContext()).shouldUseBottomToolbar = it
-                    Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
-                }
-        )
+                val entry: BookmarkItem = BookmarkSiteItem(
+                        `object`.getString(KEY_TITLE),
+                        `object`.getString(KEY_URL),
+                        BookmarkUtils.getNewId()
+                )
 
-        switchPreference(
-                preference = requireContext().resources.getString(R.string.key_show_addons_in_bar),
-                isChecked = UserPreferences(requireContext()).showAddonsInBar,
-                onCheckChange = {
-                    UserPreferences(requireContext()).showAddonsInBar = it
-                    Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
-                }
-        )
-
-        clickablePreference(
-                preference = resources.getString(R.string.key_search_engine),
-                onClick = { pickSearchEngine() }
-        )
-
-        clickablePreference(
-                preference = resources.getString(R.string.key_homepage_type),
-                onClick = { pickHomepage() }
-        )
-
-        switchPreference(
-                preference = requireContext().resources.getString(R.string.key_use_custom_collection),
-                isChecked = UserPreferences(requireContext()).customAddonCollection
-        ) {
-            if (it && !UserPreferences(requireContext()).shownCollectionDisclaimer) {
-                AlertDialog.Builder(context)
-                        .setTitle(resources.getString(R.string.custom_collection))
-                        .setMessage(resources.getString(R.string.use_custom_collection_disclaimer))
-                        .setPositiveButton(android.R.string.yes) { _, _ ->
-                            UserPreferences(requireContext()).customAddonCollection = it
-                            preferenceScreen.findPreference<Preference>(resources.getString(R.string.key_collection_user))!!.isEnabled = it
-                            preferenceScreen.findPreference<Preference>(resources.getString(R.string.key_collection_name))!!.isEnabled = it
-                        }
-                        .setNegativeButton(android.R.string.no, null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show()
-                UserPreferences(requireContext()).shownCollectionDisclaimer = true
-            } else if(it) {
-                UserPreferences(requireContext()).customAddonCollection = it
-                preferenceScreen.findPreference<Preference>(resources.getString(R.string.key_collection_user))!!.isEnabled = it
-                preferenceScreen.findPreference<Preference>(resources.getString(R.string.key_collection_name))!!.isEnabled = it
+                manager.add(folder, entry)
             }
-            else{
-                Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
+
+            scanner.close()
+            manager.save()
+        }
+        else{
+            Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
+    }
+
+    private fun exportBookmarks(uri: Uri){
+        val manager = BookmarkManager.getInstance(requireActivity())
+        val bookmarkFile = manager.file
+
+        val output: OutputStream? = requireActivity().contentResolver.openOutputStream(uri)
+        output?.write(bookmarkFile.readBytes())
+        output?.flush()
+        output?.close()
+        Toast.makeText(context, R.string.successful, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val uri: Uri? = data?.data
+        if (requestCode == EXPORT_BOOKMARKS && resultCode == Activity.RESULT_OK) {
+           if(uri != null){
+               exportBookmarks(uri)
+           }
+        }
+        else if(requestCode == IMPORT_BOOKMARKS) {
+            if(uri != null){
+                importBookmarks(uri)
             }
         }
-
-        clickablePreference(
-                preference = resources.getString(R.string.key_collection_user),
-                onClick = { pickCollectionUser() }
-        )
-
-        clickablePreference(
-                preference = resources.getString(R.string.key_collection_name),
-                onClick = { pickCollectionName() }
-        )
-
     }
 
-    private fun pickCollectionUser() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle(resources.getString(R.string.collection_user))
+    companion object{
+        const val EXPORT_BOOKMARKS = 0
+        const val IMPORT_BOOKMARKS = 1
 
-        val input = EditText(requireContext())
-        input.inputType = InputType.TYPE_CLASS_TEXT
-        builder.setView(input)
-
-        builder.setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { dialog, which ->
-            val text = input.text.toString()
-            UserPreferences(requireContext()).customAddonCollectionUser = text
-            Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
-        }
-        builder.setNegativeButton(resources.getString(R.string.cancel)) { dialog, which -> dialog.cancel() }
-
-        builder.show()
-    }
-
-    private fun pickCollectionName() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle(resources.getString(R.string.collection_name))
-
-        val input = EditText(requireContext())
-        input.inputType = InputType.TYPE_CLASS_TEXT
-        builder.setView(input)
-
-        builder.setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { dialog, which ->
-            val text = input.text.toString()
-            UserPreferences(requireContext()).customAddonCollectionName = text
-            Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
-        }
-        builder.setNegativeButton(resources.getString(R.string.cancel)) { dialog, which -> dialog.cancel() }
-
-        builder.show()
-    }
-
-    private fun pickHomepage(){
-        val startingChoice = UserPreferences(requireContext()).homepageType
-        val singleItems = resources.getStringArray(R.array.homepage_types).toMutableList()
-        val checkedItem = UserPreferences(requireContext()).homepageType
-
-        MaterialAlertDialogBuilder(requireContext())
-                .setTitle(resources.getString(R.string.homepage_type))
-                .setNeutralButton(resources.getString(R.string.cancel)) { _, _ ->
-                    UserPreferences(requireContext()).homepageType = startingChoice
-                }
-                .setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { _, _ ->}
-                .setSingleChoiceItems(singleItems.toTypedArray(), checkedItem) { dialog, which ->
-                    UserPreferences(requireContext()).homepageType = which
-                }
-                .show()
-    }
-
-    private fun pickSearchEngine(){
-        val startingChoice = UserPreferences(requireContext()).searchEngineChoice
-        val singleItems = emptyList<String>().toMutableList()
-        val checkedItem = UserPreferences(requireContext()).searchEngineChoice
-
-        for(i in SearchEngineList().getEngines()){
-            singleItems.add(i.name)
-        }
-
-        MaterialAlertDialogBuilder(requireContext())
-                .setTitle(resources.getString(R.string.search_engine))
-                .setNeutralButton(resources.getString(R.string.cancel)) { _, _ ->
-                    UserPreferences(requireContext()).searchEngineChoice = startingChoice
-                }
-                .setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { _, _ ->
-                    Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
-                }
-                .setSingleChoiceItems(singleItems.toTypedArray(), checkedItem) { _, which ->
-                    UserPreferences(requireContext()).searchEngineChoice = which
-                }
-                .show()
+        const val KEY_URL = "url"
+        const val KEY_TITLE = "title"
+        const val KEY_FOLDER = "folder"
+        const val KEY_ORDER = "order"
     }
 }

@@ -3,7 +3,7 @@
     <item>
         <shape android:shape="oval">
             <solid
-                android:color="@color/icon_circle_4" />
+                android:color="@color/icon_circle_2" />
             <size
                 android:width="36dp"
                 android:height="36dp" />
@@ -14,5 +14,5 @@
         android:right="6dp"
         android:top="6dp"
         android:bottom="6dp"
-        android:drawable="@drawable/ic_settings_advanced"/>
+        android:drawable="@drawable/ic_settings_import_export"/>
 </layer-list>

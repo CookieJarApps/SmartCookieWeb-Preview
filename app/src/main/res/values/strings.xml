@@ -23,6 +23,8 @@
   <string name="key_sideload_xpi" translatable="false">sideload_xpi</string>
   <string name="key_swipe_refresh" translatable="false">swipe_refresh</string>
   <string name="key_remote_debugging" translatable="false">remote_debugging</string>
+  <string name="key_export_bookmarks" translatable="false">export_bookmarks</string>
+  <string name="key_import_bookmarks" translatable="false">import_bookmarks</string>
 
   <string name="more">More Info</string>
   <string name="version">Application version</string>
@@ -77,8 +79,8 @@
   <string name="settings_privacy_and_security">Privacy and security settings</string>
   <string name="settings_privacy_and_security_explain">Clear history…</string>
 
-  <string name="settings_import_and_export">Privacy and security settings</string>
-  <string name="settings_import_and_export_explain">Clear history…</string>
+  <string name="settings_import_and_export">Import and export settings</string>
+  <string name="settings_import_and_export_explain">Exporting and importing…</string>
 
   <string name="settings_customization">Customization settings</string>
   <string name="settings_customization_explain">App theme, bottom navbar…</string>
