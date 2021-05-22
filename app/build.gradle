@@ -13,9 +13,9 @@ android {
     defaultConfig {
         applicationId "com.cookiejarapps.android.smartcookieweb"
         minSdkVersion 21
-        targetSdkVersion 34
+        targetSdkVersion 30
         // Increment by 4 with each update
-        versionCode 24
+        versionCode 28
         versionName "7.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
