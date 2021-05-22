@@ -85,6 +85,8 @@ import mozilla.components.feature.downloads.manager.FetchDownloadManager
 import mozilla.components.support.base.log.logger.Logger.Companion.debug
 import com.cookiejarapps.android.smartcookieweb.components.toolbar.ToolbarPosition
 import com.cookiejarapps.android.smartcookieweb.integration.ReaderModeIntegration
+import com.cookiejarapps.android.smartcookieweb.ssl.showSslDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import mozilla.components.concept.engine.prompt.ShareData
 import mozilla.components.feature.prompts.share.ShareDelegate
 import org.mozilla.fenix.home.HomeScreenViewModel
@@ -431,6 +433,10 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             owner = this,
             view = view
         )
+
+        browserToolbarView.view.display.setOnSiteSecurityClickedListener {
+            activity.showSslDialog()
+        }
 
         expandToolbarOnNavigation(store)
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Issued by"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/ssl_layout_issue_by"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        tools:text="Test Cert Authority" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Issued to"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/ssl_layout_issue_to"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        tools:text="Test Company" />
+
+</LinearLayout>
