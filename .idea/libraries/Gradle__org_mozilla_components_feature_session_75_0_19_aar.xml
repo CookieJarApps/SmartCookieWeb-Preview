@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-session:75.0.19@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f15d2a9d9c4a79f5ed3d87159a34a9d5/transformed/jetified-feature-session-75.0.8/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f15d2a9d9c4a79f5ed3d87159a34a9d5/transformed/jetified-feature-session-75.0.8/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f15d2a9d9c4a79f5ed3d87159a34a9d5/transformed/jetified-feature-session-75.0.8/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-session/75.0.19/b58184be7d29d5ec1c46ced80a99dc51e12ab346/feature-session-75.0.19-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

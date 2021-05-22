@@ -8,6 +8,12 @@
         app:singleLineTitle="false"
         app:defaultValue="false"/>
 
+    <SwitchPreferenceCompat
+        app:key="@string/key_prompt_external_downloader"
+        app:title="@string/prompt_external_downloader"
+        app:singleLineTitle="false"
+        app:defaultValue="false"/>
+
     <Preference
         app:key="@string/key_sideload_xpi"
         app:title="@string/load_xpi"

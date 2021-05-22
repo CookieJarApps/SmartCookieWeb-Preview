@@ -28,6 +28,7 @@
   <string name="key_export_settings" translatable="false">export_settings</string>
   <string name="key_import_settings" translatable="false">import_settings</string>
   <string name="key_clear_settings" translatable="false">clear_settings</string>
+  <string name="key_prompt_external_downloader" translatable="false">prompt_external_downloader</string>
 
   <string name="more">More Info</string>
   <string name="version">Application version</string>
@@ -227,4 +228,6 @@
   <string name="import_settings">Import settings from backup</string>
   <string name="clear_settings">Reset settings</string>
   <string name="backup_settings">Settings backup</string>
+
+  <string name="prompt_external_downloader">Ask which app to use to download files</string>
 </resources>

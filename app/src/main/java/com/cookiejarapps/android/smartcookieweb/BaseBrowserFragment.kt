@@ -406,6 +406,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 store = components.store,
                 useCases = components.downloadsUseCases,
                 fragmentManager = childFragmentManager,
+                shouldForwardToThirdParties = { UserPreferences(requireContext()).promptExternalDownloader },
                 onDownloadStopped = { download, id, status ->
                     debug("Download ID#$id $download with status $status is done.")
                 },

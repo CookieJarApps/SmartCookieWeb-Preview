@@ -41,6 +41,7 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var showTabsInGrid by booleanPreference(SHOW_TABS_IN_GRID, false)
     var swipeToRefresh by booleanPreference(SWIPE_TO_REFRESH, true)
     var remoteDebugging by booleanPreference(REMOTE_DEBUGGING, false)
+    var promptExternalDownloader by booleanPreference(PROMPT_EXTERNAL_DOWNLOADER, false)
 
     // TODO: make these configurable & clean up duplicates
     var shouldUseBottomToolbar: Boolean
@@ -79,5 +80,6 @@ class UserPreferences(appContext: Context): PreferencesHolder {
         const val SHOW_TABS_IN_GRID = "show_tabs_in_grid"
         const val SWIPE_TO_REFRESH = "swipe_to_refresh"
         const val REMOTE_DEBUGGING = "remote_debugging"
+        const val PROMPT_EXTERNAL_DOWNLOADER = "prompt_external_downloader"
     }
 }
