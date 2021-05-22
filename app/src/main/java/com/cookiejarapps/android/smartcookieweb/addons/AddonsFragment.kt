@@ -5,6 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
@@ -14,7 +18,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.browser.AddonSortType
 import com.cookiejarapps.android.smartcookieweb.ext.components
+import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import kotlinx.android.synthetic.main.fragment_add_ons.*
 import kotlinx.android.synthetic.main.fragment_add_ons.view.*
 import kotlinx.android.synthetic.main.overlay_add_on_progress.view.*
@@ -30,10 +36,12 @@ import java.util.*
 import java.util.concurrent.CancellationException
 import kotlin.collections.ArrayList
 
+
 // Fragment used for managing add-ons.
 
 class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     private lateinit var recyclerView: RecyclerView
+    private lateinit var spinner: Spinner
     private val scope = CoroutineScope(Dispatchers.IO)
     private var adapter: AddonsAdapter? = null
     private var addons: List<Addon>? = null
@@ -55,6 +63,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
         super.onStart()
 
         this@AddonsFragment.view?.let { view ->
+            bindSpinner(view)
             bindRecyclerView(view)
         }
 
@@ -115,6 +124,94 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
         return true
     }
 
+    private fun updateSorting(){
+        if(UserPreferences(requireContext()).addonSort == AddonSortType.RATING.ordinal){
+            Collections.sort(
+                addons
+            ) { item1, item2 ->
+                if (item1.rating != null || item2.rating != null) {
+                    if(item1.rating!!.average == 0F && item2.rating!!.average == 0F){
+                        item1.translatableName["en-us"]!!.compareTo(item2.translatableName["en-us"]!!)
+                    }
+                    else if (item1.rating!!.average == item2.rating!!.average) {
+                        -item1.rating!!.reviews.compareTo(item2.rating!!.reviews)
+                    }
+                    else {
+                        -item1.rating!!.average.compareTo(item2.rating!!.average)
+                    }
+                } else{
+                    if(item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null) {
+                        item1.translatableName["en-us"]!!.compareTo(item2.translatableName["en-us"]!!)
+                    }
+                    else {
+                        item1.id.compareTo(item2.id)
+                    }
+                }
+            }
+            addons?.let { adapter?.updateAddons(it) }
+            recyclerView.adapter?.notifyDataSetChanged()
+        }
+        else if(UserPreferences(requireContext()).addonSort == AddonSortType.A_Z.ordinal){
+                Collections.sort(
+                    addons
+                ) { item1, item2 ->
+                    if(item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null){
+                        item1.translatableName["en-us"]!!.compareTo(item2.translatableName["en-us"]!!, true)
+                    }
+                    else{
+                        item1.id.compareTo(item2.id)
+                    }
+                }
+                addons?.let { adapter?.updateAddons(it) }
+                recyclerView.adapter?.notifyDataSetChanged()
+        }
+        else if(UserPreferences(requireContext()).addonSort == AddonSortType.Z_A.ordinal){
+            Collections.sort(
+                addons
+            ) { item1, item2 ->
+                if(item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null){
+                    item1.translatableName["en-us"]!!.compareTo(item2.translatableName["en-us"]!!, true)
+                }
+                else{
+                    item1.id.compareTo(item2.id)
+                }
+            }
+            addons = addons?.reversed()
+            addons?.let { adapter?.updateAddons(it) }
+            recyclerView.adapter?.notifyDataSetChanged()
+        }
+    }
+
+    private fun bindSpinner(rootView: View) {
+        val users = arrayOf(
+            requireContext().resources.getString(R.string.sort_rating),
+            requireContext().resources.getString(R.string.sort_a_z),
+            requireContext().resources.getString(R.string.sort_z_a)
+        )
+
+        spinner = rootView.findViewById(R.id.sort_spinner)
+        val adapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, users)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.setAdapter(adapter)
+        spinner.setSelection(UserPreferences(requireContext()).addonSort)
+
+        spinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                adapterView: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                row: Long
+            ) {
+                UserPreferences(requireContext()).addonSort = position
+                updateSorting()
+            }
+
+            override fun onNothingSelected(adapterView: AdapterView<*>?) {
+                return
+            }
+        }
+    }
 
     private fun bindRecyclerView(rootView: View) {
         recyclerView = rootView.findViewById(R.id.add_ons_list)
@@ -136,6 +233,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                 scope.launch(Dispatchers.Main) {
                     view?.add_ons_no_results?.isVisible = false
                     view?.add_ons_loading?.isVisible = false
+                    updateSorting()
 
                     if (adapter == null) {
                         adapter = AddonsAdapter(

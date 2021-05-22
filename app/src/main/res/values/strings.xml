@@ -134,6 +134,9 @@
   <string name="url_empty_mes">URL empty!</string>
   <string name="title_empty_mes">Title empty!</string>
   <string name="sort">Sort</string>
+  <string name="sort_rating">Rating</string>
+  <string name="sort_a_z">A-Z</string>
+  <string name="sort_z_a">Z-A</string>
   <string name="select_this_item">Select this item</string>
   <string name="move_bookmark">Move to folder</string>
   <string name="open_all_new">Open all in new tabs</string>

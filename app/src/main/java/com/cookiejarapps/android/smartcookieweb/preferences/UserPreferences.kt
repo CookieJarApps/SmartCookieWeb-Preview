@@ -3,6 +3,7 @@ package com.cookiejarapps.android.smartcookieweb.preferences
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import com.cookiejarapps.android.smartcookieweb.browser.AddonSortType
 import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
 import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.components.toolbar.ToolbarPosition
@@ -42,6 +43,7 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var swipeToRefresh by booleanPreference(SWIPE_TO_REFRESH, true)
     var remoteDebugging by booleanPreference(REMOTE_DEBUGGING, false)
     var promptExternalDownloader by booleanPreference(PROMPT_EXTERNAL_DOWNLOADER, false)
+    var addonSort by intPreference(WEB_THEME_CHOICE, AddonSortType.RATING.ordinal)
 
     // TODO: make these configurable & clean up duplicates
     var shouldUseBottomToolbar: Boolean
