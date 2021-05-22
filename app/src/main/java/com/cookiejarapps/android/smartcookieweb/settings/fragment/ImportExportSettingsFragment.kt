@@ -195,13 +195,11 @@ class ImportExportSettingsFragment : BaseSettingsFragment() {
     }
 
     private fun exportSettings(uri: Uri) {
-        var bookmarksExport = uri
-
         val userPref = requireActivity().getSharedPreferences(SCW_PREFERENCES, 0)
         val allEntries: Map<String, *> = userPref!!.getAll()
         var string = "{"
         for (entry in allEntries.entries) {
-            string = string + '"' + entry.key + '"' + "=" + '"' + entry.value + '"' + ","
+            string += "\"${entry.key}\"=\"${entry.value}\","
         }
 
         string = string.substring(0, string.length - 1) + "}"
