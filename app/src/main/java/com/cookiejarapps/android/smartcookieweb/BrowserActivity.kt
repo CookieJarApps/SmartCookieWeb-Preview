@@ -148,12 +148,6 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
     }
 
     open fun handleNewIntent(intent: Intent) {
-        openToBrowser(BrowserDirection.FromGlobal, null)
-        val value = intent.data ?: intent.getStringExtra(Intent.EXTRA_TEXT)
-        if(value != null){
-            components.tabsUseCases.addTab.invoke(value.toString())
-        }
-
         val intentProcessors = externalSourceIntentProcessors
         val intentHandled =
             intentProcessors.any { it.process(intent, navHost.navController, this.intent) }

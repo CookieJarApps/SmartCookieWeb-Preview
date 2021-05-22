@@ -24,11 +24,13 @@ class IntentReceiverActivity : Activity() {
             intent.flags = intent.flags and Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS.inv()
 
             val activityClass = BrowserActivity::class
+            val processor = TabIntentProcessor(components.tabsUseCases, components.sessionUseCases.loadUrl, components.searchUseCases.newTabSearch, isPrivate = false)
+            processor.process(intent)
 
             intent.setClassName(applicationContext, activityClass.java.name)
 
-            finish()
             startActivity(intent)
+            finish()
         }
     }
 }
