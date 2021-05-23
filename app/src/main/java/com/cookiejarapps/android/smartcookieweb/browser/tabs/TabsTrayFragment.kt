@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -19,6 +20,7 @@ import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
 import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
@@ -38,7 +40,11 @@ class TabsTrayFragment : Fragment() {
     lateinit var browsingModeManager: BrowsingModeManager
     lateinit var configuration: Configuration
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View =
         inflater.inflate(R.layout.fragment_tabstray, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,14 +58,89 @@ class TabsTrayFragment : Fragment() {
             when (it.itemId) {
                 R.id.newTab -> {
                     if (UserPreferences(requireContext()).homepageType == HomepageChoice.VIEW.ordinal) {
-                        findNavController().navigate(HomeFragmentDirections.actionGlobalHome(focusOnAddressBar = true))
+                        findNavController().navigate(
+                            HomeFragmentDirections.actionGlobalHome(
+                                focusOnAddressBar = true
+                            )
+                        )
                     } else {
-                        when(browsingModeManager.mode){
-                            BrowsingMode.Normal -> components.tabsUseCases.addTab.invoke("about:blank", selectTab = true)
-                            BrowsingMode.Private -> components.tabsUseCases.addPrivateTab.invoke("about:blank", selectTab = true)
+                        when (browsingModeManager.mode) {
+                            BrowsingMode.Normal -> components.tabsUseCases.addTab.invoke(
+                                "about:blank",
+                                selectTab = true
+                            )
+                            BrowsingMode.Private -> components.tabsUseCases.addPrivateTab.invoke(
+                                "about:blank",
+                                selectTab = true
+                            )
                         }
                     }
                     closeTabsTray()
+                }
+                R.id.removeTabs -> {
+                    val items = arrayOf(
+                        "Close current tab",
+                        "Close other tabs",
+                        "Close all tabs",
+                        "Close browser"
+                    )
+
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(resources.getString(R.string.mozac_feature_addons_remove))
+                        .setItems(items) { dialog, which ->
+                            when (which) {
+                                0 -> {
+                                    components.sessionManager.selectedSession?.id?.let { id ->
+                                        components.tabsUseCases.removeTab(
+                                            id
+                                        )
+                                    }
+                                    if (view.context.components.sessionManager.sessions.isEmpty() && UserPreferences(
+                                            requireContext()
+                                        ).homepageType == HomepageChoice.VIEW.ordinal
+                                    ) {
+                                        findNavController().navigate(
+                                            HomeFragmentDirections.actionGlobalHome(
+                                                focusOnAddressBar = false
+                                            )
+                                        )
+                                    }
+                                    // TODO: this doesn't appear if the last tab is closed and bottom toolbar is on, as the toolbar view on the homepage is R.id.toolbarLayout
+                                    val snackbar = Snackbar.make(
+                                        view,
+                                        view.resources.getString(R.string.tab_removed),
+                                        Snackbar.LENGTH_LONG
+                                    ).setAction(
+                                        view.resources.getString(R.string.undo)
+                                    ) {
+                                        components.tabsUseCases.undo.invoke()
+                                    }
+                                    if(UserPreferences(requireContext()).shouldUseBottomToolbar) snackbar.anchorView =
+                                        requireActivity().findViewById(R.id.toolbar)
+                                        snackbar.show()
+                                }
+                                1 -> {
+                                    val tabList = components.sessionManager.sessions.toMutableList()
+                                    tabList.remove(components.sessionManager.selectedSession)
+                                    val idList: MutableList<String> =
+                                        emptyList<String>().toMutableList()
+                                    for (i in tabList) idList.add(i.id)
+                                    components.tabsUseCases.removeTabs.invoke(idList.toList())
+                                }
+                                2 -> {
+                                    components.tabsUseCases.removeAllTabs.invoke()
+                                    findNavController().navigate(
+                                        HomeFragmentDirections.actionGlobalHome(
+                                            focusOnAddressBar = false
+                                        )
+                                    )
+                                }
+                                3 -> {
+                                    requireActivity().finishAndRemoveTask()
+                                }
+                            }
+                        }
+                        .show()
                 }
             }
             true
@@ -67,38 +148,58 @@ class TabsTrayFragment : Fragment() {
 
         val tabsAdapter = createTabsAdapter()
         tabsTray.adapter = tabsAdapter
-        val layoutManager = if(UserPreferences(requireContext()).showTabsInGrid) GridLayoutManager(context, 2) else LinearLayoutManager(context)
-        layoutManager.stackFromEnd = !UserPreferences(requireContext()).showTabsInGrid && UserPreferences(requireContext()).stackFromBottom
+        val layoutManager = if(UserPreferences(requireContext()).showTabsInGrid) GridLayoutManager(
+            context,
+            2
+        ) else LinearLayoutManager(context)
+        layoutManager.stackFromEnd = !UserPreferences(requireContext()).showTabsInGrid && UserPreferences(
+            requireContext()
+        ).stackFromBottom
         tabsTray.layoutManager = layoutManager
 
         tabsFeature.set(
-                feature = TabsFeature(
-                        tabsTray = tabsAdapter,
-                        store = components.store,
-                        selectTabUseCase = SelectTabWithHomepageUseCase(components.tabsUseCases.selectTab, activity as BrowserActivity),
-                        removeTabUseCase = RemoveTabWithUndoUseCase(
-                                components.tabsUseCases.removeTab,
-                                view,
-                                components.tabsUseCases.undo,
-                                requireActivity() as BrowserActivity
-                        ),
-                        defaultTabsFilter = { it.filterFromConfig(configuration) },
-                        closeTabsTray = ::closeTabsTray
+            feature = TabsFeature(
+                tabsTray = tabsAdapter,
+                store = components.store,
+                selectTabUseCase = SelectTabWithHomepageUseCase(
+                    components.tabsUseCases.selectTab,
+                    activity as BrowserActivity
                 ),
-                owner = this,
-                view = view
+                removeTabUseCase = RemoveTabWithUndoUseCase(
+                    components.tabsUseCases.removeTab,
+                    view,
+                    components.tabsUseCases.undo,
+                    requireActivity() as BrowserActivity
+                ),
+                defaultTabsFilter = { it.filterFromConfig(configuration) },
+                closeTabsTray = ::closeTabsTray
+            ),
+            owner = this,
+            view = view
         )
 
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                when(tab.position){
+                when (tab.position) {
                     0 -> {
                         browsingModeManager.mode = BrowsingMode.Normal
-                        tabsFeature.get()?.filterTabs { it.filterFromConfig(Configuration(BrowserTabType.NORMAL)) }
+                        tabsFeature.get()?.filterTabs {
+                            it.filterFromConfig(
+                                Configuration(
+                                    BrowserTabType.NORMAL
+                                )
+                            )
+                        }
                     }
                     1 -> {
                         browsingModeManager.mode = BrowsingMode.Private
-                        tabsFeature.get()?.filterTabs { it.filterFromConfig(Configuration(BrowserTabType.PRIVATE)) }
+                        tabsFeature.get()?.filterTabs {
+                            it.filterFromConfig(
+                                Configuration(
+                                    BrowserTabType.PRIVATE
+                                )
+                            )
+                        }
                     }
                 }
             }
@@ -124,13 +225,13 @@ class TabsTrayFragment : Fragment() {
 }
 
 private class SelectTabWithHomepageUseCase(
-        private val actual: TabsUseCases.SelectTabUseCase,
-        private val activity: BrowserActivity
+    private val actual: TabsUseCases.SelectTabUseCase,
+    private val activity: BrowserActivity
 ) : TabsUseCases.SelectTabUseCase {
     override fun invoke(tabId: String) {
         if(UserPreferences(activity).homepageType == HomepageChoice.VIEW.ordinal) {
             activity.findNavController(R.id.container).navigate(
-                    R.id.browserFragment
+                R.id.browserFragment
             )
         }
         actual.invoke(tabId)
@@ -138,16 +239,16 @@ private class SelectTabWithHomepageUseCase(
 }
 
 private class RemoveTabWithUndoUseCase(
-        private val actual: TabsUseCases.RemoveTabUseCase,
-        private val view: View,
-        private val undo: TabsUseCases.UndoTabRemovalUseCase,
-        private val activity: BrowserActivity
+    private val actual: TabsUseCases.RemoveTabUseCase,
+    private val view: View,
+    private val undo: TabsUseCases.UndoTabRemovalUseCase,
+    private val activity: BrowserActivity
 ) : TabsUseCases.RemoveTabUseCase {
     override fun invoke(sessionId: String) {
         actual.invoke(sessionId)
         if(view.context.components.sessionManager.sessions.isEmpty() && UserPreferences(activity).homepageType == HomepageChoice.VIEW.ordinal){
             activity.findNavController(R.id.container).navigate(
-                    R.id.homeFragment
+                R.id.homeFragment
             )
         }
         else{
@@ -156,15 +257,17 @@ private class RemoveTabWithUndoUseCase(
     }
 
     private fun showSnackbar() {
-        Snackbar.make(
-                view,
-                view.resources.getString(R.string.tab_removed),
-                Snackbar.LENGTH_LONG
+        val snackbar = Snackbar.make(
+            view,
+            view.resources.getString(R.string.tab_removed),
+            Snackbar.LENGTH_LONG
         ).setAction(
-                view.resources.getString(R.string.undo)
+            view.resources.getString(R.string.undo)
         ) {
             undo.invoke()
-        }.show()
+        }
+        if(UserPreferences(activity).shouldUseBottomToolbar) snackbar.anchorView = activity.findViewById(R.id.toolbar)
+        snackbar.show()
     }
 }
 

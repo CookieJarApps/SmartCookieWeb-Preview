@@ -233,4 +233,10 @@
   <string name="backup_settings">Settings backup</string>
 
   <string name="prompt_external_downloader">Ask which app to use to download files</string>
+
+  <string name="close_current_tab">Close current tab</string>
+  <string name="close_all_tabs">Close all tabs</string>
+  <string name="close_other_tabs">Close other tabs</string>
+  <string name="close_app">Close browser</string>
+  <string name="dialog_title_close_browser">Close tabs</string>
 </resources>
