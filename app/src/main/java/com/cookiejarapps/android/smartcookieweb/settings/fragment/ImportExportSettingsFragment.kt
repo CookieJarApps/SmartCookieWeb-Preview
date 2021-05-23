@@ -139,9 +139,22 @@ class ImportExportSettingsFragment : BaseSettingsFragment() {
 
                 var folder = manager.root
                 if(folderName != "") {
-                    val importedFolder = BookmarkFolderItem(folderName, manager.root, BookmarkUtils.getNewId())
-                    manager.root.add(importedFolder)
-                    folder = importedFolder
+
+                    val folderNameList = emptyList<String>().toMutableList()
+
+                    for (i in folder.itemList){
+                        if (i is BookmarkFolderItem){
+                            i.title?.let { folderNameList.add(it) }
+                            folder = i
+                            break
+                        }
+                    }
+
+                    if(!folderNameList.contains(folderName)){
+                        val newFolder = BookmarkFolderItem(folderName, manager.root, BookmarkUtils.getNewId())
+                        manager.root.add(newFolder)
+                        folder = newFolder
+                    }
                 }
 
                 val entry: BookmarkItem = BookmarkSiteItem(
