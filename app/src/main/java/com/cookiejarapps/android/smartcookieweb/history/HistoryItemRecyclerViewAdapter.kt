@@ -51,6 +51,8 @@ open class HistoryItemRecyclerViewAdapter(
         }
     }
 
+    fun getItem(position: Int) = values[position]
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.history_list_item, parent, false)

@@ -38,7 +38,7 @@ class HistoryActivity: AppCompatActivity(), SearchView.OnQueryTextListener {
                 override fun onItemClick(view: View?, position: Int) {
                     onBackPressed()
                     GlobalScope.launch {
-                        components.sessionUseCases.loadUrl(components.historyStorage.getVisited().reversed()[position])
+                        components.sessionUseCases.loadUrl((recyclerView.adapter as HistoryItemRecyclerViewAdapter).getItem(position).url)
                     }
                 }
 
