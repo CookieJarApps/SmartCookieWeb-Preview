@@ -48,6 +48,18 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
         }
 
         switchPreference(
+            preference = requireContext().resources.getString(R.string.key_prompt_external_downloader),
+            isChecked = UserPreferences(requireContext()).promptExternalDownloader
+        ) {
+            UserPreferences(requireContext()).promptExternalDownloader = it
+            Toast.makeText(
+                context,
+                requireContext().resources.getText(R.string.app_restart),
+                Toast.LENGTH_LONG
+            ).show()
+        }
+
+        switchPreference(
             preference = requireContext().resources.getString(R.string.key_use_custom_collection),
             isChecked = UserPreferences(requireContext()).customAddonCollection
         ) {
