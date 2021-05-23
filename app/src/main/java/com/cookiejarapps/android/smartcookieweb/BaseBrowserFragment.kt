@@ -834,6 +834,10 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             engineView.setVerticalClipping(0)
 
         } else {
+            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+            requireActivity().window.getDecorView().systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+
             activity?.exitImmersiveModeIfNeeded()
             if (webAppToolbarShouldBeVisible) {
                 browserToolbarView.view.isVisible = true
