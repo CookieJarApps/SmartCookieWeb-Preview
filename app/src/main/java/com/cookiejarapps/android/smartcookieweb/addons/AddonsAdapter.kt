@@ -1,6 +1,7 @@
 package com.cookiejarapps.android.smartcookieweb.addons
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -8,6 +9,7 @@ import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.TransitionDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +26,8 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.browser.AddonSortType
+import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
@@ -41,6 +45,8 @@ import mozilla.components.feature.addons.ui.translateSummary
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import java.io.IOException
+import java.util.*
+import kotlin.collections.ArrayList
 
 private const val VIEW_HOLDER_TYPE_SECTION = 0
 private const val VIEW_HOLDER_TYPE_ADDON = 1
@@ -63,9 +69,10 @@ private const val VIEW_HOLDER_TYPE_ADDON = 1
 class AddonsAdapter(
     private val addonCollectionProvider: AddonCollectionProvider,
     private val addonsManagerDelegate: AddonsManagerAdapterDelegate,
-    addons: List<Addon>,
+    private val addons: List<Addon>,
     private val style: Style? = null,
-    private val excludedAddonIDs: List<String> = emptyList()
+    private val excludedAddonIDs: List<String> = emptyList(),
+    private val userPreferences: UserPreferences
 ) : ListAdapter<Any, CustomViewHolder>(DifferCallback) {
     private val scope = CoroutineScope(Dispatchers.IO)
 
@@ -246,8 +253,8 @@ class AddonsAdapter(
 
     internal fun createListWithSections(addons: List<Addon>): List<Any> {
         val addonList = ArrayList<Any>()
-        val installedAddons = ArrayList<Addon>()
         val recommendedAddons = ArrayList<Addon>()
+        val installedAddons = ArrayList<Addon>()
         val disabledAddons = ArrayList<Addon>()
         val sideloadedAddons = ArrayList<Addon>()
 
@@ -259,6 +266,12 @@ class AddonsAdapter(
                 addon.inSideloadedSection() -> sideloadedAddons.add(addon)
             }
         }
+
+        //TODO: When uninstalling and installing add-ons, whole thing must be refreshed. LOOK INTO THIS!!! 30 mins then publish
+        sort(recommendedAddons, userPreferences)
+        sort(installedAddons, userPreferences)
+        sort(disabledAddons, userPreferences)
+        sort(sideloadedAddons, userPreferences)
 
         // Add sideloaded section
         if (sideloadedAddons.isNotEmpty()) {
@@ -346,6 +359,57 @@ class AddonsAdapter(
                 divider.layoutParams.height = divider.context.resources.getDimensionPixelOffset(it)
             }
         }
+    }
+
+    fun sort(array: ArrayList<Addon>, userPreferences: UserPreferences) {
+        if(userPreferences.addonSort == AddonSortType.RATING.ordinal){
+            array.sortWith { item1, item2 ->
+                if (item1.rating != null || item2.rating != null) {
+                    if (item1.rating!!.average == 0F && item2.rating!!.average == 0F) {
+                        item1.translatableName["en-us"]!!.compareTo(item2.translatableName["en-us"]!!)
+                    } else if (item1.rating!!.average == item2.rating!!.average) {
+                        -item1.rating!!.reviews.compareTo(item2.rating!!.reviews)
+                    } else {
+                        -item1.rating!!.average.compareTo(item2.rating!!.average)
+                    }
+                } else {
+                    if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null) {
+                        item1.translatableName["en-us"]!!.compareTo(item2.translatableName["en-us"]!!)
+                    } else {
+                        item1.id.compareTo(item2.id)
+                    }
+                }
+            }
+        }
+        else if(userPreferences.addonSort == AddonSortType.A_Z.ordinal){
+            array.sortWith { item1, item2 ->
+                if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null) {
+                    item1.translatableName["en-us"]!!.compareTo(
+                        item2.translatableName["en-us"]!!,
+                        true
+                    )
+                } else {
+                    item1.id.compareTo(item2.id)
+                }
+            }
+        }
+        else if(userPreferences.addonSort == AddonSortType.Z_A.ordinal){
+            array.sortWith { item1, item2 ->
+                if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null) {
+                    item1.translatableName["en-us"]!!.compareTo(
+                        item2.translatableName["en-us"]!!,
+                        true
+                    )
+                } else {
+                    item1.id.compareTo(item2.id)
+                }
+            }
+            array.reverse()
+        }
+    }
+
+    fun reSort(){
+        submitList(createListWithSections(addonsMap.values.toList()))
     }
 
     fun updateAddon(addon: Addon) {
