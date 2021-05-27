@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreference
+import androidx.preference.SwitchPreferenceCompat
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -66,7 +67,7 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
                     requireContext().resources.getText(R.string.app_restart),
                     Toast.LENGTH_LONG
                 ).show()
-                preferenceScreen.findPreference<SwitchPreference>(requireContext().resources.getString(R.string.key_stack_from_bottom))?.isEnabled = !it
+                preferenceScreen.findPreference<SwitchPreferenceCompat>(requireContext().resources.getString(R.string.key_stack_from_bottom))?.isEnabled = !it
             }
         )
 
@@ -94,7 +95,7 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
                     requireContext().resources.getText(R.string.app_restart),
                     Toast.LENGTH_LONG
                 ).show()
-                preferenceScreen.findPreference<SwitchPreference>(requireContext().resources.getString(R.string.key_show_tabs_in_grid))?.isEnabled = !it
+                preferenceScreen.findPreference<SwitchPreferenceCompat>(requireContext().resources.getString(R.string.key_show_tabs_in_grid))?.isEnabled = !it
             }
         )
 
