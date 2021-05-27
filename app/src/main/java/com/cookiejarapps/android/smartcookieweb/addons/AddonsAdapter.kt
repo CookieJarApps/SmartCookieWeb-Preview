@@ -361,50 +361,56 @@ class AddonsAdapter(
         }
     }
 
-    fun sort(array: ArrayList<Addon>, userPreferences: UserPreferences) {
-        if(userPreferences.addonSort == AddonSortType.RATING.ordinal){
-            array.sortWith { item1, item2 ->
-                if (item1.rating != null || item2.rating != null) {
-                    if (item1.rating!!.average == 0F && item2.rating!!.average == 0F) {
-                        item1.translatableName["en-us"]!!.compareTo(item2.translatableName["en-us"]!!)
-                    } else if (item1.rating!!.average == item2.rating!!.average) {
-                        -item1.rating!!.reviews.compareTo(item2.rating!!.reviews)
+    private fun sort(array: ArrayList<Addon>, userPreferences: UserPreferences) {
+        when(userPreferences.addonSort){
+            AddonSortType.RATING.ordinal -> {
+                array.sortWith { item1, item2 ->
+                    if (item1.rating != null || item2.rating != null) {
+                        if (item1.rating!!.average == 0F && item2.rating!!.average == 0F) {
+                            if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null) {
+                                item1.translatableName["en-us"]!!.compareTo(item2.translatableName["en-us"]!!)
+                            } else {
+                                item1.id.compareTo(item2.id)
+                            }
+                        } else if (item1.rating!!.average == item2.rating!!.average) {
+                            -item1.rating!!.reviews.compareTo(item2.rating!!.reviews)
+                        } else {
+                            -item1.rating!!.average.compareTo(item2.rating!!.average)
+                        }
                     } else {
-                        -item1.rating!!.average.compareTo(item2.rating!!.average)
+                        if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null) {
+                            item1.translatableName["en-us"]!!.compareTo(item2.translatableName["en-us"]!!)
+                        } else {
+                            item1.id.compareTo(item2.id)
+                        }
                     }
-                } else {
+                }
+            }
+            AddonSortType.A_Z.ordinal -> {
+                array.sortWith { item1, item2 ->
                     if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null) {
-                        item1.translatableName["en-us"]!!.compareTo(item2.translatableName["en-us"]!!)
+                        item1.translatableName["en-us"]!!.compareTo(
+                            item2.translatableName["en-us"]!!,
+                            true
+                        )
                     } else {
                         item1.id.compareTo(item2.id)
                     }
                 }
             }
-        }
-        else if(userPreferences.addonSort == AddonSortType.A_Z.ordinal){
-            array.sortWith { item1, item2 ->
-                if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null) {
-                    item1.translatableName["en-us"]!!.compareTo(
-                        item2.translatableName["en-us"]!!,
-                        true
-                    )
-                } else {
-                    item1.id.compareTo(item2.id)
+            AddonSortType.Z_A.ordinal -> {
+                array.sortWith { item1, item2 ->
+                    if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null) {
+                        item1.translatableName["en-us"]!!.compareTo(
+                            item2.translatableName["en-us"]!!,
+                            true
+                        )
+                    } else {
+                        item1.id.compareTo(item2.id)
+                    }
                 }
+                array.reverse()
             }
-        }
-        else if(userPreferences.addonSort == AddonSortType.Z_A.ordinal){
-            array.sortWith { item1, item2 ->
-                if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null) {
-                    item1.translatableName["en-us"]!!.compareTo(
-                        item2.translatableName["en-us"]!!,
-                        true
-                    )
-                } else {
-                    item1.id.compareTo(item2.id)
-                }
-            }
-            array.reverse()
         }
     }
 

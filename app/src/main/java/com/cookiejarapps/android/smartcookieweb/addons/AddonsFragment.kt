@@ -146,7 +146,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                 row: Long
             ) {
                 UserPreferences(requireContext()).addonSort = position
-                if(recyclerView.adapter is AddonsAdapter){
+                if(recyclerView.adapter != null && recyclerView.adapter is AddonsAdapter){
                     (recyclerView.adapter as AddonsAdapter).reSort()
                 }
             }
@@ -158,43 +158,44 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     }
 
     private fun bindRecyclerView(rootView: View) {
-        recyclerView = rootView.findViewById(R.id.add_ons_list)
+        recyclerView = rootView.add_ons_list
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         scope.launch {
             try {
                 addons = requireContext().components.addonManager.getAddons()
 
-                val context = requireContext()
-                val addonCollectionProvider = context.components.addonCollectionProvider
-
-                val style = AddonsAdapter.Style(
-                    dividerColor = context.theme.resolveAttribute(android.R.attr.textColorSecondary),
-                    dividerHeight = R.dimen.mozac_browser_menu_item_divider_height,
-                    addonNameTextColor = context.theme.resolveAttribute(android.R.attr.textColorPrimary),
-                    sectionsTextColor = context.theme.resolveAttribute(android.R.attr.textColorPrimary)
-                )
-
                 scope.launch(Dispatchers.Main) {
-                    view?.add_ons_no_results?.isVisible = false
-                    view?.add_ons_loading?.isVisible = false
+                    context?.let {
+                        val addonCollectionProvider = requireContext().components.addonCollectionProvider
 
-                    if (adapter == null) {
-                        adapter = AddonsAdapter(
-                            addonCollectionProvider = addonCollectionProvider,
-                            addonsManagerDelegate = this@AddonsFragment,
-                            addons = addons!!,
-                            style = style,
-                            userPreferences = UserPreferences(requireContext())
+                        val style = AddonsAdapter.Style(
+                            dividerColor = requireContext().theme.resolveAttribute(android.R.attr.textColorSecondary),
+                            dividerHeight = R.dimen.mozac_browser_menu_item_divider_height,
+                            addonNameTextColor = requireContext().theme.resolveAttribute(android.R.attr.textColorPrimary),
+                            sectionsTextColor = requireContext().theme.resolveAttribute(android.R.attr.textColorPrimary)
                         )
-                        recyclerView.adapter = adapter
 
-                        val bundle: Bundle? = arguments
-                        if (bundle?.getString("ADDON_ID") != null) {
-                            val addonId = bundle.getString("ADDON_ID", "")
-                            installAddonById(addons!!, addonId)
+                        view?.add_ons_no_results?.isVisible = false
+                        view?.add_ons_loading?.isVisible = false
+
+                        if (adapter == null) {
+                            adapter = AddonsAdapter(
+                                addonCollectionProvider = addonCollectionProvider,
+                                addonsManagerDelegate = this@AddonsFragment,
+                                addons = addons!!,
+                                style = style,
+                                userPreferences = UserPreferences(requireContext())
+                            )
+                            recyclerView.adapter = adapter
+
+                            val bundle: Bundle? = arguments
+                            if (bundle?.getString("ADDON_ID") != null) {
+                                val addonId = bundle.getString("ADDON_ID", "")
+                                installAddonById(addons!!, addonId)
+                            }
+                        } else {
+                            adapter?.updateAddons(addons!!)
                         }
-                    } else {
-                        adapter?.updateAddons(addons!!)
                     }
                 }
             } catch (e: AddonManagerException) {
