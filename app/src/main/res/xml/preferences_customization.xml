@@ -15,6 +15,12 @@
         app:defaultValue="true"/>
 
     <SwitchPreferenceCompat
+        app:key="@string/key_show_protocol"
+        app:title="@string/show_protocol_in_url"
+        app:singleLineTitle="false"
+        app:defaultValue="false"/>
+
+    <SwitchPreferenceCompat
         app:key="@string/key_hide_url_bar"
         app:title="@string/hide_url_bar"
         app:singleLineTitle="false"

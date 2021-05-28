@@ -44,6 +44,7 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var remoteDebugging by booleanPreference(REMOTE_DEBUGGING, false)
     var promptExternalDownloader by booleanPreference(PROMPT_EXTERNAL_DOWNLOADER, false)
     var addonSort by intPreference(WEB_THEME_CHOICE, AddonSortType.RATING.ordinal)
+    var showUrlProtocol by booleanPreference(SHOW_URL_PROTOCOL, false)
 
     // TODO: make these configurable & clean up duplicates
     var shouldUseBottomToolbar: Boolean
@@ -83,5 +84,6 @@ class UserPreferences(appContext: Context): PreferencesHolder {
         const val SWIPE_TO_REFRESH = "swipe_to_refresh"
         const val REMOTE_DEBUGGING = "remote_debugging"
         const val PROMPT_EXTERNAL_DOWNLOADER = "prompt_external_downloader"
+        const val SHOW_URL_PROTOCOL = "show_url_protocol"
     }
 }

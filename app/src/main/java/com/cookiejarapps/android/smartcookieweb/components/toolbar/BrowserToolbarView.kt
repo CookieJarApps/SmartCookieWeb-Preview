@@ -93,7 +93,7 @@ class BrowserToolbarView(
                 elevation = resources.getDimension(R.dimen.browser_fragment_toolbar_elevation)
 
                 if (!isCustomTabSession) {
-                    display.setUrlBackground(getDrawable(R.drawable.toolbar_background))
+                    display.setUrlBackground(ContextCompat.getDrawable(context, R.drawable.toolbar_background))
                 }
 
                 display.onUrlClicked = {
@@ -119,7 +119,12 @@ class BrowserToolbarView(
                     R.color.primary_icon
                 )
 
-                display.urlFormatter = { url -> URLStringUtils.toDisplayUrl(url) }
+                display.urlFormatter =
+                    if (UserPreferences(context).showUrlProtocol) {
+                            url -> url
+                    } else {
+                            url -> URLStringUtils.toDisplayUrl(url)
+                    }
 
                 display.colors = display.colors.copy(
                     text = primaryTextColor,

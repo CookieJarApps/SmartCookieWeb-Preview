@@ -57,6 +57,19 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
         )
 
         switchPreference(
+            preference = requireContext().resources.getString(R.string.key_show_protocol),
+            isChecked = UserPreferences(requireContext()).showUrlProtocol,
+            onCheckChange = {
+                UserPreferences(requireContext()).showUrlProtocol = it
+                Toast.makeText(
+                    context,
+                    requireContext().resources.getText(R.string.app_restart),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+
+        switchPreference(
             preference = requireContext().resources.getString(R.string.key_show_tabs_in_grid),
             isChecked = UserPreferences(requireContext()).showTabsInGrid,
             isEnabled = !UserPreferences(requireContext()).stackFromBottom,
