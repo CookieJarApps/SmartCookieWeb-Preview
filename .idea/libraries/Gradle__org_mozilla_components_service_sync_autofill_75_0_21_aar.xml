@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:service-sync-autofill:75.0.21@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c622115cec834277e6be2dcee38d10dc/transformed/jetified-service-sync-autofill-75.0.21/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c622115cec834277e6be2dcee38d10dc/transformed/jetified-service-sync-autofill-75.0.21/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c622115cec834277e6be2dcee38d10dc/transformed/jetified-service-sync-autofill-75.0.21/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/service-sync-autofill/75.0.21/b50aead4d501536e370515937ccbe7aa84c534c3/service-sync-autofill-75.0.21-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

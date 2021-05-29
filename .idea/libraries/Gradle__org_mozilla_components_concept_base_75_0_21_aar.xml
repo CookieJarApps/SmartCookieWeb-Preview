@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:concept-base:75.0.21@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6111c59e32445ca1b6f60146e037cd34/transformed/jetified-concept-base-75.0.21/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6111c59e32445ca1b6f60146e037cd34/transformed/jetified-concept-base-75.0.21/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6111c59e32445ca1b6f60146e037cd34/transformed/jetified-concept-base-75.0.21/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/concept-base/75.0.21/100d641f3b9ad2992ff9e4fe9761435cc9b30028/concept-base-75.0.21-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

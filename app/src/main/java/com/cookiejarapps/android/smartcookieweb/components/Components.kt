@@ -6,6 +6,7 @@ import android.content.Intent.ACTION_USER_PRESENT
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat.startActivity
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
@@ -89,6 +90,11 @@ import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.request.AppRequestInterceptor
 import com.cookiejarapps.android.smartcookieweb.utils.ClipboardHandler
 import mozilla.components.browser.session.ext.toTabSessionState
+import mozilla.components.concept.sync.DeviceCapability
+import mozilla.components.concept.sync.DeviceConfig
+import mozilla.components.concept.sync.DeviceType
+import mozilla.components.service.fxa.*
+import mozilla.components.service.fxa.manager.FxaAccountManager
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import java.util.concurrent.TimeUnit
 
@@ -237,6 +243,25 @@ open class Components(private val applicationContext: Context) {
                 1,
                 TimeUnit.DAYS
         )
+        )
+    }
+
+    val accountManager by lazy {
+        FxaAccountManager(
+            applicationContext,
+            ServerConfig(Server.RELEASE, "3c49430b43dfba77", "https://accounts.firefox.com/oauth/success/3c49430b43dfba77"),
+            DeviceConfig(
+                name = "SmartCookieWeb Preview on ${Build.MANUFACTURER} ${Build.MODEL}",
+                type = DeviceType.MOBILE,
+                capabilities = setOf(DeviceCapability.SEND_TAB),
+                secureStateAtRest = true
+            ),
+            SyncConfig(
+                setOf(
+                    SyncEngine.History, SyncEngine.Bookmarks, SyncEngine.Passwords
+                ),
+                periodicSyncConfig = PeriodicSyncConfig(periodMinutes = 15, initialDelayMinutes = 5)
+            )
         )
     }
 

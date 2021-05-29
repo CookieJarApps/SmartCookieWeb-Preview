@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:ui-tabcounter:75.0.21@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/37b1de338352253ec7030023b6587cf9/transformed/jetified-ui-tabcounter-75.0.19/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/37b1de338352253ec7030023b6587cf9/transformed/jetified-ui-tabcounter-75.0.19/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/37b1de338352253ec7030023b6587cf9/transformed/jetified-ui-tabcounter-75.0.19/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/ui-tabcounter/75.0.21/c059a02f6af0ce2dc438d3d8072d074e25d1c06b/ui-tabcounter-75.0.21-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
