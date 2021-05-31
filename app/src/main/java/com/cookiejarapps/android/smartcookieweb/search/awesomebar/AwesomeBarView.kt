@@ -1,5 +1,6 @@
 package com.cookiejarapps.android.smartcookieweb.search.awesomebar
 
+import android.content.Context
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.graphics.BlendModeColorFilterCompat.createBlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat.SRC_IN
@@ -8,6 +9,7 @@ import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
 import com.cookiejarapps.android.smartcookieweb.ext.components
+import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.search.awesomebar.ShortcutsSuggestionProvider
 import mozilla.components.browser.awesomebar.BrowserAwesomeBar
 import mozilla.components.browser.search.DefaultSearchEngineProvider
@@ -147,8 +149,8 @@ class AwesomeBarView(
         searchSuggestionProviderMap = HashMap()
     }
 
-    fun update(state: SearchFragmentState) {
-        updateSuggestionProvidersVisibility(state)
+    fun update(context: Context, state: SearchFragmentState) {
+        updateSuggestionProvidersVisibility(context, state)
 
         if (state.query.isNotEmpty() && state.query == state.url && !state.showSearchShortcuts) {
             return
@@ -157,14 +159,14 @@ class AwesomeBarView(
         view.onInputChanged(state.query)
     }
 
-    private fun updateSuggestionProvidersVisibility(state: SearchFragmentState) {
+    private fun updateSuggestionProvidersVisibility(context: Context, state: SearchFragmentState) {
         if (state.showSearchShortcuts) {
             handleDisplayShortcutsProviders()
             return
         }
 
-        val providersToAdd = getProvidersToAdd(state)
-        val providersToRemove = getProvidersToRemove(state)
+        val providersToAdd = getProvidersToAdd(context, state)
+        val providersToRemove = getProvidersToRemove(context, state)
 
         performProviderListChanges(providersToAdd, providersToRemove)
     }
@@ -189,7 +191,7 @@ class AwesomeBarView(
     }
 
     @Suppress("ComplexMethod")
-    private fun getProvidersToAdd(state: SearchFragmentState): MutableSet<AwesomeBar.SuggestionProvider> {
+    private fun getProvidersToAdd(context: Context, state: SearchFragmentState): MutableSet<AwesomeBar.SuggestionProvider> {
         val providersToAdd = mutableSetOf<AwesomeBar.SuggestionProvider>()
 
         if (state.showHistorySuggestions) {
@@ -197,7 +199,7 @@ class AwesomeBarView(
         }
 
         if (state.showSearchSuggestions) {
-            providersToAdd.addAll(getSelectedSearchSuggestionProvider(state))
+            providersToAdd.addAll(getSelectedSearchSuggestionProvider(context, state))
         }
 
         if (activity.browsingModeManager.mode == BrowsingMode.Normal) {
@@ -207,7 +209,7 @@ class AwesomeBarView(
         return providersToAdd
     }
 
-    private fun getProvidersToRemove(state: SearchFragmentState): MutableSet<AwesomeBar.SuggestionProvider> {
+    private fun getProvidersToRemove(context: Context, state: SearchFragmentState): MutableSet<AwesomeBar.SuggestionProvider> {
         val providersToRemove = mutableSetOf<AwesomeBar.SuggestionProvider>()
 
         providersToRemove.add(shortcutsEnginePickerProvider)
@@ -217,7 +219,7 @@ class AwesomeBarView(
         }
 
         if (!state.showSearchSuggestions) {
-            providersToRemove.addAll(getSelectedSearchSuggestionProvider(state))
+            providersToRemove.addAll(getSelectedSearchSuggestionProvider(context, state))
         }
 
         if (activity.browsingModeManager.mode == BrowsingMode.Private) {
@@ -227,12 +229,20 @@ class AwesomeBarView(
         return providersToRemove
     }
 
-    private fun getSelectedSearchSuggestionProvider(state: SearchFragmentState): List<AwesomeBar.SuggestionProvider> {
+    private fun getSelectedSearchSuggestionProvider(context: Context, state: SearchFragmentState): List<AwesomeBar.SuggestionProvider> {
+        //TODO: Clean this up when switching to search suggestion provider option
         return when (state.searchEngineSource) {
-            is SearchEngineSource.Default -> listOf(
-                defaultSearchActionProvider,
-                defaultSearchSuggestionProvider
-            )
+            is SearchEngineSource.Default -> {
+                if(UserPreferences(context).searchSuggestionsEnabled){
+                    listOf(
+                        defaultSearchActionProvider,
+                        defaultSearchSuggestionProvider
+                    )
+                }
+                else{
+                    emptyList()
+                }
+            }
             is SearchEngineSource.Shortcut -> getSuggestionProviderForEngine(
                 state.searchEngineSource.searchEngine
             )

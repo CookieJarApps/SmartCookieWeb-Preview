@@ -45,6 +45,8 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var promptExternalDownloader by booleanPreference(PROMPT_EXTERNAL_DOWNLOADER, false)
     var addonSort by intPreference(WEB_THEME_CHOICE, AddonSortType.RATING.ordinal)
     var showUrlProtocol by booleanPreference(SHOW_URL_PROTOCOL, false)
+    var searchSuggestionsEnabled by booleanPreference(SEARCH_SUGGESTIONS, true)
+    //TODO: OPTION TO DISABLE SAFE BROWSING
 
     // TODO: make these configurable & clean up duplicates
     var shouldUseBottomToolbar: Boolean
@@ -85,5 +87,6 @@ class UserPreferences(appContext: Context): PreferencesHolder {
         const val REMOTE_DEBUGGING = "remote_debugging"
         const val PROMPT_EXTERNAL_DOWNLOADER = "prompt_external_downloader"
         const val SHOW_URL_PROTOCOL = "show_url_protocol"
+        const val SEARCH_SUGGESTIONS = "search_suggestions"
     }
 }

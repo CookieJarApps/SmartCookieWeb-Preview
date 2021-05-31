@@ -14,6 +14,12 @@
         app:singleLineTitle="false"
         app:defaultValue="false"/>
 
+    <SwitchPreferenceCompat
+            app:key="@string/key_search_suggestions_enabled"
+            app:title="@string/search_suggestions"
+            app:singleLineTitle="false"
+            app:defaultValue="true"/>
+
     <Preference
         app:key="@string/key_homepage_type"
         app:title="@string/homepage_type"

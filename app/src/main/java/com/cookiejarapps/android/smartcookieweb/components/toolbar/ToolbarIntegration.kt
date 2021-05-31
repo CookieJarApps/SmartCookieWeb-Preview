@@ -163,6 +163,7 @@ class DefaultToolbarIntegration(
         toolbar.addNavigationAction(tabsAction)
 
         val engineForSpeculativeConnects = if (!isPrivate) engine else null
+
         ToolbarAutocompleteFeature(
             toolbar,
             engineForSpeculativeConnects

@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:service-location:75.0.21@aar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d67d3a42a163095de0cb8afbcfad07eb/transformed/jetified-service-location-75.0.21/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d67d3a42a163095de0cb8afbcfad07eb/transformed/jetified-service-location-75.0.21/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d67d3a42a163095de0cb8afbcfad07eb/transformed/jetified-service-location-75.0.21/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d67d3a42a163095de0cb8afbcfad07eb/transformed/jetified-service-location-75.0.21/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/service-location/75.0.21/3da2a05d283bb6fcd9656f88499361d5ec06c455/service-location-75.0.21-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -209,7 +209,7 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
             updateToolbarContentDescription(it)
             updateSearchShortcutsIcon(it)
             toolbarView.update(it)
-            awesomeBarView.update(it)
+            awesomeBarView.update(requireContext(), it)
         }
     }
 

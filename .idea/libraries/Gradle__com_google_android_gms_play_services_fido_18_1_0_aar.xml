@@ -1,8 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.android.gms:play-services-fido:18.1.0@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/2db2f5579644ef6f3b23d55ec0fec67d/transformed/jetified-play-services-fido-18.1.0/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/2db2f5579644ef6f3b23d55ec0fec67d/transformed/jetified-play-services-fido-18.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2db2f5579644ef6f3b23d55ec0fec67d/transformed/jetified-play-services-fido-18.1.0/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/2db2f5579644ef6f3b23d55ec0fec67d/transformed/jetified-play-services-fido-18.1.0/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/2db2f5579644ef6f3b23d55ec0fec67d/transformed/jetified-play-services-fido-18.1.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>

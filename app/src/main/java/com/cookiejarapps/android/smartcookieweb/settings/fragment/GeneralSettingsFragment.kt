@@ -31,6 +31,15 @@ class GeneralSettingsFragment : BaseSettingsFragment() {
                 onClick = { pickSearchEngine() }
         )
 
+        switchPreference(
+            preference = requireContext().resources.getString(R.string.key_search_suggestions_enabled),
+            isChecked = UserPreferences(requireContext()).searchSuggestionsEnabled,
+            onCheckChange = {
+                UserPreferences(requireContext()).searchSuggestionsEnabled = it
+                Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
+            }
+        )
+
         clickablePreference(
                 preference = resources.getString(R.string.key_homepage_type),
                 onClick = { pickHomepage() }

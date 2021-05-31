@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-search:75.0.21@aar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/59e6a753581125b41615e7cb4c660fea/transformed/jetified-feature-search-75.0.19/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/59e6a753581125b41615e7cb4c660fea/transformed/jetified-feature-search-75.0.21/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/59e6a753581125b41615e7cb4c660fea/transformed/jetified-feature-search-75.0.19/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/59e6a753581125b41615e7cb4c660fea/transformed/jetified-feature-search-75.0.19/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-search/75.0.21/3b7af5b70b21574835247d90f158513d6194ad70/feature-search-75.0.21-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
