@@ -21,7 +21,7 @@ class AddBookmarkSiteDialog : AddBookmarkDialog<BookmarkSiteItem, String> {
 
     override fun makeItem(item: BookmarkSiteItem?, title: String, url: String): BookmarkSiteItem? {
         return if (item == null) {
-            BookmarkSiteItem(title, url.trim { it <= ' ' }, BookmarkUtils.getNewId())
+            BookmarkSiteItem(title, url.trim { it <= ' ' }, BookmarkUtils.newId)
         } else {
             item.title = title
             item.url = url.trim { it <= ' ' }

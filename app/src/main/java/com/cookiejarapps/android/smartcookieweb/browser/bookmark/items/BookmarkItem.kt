@@ -60,7 +60,7 @@ abstract class BookmarkItem(var title: String?, val id: Long) : Serializable {
             }
         }
         if (itemId < 0){
-            itemId = BookmarkUtils.getNewId()
+            itemId = BookmarkUtils.newId
         }
 
         if(id < 0 || title == null){
