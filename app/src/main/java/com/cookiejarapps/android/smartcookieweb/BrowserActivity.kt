@@ -42,13 +42,10 @@ import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.feature.contextmenu.ext.DefaultSelectionActionDelegate
 import mozilla.components.feature.search.ext.legacy
-import mozilla.components.lib.fetch.httpurlconnection.HttpURLConnectionClient
 import mozilla.components.support.base.feature.ActivityResultHandler
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.ktx.kotlin.isUrl
 import mozilla.components.support.ktx.kotlin.toNormalizedUrl
-import mozilla.components.support.rusthttp.RustHttpConfig
-import mozilla.components.support.rustlog.RustLog
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupFeature
 
@@ -88,9 +85,6 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        RustLog.enable()
-        RustHttpConfig.setClient(lazy { HttpURLConnectionClient() })
 
         components.publicSuffixList.prefetch()
 

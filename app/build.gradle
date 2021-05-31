@@ -138,9 +138,6 @@ dependencies {
     // Mozilla service components
     implementation "org.mozilla.components:service-location:$mozComponentsVersion"
     implementation "org.mozilla.components:service-digitalassetlinks:$mozComponentsVersion"
-    implementation "org.mozilla.components:service-firefox-accounts:$mozComponentsVersion"
-    implementation "org.mozilla.components:service-sync-autofill:$mozComponentsVersion"
-    implementation "org.mozilla.components:service-sync-logins:$mozComponentsVersion"
 
     // Mozilla concept components
     implementation "org.mozilla.components:concept-engine:$mozComponentsVersion"
@@ -151,7 +148,6 @@ dependencies {
     implementation "org.mozilla.components:concept-base:$mozComponentsVersion"
     implementation "org.mozilla.components:concept-fetch:$mozComponentsVersion"
     implementation "org.mozilla.components:concept-awesomebar:$mozComponentsVersion"
-    implementation "org.mozilla.components:concept-sync:$mozComponentsVersion"
 
     // Mozilla lib components
     implementation "org.mozilla.components:lib-state:$mozComponentsVersion"
@@ -181,7 +177,6 @@ dependencies {
     implementation "org.mozilla.components:feature-addons:$mozComponentsVersion"
     implementation "org.mozilla.components:feature-findinpage:$mozComponentsVersion"
     implementation "org.mozilla.components:feature-prompts:$mozComponentsVersion"
-    implementation "org.mozilla.components:feature-syncedtabs:$mozComponentsVersion"
 
     // Mozilla UI components
     implementation "org.mozilla.components:ui-autocomplete:$mozComponentsVersion"
@@ -196,8 +191,6 @@ dependencies {
     implementation "org.mozilla.components:support-webextensions:$mozComponentsVersion"
     implementation "org.mozilla.components:support-ktx:$mozComponentsVersion"
     implementation "org.mozilla.components:support-locale:$mozComponentsVersion"
-    implementation "org.mozilla.components:support-rustlog:$mozComponentsVersion"
-    implementation "org.mozilla.components:support-rusthttp:$mozComponentsVersion"
 
     // GeckoView engines
     geckoReleaseImplementation "org.mozilla.components:browser-engine-gecko:$mozComponentsVersion"

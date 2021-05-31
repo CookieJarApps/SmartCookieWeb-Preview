@@ -63,6 +63,6 @@ Contributions are greatly appreciated. Feel free to open an issue or pull reques
 - **[GPL-3.0 license](https://www.gnu.org/licenses/gpl-3.0.en.html)**
 
 
-Copyright 2021 © CookieJarApps.
+Copyright 2020 © CookieJarApps.
 
 ---

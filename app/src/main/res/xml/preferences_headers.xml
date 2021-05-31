@@ -38,12 +38,6 @@
         android:singleLineTitle="false"
         android:summary="@string/settings_addons_explain"/>
     <androidx.preference.Preference
-        android:fragment="com.cookiejarapps.android.smartcookieweb.settings.fragment.SyncSettingsFragment"
-        android:icon="@drawable/ic_settings_addons_layers"
-        android:title="@string/sync_settings"
-        android:singleLineTitle="false"
-        android:summary="@string/sync_settings_explain"/>
-    <androidx.preference.Preference
         android:fragment="com.cookiejarapps.android.smartcookieweb.settings.fragment.AboutSettingsFragment"
         android:icon="@drawable/ic_settings_about_layers"
         android:title="@string/settings_about"

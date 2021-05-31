@@ -31,11 +31,6 @@
   <string name="key_prompt_external_downloader" translatable="false">prompt_external_downloader</string>
   <string name="key_show_protocol" translatable="false">show_url_protocol</string>
   <string name="key_search_suggestions_enabled" translatable="false">search_suggestions_enabled</string>
-  <string name="key_sync_logout" translatable="false">key_sync_logout</string>
-  <string name="key_sync_login" translatable="false">key_sync_login</string>
-  <string name="key_sync_type" translatable="false">prompt_external_downloader</string>
-  <string name="key_sync_enabled" translatable="false">show_url_protocol</string>
-  <string name="key_synced_items" translatable="false">synced_items</string>
 
   <string name="more">More Info</string>
   <string name="version">Application version</string>
@@ -219,19 +214,8 @@
   <string name="swap_bookmarks_and_tabs">Swap bookmark and tab drawers</string>
   <string name="stack_items_reverse">Stack items from bottom of drawer</string>
 
-  <string name="sync_settings">Sync settings</string>
-  <string name="sync_settings_explain">Sync tabs…</string>
-  <string name="log_in">Log in</string>
-  <string name="log_out">Log out</string>
   <string name="browser_sync">Browser sync</string>
-  <string name="browser_sync_type">Sync type</string>
-  <string name="browser_sync_type_ff">FF Sync</string>
-  <string name="browser_sync_disclaimer">When using syncing, the browser syncs your tabs with your Firefox account. This means that the browser will store your data in encrypted form on the Firefox Sync servers operated by Mozilla, and you are subject to the Firefox Sync terms of service. This service is not affiliated with or endorsed by Mozilla and CookieJarApps is not required to provide support service, warranty, or updates.</string>
-
-  <string name="synced_items">Synced items</string>
-
-  <string name="fxa_oauth_client_id">FxA Client ID</string>
-  <string name="fxa_oauth_redirect_url">FxA Redirect URL</string>
+  <string name="browser_sync_disclaimer">When using syncing, the browser syncs your tabs with your Firefox account. This means that the browser will store your data in encrypted form on the Firefox Sync servers operated by Mozilla. This service is not affiliated with or endorsed by Mozilla and CookieJarApps is not required to provide support service, warranty, or updates.</string>
 
   <string name="load_xpi">Sideload XPI</string>
   <string name="load_xpi_description">Are you sure you want to install %1$s to this browser? This add-on has not been checked for security or stability by CookieJarApps.</string>
@@ -263,22 +247,4 @@
   <string name="show_protocol_in_url">Show URL protocol in toolbar</string>
 
   <string name="search_suggestions">Search suggestions</string>
-  <string name="full_device_details">
-        ID: %1$s\n
-        Name: %2$s\n
-        Type: %3$s\n
-        Subscription expired: %4$b\n
-        Subscription: %5$s\n
-        Capabilities: %6$s\n
-        Last access: %7$d
-    </string>
-
-  <string name="signed_in_waiting_for_profile">Signed in (type=%1$s); waiting for profile</string>
-  <string name="signed_in_with_profile">Authenticated (type=%1$s) as %2$s</string>
-  <string name="account_error">FxA error: %1$s</string>
-  <plurals name="visited_url_count">
-    <item quantity="zero">There are no visited URLs</item>
-    <item quantity="one">There is %d visited URL</item>
-    <item quantity="other">There are %d visited URLs</item>
-  </plurals>
 </resources>

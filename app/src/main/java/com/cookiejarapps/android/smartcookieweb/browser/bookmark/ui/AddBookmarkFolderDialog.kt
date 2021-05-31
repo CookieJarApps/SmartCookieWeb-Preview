@@ -58,7 +58,7 @@ class AddBookmarkFolderDialog @JvmOverloads constructor(context: Context, privat
                 mParent = mManager!!.root
 
             if (item == null) {
-                val item = BookmarkFolderItem(title.toString(), mParent, BookmarkUtils.newId)
+                val item = BookmarkFolderItem(title.toString(), mParent, BookmarkUtils.getNewId())
                 if (addToTopCheckBox.isChecked)
                     mParent!!.addAtStart(item)
                 else

@@ -151,7 +151,7 @@ class ImportExportSettingsFragment : BaseSettingsFragment() {
                     }
 
                     if(!folderNameList.contains(folderName)){
-                        val newFolder = BookmarkFolderItem(folderName, manager.root, BookmarkUtils.newId)
+                        val newFolder = BookmarkFolderItem(folderName, manager.root, BookmarkUtils.getNewId())
                         manager.root.add(newFolder)
                         folder = newFolder
                     }
@@ -160,7 +160,7 @@ class ImportExportSettingsFragment : BaseSettingsFragment() {
                 val entry: BookmarkItem = BookmarkSiteItem(
                         `object`.getString(KEY_TITLE),
                         `object`.getString(KEY_URL),
-                        BookmarkUtils.newId
+                        BookmarkUtils.getNewId()
                 )
 
                 manager.add(folder, entry)
