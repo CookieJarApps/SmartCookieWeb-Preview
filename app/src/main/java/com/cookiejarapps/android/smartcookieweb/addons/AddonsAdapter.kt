@@ -366,7 +366,7 @@ class AddonsAdapter(
             AddonSortType.RATING.ordinal -> {
                 array.sortWith { item1, item2 ->
                     if (item1.rating != null || item2.rating != null) {
-                        if (item1.rating!!.average == 0F && item2.rating!!.average == 0F) {
+                        if (item1.rating?.average == 0F && item2.rating?.average == 0F) {
                             if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null) {
                                 item1.translatableName["en-us"]!!.compareTo(item2.translatableName["en-us"]!!)
                             } else {
