@@ -47,6 +47,7 @@ import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.roundToInt
 
 private const val VIEW_HOLDER_TYPE_SECTION = 0
 private const val VIEW_HOLDER_TYPE_ADDON = 1
@@ -365,14 +366,14 @@ class AddonsAdapter(
         when(userPreferences.addonSort){
             AddonSortType.RATING.ordinal -> {
                 array.sortWith { item1, item2 ->
-                    if (item1.rating != null || item2.rating != null) {
-                        if (item1.rating?.average == 0F && item2.rating?.average == 0F) {
+                    if (item1.rating != null && item2.rating != null) {
+                        if (item1.rating!!.average == 0F && item2.rating!!.average == 0F) {
                             if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null) {
                                 item1.translatableName["en-us"]!!.compareTo(item2.translatableName["en-us"]!!)
                             } else {
                                 item1.id.compareTo(item2.id)
                             }
-                        } else if (item1.rating!!.average == item2.rating!!.average) {
+                        } else if ((item1.rating!!.average * 2).roundToInt() / 2.0 == (item2.rating!!.average * 2).roundToInt() / 2.0) {
                             -item1.rating!!.reviews.compareTo(item2.rating!!.reviews)
                         } else {
                             -item1.rating!!.average.compareTo(item2.rating!!.average)
@@ -387,29 +388,24 @@ class AddonsAdapter(
                 }
             }
             AddonSortType.A_Z.ordinal -> {
-                array.sortWith { item1, item2 ->
-                    if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null) {
-                        item1.translatableName["en-us"]!!.compareTo(
-                            item2.translatableName["en-us"]!!,
-                            true
-                        )
-                    } else {
-                        item1.id.compareTo(item2.id)
-                    }
-                }
+                sortByAZ(array)
             }
             AddonSortType.Z_A.ordinal -> {
-                array.sortWith { item1, item2 ->
-                    if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null) {
-                        item1.translatableName["en-us"]!!.compareTo(
-                            item2.translatableName["en-us"]!!,
-                            true
-                        )
-                    } else {
-                        item1.id.compareTo(item2.id)
-                    }
-                }
+                sortByAZ(array)
                 array.reverse()
+            }
+        }
+    }
+
+    fun sortByAZ(array: ArrayList<Addon>){
+        array.sortWith { item1, item2 ->
+            if (item1.translatableName["en"] != null && item2.translatableName["en"] != null ) {
+                item1.translatableName["en"]!!.compareTo(
+                    item2.translatableName["en"]!!,
+                    true
+                )
+            } else {
+                item1.id.compareTo(item2.id)
             }
         }
     }

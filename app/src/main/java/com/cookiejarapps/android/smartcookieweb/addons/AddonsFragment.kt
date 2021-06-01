@@ -100,7 +100,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
         addons?.forEach { addon ->
             val names = addon.translatableName
-            names["en-us"]?.let { name ->
+            names["en"]?.let { name ->
                 if (name.toLowerCase(Locale.ENGLISH).contains(query.toLowerCase(Locale.ENGLISH))) {
                     filteredList.add(addon)
                 }
