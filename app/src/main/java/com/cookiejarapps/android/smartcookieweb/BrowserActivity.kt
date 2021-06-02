@@ -109,10 +109,8 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
                 if (UserPreferences(this).lastKnownPrivate) BrowsingMode.Private else BrowsingMode.Normal
         )
 
-        if (isActivityColdStarted(
-                        intent,
-                        savedInstanceState
-                )) {
+        if (isActivityColdStarted(intent, savedInstanceState) &&
+            !externalSourceIntentProcessors.any { it.process(intent, navHost.navController, this.intent) }) {
             navigateToBrowserOnColdStart()
         }
 
@@ -142,6 +140,8 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
 
     final override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
+        // TODO: temporary fix
+        openToBrowser(BrowserDirection.FromGlobal)
         intent?.let {
             handleNewIntent(it)
         }
