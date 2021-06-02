@@ -362,14 +362,24 @@ class AddonsAdapter(
         }
     }
 
+    //TODO: simplify this
     private fun sort(array: ArrayList<Addon>, userPreferences: UserPreferences) {
         when(userPreferences.addonSort){
             AddonSortType.RATING.ordinal -> {
                 array.sortWith { item1, item2 ->
                     if (item1.rating != null && item2.rating != null) {
                         if (item1.rating!!.average == 0F && item2.rating!!.average == 0F) {
-                            if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null) {
-                                item1.translatableName["en-us"]!!.compareTo(item2.translatableName["en-us"]!!)
+                            if (item1.translatableName["en"] != null && item2.translatableName["en"] != null ) {
+                                item1.translatableName["en"]!!.compareTo(
+                                    item2.translatableName["en"]!!,
+                                    true
+                                )
+                            }
+                            else if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null ) {
+                                item1.translatableName["en-us"]!!.compareTo(
+                                    item2.translatableName["en-us"]!!,
+                                    true
+                                )
                             } else {
                                 item1.id.compareTo(item2.id)
                             }
@@ -379,8 +389,17 @@ class AddonsAdapter(
                             -item1.rating!!.average.compareTo(item2.rating!!.average)
                         }
                     } else {
-                        if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null) {
-                            item1.translatableName["en-us"]!!.compareTo(item2.translatableName["en-us"]!!)
+                        if (item1.translatableName["en"] != null && item2.translatableName["en"] != null ) {
+                            item1.translatableName["en"]!!.compareTo(
+                                item2.translatableName["en"]!!,
+                                true
+                            )
+                        }
+                        else if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null ) {
+                            item1.translatableName["en-us"]!!.compareTo(
+                                item2.translatableName["en-us"]!!,
+                                true
+                            )
                         } else {
                             item1.id.compareTo(item2.id)
                         }
@@ -399,12 +418,20 @@ class AddonsAdapter(
 
     fun sortByAZ(array: ArrayList<Addon>){
         array.sortWith { item1, item2 ->
+            Log.d("fasdfs", item1.translatableName.toString())
             if (item1.translatableName["en"] != null && item2.translatableName["en"] != null ) {
                 item1.translatableName["en"]!!.compareTo(
                     item2.translatableName["en"]!!,
                     true
                 )
-            } else {
+            }
+            else if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null ) {
+                item1.translatableName["en-us"]!!.compareTo(
+                    item2.translatableName["en-us"]!!,
+                    true
+                )
+            }
+            else {
                 item1.id.compareTo(item2.id)
             }
         }
