@@ -93,8 +93,12 @@
     <content url="file://$MODULE_DIR$/../../../app/build/generated/source/kapt/geckoBetaDebug">
       <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/source/kapt/geckoBetaDebug" isTestSource="false" generated="true" />
     </content>
-    <content url="file://$MODULE_DIR$/../../../app/build/generated/source/kapt/geckoBetaDebugAndroidTest" />
-    <content url="file://$MODULE_DIR$/../../../app/build/generated/source/kapt/geckoBetaDebugUnitTest" />
+    <content url="file://$MODULE_DIR$/../../../app/build/generated/source/kapt/geckoBetaDebugAndroidTest">
+      <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/source/kapt/geckoBetaDebugAndroidTest" isTestSource="true" generated="true" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../app/build/generated/source/kapt/geckoBetaDebugUnitTest">
+      <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/source/kapt/geckoBetaDebugUnitTest" isTestSource="true" generated="true" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../app/build/generated/source/kapt/geckoBetaRelease">
       <sourceFolder url="file://$MODULE_DIR$/../../../app/build/generated/source/kapt/geckoBetaRelease" isTestSource="false" generated="true" />
     </content>

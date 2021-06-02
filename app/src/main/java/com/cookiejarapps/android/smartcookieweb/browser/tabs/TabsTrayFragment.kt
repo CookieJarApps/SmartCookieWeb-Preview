@@ -13,18 +13,21 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
+import com.cookiejarapps.android.smartcookieweb.NavGraphDirections
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingModeManager
 import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
 import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
 import com.cookiejarapps.android.smartcookieweb.ext.components
+import com.cookiejarapps.android.smartcookieweb.ext.nav
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import kotlinx.android.synthetic.main.fragment_tabstray.*
+import mozilla.components.browser.state.selector.getNormalOrPrivateTabs
 import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.browser.thumbnails.loader.ThumbnailLoader
 import mozilla.components.feature.tabs.TabsUseCases
@@ -78,69 +81,7 @@ class TabsTrayFragment : Fragment() {
                     closeTabsTray()
                 }
                 R.id.removeTabs -> {
-                    val items = arrayOf(
-                        "Close current tab",
-                        "Close other tabs",
-                        "Close all tabs",
-                        "Close browser"
-                    )
-
-                    MaterialAlertDialogBuilder(requireContext())
-                        .setTitle(resources.getString(R.string.mozac_feature_addons_remove))
-                        .setItems(items) { dialog, which ->
-                            when (which) {
-                                0 -> {
-                                    components.sessionManager.selectedSession?.id?.let { id ->
-                                        components.tabsUseCases.removeTab(
-                                            id
-                                        )
-                                    }
-                                    if (view.context.components.sessionManager.sessions.isEmpty() && UserPreferences(
-                                            requireContext()
-                                        ).homepageType == HomepageChoice.VIEW.ordinal
-                                    ) {
-                                        findNavController().navigate(
-                                            HomeFragmentDirections.actionGlobalHome(
-                                                focusOnAddressBar = false
-                                            )
-                                        )
-                                    }
-                                    // TODO: this doesn't appear if the last tab is closed and bottom toolbar is on, as the toolbar view on the homepage is R.id.toolbarLayout
-                                    val snackbar = Snackbar.make(
-                                        view,
-                                        view.resources.getString(R.string.tab_removed),
-                                        Snackbar.LENGTH_LONG
-                                    ).setAction(
-                                        view.resources.getString(R.string.undo)
-                                    ) {
-                                        components.tabsUseCases.undo.invoke()
-                                    }
-                                    if(UserPreferences(requireContext()).shouldUseBottomToolbar) snackbar.anchorView =
-                                        requireActivity().findViewById(R.id.toolbar)
-                                        snackbar.show()
-                                }
-                                1 -> {
-                                    val tabList = components.sessionManager.sessions.toMutableList()
-                                    tabList.remove(components.sessionManager.selectedSession)
-                                    val idList: MutableList<String> =
-                                        emptyList<String>().toMutableList()
-                                    for (i in tabList) idList.add(i.id)
-                                    components.tabsUseCases.removeTabs.invoke(idList.toList())
-                                }
-                                2 -> {
-                                    components.tabsUseCases.removeAllTabs.invoke()
-                                    findNavController().navigate(
-                                        HomeFragmentDirections.actionGlobalHome(
-                                            focusOnAddressBar = false
-                                        )
-                                    )
-                                }
-                                3 -> {
-                                    requireActivity().finishAndRemoveTask()
-                                }
-                            }
-                        }
-                        .show()
+                   removeTabsDialog(view)
                 }
             }
             true
@@ -209,6 +150,72 @@ class TabsTrayFragment : Fragment() {
         })
     }
 
+    private fun removeTabsDialog(view: View) {
+        val items = arrayOf(
+            "Close current tab",
+            "Close other tabs",
+            "Close all tabs",
+            "Close browser"
+        )
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.mozac_feature_addons_remove))
+            .setItems(items) { dialog, which ->
+                when (which) {
+                    0 -> {
+                        components.sessionManager.selectedSession?.id?.let { id ->
+                            components.tabsUseCases.removeTab(
+                                id
+                            )
+                        }
+                        if (view.context.components.sessionManager.sessions.isEmpty() && UserPreferences(
+                                requireContext()
+                            ).homepageType == HomepageChoice.VIEW.ordinal
+                        ) {
+                            findNavController().navigate(
+                                HomeFragmentDirections.actionGlobalHome(
+                                    focusOnAddressBar = false
+                                )
+                            )
+                        }
+                        // TODO: this doesn't appear if the last tab is closed and bottom toolbar is on, as the toolbar view on the homepage is R.id.toolbarLayout
+                        val snackbar = Snackbar.make(
+                            view,
+                            view.resources.getString(R.string.tab_removed),
+                            Snackbar.LENGTH_LONG
+                        ).setAction(
+                            view.resources.getString(R.string.undo)
+                        ) {
+                            components.tabsUseCases.undo.invoke()
+                        }
+                        if(UserPreferences(requireContext()).shouldUseBottomToolbar) snackbar.anchorView =
+                            requireActivity().findViewById(R.id.toolbar)
+                        snackbar.show()
+                    }
+                    1 -> {
+                        val tabList = components.sessionManager.sessions.toMutableList()
+                        tabList.remove(components.sessionManager.selectedSession)
+                        val idList: MutableList<String> =
+                            emptyList<String>().toMutableList()
+                        for (i in tabList) idList.add(i.id)
+                        components.tabsUseCases.removeTabs.invoke(idList.toList())
+                    }
+                    2 -> {
+                        components.tabsUseCases.removeAllTabs.invoke()
+                        findNavController().navigate(
+                            HomeFragmentDirections.actionGlobalHome(
+                                focusOnAddressBar = false
+                            )
+                        )
+                    }
+                    3 -> {
+                        requireActivity().finishAndRemoveTask()
+                    }
+                }
+            }
+            .show()
+    }
+
     private fun closeTabsTray() {
         val drawerLayout = activity?.findViewById<DrawerLayout>(R.id.drawer_layout)
         val tabsDrawer = activity?.findViewById<FrameLayout>(R.id.left_drawer)
@@ -229,12 +236,13 @@ private class SelectTabWithHomepageUseCase(
     private val activity: BrowserActivity
 ) : TabsUseCases.SelectTabUseCase {
     override fun invoke(tabId: String) {
-        if(UserPreferences(activity).homepageType == HomepageChoice.VIEW.ordinal) {
-            activity.findNavController(R.id.container).navigate(
-                R.id.browserFragment
-            )
+        actual(tabId)
+
+        if (activity.findNavController(R.id.container).currentDestination?.id == R.id.browserFragment) {
+            return
+        } else if (!activity.findNavController(R.id.container).popBackStack(R.id.browserFragment, false)) {
+            activity.findNavController(R.id.container).navigate(R.id.browserFragment)
         }
-        actual.invoke(tabId)
     }
 }
 
@@ -245,11 +253,11 @@ private class RemoveTabWithUndoUseCase(
     private val activity: BrowserActivity
 ) : TabsUseCases.RemoveTabUseCase {
     override fun invoke(sessionId: String) {
-        actual.invoke(sessionId)
+        actual(sessionId)
+
         if(view.context.components.sessionManager.sessions.isEmpty() && UserPreferences(activity).homepageType == HomepageChoice.VIEW.ordinal){
-            activity.findNavController(R.id.container).navigate(
-                R.id.homeFragment
-            )
+            val directions = NavGraphDirections.actionGlobalHome()
+            activity.findNavController(R.id.container).navigate(directions)
         }
         else{
             showSnackbar()
