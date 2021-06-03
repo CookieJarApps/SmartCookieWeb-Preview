@@ -41,26 +41,6 @@ android {
             universalApk false
         }
     }
-
-    flavorDimensions "engine"
-
-    productFlavors {
-        // GeckoView release channels
-        geckoNightly {
-            dimension "engine"
-        }
-        geckoBeta {
-            dimension "engine"
-        }
-        geckoRelease {
-            dimension "engine"
-        }
-
-        // WebView
-        system {
-            dimension "engine"
-        }
-    }
 }
 
 ext.abiCodes = ['arm64-v8a':1, x86:2, x86_64:3]
