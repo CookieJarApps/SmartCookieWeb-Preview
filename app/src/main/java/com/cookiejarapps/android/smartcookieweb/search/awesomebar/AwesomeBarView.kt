@@ -12,7 +12,6 @@ import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.search.awesomebar.ShortcutsSuggestionProvider
 import mozilla.components.browser.awesomebar.BrowserAwesomeBar
-import mozilla.components.browser.search.DefaultSearchEngineProvider
 import mozilla.components.browser.state.search.SearchEngine
 import mozilla.components.concept.awesomebar.AwesomeBar
 import mozilla.components.concept.engine.EngineSession
@@ -21,15 +20,11 @@ import mozilla.components.feature.awesomebar.provider.SearchActionProvider
 import mozilla.components.feature.awesomebar.provider.SearchSuggestionProvider
 import mozilla.components.feature.awesomebar.provider.SessionSuggestionProvider
 import mozilla.components.feature.search.SearchUseCases
-import mozilla.components.feature.search.ext.legacy
-import mozilla.components.feature.search.ext.toDefaultSearchEngineProvider
 import mozilla.components.feature.session.SessionUseCases
 import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.support.ktx.android.content.getColorFromAttr
 import com.cookiejarapps.android.smartcookieweb.search.SearchEngineSource
 import com.cookiejarapps.android.smartcookieweb.search.SearchFragmentState
-import com.cookiejarapps.android.smartcookieweb.search.awesomebar.AwesomeBarInteractor
-import mozilla.components.browser.search.SearchEngine as LegacySearchEngine
 
 /**
  * View that contains and configures the BrowserAwesomeBar
@@ -62,7 +57,7 @@ class AwesomeBarView(
     private val searchUseCase = object : SearchUseCases.SearchUseCase {
         override fun invoke(
             searchTerms: String,
-            searchEngine: mozilla.components.browser.search.SearchEngine?,
+            searchEngine: SearchEngine?,
             parentSessionId: String?
         ) {
             interactor.onSearchTermsTapped(searchTerms)
@@ -72,7 +67,7 @@ class AwesomeBarView(
     private val shortcutSearchUseCase = object : SearchUseCases.SearchUseCase {
         override fun invoke(
             searchTerms: String,
-            searchEngine: mozilla.components.browser.search.SearchEngine?,
+            searchEngine: SearchEngine?,
             parentSessionId: String?
         ) {
             interactor.onSearchTermsTapped(searchTerms)
@@ -120,20 +115,23 @@ class AwesomeBarView(
         defaultSearchSuggestionProvider =
             SearchSuggestionProvider(
                 context = activity,
-                defaultSearchEngineProvider = components.store.toDefaultSearchEngineProvider(),
+                store = components.store,
                 searchUseCase = searchUseCase,
                 fetchClient = components.client,
                 mode = SearchSuggestionProvider.Mode.MULTIPLE_SUGGESTIONS,
-                limit = 3,
                 icon = searchBitmap,
                 showDescription = false,
                 engine = engineForSpeculativeConnects,
-                filterExactMatch = true
+                filterExactMatch = true,
+                private = when (activity.browsingModeManager.mode) {
+                    BrowsingMode.Normal -> false
+                    BrowsingMode.Private -> true
+                }
             )
 
         defaultSearchActionProvider =
             SearchActionProvider(
-                defaultSearchEngineProvider = components.store.toDefaultSearchEngineProvider(),
+                store = components.store,
                 searchUseCase = searchUseCase,
                 icon = searchBitmap,
                 showDescription = false
@@ -273,24 +271,24 @@ class AwesomeBarView(
 
             listOf(
                 SearchActionProvider(
-                    defaultSearchEngineProvider = object : DefaultSearchEngineProvider {
-                        override fun getDefaultSearchEngine(): LegacySearchEngine? =
-                            engine.legacy()
-                        override suspend fun retrieveDefaultSearchEngine(): LegacySearchEngine? =
-                            engine.legacy()
-                    },
+                    searchEngine = engine,
+                    store = components.store,
                     searchUseCase = shortcutSearchUseCase,
                     icon = searchBitmap
                 ),
                 SearchSuggestionProvider(
-                    engine.legacy(),
+                    engine,
                     shortcutSearchUseCase,
                     components.client,
                     limit = 3,
                     mode = SearchSuggestionProvider.Mode.MULTIPLE_SUGGESTIONS,
                     icon = searchBitmap,
                     engine = engineForSpeculativeConnects,
-                    filterExactMatch = true
+                    filterExactMatch = true,
+                    private = when (activity.browsingModeManager.mode) {
+                        BrowsingMode.Normal -> false
+                        BrowsingMode.Private -> true
+                    }
                 )
             )
         }

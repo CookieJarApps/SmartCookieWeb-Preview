@@ -41,7 +41,6 @@ import mozilla.components.browser.state.state.WebExtensionState
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.feature.contextmenu.ext.DefaultSelectionActionDelegate
-import mozilla.components.feature.search.ext.legacy
 import mozilla.components.support.base.feature.ActivityResultHandler
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.ktx.kotlin.isUrl
@@ -302,10 +301,10 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
                             SessionState.Source.USER_ENTERED,
                             true,
                             mode.isPrivate,
-                            searchEngine = engine.legacy()
+                            searchEngine = engine
                     )
             } else {
-                components.searchUseCases.defaultSearch.invoke(searchTermOrURL, engine.legacy())
+                components.searchUseCases.defaultSearch.invoke(searchTermOrURL, engine)
             }
         }
     }

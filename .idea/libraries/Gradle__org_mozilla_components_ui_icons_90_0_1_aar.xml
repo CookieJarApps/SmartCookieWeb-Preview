@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:ui-icons:90.0.1@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/2842e4ae00a952d5e9a5fa40559d6d7f/transformed/jetified-ui-icons-75.0.19/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/2842e4ae00a952d5e9a5fa40559d6d7f/transformed/jetified-ui-icons-75.0.19/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/2842e4ae00a952d5e9a5fa40559d6d7f/transformed/jetified-ui-icons-75.0.19/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/ui-icons/90.0.1/bb7577ee53ab09ea95b74810b95441bf77169143/ui-icons-90.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

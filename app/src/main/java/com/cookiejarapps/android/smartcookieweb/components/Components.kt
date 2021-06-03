@@ -62,11 +62,8 @@ import mozilla.components.feature.pwa.ManifestStorage
 import mozilla.components.feature.pwa.WebAppInterceptor
 import mozilla.components.feature.pwa.WebAppShortcutManager
 import mozilla.components.feature.pwa.WebAppUseCases
-import mozilla.components.feature.pwa.intent.TrustedWebActivityIntentProcessor
-import mozilla.components.feature.pwa.intent.WebAppIntentProcessor
 import mozilla.components.feature.readerview.ReaderViewMiddleware
 import mozilla.components.feature.search.SearchUseCases
-import mozilla.components.feature.search.ext.toDefaultSearchEngineProvider
 import mozilla.components.feature.search.middleware.SearchMiddleware
 import mozilla.components.feature.search.region.RegionMiddleware
 import mozilla.components.feature.session.HistoryDelegate
@@ -74,17 +71,13 @@ import mozilla.components.feature.session.SessionUseCases
 import mozilla.components.feature.session.middleware.LastAccessMiddleware
 import mozilla.components.feature.session.middleware.undo.UndoMiddleware
 import mozilla.components.feature.sitepermissions.SitePermissionsStorage
-import mozilla.components.feature.tabs.CustomTabsUseCases
 import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.feature.webcompat.WebCompatFeature
 import mozilla.components.feature.webnotifications.WebNotificationFeature
 import mozilla.components.lib.publicsuffixlist.PublicSuffixList
-import mozilla.components.service.digitalassetlinks.local.StatementApi
-import mozilla.components.service.digitalassetlinks.local.StatementRelationChecker
 import mozilla.components.service.location.LocationService
 import org.mozilla.geckoview.GeckoRuntime
 import org.mozilla.geckoview.GeckoRuntimeSettings
-import com.cookiejarapps.android.smartcookieweb.integration.FindInPageIntegration
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.request.AppRequestInterceptor
 import com.cookiejarapps.android.smartcookieweb.utils.ClipboardHandler
@@ -241,7 +234,7 @@ open class Components(private val applicationContext: Context) {
     }
 
     val searchUseCases by lazy {
-        SearchUseCases(store, store.toDefaultSearchEngineProvider(), tabsUseCases)
+        SearchUseCases(store, tabsUseCases)
     }
 
     val defaultSearchUseCase by lazy {

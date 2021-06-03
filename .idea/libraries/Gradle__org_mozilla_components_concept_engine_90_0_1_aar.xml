@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:concept-engine:90.0.1@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ac890565b62b8659ea9f8547f7de7fdf/transformed/jetified-concept-engine-90.0.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ac890565b62b8659ea9f8547f7de7fdf/transformed/jetified-concept-engine-90.0.1/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ac890565b62b8659ea9f8547f7de7fdf/transformed/jetified-concept-engine-90.0.1/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/concept-engine/90.0.1/2ec21e7221d908dfcb02c8720e9cf0d5b7bc05a1/concept-engine-90.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -118,7 +118,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
-    final def mozComponentsVersion = '75.0.21'
+    final def mozComponentsVersion = '90.0.1'
 
     // Mozilla components
     implementation "org.mozilla.components:browser-icons:$mozComponentsVersion"
@@ -194,8 +194,8 @@ dependencies {
 
     // GeckoView engines
     geckoReleaseImplementation "org.mozilla.components:browser-engine-gecko:$mozComponentsVersion"
-    geckoBetaImplementation "org.mozilla.components:browser-engine-gecko-beta:$mozComponentsVersion"
-    geckoNightlyImplementation "org.mozilla.components:browser-engine-gecko-nightly:$mozComponentsVersion"
+    geckoBetaImplementation "org.mozilla.components:browser-engine-gecko:$mozComponentsVersion"
+    geckoNightlyImplementation "org.mozilla.components:browser-engine-gecko:$mozComponentsVersion"
 
     // WebView engine
     implementation "org.mozilla.components:browser-engine-system:$mozComponentsVersion"
