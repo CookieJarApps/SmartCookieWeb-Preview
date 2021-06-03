@@ -82,7 +82,12 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        browsingModeManager = createBrowsingModeManager(
+            if (UserPreferences(this).lastKnownPrivate) BrowsingMode.Private else BrowsingMode.Normal
+        )
+
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
         components.publicSuffixList.prefetch()
@@ -102,10 +107,6 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
         )
         components.searchUseCases.selectSearchEngine(
                 SearchEngineList().getEngines()[UserPreferences(this).searchEngineChoice]
-        )
-
-        browsingModeManager = createBrowsingModeManager(
-                if (UserPreferences(this).lastKnownPrivate) BrowsingMode.Private else BrowsingMode.Normal
         )
 
         if (isActivityColdStarted(intent, savedInstanceState) &&
