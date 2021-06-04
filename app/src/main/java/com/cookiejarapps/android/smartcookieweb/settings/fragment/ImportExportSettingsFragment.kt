@@ -131,30 +131,42 @@ class ImportExportSettingsFragment : BaseSettingsFragment() {
             bookmarkFile.delete()
             manager.initialize()
 
+            val folderScanner = Scanner(content)
+            val folderArray = mutableListOf<String>()
+
+            // Iterate over all folder items in the bookmark list and create them
+            while(folderScanner.hasNextLine()) {
+                val line = folderScanner.nextLine()
+                val `object` = JSONObject(line)
+                val folderName: String = `object`.getString(KEY_FOLDER)
+
+                if(folderName != ""){
+                    folderArray.add(folderName)
+                }
+            }
+
+            val uniqueFolderArray = folderArray.distinct()
+            val folderItemArray = mutableListOf<BookmarkFolderItem>()
+
+            for(i in uniqueFolderArray){
+                val newFolder = BookmarkFolderItem(i, manager.root, BookmarkUtils.getNewId())
+                folderItemArray.add(newFolder)
+                manager.root.add(newFolder)
+            }
+
             val scanner = Scanner(content)
+
+            // Iterate over bookmarks and add them to relevant folders based on names
             while (scanner.hasNextLine()) {
                 val line = scanner.nextLine()
                 val `object` = JSONObject(line)
                 val folderName: String = `object`.getString(KEY_FOLDER)
 
                 var folder = manager.root
+                
+                // Not the best way to do this, but it should be OK because names are unique in the old bookmark system
                 if(folderName != "") {
-
-                    val folderNameList = emptyList<String>().toMutableList()
-
-                    for (i in folder.itemList){
-                        if (i is BookmarkFolderItem){
-                            i.title?.let { folderNameList.add(it) }
-                            folder = i
-                            break
-                        }
-                    }
-
-                    if(!folderNameList.contains(folderName)){
-                        val newFolder = BookmarkFolderItem(folderName, manager.root, BookmarkUtils.getNewId())
-                        manager.root.add(newFolder)
-                        folder = newFolder
-                    }
+                    folder = folderItemArray[uniqueFolderArray.indexOf(folderName)]
                 }
 
                 val entry: BookmarkItem = BookmarkSiteItem(
@@ -164,10 +176,10 @@ class ImportExportSettingsFragment : BaseSettingsFragment() {
                 )
 
                 manager.add(folder, entry)
+                manager.save()
             }
 
             scanner.close()
-            manager.save()
         }
         else{
             Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show()
