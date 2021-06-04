@@ -98,6 +98,19 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
         )
 
         switchPreference(
+            preference = requireContext().resources.getString(R.string.key_shortcuts_visible),
+            isChecked = UserPreferences(requireContext()).showShortcuts,
+            onCheckChange = {
+                UserPreferences(requireContext()).showShortcuts = it
+                Toast.makeText(
+                    context,
+                    requireContext().resources.getText(R.string.app_restart),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        )
+
+        switchPreference(
             preference = requireContext().resources.getString(R.string.key_stack_from_bottom),
             isChecked = UserPreferences(requireContext()).stackFromBottom,
             isEnabled = !UserPreferences(requireContext()).showTabsInGrid,

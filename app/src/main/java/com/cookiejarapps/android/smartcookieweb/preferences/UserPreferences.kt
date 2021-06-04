@@ -47,7 +47,8 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var showUrlProtocol by booleanPreference(SHOW_URL_PROTOCOL, false)
     var searchSuggestionsEnabled by booleanPreference(SEARCH_SUGGESTIONS, true)
     var safeBrowsing by booleanPreference(SAFE_BROWSING, true)
-    var trackingProtection by booleanPreference(SAFE_BROWSING, true)
+    var trackingProtection by booleanPreference(TRACKING_PROTECTION, true)
+    var showShortcuts by booleanPreference(SHOW_SHORTCUTS, true)
 
     // TODO: make these configurable & clean up duplicates
     var shouldUseBottomToolbar: Boolean
@@ -91,5 +92,6 @@ class UserPreferences(appContext: Context): PreferencesHolder {
         const val SEARCH_SUGGESTIONS = "search_suggestions"
         const val SAFE_BROWSING = "safe_browsing"
         const val TRACKING_PROTECTION = "tracking_protection"
+        const val SHOW_SHORTCUTS = "show_shortcuts"
     }
 }

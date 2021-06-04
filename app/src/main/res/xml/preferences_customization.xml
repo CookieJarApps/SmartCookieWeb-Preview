@@ -71,12 +71,6 @@
             app:defaultValue="true"/>
 
     <SwitchPreferenceCompat
-            app:key="@string/key_news_visible"
-            app:title="@string/show_newsfeed"
-            app:singleLineTitle="false"
-            app:defaultValue="true"/>
-
-    <SwitchPreferenceCompat
         app:key="@string/key_auto_font_size"
         app:title="@string/auto_font"
         app:singleLineTitle="false"

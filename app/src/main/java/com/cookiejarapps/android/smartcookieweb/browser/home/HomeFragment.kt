@@ -102,6 +102,11 @@ class HomeFragment : Fragment() {
 
         updateLayout(view)
 
+        if(!UserPreferences(requireContext()).showShortcuts){
+            view.shortcut_name.visibility = View.GONE
+            view.shortcut_grid.visibility = View.GONE
+        }
+
         if(!UserPreferences(requireContext()).shortcutDrawerOpen){
             view.shortcut_name.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_shortcuts, 0, R.drawable.ic_baseline_chevron_up, 0)
             view.shortcut_grid.visibility = View.GONE
