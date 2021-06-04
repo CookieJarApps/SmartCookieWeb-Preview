@@ -2,6 +2,20 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <Preference
+            app:key="@string/key_app_theme_type"
+            app:title="@string/theme"
+            app:summary="@string/theme_explain"
+            app:singleLineTitle="false"
+            app:defaultValue="false"/>
+
+    <Preference
+            app:key="@string/key_web_theme_type"
+            app:title="@string/web_theme"
+            app:summary="@string/web_theme_explain"
+            app:singleLineTitle="false"
+            app:defaultValue="false"/>
+
     <SwitchPreferenceCompat
         app:key="@string/key_move_navbar"
         app:title="@string/move_navbar"
@@ -50,19 +64,17 @@
         app:singleLineTitle="false"
         app:defaultValue="true"/>
 
-    <Preference
-        app:key="@string/key_app_theme_type"
-        app:title="@string/theme"
-        app:summary="@string/theme_explain"
-        app:singleLineTitle="false"
-        app:defaultValue="false"/>
+    <SwitchPreferenceCompat
+            app:key="@string/key_shortcuts_visible"
+            app:title="@string/show_shortcuts"
+            app:singleLineTitle="false"
+            app:defaultValue="true"/>
 
-    <Preference
-        app:key="@string/key_web_theme_type"
-        app:title="@string/web_theme"
-        app:summary="@string/web_theme_explain"
-        app:singleLineTitle="false"
-        app:defaultValue="false"/>
+    <SwitchPreferenceCompat
+            app:key="@string/key_news_visible"
+            app:title="@string/show_newsfeed"
+            app:singleLineTitle="false"
+            app:defaultValue="true"/>
 
     <SwitchPreferenceCompat
         app:key="@string/key_auto_font_size"

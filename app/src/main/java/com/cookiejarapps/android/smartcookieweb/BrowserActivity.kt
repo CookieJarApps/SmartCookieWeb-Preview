@@ -82,15 +82,15 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        components.publicSuffixList.prefetch()
+
         browsingModeManager = createBrowsingModeManager(
             if (UserPreferences(this).lastKnownPrivate) BrowsingMode.Private else BrowsingMode.Normal
         )
 
-        super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main)
-
-        components.publicSuffixList.prefetch()
 
         if(UserPreferences(this).firstLaunch){
             UserPreferences(this).firstLaunch = false

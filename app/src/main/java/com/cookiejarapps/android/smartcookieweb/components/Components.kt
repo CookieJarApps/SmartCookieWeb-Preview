@@ -81,8 +81,11 @@ import org.mozilla.geckoview.GeckoRuntimeSettings
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.request.AppRequestInterceptor
 import com.cookiejarapps.android.smartcookieweb.utils.ClipboardHandler
+import mozilla.components.browser.engine.gecko.ext.toContentBlockingSetting
 import mozilla.components.browser.session.ext.toTabSessionState
+import mozilla.components.concept.engine.EngineSession
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
+import org.mozilla.geckoview.ContentBlocking
 import java.util.concurrent.TimeUnit
 
 
@@ -273,9 +276,22 @@ open class Components(private val applicationContext: Context) {
 
         val runtimeSettings = builder
             .aboutConfigEnabled(true)
+            .contentBlocking(trackingPolicy.toContentBlockingSetting())
             .build()
 
+        runtimeSettings.contentBlocking.setSafeBrowsing(safeBrowsingPolicy)
+
         GeckoRuntime.create(applicationContext, runtimeSettings)
+    }
+
+    private val trackingPolicy by lazy{
+        if(UserPreferences(applicationContext).trackingProtection) EngineSession.TrackingProtectionPolicy.recommended()
+        else EngineSession.TrackingProtectionPolicy.none()
+    }
+
+    private val safeBrowsingPolicy by lazy{
+        if(UserPreferences(applicationContext).safeBrowsing) ContentBlocking.SafeBrowsing.DEFAULT
+        else ContentBlocking.SafeBrowsing.NONE
     }
 
     val webAppManifestStorage by lazy { ManifestStorage(applicationContext) }
