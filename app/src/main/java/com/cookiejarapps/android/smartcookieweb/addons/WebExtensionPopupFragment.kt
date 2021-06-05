@@ -3,10 +3,7 @@ package com.cookiejarapps.android.smartcookieweb.addons
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import com.cookiejarapps.android.smartcookieweb.R
@@ -50,6 +47,7 @@ class WebExtensionPopupFragment : DialogFragment(), UserInteractionHandler, Engi
         }
 
         dialog?.window?.setGravity(Gravity.END or Gravity.TOP)
+        if(android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.M) dialog?.window?.setDimAmount(0F)
         dialog?.window?.attributes?.windowAnimations = R.style.ExtensionPopupStyle
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
