@@ -15,8 +15,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         // Increment by 4 with each update
-        versionCode 32
-        versionName "8.0"
+        versionCode 36
+        versionName "9.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     kotlinOptions {
@@ -98,7 +98,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
-    final def mozComponentsVersion = '90.0.1'
+    final def mozComponentsVersion = '90.0.2'
 
     // Mozilla components
     implementation "org.mozilla.components:browser-icons:$mozComponentsVersion"
