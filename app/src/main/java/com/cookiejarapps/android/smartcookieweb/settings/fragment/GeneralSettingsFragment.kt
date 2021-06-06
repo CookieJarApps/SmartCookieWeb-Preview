@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
+import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import com.cookiejarapps.android.smartcookieweb.R
