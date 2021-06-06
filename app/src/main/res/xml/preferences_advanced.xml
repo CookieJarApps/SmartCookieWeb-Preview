@@ -9,6 +9,12 @@
         app:defaultValue="false"/>
 
     <SwitchPreferenceCompat
+            app:key="@string/key_trust_third_party_certs"
+            app:title="@string/trust_third_party_certs"
+            app:singleLineTitle="false"
+            app:defaultValue="false"/>
+
+    <SwitchPreferenceCompat
         app:key="@string/key_prompt_external_downloader"
         app:title="@string/prompt_external_downloader"
         app:singleLineTitle="false"

@@ -2,10 +2,10 @@ package com.cookiejarapps.android.smartcookieweb.settings.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.text.Editable
 import android.text.InputType
 import android.widget.EditText
 import android.widget.Toast
-import androidx.preference.Preference
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.browser.SearchEngineList
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
@@ -85,11 +85,14 @@ class GeneralSettingsFragment : BaseSettingsFragment() {
     private fun pickSearchEngine(){
         val startingChoice = UserPreferences(requireContext()).searchEngineChoice
         val singleItems = emptyList<String>().toMutableList()
-        val checkedItem = UserPreferences(requireContext()).searchEngineChoice
 
         for(i in SearchEngineList().getEngines()){
             singleItems.add(i.name)
         }
+
+        singleItems.add(resources.getString(R.string.custom))
+
+        val checkedItem = if(!UserPreferences(requireContext()).customSearchEngine) UserPreferences(requireContext()).searchEngineChoice else singleItems.size - 1
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.search_engine))
@@ -99,9 +102,49 @@ class GeneralSettingsFragment : BaseSettingsFragment() {
             .setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { _, _ ->
                 Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
             }
-            .setSingleChoiceItems(singleItems.toTypedArray(), checkedItem) { _, which ->
-                UserPreferences(requireContext()).searchEngineChoice = which
+            .setSingleChoiceItems(singleItems.toTypedArray(), checkedItem) { dialog, which ->
+                if(which == singleItems.size - 1){
+                    customSearchEngineDialog()
+                    dialog.cancel()
+                }
+                else{
+                    UserPreferences(requireContext()).customSearchEngine = false
+                    UserPreferences(requireContext()).searchEngineChoice = which
+                }
             }
             .show()
+    }
+
+    fun customSearchEngineDialog(){
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(R.string.custom_search_engine)
+        builder.setMessage(R.string.custom_search_engine_details)
+
+        val input = EditText(context)
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+
+        input.setText(UserPreferences(requireContext()).customSearchEngineURL)
+
+        builder.setPositiveButton(
+            "OK"
+        ) { dialog, which ->
+            if(input.text.toString().contains("{searchTerms}")){
+                UserPreferences(requireContext()).customSearchEngine = true
+                UserPreferences(requireContext()).customSearchEngineURL = input.text.toString()
+                Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
+            }
+            else{
+                Toast.makeText(context, R.string.custom_search_engine_error, Toast.LENGTH_LONG).show()
+                customSearchEngineDialog()
+            }
+        }
+        builder.setNegativeButton(
+            "Cancel"
+        ) { dialog, which ->
+            UserPreferences(requireContext()).customSearchEngine = false
+        }
+
+        builder.show()
     }
 }

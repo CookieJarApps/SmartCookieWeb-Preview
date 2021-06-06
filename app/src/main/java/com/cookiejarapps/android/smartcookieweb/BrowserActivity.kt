@@ -4,6 +4,7 @@ import android.content.ComponentCallbacks2
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
@@ -33,14 +34,19 @@ import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.ext.nav
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.search.SearchDialogFragmentDirections
+import com.cookiejarapps.android.smartcookieweb.search.createInitialSearchFragmentState
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import mozilla.components.browser.icons.IconRequest
 import mozilla.components.browser.state.search.SearchEngine
 import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.state.WebExtensionState
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.feature.contextmenu.ext.DefaultSelectionActionDelegate
+import mozilla.components.feature.search.ext.createSearchEngine
 import mozilla.components.support.base.feature.ActivityResultHandler
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.ktx.kotlin.isUrl
@@ -99,15 +105,48 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
         if(UserPreferences(this).showTabsInGrid && UserPreferences(this).stackFromBottom) UserPreferences(this).stackFromBottom = false
 
         //TODO: Move to settings page so app restart no longer required
-        //TODO: Adding search engine to list every time isn't great, but fixes search engine issues
-        components.searchUseCases.addSearchEngine(
-                SearchEngineList().getEngines()[UserPreferences(
+        //TODO: Differentiate between using search engine / adding to list - the code below removes all from list as I don't support adding to list, only setting as default
+        for(i in components.store.state.search.customSearchEngines){
+            components.searchUseCases.removeSearchEngine(i)
+        }
+
+        if(UserPreferences(this).customSearchEngine){
+            GlobalScope.launch {
+                val customSearch =
+                    createSearchEngine(
+                        name = "Reddit",
+                        url = UserPreferences(this@BrowserActivity).customSearchEngineURL,
+                        icon = components.icons.loadIcon(IconRequest(UserPreferences(this@BrowserActivity).customSearchEngineURL))
+                            .await().bitmap
+                    )
+
+                runOnUiThread {
+                    components.searchUseCases.addSearchEngine(
+                        customSearch
+                    )
+                    components.searchUseCases.selectSearchEngine(
+                        customSearch
+                    )
+                }
+            }
+        }
+        else{
+            if(SearchEngineList().getEngines()[UserPreferences(this).searchEngineChoice].type == SearchEngine.Type.BUNDLED){
+                components.searchUseCases.selectSearchEngine(
+                    SearchEngineList().getEngines()[UserPreferences(this).searchEngineChoice]
+                )
+            }
+            else{
+                components.searchUseCases.addSearchEngine(
+                    SearchEngineList().getEngines()[UserPreferences(
                         this
-                ).searchEngineChoice]
-        )
-        components.searchUseCases.selectSearchEngine(
-                SearchEngineList().getEngines()[UserPreferences(this).searchEngineChoice]
-        )
+                    ).searchEngineChoice]
+                )
+                components.searchUseCases.selectSearchEngine(
+                    SearchEngineList().getEngines()[UserPreferences(this).searchEngineChoice]
+                )
+            }
+        }
 
         if (isActivityColdStarted(intent, savedInstanceState) &&
             !externalSourceIntentProcessors.any { it.process(intent, navHost.navController, this.intent) }) {

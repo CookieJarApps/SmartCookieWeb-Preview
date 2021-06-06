@@ -35,6 +35,7 @@
   <string name="key_shortcuts_visible" translatable="false">shortcuts_visible</string>
   <string name="key_news_visible" translatable="false">news_visible</string>
   <string name="key_tracking_protection" translatable="false">tracking_protection</string>
+  <string name="key_trust_third_party_certs" translatable="false">trust_third_party_certs</string>
 
   <string name="more">More Info</string>
   <string name="version">Application version</string>
@@ -260,4 +261,10 @@
   <string name="disable_newsfeed">Disable newsfeed</string>
   <string name="configure">Configure</string>
   <string name="newsfeed_privacy">CookieJarApps respects your privacy and doesn\'t collect or store any data related to you. That\'s why, to use the newsfeed feature, you\'ll need to fill out some general information about the news you want to receive.</string>
+
+  <string name="trust_third_party_certs">Trust third party CA certificates</string>
+
+  <string name="custom_search_engine">Custom search engine</string>
+  <string name="custom_search_engine_details">Enter URL with \'{searchTerms}\' in place of the query</string>
+  <string name="custom_search_engine_error">Search URL does not contain \'{searchTerms}\'</string>
 </resources>

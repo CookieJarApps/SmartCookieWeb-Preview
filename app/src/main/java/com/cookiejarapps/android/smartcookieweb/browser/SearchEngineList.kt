@@ -11,7 +11,7 @@ class SearchEngineList {
     fun getEngines(): List<SearchEngine> {
         return listOf(
             SearchEngine(
-                id = "google",
+                id = "google-b-m",
                 name = "Google",
                 icon = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888),
                 type = SearchEngine.Type.BUNDLED,
@@ -19,7 +19,7 @@ class SearchEngineList {
                 suggestUrl = "https://www.google.com/"
             ),
             SearchEngine(
-                id = "duckduckgo",
+                id = "ddg",
                 name = "DuckDuckGo",
                 icon = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888),
                 type = SearchEngine.Type.BUNDLED,
@@ -55,7 +55,7 @@ class SearchEngineList {
                 name = "Naver",
                 icon = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888),
                 type = SearchEngine.Type.CUSTOM,
-                resultUrls = listOf("https://www.naver.com/search.naver?query={searchTerms}"),
+                resultUrls = listOf("https://m.search.naver.com/search.naver?query={searchTerms}"),
                 suggestUrl = "https://www.naver.com/"
             ),
             SearchEngine(

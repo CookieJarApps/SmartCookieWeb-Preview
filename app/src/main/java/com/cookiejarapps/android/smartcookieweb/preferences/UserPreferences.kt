@@ -25,6 +25,8 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var javaScriptEnabled by booleanPreference(JAVA_SCRIPT_ENABLED, true)
     var showAddonsInBar by booleanPreference(SHOW_ADDONS_IN_BAR, false)
     var searchEngineChoice by intPreference(SEARCH_ENGINE, 0)
+    var customSearchEngine by booleanPreference(CUSTOM_SEARCH_ENGINE, false)
+    var customSearchEngineURL by stringPreference(CUSTOM_SEARCH_ENGINE_URL, "")
     var toolbarPosition by intPreference(TOOLBAR_POSITION, ToolbarPosition.TOP.ordinal)
     var homepageType by intPreference(HOMEPAGE_TYPE, HomepageChoice.VIEW.ordinal)
     var appThemeChoice by intPreference(APP_THEME_CHOICE, ThemeChoice.SYSTEM.ordinal)
@@ -49,6 +51,7 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var safeBrowsing by booleanPreference(SAFE_BROWSING, true)
     var trackingProtection by booleanPreference(TRACKING_PROTECTION, true)
     var showShortcuts by booleanPreference(SHOW_SHORTCUTS, true)
+    var trustThirdPartyCerts by booleanPreference(TRUST_THIRD_PARTY_CERTS, false)
 
     // TODO: make these configurable & clean up duplicates
     var shouldUseBottomToolbar: Boolean
@@ -70,6 +73,8 @@ class UserPreferences(appContext: Context): PreferencesHolder {
         const val JAVA_SCRIPT_ENABLED = "java_script_enabled"
         const val SHOW_ADDONS_IN_BAR = "show_addons_in_bar"
         const val SEARCH_ENGINE = "search_engine"
+        const val CUSTOM_SEARCH_ENGINE = "custom_search_engine"
+        const val CUSTOM_SEARCH_ENGINE_URL = "custom_search_engine_url"
         const val TOOLBAR_POSITION = "toolbar_position"
         const val HOMEPAGE_TYPE = "homepage_type"
         const val APP_THEME_CHOICE = "app_theme_choice"
@@ -93,5 +98,6 @@ class UserPreferences(appContext: Context): PreferencesHolder {
         const val SAFE_BROWSING = "safe_browsing"
         const val TRACKING_PROTECTION = "tracking_protection"
         const val SHOW_SHORTCUTS = "show_shortcuts"
+        const val TRUST_THIRD_PARTY_CERTS = "trust_third_party_certs"
     }
 }

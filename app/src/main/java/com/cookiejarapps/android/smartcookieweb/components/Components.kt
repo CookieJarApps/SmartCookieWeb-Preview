@@ -125,6 +125,7 @@ open class Components(private val applicationContext: Context) {
             requestInterceptor = AppRequestInterceptor(applicationContext)
             remoteDebuggingEnabled = UserPreferences(applicationContext).remoteDebugging
             supportMultipleWindows = true
+            enterpriseRootsEnabled = UserPreferences(applicationContext).trustThirdPartyCerts
             if(!UserPreferences(applicationContext).autoFontSize){
                 fontSizeFactor = UserPreferences(applicationContext).fontSizeFactor
                 automaticFontSizeAdjustment = false
