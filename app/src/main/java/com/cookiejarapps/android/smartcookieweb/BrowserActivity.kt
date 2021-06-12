@@ -115,7 +115,7 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
             GlobalScope.launch {
                 val customSearch =
                     createSearchEngine(
-                        name = "Reddit",
+                        name = "Custom Search",
                         url = UserPreferences(this@BrowserActivity).customSearchEngineURL,
                         icon = components.icons.loadIcon(IconRequest(UserPreferences(this@BrowserActivity).customSearchEngineURL))
                             .await().bitmap
