@@ -35,9 +35,12 @@ import com.cookiejarapps.android.smartcookieweb.ext.nav
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.search.SearchDialogFragmentDirections
 import com.cookiejarapps.android.smartcookieweb.search.createInitialSearchFragmentState
+import com.cookiejarapps.android.smartcookieweb.utils.PrintUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import mozilla.components.browser.icons.IconRequest
 import mozilla.components.browser.state.search.SearchEngine
@@ -45,12 +48,15 @@ import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.state.WebExtensionState
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineView
+import mozilla.components.concept.engine.webextension.MessageHandler
 import mozilla.components.feature.contextmenu.ext.DefaultSelectionActionDelegate
 import mozilla.components.feature.search.ext.createSearchEngine
+import mozilla.components.lib.state.ext.flowScoped
 import mozilla.components.support.base.feature.ActivityResultHandler
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.ktx.kotlin.isUrl
 import mozilla.components.support.ktx.kotlin.toNormalizedUrl
+import mozilla.components.support.ktx.kotlinx.coroutines.flow.filterChanged
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupFeature
 import java.lang.RuntimeException
@@ -80,6 +86,9 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
     private val webExtensionPopupFeature by lazy {
         WebExtensionPopupFeature(components.store, ::openPopup)
     }
+
+    private var printExtension: mozilla.components.concept.engine.webextension.WebExtension? =
+        null
 
     protected open fun getIntentSessionId(intent: SafeIntent): String? = null
 
@@ -174,6 +183,9 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
             replace(R.id.left_drawer, leftDrawer)
             commit()
         }
+
+        // TODO: test performance impact
+        installPrintExtension()
 
         lifecycle.addObserver(webExtensionPopupFeature)
     }
@@ -348,6 +360,52 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
                 components.searchUseCases.defaultSearch.invoke(searchTermOrURL, engine)
             }
         }
+    }
+
+    private fun installPrintExtension(){
+
+        val messageDelegate: MessageHandler = object :
+            MessageHandler {
+            override fun onMessage(
+                message: Any, source: EngineSession?
+            ): Any {
+
+                val converter = PrintUtils.instance
+                val htmlString = message.toString()
+                converter!!.convert(this@BrowserActivity, htmlString, components.sessionManager.selectedSession?.url)
+                printExtension?.let { components.engine.disableWebExtension(it, onSuccess = {}) }
+
+                return ""
+            }
+        }
+
+        components.engine.installWebExtension(
+            "print@cookiejarapps.com",
+            "resource://android/assets/print/",
+            onSuccess = { extension ->
+                extension?.let { components.engine.disableWebExtension(it, onSuccess = {}) }
+                printExtension = extension
+                val store = components.store
+                store.flowScoped { flow ->
+                    flow.map { it.tabs }
+                        .filterChanged { it.engineState.engineSession }
+                        .collect { state ->
+                            val session = state.engineState.engineSession ?: return@collect
+
+                            extension.registerContentMessageHandler(
+                                session,
+                                "browser",
+                                messageDelegate
+                            )
+                        }
+                }
+            }
+        )
+    }
+
+    fun printPage(){
+        printExtension?.let { components.engine.enableWebExtension(it, onSuccess = {}) }
+        components.sessionUseCases.reload.invoke()
     }
 
     companion object {

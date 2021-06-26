@@ -88,45 +88,7 @@ class DefaultBrowserToolbarMenuController(
                 }
             }
             is ToolbarMenu.Item.Print -> {
-                var printExtension: mozilla.components.concept.engine.webextension.WebExtension? =
-                    null
-
-                val messageDelegate: MessageHandler = object :
-                    MessageHandler {
-                    override fun onMessage(
-                        message: Any, source: EngineSession?
-                    ): Any {
-
-                        val converter = PrintUtils.instance
-                        val htmlString = message.toString()
-                        converter!!.convert(activity, htmlString, activity.components.sessionManager.selectedSession?.url)
-                        printExtension?.let { activity.components.engine.uninstallWebExtension(it) }
-
-                        return ""
-                    }
-                }
-
-                activity.components.engine.installWebExtension(
-                    "print@cookiejarapps.com",
-                    "resource://android/assets/print/",
-                    onSuccess = { extension ->
-                        printExtension = extension
-                        val store = activity.components.store
-                        store.flowScoped { flow ->
-                            flow.map { it.tabs }
-                                .filterChanged { it.engineState.engineSession }
-                                .collect { state ->
-                                    val session = state.engineState.engineSession ?: return@collect
-
-                                    extension.registerContentMessageHandler(
-                                        session,
-                                        "browser",
-                                        messageDelegate
-                                    )
-                                }
-                        }
-                    }
-                )
+                activity.printPage()
             }
             is ToolbarMenu.Item.AddToHomeScreen -> {
                 MainScope().launch {
