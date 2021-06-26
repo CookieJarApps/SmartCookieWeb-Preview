@@ -6,6 +6,8 @@ import android.os.Handler
 import android.print.PrintAttributes
 import android.print.PrintDocumentAdapter
 import android.print.PrintManager
+import android.webkit.CookieManager
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 
@@ -19,13 +21,19 @@ class PrintUtils private constructor() : Runnable {
     override fun run() {
         mWebView = WebView(mContext!!)
         mWebView!!.settings.javaScriptEnabled = false
+        mWebView!!.settings.allowContentAccess = false
+        mWebView!!.settings.allowFileAccess = false
+        mWebView!!.settings.cacheMode = WebSettings.LOAD_NO_CACHE
+
+        CookieManager.getInstance().setAcceptCookie(false)
+
         mWebView!!.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String) {
                 val printManager: PrintManager = mContext!!.getSystemService(Context.PRINT_SERVICE) as PrintManager
                 val jobName = mWebView?.title ?: "Document"
                 val printAdapter: PrintDocumentAdapter = mWebView!!.createPrintDocumentAdapter(jobName)
                 val builder: PrintAttributes.Builder = PrintAttributes.Builder()
-                builder.setMediaSize(PrintAttributes.MediaSize.ISO_A5)
+                builder.setMediaSize(PrintAttributes.MediaSize.ISO_A4)
                 printManager.print(jobName, printAdapter, builder.build())
                 destroy()
             }
