@@ -369,7 +369,6 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
             override fun onMessage(
                 message: Any, source: EngineSession?
             ): Any {
-
                 val converter = PrintUtils.instance
                 val htmlString = message.toString()
                 converter!!.convert(this@BrowserActivity, htmlString, components.sessionManager.selectedSession?.url)
@@ -404,8 +403,11 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
     }
 
     fun printPage(){
-        printExtension?.let { components.engine.enableWebExtension(it, onSuccess = {}) }
+        // Reload page and enable add-on at the same time to load the add-on, then reload again to trigger add-on on page
         components.sessionUseCases.reload.invoke()
+        printExtension?.let { components.engine.enableWebExtension(it, onSuccess = {
+            components.sessionUseCases.reload.invoke()
+        }) }
     }
 
     companion object {
