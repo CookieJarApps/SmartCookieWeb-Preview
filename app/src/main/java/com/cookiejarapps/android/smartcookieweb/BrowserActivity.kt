@@ -1,21 +1,18 @@
 package com.cookiejarapps.android.smartcookieweb
 
+import android.app.ProgressDialog
 import android.content.ComponentCallbacks2
 import android.content.Context
 import android.content.Intent
-import android.database.Cursor
-import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
-import android.provider.OpenableColumns
+import android.os.Handler
+import android.os.Looper
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
@@ -34,7 +31,6 @@ import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.ext.nav
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.search.SearchDialogFragmentDirections
-import com.cookiejarapps.android.smartcookieweb.search.createInitialSearchFragmentState
 import com.cookiejarapps.android.smartcookieweb.utils.PrintUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
@@ -59,7 +55,6 @@ import mozilla.components.support.ktx.kotlin.toNormalizedUrl
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.filterChanged
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupFeature
-import java.lang.RuntimeException
 
 
 /**
@@ -404,10 +399,12 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
 
     fun printPage(){
         // Reload page and enable add-on at the same time to load the add-on, then reload again to trigger add-on on page
+        components.sessionUseCases.stopLoading.invoke()
         components.sessionUseCases.reload.invoke()
         printExtension?.let { components.engine.enableWebExtension(it, onSuccess = {
             components.sessionUseCases.reload.invoke()
-        }) }
+        }
+        )}
     }
 
     companion object {
