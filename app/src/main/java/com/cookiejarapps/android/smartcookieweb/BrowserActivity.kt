@@ -399,9 +399,8 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
 
     fun printPage(){
         // Reload page and enable add-on at the same time to load the add-on, then reload again to trigger add-on on page
-        components.sessionUseCases.stopLoading.invoke()
-        components.sessionUseCases.reload.invoke()
         printExtension?.let { components.engine.enableWebExtension(it, onSuccess = {
+            components.sessionUseCases.stopLoading.invoke()
             components.sessionUseCases.reload.invoke()
         }
         )}
