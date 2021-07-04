@@ -148,6 +148,8 @@ class TabsTrayFragment : Fragment() {
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
+
+        tabLayout.selectTab(tabLayout.getTabAt(browsingModeManager.mode.ordinal))
     }
 
     private fun removeTabsDialog(view: View) {
