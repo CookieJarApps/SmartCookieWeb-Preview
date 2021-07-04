@@ -4,4 +4,13 @@
         <item>Add bookmark</item>
         <item>Delete bookmark</item>
     </string-array>
+    <string-array name="history_delete_times">
+        <item>Last hour</item>
+        <item>Last day</item>
+        <item>Last 2 days</item>
+        <item>Last week</item>
+        <item>Last month</item>
+        <item>Last year</item>
+        <item>All time</item>
+    </string-array>
 </resources>

@@ -123,6 +123,8 @@
   <string name="clear_cache">Clear cache</string>
   <string name="clear_permissions">Clear permissions</string>
 
+  <string name="sites">(%1$s) sites</string>
+
   <string name="app_restart">Please restart the app for the change to take effect.</string>
 
   <string name="mozac_reader_view_description">Enable Reader View</string>
@@ -280,4 +282,6 @@
   <string name="custom_search_engine">Custom search engine</string>
   <string name="custom_search_engine_details">Enter URL with \'{searchTerms}\' in place of the query</string>
   <string name="custom_search_engine_error">Search URL does not contain \'{searchTerms}\'</string>
+
+  <string name="clear">Clear</string>
 </resources>
