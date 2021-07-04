@@ -8,7 +8,11 @@
   <string name="key_web_theme_type" translatable="false">web_theme_type</string>
   <string name="key_search_engine" translatable="false">search_engine</string>
   <string name="key_show_addons_in_bar" translatable="false">show_addons_in_bar</string>
+  <string name="key_clear_tabs" translatable="false">clear_tabs</string>
   <string name="key_clear_history" translatable="false">clear_history</string>
+  <string name="key_clear_cookies" translatable="false">clear_cookies</string>
+  <string name="key_clear_cache" translatable="false">clear_cache</string>
+  <string name="key_clear_permissions" translatable="false">clear_permissions</string>
   <string name="key_homepage_type" translatable="false">homepage_type</string>
   <string name="key_move_navbar" translatable="false">move_navbar</string>
   <string name="key_use_custom_collection" translatable="false">use_custom_collection</string>
@@ -112,7 +116,12 @@
   <string name="follow_system">Follow system theme</string>
   <string name="follow_system_summary">Darkens browser UI when system dark mode is enabled</string>
   <string name="javascript_enabled">Enable JavaScript</string>
-  <string name="clear_history">Clear history</string>
+
+  <string name="clear_tabs">Clear open tabs</string>
+  <string name="clear_history">Clear browsing history and site data</string>
+  <string name="clear_cookies">Clear cookies</string>
+  <string name="clear_cache">Clear cache</string>
+  <string name="clear_permissions">Clear permissions</string>
 
   <string name="app_restart">Please restart the app for the change to take effect.</string>
 
@@ -168,7 +177,11 @@
   <string name="loading_addons">Loading add-ons…</string>
   <string name="loading">Loading…</string>
 
+  <string name="tabs_cleared">Tabs cleared!</string>
   <string name="history_cleared">History cleared!</string>
+  <string name="cookies_cleared">Cookies cleared!</string>
+  <string name="cache_cleared">Cache cleared!</string>
+  <string name="permissions_cleared">Permissions cleared!</string>
 
   <string name="show_addons_in_bar">Show add-ons in navbar</string>
 

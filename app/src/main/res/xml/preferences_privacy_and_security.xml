@@ -3,7 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Preference
-        app:key="@string/key_clear_history"
-        app:title="@string/clear_history"/>
+        app:key="@string/key_clear_tabs"
+        app:title="@string/clear_tabs"/>
+    <Preference
+            app:key="@string/key_clear_history"
+            app:title="@string/clear_history"/>
+    <Preference
+            app:key="@string/key_clear_cookies"
+            app:title="@string/clear_cookies"/>
+    <Preference
+            app:key="@string/key_clear_cache"
+            app:title="@string/clear_cache"/>
+    <Preference
+            app:key="@string/key_clear_permissions"
+            app:title="@string/clear_permissions"/>
 
 </PreferenceScreen>
