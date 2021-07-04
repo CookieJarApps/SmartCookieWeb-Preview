@@ -61,7 +61,7 @@ object ToolbarPopupWindow {
             view.get()?.let {
                 Snackbar.make(
                     it,
-                    "COPED TO CLIPBOARD (NOSTRING)",
+                    context.resources.getString(R.string.copied),
                     Snackbar.LENGTH_SHORT
                 )
             }

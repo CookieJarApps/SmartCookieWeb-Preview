@@ -19,7 +19,7 @@
         android:minWidth="48dp"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:text="COPY (NOSTRING)"
+        android:text="@string/copy"
         android:textAllCaps="false"
         android:textColor="?android:attr/textColorPrimary" />
 
@@ -32,7 +32,7 @@
         android:minWidth="48dp"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:text="PASTE (NOSTRING)"
+        android:text="@string/paste"
         android:textAllCaps="false"
         android:textColor="?android:attr/textColorPrimary" />
 
@@ -44,7 +44,7 @@
         android:background="?selectableItemBackground"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:text="PASTE AND GO (NOSTRING)"
+        android:text="@string/paste_and_go"
         android:textAllCaps="false"
         android:textColor="?android:attr/textColorPrimary" />
 </LinearLayout>
