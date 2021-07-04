@@ -69,11 +69,11 @@ class TabsTrayFragment : Fragment() {
                     } else {
                         when (browsingModeManager.mode) {
                             BrowsingMode.Normal -> components.tabsUseCases.addTab.invoke(
-                                "about:blank",
+                                if(UserPreferences(requireContext()).homepageType == HomepageChoice.BLANK_PAGE.ordinal) "about:blank" else UserPreferences(requireContext()).customHomepageUrl,
                                 selectTab = true
                             )
                             BrowsingMode.Private -> components.tabsUseCases.addPrivateTab.invoke(
-                                "about:blank",
+                                if(UserPreferences(requireContext()).homepageType == HomepageChoice.BLANK_PAGE.ordinal) "about:blank" else UserPreferences(requireContext()).customHomepageUrl,
                                 selectTab = true
                             )
                         }

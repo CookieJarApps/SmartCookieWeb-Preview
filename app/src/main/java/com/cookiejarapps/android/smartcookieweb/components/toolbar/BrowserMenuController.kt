@@ -8,7 +8,11 @@ import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.cookiejarapps.android.smartcookieweb.*
+import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
+import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
+import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.history.HistoryActivity
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
@@ -148,9 +152,24 @@ class DefaultBrowserToolbarMenuController(
                 activity.startActivity(settings)
             }
             is ToolbarMenu.Item.NewTab -> {
-                navController.navigate(
-                    BrowserFragmentDirections.actionGlobalHome(focusOnAddressBar = true)
-                )
+                if (UserPreferences(activity).homepageType == HomepageChoice.VIEW.ordinal) {
+                    navController.navigate(
+                        HomeFragmentDirections.actionGlobalHome(
+                            focusOnAddressBar = true
+                        )
+                    )
+                } else {
+                    when (activity.browsingModeManager.mode) {
+                        BrowsingMode.Normal -> activity.components.tabsUseCases.addTab.invoke(
+                            if(UserPreferences(activity).homepageType == HomepageChoice.BLANK_PAGE.ordinal) "about:blank" else UserPreferences(activity).customHomepageUrl,
+                            selectTab = true
+                        )
+                        BrowsingMode.Private -> activity.components.tabsUseCases.addPrivateTab.invoke(
+                            if(UserPreferences(activity).homepageType == HomepageChoice.BLANK_PAGE.ordinal) "about:blank" else UserPreferences(activity).customHomepageUrl,
+                            selectTab = true
+                        )
+                    }
+                }
             }
         }
     }

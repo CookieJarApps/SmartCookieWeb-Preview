@@ -195,12 +195,14 @@
   <string name="homepage_type">Homepage type</string>
   <string name="default_word">Default</string>
   <string name="blank_page">Blank page</string>
+  <string name="custom_page">Custom page</string>
 
   <string name="move_navbar">Move navbar to bottom</string>
 
   <string-array name="homepage_types">
     <item>@string/default_word</item>
     <item>@string/blank_page</item>
+    <item>@string/custom_page</item>
   </string-array>
 
   <string name="custom_collection">Custom add-on collection</string>

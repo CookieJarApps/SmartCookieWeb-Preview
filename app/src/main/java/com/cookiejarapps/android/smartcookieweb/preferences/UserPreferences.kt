@@ -29,6 +29,7 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var customSearchEngineURL by stringPreference(CUSTOM_SEARCH_ENGINE_URL, "")
     var toolbarPosition by intPreference(TOOLBAR_POSITION, ToolbarPosition.TOP.ordinal)
     var homepageType by intPreference(HOMEPAGE_TYPE, HomepageChoice.VIEW.ordinal)
+    var customHomepageUrl by stringPreference(HOMEPAGE_URL, "")
     var appThemeChoice by intPreference(APP_THEME_CHOICE, ThemeChoice.SYSTEM.ordinal)
     var webThemeChoice by intPreference(WEB_THEME_CHOICE, ThemeChoice.SYSTEM.ordinal)
     var launchInApp by booleanPreference(LAUNCH_IN_APP, true)
@@ -77,6 +78,7 @@ class UserPreferences(appContext: Context): PreferencesHolder {
         const val CUSTOM_SEARCH_ENGINE_URL = "custom_search_engine_url"
         const val TOOLBAR_POSITION = "toolbar_position"
         const val HOMEPAGE_TYPE = "homepage_type"
+        const val HOMEPAGE_URL = "homepage_url"
         const val APP_THEME_CHOICE = "app_theme_choice"
         const val WEB_THEME_CHOICE = "web_theme_choice"
         const val LAUNCH_IN_APP = "launch_in_app"

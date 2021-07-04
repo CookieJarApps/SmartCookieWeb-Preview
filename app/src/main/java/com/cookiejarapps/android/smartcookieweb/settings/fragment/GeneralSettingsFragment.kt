@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
 import com.cookiejarapps.android.smartcookieweb.browser.SearchEngineList
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -79,6 +80,30 @@ class GeneralSettingsFragment : BaseSettingsFragment() {
                 .setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { _, _ ->}
                 .setSingleChoiceItems(singleItems.toTypedArray(), checkedItem) { dialog, which ->
                     UserPreferences(requireContext()).homepageType = which
+                    if(UserPreferences(requireContext()).homepageType == HomepageChoice.CUSTOM_PAGE.ordinal){
+                        val builder = AlertDialog.Builder(context)
+                        builder.setTitle(R.string.custom_page)
+
+                        val input = EditText(context)
+                        input.inputType = InputType.TYPE_CLASS_TEXT
+                        builder.setView(input)
+
+                        input.setText(UserPreferences(requireContext()).customHomepageUrl)
+
+                        builder.setPositiveButton(
+                            "OK"
+                        ) { dialog, which ->
+                            UserPreferences(requireContext()).customHomepageUrl = input.text.toString()
+                            Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
+                        }
+                        builder.setNegativeButton(
+                            "Cancel"
+                        ) { dialog, which ->
+
+                        }
+
+                        builder.show()
+                    }
                 }
                 .show()
     }
