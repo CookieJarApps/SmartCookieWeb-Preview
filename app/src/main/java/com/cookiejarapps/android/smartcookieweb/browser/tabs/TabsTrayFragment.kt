@@ -154,10 +154,10 @@ class TabsTrayFragment : Fragment() {
 
     private fun removeTabsDialog(view: View) {
         val items = arrayOf(
-            "Close current tab",
-            "Close other tabs",
-            "Close all tabs",
-            "Close browser"
+            requireContext().resources.getString(R.string.close_current_tab),
+            requireContext().resources.getString(R.string.close_other_tabs),
+            requireContext().resources.getString(R.string.close_all_tabs),
+            requireContext().resources.getString(R.string.close_app)
         )
 
         MaterialAlertDialogBuilder(requireContext())

@@ -8,11 +8,14 @@
       "id": "print@cookiejarapps.com"
     }
   },
+  "background": {
+    "scripts": ["background.js"]
+  },
   "content_scripts": [
     {
       "matches": ["https://*/*"],
       "js": ["print.js"],
-      "run_at": "document_end"
+      "run_at": "document_idle"
     }
   ],
   "permissions": [

@@ -366,6 +366,7 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
             ): Any {
                 val converter = PrintUtils.instance
                 val htmlString = message.toString()
+                Log.d("gsgdsgd", htmlString)
                 converter!!.convert(this@BrowserActivity, htmlString, components.sessionManager.selectedSession?.url)
                 printExtension?.let { components.engine.disableWebExtension(it, onSuccess = {}) }
 
@@ -377,7 +378,7 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
             "print@cookiejarapps.com",
             "resource://android/assets/print/",
             onSuccess = { extension ->
-                extension?.let { components.engine.disableWebExtension(it, onSuccess = {}) }
+                //extension.let { components.engine.disableWebExtension(it, onSuccess = {}) }
                 printExtension = extension
                 val store = components.store
                 store.flowScoped { flow ->
@@ -399,9 +400,11 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
 
     fun printPage(){
         // Reload page and enable add-on at the same time to load the add-on, then reload again to trigger add-on on page
-        printExtension?.let { components.engine.enableWebExtension(it, onSuccess = {
-            components.sessionUseCases.stopLoading.invoke()
-            components.sessionUseCases.reload.invoke()
+        printExtension?.let { webExtension ->
+            components.engine.enableWebExtension(webExtension, onSuccess = {
+            components.sessionManager.selectedSession?.let {
+                components.sessionUseCases.reload.invoke(it, flags = EngineSession.LoadUrlFlags.select(EngineSession.LoadUrlFlags.BYPASS_CACHE))
+            }
         }
         )}
     }
