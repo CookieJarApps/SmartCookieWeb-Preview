@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context.LAYOUT_INFLATER_SERVICE
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +12,17 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import mozilla.components.concept.engine.Engine
 import java.util.concurrent.TimeUnit
+import kotlin.coroutines.CoroutineContext
 
 
 class PrivacyAndSecuritySettingsFragment : BaseSettingsFragment() {
@@ -101,32 +106,27 @@ class PrivacyAndSecuritySettingsFragment : BaseSettingsFragment() {
     }
 
     private fun clearCookies(){
-        GlobalScope.launch{
-            requireContext().components.engine.clearData(
+         requireContext().components.engine.clearData(
                 Engine.BrowsingData.select(
                     Engine.BrowsingData.COOKIES,
                     Engine.BrowsingData.AUTH_SESSIONS
                 )
             )
-        }
         Toast.makeText(context, R.string.cookies_cleared, Toast.LENGTH_LONG).show()
     }
 
     private fun clearCache(){
-        GlobalScope.launch{
-            requireContext().components.engine.clearData(
-                Engine.BrowsingData.select(Engine.BrowsingData.ALL_CACHES)
-            )
-        }
+        requireContext().components.engine.clearData(
+            Engine.BrowsingData.select(Engine.BrowsingData.ALL_CACHES)
+        )
         Toast.makeText(context, R.string.cache_cleared, Toast.LENGTH_LONG).show()
     }
 
     private fun clearPermissions(){
-        GlobalScope.launch{
-            requireContext().components.engine.clearData(
-                    Engine.BrowsingData.select(Engine.BrowsingData.ALL_SITE_SETTINGS)
-                )
-        }
+        requireContext().components.engine.clearData(
+            Engine.BrowsingData.select(Engine.BrowsingData.PERMISSIONS)
+        )
+        GlobalScope.launch { components.permissionStorage.removeAll() }
         Toast.makeText(context, R.string.permissions_cleared, Toast.LENGTH_LONG).show()
     }
 }
