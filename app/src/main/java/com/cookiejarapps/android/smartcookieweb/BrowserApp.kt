@@ -84,12 +84,10 @@ class BrowserApp : Application() {
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
 
-        logger.debug("onTrimMemory: $level")
-
         runOnlyInMainProcess {
-            components.store.dispatch(SystemAction.LowMemoryAction(level))
-
             components.icons.onTrimMemory(level)
+
+            components.store.dispatch(SystemAction.LowMemoryAction(level))
         }
     }
 }

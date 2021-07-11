@@ -363,10 +363,11 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
             override fun onMessage(
                 message: Any, source: EngineSession?
             ): Any {
-                val converter = PrintUtils.instance
-                val htmlString = message.toString()
-                converter!!.convert(this@BrowserActivity, htmlString, components.sessionManager.selectedSession?.url)
-                printExtension?.let { components.engine.disableWebExtension(it, onSuccess = {}) }
+                if(message is String){
+                    val converter = PrintUtils.instance
+                    converter!!.convert(this@BrowserActivity, message, components.sessionManager.selectedSession?.url)
+                    printExtension?.let { components.engine.disableWebExtension(it, onSuccess = {}) }
+                }
 
                 return ""
             }
