@@ -358,7 +358,6 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
     }
 
     private fun installPrintExtension(){
-
         val messageDelegate: MessageHandler = object :
             MessageHandler {
             override fun onMessage(
@@ -366,7 +365,6 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
             ): Any {
                 val converter = PrintUtils.instance
                 val htmlString = message.toString()
-                Log.d("gsgdsgd", htmlString)
                 converter!!.convert(this@BrowserActivity, htmlString, components.sessionManager.selectedSession?.url)
                 printExtension?.let { components.engine.disableWebExtension(it, onSuccess = {}) }
 
@@ -378,7 +376,7 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
             "print@cookiejarapps.com",
             "resource://android/assets/print/",
             onSuccess = { extension ->
-                //extension.let { components.engine.disableWebExtension(it, onSuccess = {}) }
+                extension.let { components.engine.disableWebExtension(it, onSuccess = {}) }
                 printExtension = extension
                 val store = components.store
                 store.flowScoped { flow ->
