@@ -98,7 +98,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
-    final def mozComponentsVersion = '90.0.11'
+    final def mozComponentsVersion = '90.0.12'
 
     // Mozilla components
     implementation "org.mozilla.components:browser-icons:$mozComponentsVersion"

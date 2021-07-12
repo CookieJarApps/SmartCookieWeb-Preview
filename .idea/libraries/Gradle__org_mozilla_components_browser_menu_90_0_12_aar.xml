@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:browser-menu:90.0.12@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/2ff7ac69912fe20edebd8de925853ac5/transformed/jetified-browser-menu-90.0.11/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/2ff7ac69912fe20edebd8de925853ac5/transformed/jetified-browser-menu-90.0.11/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/2ff7ac69912fe20edebd8de925853ac5/transformed/jetified-browser-menu-90.0.11/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/browser-menu/90.0.12/76ba0dc8e72c629d052e4abbfaffa192e4ca5e19/browser-menu-90.0.12-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
