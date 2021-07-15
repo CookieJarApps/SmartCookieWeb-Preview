@@ -391,20 +391,6 @@ class HomeFragment : Fragment() {
         requireActivity().window.clearFlags(FLAG_SECURE)
     }
 
-    override fun onPause() {
-        super.onPause()
-        if (browsingModeManager.mode == BrowsingMode.Private) {
-            activity?.window?.setBackgroundDrawable(
-                ColorDrawable(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.photonPurple50
-                    )
-                )
-            )
-        }
-    }
-
     private fun navigateToSearch() {
         val directions =
             HomeFragmentDirections.actionGlobalSearchDialog(
