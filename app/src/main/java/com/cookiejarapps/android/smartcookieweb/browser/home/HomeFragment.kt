@@ -150,18 +150,9 @@ class HomeFragment : Fragment() {
                     R.id.browserFragment
                 )
 
-                if (browsingModeManager.mode == BrowsingMode.Normal) {
-                    components.tabsUseCases.addTab.invoke(
-                        (view.shortcut_grid.adapter.getItem(position) as ShortcutEntity).url!!,
-                        selectTab = true
-                    )
-                }
-                else{
-                    components.tabsUseCases.addPrivateTab.invoke(
-                        (view.shortcut_grid.adapter.getItem(position) as ShortcutEntity).url!!,
-                        selectTab = true
-                    )
-                }
+                components.sessionUseCases.loadUrl(
+                    (view.shortcut_grid.adapter.getItem(position) as ShortcutEntity).url!!
+                )
             }
         }
 

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:concept-toolbar:90.0.0@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/cd705d4088b94c30174ffde275c865ba/transformed/jetified-concept-toolbar-90.0.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/cd705d4088b94c30174ffde275c865ba/transformed/jetified-concept-toolbar-90.0.1/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/cd705d4088b94c30174ffde275c865ba/transformed/jetified-concept-toolbar-90.0.1/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/concept-toolbar/90.0.0/6c4b72eb3c6eae3a47d30b3c49e5a02a59928802/concept-toolbar-90.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

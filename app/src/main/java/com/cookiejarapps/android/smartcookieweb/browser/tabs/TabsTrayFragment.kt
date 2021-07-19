@@ -1,6 +1,7 @@
 package com.cookiejarapps.android.smartcookieweb.browser.tabs
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,21 +62,56 @@ class TabsTrayFragment : Fragment() {
             when (it.itemId) {
                 R.id.newTab -> {
                     if (UserPreferences(requireContext()).homepageType == HomepageChoice.VIEW.ordinal) {
-                        findNavController().navigate(
-                            HomeFragmentDirections.actionGlobalHome(
-                                focusOnAddressBar = true
-                            )
+                        components.tabsUseCases.addTab.invoke(
+                            "about:homepage",
+                                selectTab = true
                         )
                     } else {
                         when (browsingModeManager.mode) {
-                            BrowsingMode.Normal -> components.tabsUseCases.addTab.invoke(
-                                if(UserPreferences(requireContext()).homepageType == HomepageChoice.BLANK_PAGE.ordinal) "about:blank" else UserPreferences(requireContext()).customHomepageUrl,
-                                selectTab = true
-                            )
-                            BrowsingMode.Private -> components.tabsUseCases.addPrivateTab.invoke(
-                                if(UserPreferences(requireContext()).homepageType == HomepageChoice.BLANK_PAGE.ordinal) "about:blank" else UserPreferences(requireContext()).customHomepageUrl,
-                                selectTab = true
-                            )
+                            BrowsingMode.Normal -> {
+                                when(UserPreferences(requireContext()).homepageType){
+                                    HomepageChoice.VIEW.ordinal -> {
+                                        components.tabsUseCases.addTab.invoke(
+                                            "about:blank",
+                                            selectTab = true
+                                        )
+                                    }
+                                    HomepageChoice.BLANK_PAGE.ordinal -> {
+                                        components.tabsUseCases.addTab.invoke(
+                                            "about:blank",
+                                            selectTab = true
+                                        )
+                                    }
+                                    HomepageChoice.CUSTOM_PAGE.ordinal -> {
+                                        components.tabsUseCases.addTab.invoke(
+                                            UserPreferences(requireContext()).customHomepageUrl,
+                                            selectTab = true
+                                        )
+                                    }
+                                }
+                            }
+                            BrowsingMode.Private -> {
+                                when(UserPreferences(requireContext()).homepageType){
+                                    HomepageChoice.VIEW.ordinal -> {
+                                        components.tabsUseCases.addPrivateTab.invoke(
+                                            "about:blank",
+                                            selectTab = true
+                                        )
+                                    }
+                                    HomepageChoice.BLANK_PAGE.ordinal -> {
+                                        components.tabsUseCases.addPrivateTab.invoke(
+                                            "about:blank",
+                                            selectTab = true
+                                        )
+                                    }
+                                    HomepageChoice.CUSTOM_PAGE.ordinal -> {
+                                        components.tabsUseCases.addPrivateTab.invoke(
+                                            UserPreferences(requireContext()).customHomepageUrl,
+                                            selectTab = true
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
                     closeTabsTray()
@@ -240,7 +276,10 @@ private class SelectTabWithHomepageUseCase(
     override fun invoke(tabId: String) {
         actual(tabId)
 
-        if (activity.findNavController(R.id.container).currentDestination?.id == R.id.browserFragment) {
+        if(activity.components.sessionManager.findSessionById(tabId)?.url == "about:homepage"){
+            activity.components.sessionUseCases.reload(activity.components.sessionManager.findSessionById(tabId))
+        }
+        else if (activity.findNavController(R.id.container).currentDestination?.id == R.id.browserFragment) {
             return
         } else if (!activity.findNavController(R.id.container).popBackStack(R.id.browserFragment, false)) {
             activity.findNavController(R.id.container).navigate(R.id.browserFragment)
@@ -257,7 +296,16 @@ private class RemoveTabWithUndoUseCase(
     override fun invoke(sessionId: String) {
         actual(sessionId)
 
-        if(view.context.components.sessionManager.sessions.isEmpty() && UserPreferences(activity).homepageType == HomepageChoice.VIEW.ordinal){
+        if(activity.components.sessionManager.selectedSession?.url == "about:homepage"){
+            activity.components.sessionUseCases.reload(activity.components.sessionManager.selectedSession)
+        }
+        else{
+            if (!activity.findNavController(R.id.container).popBackStack(R.id.browserFragment, false)) {
+                activity.findNavController(R.id.container).navigate(R.id.browserFragment)
+            }
+        }
+
+        if(activity.components.sessionManager.sessions.isEmpty() && UserPreferences(activity).homepageType == HomepageChoice.VIEW.ordinal){
             val directions = NavGraphDirections.actionGlobalHome()
             activity.findNavController(R.id.container).navigate(directions)
         }

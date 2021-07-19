@@ -182,6 +182,8 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
         // TODO: test performance impact
         installPrintExtension()
 
+        components.appRequestInterceptor.setNavController(navHost.navController)
+
         lifecycle.addObserver(webExtensionPopupFeature)
     }
 
@@ -401,9 +403,7 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
         // Reload page and enable add-on at the same time to load the add-on, then reload again to trigger add-on on page
         printExtension?.let { webExtension ->
             components.engine.enableWebExtension(webExtension, onSuccess = {
-            components.sessionManager.selectedSession?.let {
-                components.sessionUseCases.reload.invoke(it, flags = EngineSession.LoadUrlFlags.select(EngineSession.LoadUrlFlags.BYPASS_CACHE))
-            }
+            components.sessionUseCases.reload.invoke(components.sessionManager.selectedSession, flags = EngineSession.LoadUrlFlags.select(EngineSession.LoadUrlFlags.BYPASS_CACHE))
         }
         )}
     }

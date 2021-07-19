@@ -118,11 +118,15 @@ open class Components(private val applicationContext: Context) {
         }
     }
 
+    val appRequestInterceptor by lazy {
+        AppRequestInterceptor(applicationContext)
+    }
+
     // Engine Settings
     val engineSettings by lazy {
         DefaultSettings().apply {
             historyTrackingDelegate = HistoryDelegate(lazyHistoryStorage)
-            requestInterceptor = AppRequestInterceptor(applicationContext)
+            requestInterceptor = appRequestInterceptor
             remoteDebuggingEnabled = UserPreferences(applicationContext).remoteDebugging
             supportMultipleWindows = true
             enterpriseRootsEnabled = UserPreferences(applicationContext).trustThirdPartyCerts

@@ -4,8 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.core.content.ContextCompat.startActivity
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.cookiejarapps.android.smartcookieweb.BrowserActivity
+import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.addons.AddonDetailsActivity
 import com.cookiejarapps.android.smartcookieweb.addons.AddonsActivity
+import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import mozilla.components.browser.errorpages.ErrorPages
@@ -13,9 +19,16 @@ import mozilla.components.browser.errorpages.ErrorType
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.request.RequestInterceptor
 import mozilla.components.concept.engine.request.RequestInterceptor.InterceptionResponse
+import java.lang.ref.WeakReference
 
 
 class AppRequestInterceptor(val context: Context) : RequestInterceptor {
+
+    private var navController: WeakReference<NavController>? = null
+
+    fun setNavController(navController: NavController) {
+        this.navController = WeakReference(navController)
+    }
 
     override fun onLoadRequest(
         engineSession: EngineSession,
@@ -52,6 +65,21 @@ class AppRequestInterceptor(val context: Context) : RequestInterceptor {
         uri: String?
     ): RequestInterceptor.ErrorResponse? {
         val riskLevel = getErrorCategory(errorType)
+
+        if (uri == "about:homepage") {
+            /* This needs to be in onErrorRequest because onLoadRequest doesn't load on about pages due to a GeckoView bug
+            * We don't need to (and can't) check whether the URL was loaded by a link, whether the user entered the URL, or whether the browser opened it
+            * This doesn't matter though - GeckoView blocks web pages from loading about URLs already
+            * TODO: Option to focus on address bar when new tab is created
+            */
+            navController?.get()?.navigate(
+                HomeFragmentDirections.actionGlobalHome(
+                    focusOnAddressBar = false
+                )
+            )
+
+            return RequestInterceptor.ErrorResponse("resource://android/assets/homepage.html")
+        }
 
         val errorPageUri = ErrorPages.createUrlEncodedErrorPage(
             context = context,

@@ -59,7 +59,7 @@ class SearchDialogController(
 
         activity.openToBrowserAndLoad(
             searchTermOrURL = url,
-            newTab = fragmentStore.state.tabId == null,
+            newTab = false,
             from = BrowserDirection.FromSearchDialog,
             engine = searchEngine
         )
@@ -92,7 +92,7 @@ class SearchDialogController(
 
         activity.openToBrowserAndLoad(
             searchTermOrURL = url,
-            newTab = fragmentStore.state.tabId == null,
+            newTab = false,
             from = BrowserDirection.FromSearchDialog
         )
     }
@@ -104,7 +104,7 @@ class SearchDialogController(
 
         activity.openToBrowserAndLoad(
             searchTermOrURL = searchTerms,
-            newTab = fragmentStore.state.tabId == null,
+            newTab = false,
             from = BrowserDirection.FromSearchDialog,
             engine = searchEngine,
             forceSearch = true
