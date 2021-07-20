@@ -299,8 +299,7 @@ private class RemoveTabWithUndoUseCase(
         }
 
         if(activity.components.sessionManager.sessions.isEmpty() && UserPreferences(activity).homepageType == HomepageChoice.VIEW.ordinal){
-            val directions = NavGraphDirections.actionGlobalHome()
-            activity.findNavController(R.id.container).navigate(directions)
+            activity.finish()
         }
         else{
             showSnackbar()
