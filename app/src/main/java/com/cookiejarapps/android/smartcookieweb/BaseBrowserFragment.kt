@@ -25,6 +25,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.cookiejarapps.android.smartcookieweb.*
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
+import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.ui.BookmarkFragment
 import com.cookiejarapps.android.smartcookieweb.browser.tabs.TabsTrayFragment
 import com.cookiejarapps.android.smartcookieweb.components.StoreProvider
@@ -605,7 +606,26 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                                 activity.browsingModeManager.mode.isPrivate
                             )
                         if (tabs.isEmpty() || store.state.selectedTabId == null) {
-                            navController.popBackStack(R.id.homeFragment, false)
+                            when(UserPreferences(requireContext()).homepageType){
+                                HomepageChoice.VIEW.ordinal -> {
+                                    components.tabsUseCases.addTab.invoke(
+                                        "about:homepage",
+                                        selectTab = true
+                                    )
+                                }
+                                HomepageChoice.BLANK_PAGE.ordinal -> {
+                                    components.tabsUseCases.addTab.invoke(
+                                        "about:blank",
+                                        selectTab = true
+                                    )
+                                }
+                                HomepageChoice.CUSTOM_PAGE.ordinal -> {
+                                    components.tabsUseCases.addTab.invoke(
+                                        UserPreferences(requireContext()).customHomepageUrl,
+                                        selectTab = true
+                                    )
+                                }
+                            }
                         }
                     }
                 }

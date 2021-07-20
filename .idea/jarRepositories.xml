@@ -51,5 +51,10 @@
       <option name="name" value="maven2" />
       <option name="url" value="https://google.bintray.com/flexbox-layout" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven2" />
+      <option name="name" value="maven2" />
+      <option name="url" value="https://jitpack.io" />
+    </remote-repository>
   </component>
 </project>

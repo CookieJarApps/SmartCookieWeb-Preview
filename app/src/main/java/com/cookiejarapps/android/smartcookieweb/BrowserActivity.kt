@@ -21,6 +21,7 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import com.cookiejarapps.android.smartcookieweb.addons.AddonsFragment
 import com.cookiejarapps.android.smartcookieweb.addons.WebExtensionPopupFragment
 import com.cookiejarapps.android.smartcookieweb.browser.*
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.ui.BookmarkFragment

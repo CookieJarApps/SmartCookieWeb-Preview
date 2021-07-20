@@ -61,18 +61,12 @@ class TabsTrayFragment : Fragment() {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.newTab -> {
-                    if (UserPreferences(requireContext()).homepageType == HomepageChoice.VIEW.ordinal) {
-                        components.tabsUseCases.addTab.invoke(
-                            "about:homepage",
-                                selectTab = true
-                        )
-                    } else {
-                        when (browsingModeManager.mode) {
+                    when (browsingModeManager.mode) {
                             BrowsingMode.Normal -> {
                                 when(UserPreferences(requireContext()).homepageType){
                                     HomepageChoice.VIEW.ordinal -> {
                                         components.tabsUseCases.addTab.invoke(
-                                            "about:blank",
+                                            "about:homepage",
                                             selectTab = true
                                         )
                                     }
@@ -94,7 +88,7 @@ class TabsTrayFragment : Fragment() {
                                 when(UserPreferences(requireContext()).homepageType){
                                     HomepageChoice.VIEW.ordinal -> {
                                         components.tabsUseCases.addPrivateTab.invoke(
-                                            "about:blank",
+                                            "about:homepage",
                                             selectTab = true
                                         )
                                     }
@@ -111,7 +105,6 @@ class TabsTrayFragment : Fragment() {
                                         )
                                     }
                                 }
-                            }
                         }
                     }
                     closeTabsTray()
