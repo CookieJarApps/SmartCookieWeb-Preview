@@ -39,7 +39,7 @@ Need help? Open an issue here, or:
 ## Installation
 
 - To get started with this project, import it into Android Studio or build from the command line with Gradle:
- 
+
  `gradlew assembleDebug` or `./gradlew assembleDebug`
 
 ---
