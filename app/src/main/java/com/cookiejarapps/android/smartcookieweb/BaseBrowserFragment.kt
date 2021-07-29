@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,7 @@ import com.cookiejarapps.android.smartcookieweb.*
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
 import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.ui.BookmarkFragment
+import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
 import com.cookiejarapps.android.smartcookieweb.browser.tabs.TabsTrayFragment
 import com.cookiejarapps.android.smartcookieweb.components.StoreProvider
 import com.cookiejarapps.android.smartcookieweb.components.toolbar.*
@@ -611,6 +613,11 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                                     components.tabsUseCases.addTab.invoke(
                                         "about:homepage",
                                         selectTab = true
+                                    )
+                                    navController.navigate(
+                                        HomeFragmentDirections.actionGlobalHome(
+                                            focusOnAddressBar = false
+                                        )
                                     )
                                 }
                                 HomepageChoice.BLANK_PAGE.ordinal -> {
