@@ -293,4 +293,5 @@
   <string name="custom_search_engine_error">Search URL does not contain \'{searchTerms}\'</string>
 
   <string name="clear">Clear</string>
+  <string name="name">Name</string>
 </resources>

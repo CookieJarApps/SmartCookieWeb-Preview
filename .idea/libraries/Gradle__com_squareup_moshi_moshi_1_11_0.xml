@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: com.squareup.moshi:moshi:1.11.0">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/com.squareup.moshi/moshi/1.11.0/14c426fc49ee29eb871e8b259326e967082a72ad/moshi-1.11.0.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.moshi/moshi/1.11.0/14c426fc49ee29eb871e8b259326e967082a72ad/moshi-1.11.0.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/com.squareup.moshi/moshi/1.11.0/b7930b7bc8b75cbdeb802aebb8a87e4b707f9949/moshi-1.11.0-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.moshi/moshi/1.11.0/b7930b7bc8b75cbdeb802aebb8a87e4b707f9949/moshi-1.11.0-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/com.squareup.moshi/moshi/1.11.0/2463e90d503aaf3ed11d6ee72470529b509cd4b/moshi-1.11.0-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.moshi/moshi/1.11.0/2463e90d503aaf3ed11d6ee72470529b509cd4b/moshi-1.11.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

@@ -68,7 +68,6 @@ import mozilla.components.feature.session.HistoryDelegate
 import mozilla.components.feature.session.SessionUseCases
 import mozilla.components.feature.session.middleware.LastAccessMiddleware
 import mozilla.components.feature.session.middleware.undo.UndoMiddleware
-import mozilla.components.feature.sitepermissions.SitePermissionsStorage
 import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.feature.webcompat.WebCompatFeature
 import mozilla.components.feature.webnotifications.WebNotificationFeature
@@ -80,8 +79,10 @@ import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.request.AppRequestInterceptor
 import com.cookiejarapps.android.smartcookieweb.utils.ClipboardHandler
 import mozilla.components.browser.engine.gecko.ext.toContentBlockingSetting
-import mozilla.components.browser.session.ext.toTabSessionState
+import mozilla.components.browser.engine.gecko.permission.GeckoSitePermissionsStorage
 import mozilla.components.concept.engine.EngineSession
+import mozilla.components.concept.engine.permission.SitePermissionsStorage
+import mozilla.components.feature.sitepermissions.OnDiskSitePermissionsStorage
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import org.mozilla.geckoview.ContentBlocking
 import java.util.concurrent.TimeUnit
@@ -157,7 +158,7 @@ open class Components(private val applicationContext: Context) {
 
     val sessionStorage by lazy { SessionStorage(applicationContext, engine) }
 
-    val permissionStorage by lazy { SitePermissionsStorage(applicationContext) }
+    val permissionStorage by lazy { GeckoSitePermissionsStorage(runtime, OnDiskSitePermissionsStorage(applicationContext)) }
 
     val thumbnailStorage by lazy { ThumbnailStorage(applicationContext) }
 
@@ -177,14 +178,14 @@ open class Components(private val applicationContext: Context) {
                         LastAccessMiddleware()
                 ) + EngineMiddleware.create(engine)
         ).apply{
-            icons.install(engine, store)
+            icons.install(engine, this)
 
             WebNotificationFeature(
                     applicationContext, engine, icons, R.drawable.ic_notification,
                     permissionStorage, BrowserActivity::class.java
             )
 
-            MediaSessionFeature(applicationContext, MediaSessionService::class.java, store).start()
+            MediaSessionFeature(applicationContext, MediaSessionService::class.java, this).start()
         }
     }
 

@@ -41,6 +41,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import mozilla.components.browser.icons.IconRequest
 import mozilla.components.browser.state.search.SearchEngine
+import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.state.WebExtensionState
 import mozilla.components.concept.engine.EngineSession
@@ -349,7 +350,7 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
                 components.searchUseCases.newTabSearch
                     .invoke(
                             searchTermOrURL,
-                            SessionState.Source.USER_ENTERED,
+                            SessionState.Source.Internal.UserEntered,
                             true,
                             mode.isPrivate,
                             searchEngine = engine
@@ -368,7 +369,7 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
             ): Any {
                 if(message is String){
                     val converter = PrintUtils.instance
-                    converter!!.convert(this@BrowserActivity, message, components.sessionManager.selectedSession?.url)
+                    converter!!.convert(this@BrowserActivity, message, components.store.state.selectedTab?.content?.url)
                     printExtension?.let { components.engine.disableWebExtension(it, onSuccess = {}) }
                 }
 
@@ -404,7 +405,7 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
         // Reload page and enable add-on at the same time to load the add-on, then reload again to trigger add-on on page
         printExtension?.let { webExtension ->
             components.engine.enableWebExtension(webExtension, onSuccess = {
-            components.sessionUseCases.reload.invoke(components.sessionManager.selectedSession, flags = EngineSession.LoadUrlFlags.select(EngineSession.LoadUrlFlags.BYPASS_CACHE))
+            components.sessionUseCases.reload.invoke(components.store.state.selectedTabId, flags = EngineSession.LoadUrlFlags.select(EngineSession.LoadUrlFlags.BYPASS_CACHE))
         }
         )}
     }

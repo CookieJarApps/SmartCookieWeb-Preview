@@ -774,7 +774,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
      */
     protected open fun removeSessionIfNeeded(): Boolean {
         getCurrentTab()?.let { session ->
-            return if (session.source == SessionState.Source.ACTION_VIEW) {
+            return if (session.source is SessionState.Source.External && !session.restored) {
                 activity?.finish()
                 requireContext().components.tabsUseCases.removeTab(session.id)
                 true
@@ -892,12 +892,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         private const val REQUEST_CODE_DOWNLOAD_PERMISSIONS = 1
         private const val REQUEST_CODE_PROMPT_PERMISSIONS = 2
         private const val REQUEST_CODE_APP_PERMISSIONS = 3
-
-        val intentSourcesList: List<SessionState.Source> = listOf(
-            SessionState.Source.ACTION_SEARCH,
-            SessionState.Source.ACTION_SEND,
-            SessionState.Source.ACTION_VIEW
-        )
     }
 
     override fun onAccessibilityStateChanged(enabled: Boolean) {

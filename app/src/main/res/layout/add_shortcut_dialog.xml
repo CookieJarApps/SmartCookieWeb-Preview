@@ -9,6 +9,24 @@
     android:paddingEnd="4dp"
     android:paddingTop="8dp">
 
+    <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp">
+
+        <EditText
+                android:id="@+id/nameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/name"
+                android:inputType="textUri" />
+
+        <requestFocus />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -24,8 +42,6 @@
             android:ems="10"
             android:hint="@string/url"
             android:inputType="textUri" />
-
-        <requestFocus />
 
     </com.google.android.material.textfield.TextInputLayout>
 

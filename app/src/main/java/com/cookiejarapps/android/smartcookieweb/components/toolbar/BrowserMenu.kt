@@ -114,8 +114,8 @@ class BrowserMenu(
         onItemTapped.invoke(ToolbarMenu.Item.OpenInApp)
     }.apply {
         visible = {
-            context.components.sessionManager.selectedSession?.let {
-                context.components.appLinksUseCases.appLinkRedirect(it.url).hasExternalApp()
+            context.components.store.state.selectedTab?.let {
+                context.components.appLinksUseCases.appLinkRedirect(it.content.url).hasExternalApp()
             } ?: false
         }
     }

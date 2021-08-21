@@ -28,6 +28,7 @@ import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import kotlinx.android.synthetic.main.fragment_bookmark.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import mozilla.components.browser.state.selector.selectedTab
 
 class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener, PathView.OnPathViewClickListener {
 
@@ -66,7 +67,7 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener,
         tool_bar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.addBookmark -> {
-                    AddBookmarkSiteDialog(activity, context?.components?.sessionManager?.selectedSession?.title ?: "", context?.components?.sessionManager?.selectedSession?.url ?: "")
+                    AddBookmarkSiteDialog(activity, context?.components?.store?.state?.selectedTab?.content?.title ?: "", context?.components?.store?.state?.selectedTab?.content?.url ?: "")
                         .setOnClickListener { _, _ -> adapter.notifyDataSetChanged() }
                         .show()
                 }

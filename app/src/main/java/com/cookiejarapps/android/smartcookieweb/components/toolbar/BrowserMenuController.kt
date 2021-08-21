@@ -22,6 +22,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
+import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineSession.LoadUrlFlags
@@ -103,7 +104,7 @@ class DefaultBrowserToolbarMenuController(
             }
             is ToolbarMenu.Item.Share -> {
                 MainScope().launch {
-                    activity.components.sessionManager.selectedSession?.let {
+                    activity.components.store.state.selectedTab?.content?.let {
                         val shareIntent = Intent(Intent.ACTION_SEND)
                         shareIntent.type = "text/plain"
                         if (it.title != "") {

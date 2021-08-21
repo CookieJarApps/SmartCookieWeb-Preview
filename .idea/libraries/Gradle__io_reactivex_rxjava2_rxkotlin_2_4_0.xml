@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: io.reactivex.rxjava2:rxkotlin:2.4.0">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxkotlin/2.4.0/2f4a35d683b4851a036b8828d4a7c6888adf75c7/rxkotlin-2.4.0.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxkotlin/2.4.0/2f4a35d683b4851a036b8828d4a7c6888adf75c7/rxkotlin-2.4.0.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxkotlin/2.4.0/6e0497604fa8f04c7c436863a27e3fc23ca23c4c/rxkotlin-2.4.0-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxkotlin/2.4.0/6e0497604fa8f04c7c436863a27e3fc23ca23c4c/rxkotlin-2.4.0-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxkotlin/2.4.0/8c52f3da3d15b0308c298ca5f518acd08e53ae49/rxkotlin-2.4.0-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxkotlin/2.4.0/8c52f3da3d15b0308c298ca5f518acd08e53ae49/rxkotlin-2.4.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

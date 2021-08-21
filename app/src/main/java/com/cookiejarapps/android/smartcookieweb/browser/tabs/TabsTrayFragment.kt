@@ -28,7 +28,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import kotlinx.android.synthetic.main.fragment_tabstray.*
+import mozilla.components.browser.state.selector.findTabOrCustomTab
 import mozilla.components.browser.state.selector.getNormalOrPrivateTabs
+import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.browser.thumbnails.loader.ThumbnailLoader
 import mozilla.components.feature.tabs.TabsUseCases
@@ -194,12 +196,12 @@ class TabsTrayFragment : Fragment() {
             .setItems(items) { dialog, which ->
                 when (which) {
                     0 -> {
-                        components.sessionManager.selectedSession?.id?.let { id ->
+                        components.store.state.selectedTabId?.let { id ->
                             components.tabsUseCases.removeTab(
                                 id
                             )
                         }
-                        if (view.context.components.sessionManager.sessions.isEmpty() && UserPreferences(
+                        if (view.context.components.store.state.tabs.isEmpty() && UserPreferences(
                                 requireContext()
                             ).homepageType == HomepageChoice.VIEW.ordinal
                         ) {
@@ -224,8 +226,8 @@ class TabsTrayFragment : Fragment() {
                         snackbar.show()
                     }
                     1 -> {
-                        val tabList = components.sessionManager.sessions.toMutableList()
-                        tabList.remove(components.sessionManager.selectedSession)
+                        val tabList = components.store.state.tabs.toMutableList()
+                        tabList.remove(components.store.state.selectedTab)
                         val idList: MutableList<String> =
                             emptyList<String>().toMutableList()
                         for (i in tabList) idList.add(i.id)
@@ -269,8 +271,8 @@ private class SelectTabWithHomepageUseCase(
     override fun invoke(tabId: String) {
         actual(tabId)
 
-        if(activity.components.sessionManager.findSessionById(tabId)?.url == "about:homepage"){
-            activity.components.sessionUseCases.reload(activity.components.sessionManager.findSessionById(tabId))
+        if(activity.components.store.state.findTabOrCustomTab(tabId)?.content?.url == "about:homepage"){
+            activity.components.sessionUseCases.reload(activity.components.store.state.findTabOrCustomTab(tabId)?.id)
         }
         else if (activity.findNavController(R.id.container).currentDestination?.id == R.id.browserFragment) {
             return
@@ -289,8 +291,8 @@ private class RemoveTabWithUndoUseCase(
     override fun invoke(sessionId: String) {
         actual(sessionId)
 
-        if(activity.components.sessionManager.selectedSession?.url == "about:homepage"){
-            activity.components.sessionUseCases.reload(activity.components.sessionManager.selectedSession)
+        if(activity.components.store.state.selectedTab?.content?.url == "about:homepage"){
+            activity.components.sessionUseCases.reload(activity.components.store.state.selectedTabId)
         }
         else{
             if (!activity.findNavController(R.id.container).popBackStack(R.id.browserFragment, false)) {
@@ -298,7 +300,7 @@ private class RemoveTabWithUndoUseCase(
             }
         }
 
-        if(activity.components.sessionManager.sessions.isEmpty() && UserPreferences(activity).homepageType == HomepageChoice.VIEW.ordinal){
+        if(activity.components.store.state.tabs.isEmpty() && UserPreferences(activity).homepageType == HomepageChoice.VIEW.ordinal){
             activity.finish()
         }
         else{
