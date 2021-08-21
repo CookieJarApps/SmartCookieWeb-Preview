@@ -108,7 +108,6 @@ dependencies {
     implementation "org.mozilla.components:browser-state:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-toolbar:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-engine-system:$mozComponentsVersion"
-    implementation "org.mozilla.components:browser-session:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-session-storage:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-tabstray:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-menu:$mozComponentsVersion"

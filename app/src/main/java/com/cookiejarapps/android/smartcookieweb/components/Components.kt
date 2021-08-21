@@ -28,9 +28,7 @@ import mozilla.components.browser.menu.item.BrowserMenuCheckbox
 import mozilla.components.browser.menu.item.BrowserMenuDivider
 import mozilla.components.browser.menu.item.BrowserMenuImageText
 import mozilla.components.browser.menu.item.BrowserMenuItemToolbar
-import mozilla.components.browser.session.Session
-import mozilla.components.browser.session.SessionManager
-import mozilla.components.browser.session.engine.EngineMiddleware
+import mozilla.components.browser.state.engine.EngineMiddleware
 import mozilla.components.browser.session.storage.SessionStorage
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.store.BrowserStore
@@ -169,7 +167,7 @@ open class Components(private val applicationContext: Context) {
                         DownloadMiddleware(applicationContext, DownloadService::class.java),
                         ReaderViewMiddleware(),
                         ThumbnailsMiddleware(thumbnailStorage),
-                        UndoMiddleware(::sessionManagerLookup),
+                        UndoMiddleware(),
                         RegionMiddleware(
                                 applicationContext,
                                 LocationService.default()
@@ -177,20 +175,8 @@ open class Components(private val applicationContext: Context) {
                         SearchMiddleware(applicationContext),
                         RecordingDevicesMiddleware(applicationContext),
                         LastAccessMiddleware()
-                ) + EngineMiddleware.create(engine, ::findSessionById)
-        )
-    }
-
-    private fun findSessionById(tabId: String): Session? {
-        return sessionManager.findSessionById(tabId)
-    }
-
-    private fun sessionManagerLookup(): SessionManager {
-        return sessionManager
-    }
-
-    val sessionManager by lazy {
-        SessionManager(engine, store).apply {
+                ) + EngineMiddleware.create(engine)
+        ).apply{
             icons.install(engine, store)
 
             WebNotificationFeature(
@@ -202,7 +188,7 @@ open class Components(private val applicationContext: Context) {
         }
     }
 
-    val sessionUseCases by lazy { SessionUseCases(store, sessionManager) }
+    val sessionUseCases by lazy { SessionUseCases(store) }
 
     // Addons
     val addonManager by lazy {
@@ -307,7 +293,7 @@ open class Components(private val applicationContext: Context) {
     ) }
     val webAppUseCases by lazy { WebAppUseCases(applicationContext, store, webAppShortcutManager) }
 
-    val tabsUseCases: TabsUseCases by lazy { TabsUseCases(store, sessionManager) }
+    val tabsUseCases: TabsUseCases by lazy { TabsUseCases(store) }
     val downloadsUseCases: DownloadsUseCases by lazy { DownloadsUseCases(store) }
     val contextMenuUseCases: ContextMenuUseCases by lazy { ContextMenuUseCases(store) }
 }
