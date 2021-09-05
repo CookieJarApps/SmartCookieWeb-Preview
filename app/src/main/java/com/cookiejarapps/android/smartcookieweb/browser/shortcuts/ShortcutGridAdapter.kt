@@ -22,6 +22,7 @@ internal class ShortcutGridAdapter(
     BaseAdapter() {
     private var layoutInflater: LayoutInflater? = null
     private lateinit var imageView: ImageView
+    private lateinit var nameView: TextView
     var list = shortcuts
 
     override fun getCount(): Int {
@@ -50,10 +51,13 @@ internal class ShortcutGridAdapter(
             convertView = layoutInflater!!.inflate(R.layout.shortcut_item, null)
         }
         imageView = convertView!!.findViewById(R.id.shortcut_icon)
+        nameView = convertView!!.findViewById(R.id.shortcut_name)
 
         val protocolUrl = if(shortcuts[position].url!!.startsWith("http")) shortcuts[position].url else "https://" +  shortcuts[position].url
         val icon: Bitmap = Utils().createImage(name = getUrlCharacter(protocolUrl!!), context = context)
         imageView.setImageBitmap(icon)
+
+        nameView.text = shortcuts[position].title
 
         return convertView
     }
@@ -84,12 +88,5 @@ internal class ShortcutGridAdapter(
         }
 
         return "?"
-    }
-
-    inner class ViewHolder(view: View) {
-        val nameView: TextView = view.findViewById(R.id.shortcut_name)
-        val imageView: ImageView
-
-        = view.findViewById(R.id.shortcut_icon)
     }
 }
