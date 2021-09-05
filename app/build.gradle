@@ -7,6 +7,9 @@ apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
     compileSdkVersion 30
+    lintOptions {
+        abortOnError false
+    }
     buildFeatures {
         dataBinding true
     }
