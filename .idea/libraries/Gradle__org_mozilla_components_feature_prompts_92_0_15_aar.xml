@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-prompts:92.0.15@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0a47d4e49e4a54ce0c7e1c12c2ac6073/transformed/jetified-feature-prompts-92.0.15/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0a47d4e49e4a54ce0c7e1c12c2ac6073/transformed/jetified-feature-prompts-92.0.15/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0a47d4e49e4a54ce0c7e1c12c2ac6073/transformed/jetified-feature-prompts-92.0.15/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-prompts/92.0.15/e98a7922b42776e6b814d5ef3e3ce5dbde0ca103/feature-prompts-92.0.15-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
