@@ -17,9 +17,6 @@ class ShortcutsSuggestionProvider(
 ) : AwesomeBar.SuggestionProvider {
     override val id: String = UUID.randomUUID().toString()
 
-    override val shouldClearSuggestions: Boolean
-        get() = false
-
     override suspend fun onInputChanged(text: String): List<AwesomeBar.Suggestion> {
         val suggestions = mutableListOf<AwesomeBar.Suggestion>()
 

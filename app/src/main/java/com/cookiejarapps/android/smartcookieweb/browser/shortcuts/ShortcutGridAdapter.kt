@@ -1,26 +1,19 @@
 package com.cookiejarapps.android.smartcookieweb.browser.shortcuts
 
-import android.R.attr.bitmap
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
-import androidx.core.graphics.drawable.toDrawable
+import android.widget.TextView
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.ext.components
+import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.utils.Utils
-import kotlinx.coroutines.*
-import mozilla.components.browser.icons.IconRequest
 import mozilla.components.support.ktx.android.net.hostWithoutCommonPrefixes
-import org.mozilla.gecko.util.ThreadUtils.runOnUiThread
-
 
 internal class ShortcutGridAdapter(
         private val context: Context,
@@ -56,18 +49,11 @@ internal class ShortcutGridAdapter(
         if (convertView == null) {
             convertView = layoutInflater!!.inflate(R.layout.shortcut_item, null)
         }
-        imageView = convertView!!.findViewById(R.id.item)
+        imageView = convertView!!.findViewById(R.id.shortcut_icon)
 
-        if(shortcuts[position].add){
-            imageView.setImageBitmap(
-                    Utils().createImage(name = "+", context = context)
-            )
-        }
-        else{
-            val protocolUrl = if(shortcuts[position].url!!.startsWith("http")) shortcuts[position].url else "https://" +  shortcuts[position].url
-            val icon: Bitmap = Utils().createImage(name = getUrlCharacter(protocolUrl!!), context = context)
-            imageView.setImageBitmap(icon)
-        }
+        val protocolUrl = if(shortcuts[position].url!!.startsWith("http")) shortcuts[position].url else "https://" +  shortcuts[position].url
+        val icon: Bitmap = Utils().createImage(name = getUrlCharacter(protocolUrl!!), context = context)
+        imageView.setImageBitmap(icon)
 
         return convertView
     }
@@ -98,5 +84,12 @@ internal class ShortcutGridAdapter(
         }
 
         return "?"
+    }
+
+    inner class ViewHolder(view: View) {
+        val nameView: TextView = view.findViewById(R.id.shortcut_name)
+        val imageView: ImageView
+
+        = view.findViewById(R.id.shortcut_icon)
     }
 }

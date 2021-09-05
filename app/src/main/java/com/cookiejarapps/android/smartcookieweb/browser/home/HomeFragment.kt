@@ -3,11 +3,9 @@ package com.cookiejarapps.android.smartcookieweb.browser.home
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.Display.FLAG_SECURE
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -17,12 +15,9 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.constraintlayout.widget.ConstraintSet.BOTTOM
-import androidx.constraintlayout.widget.ConstraintSet.PARENT_ID
-import androidx.constraintlayout.widget.ConstraintSet.TOP
+import androidx.constraintlayout.widget.ConstraintSet.*
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.updateLayoutParams
@@ -31,11 +26,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.addons.AddonsActivity
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
-import com.cookiejarapps.android.smartcookieweb.browser.bookmark.ui.BookmarkFragment
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutDatabase
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutEntity
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutGridAdapter
@@ -66,6 +62,7 @@ import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
 import mozilla.components.ui.tabcounter.TabCounterMenu
 import org.mozilla.gecko.util.ThreadUtils
 import java.lang.ref.WeakReference
+
 
 @ExperimentalCoroutinesApi
 class HomeFragment : Fragment() {
@@ -126,15 +123,22 @@ class HomeFragment : Fragment() {
         }
 
         GlobalScope.launch {
+            // Update shortcut database to hold name
+            val MIGRATION_1_2: Migration = object : Migration(1, 2) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    database.execSQL("ALTER TABLE shortcutentity ADD COLUMN title TEXT")
+                }
+            }
+
             database = Room.databaseBuilder(
                 requireContext(),
                 ShortcutDatabase::class.java, "shortcut-database"
-            ).build()
+            ).addMigrations(MIGRATION_1_2).build()
 
             val shortcutDao = database?.shortcutDao()
             val shortcuts: MutableList<ShortcutEntity> = shortcutDao?.getAll() as MutableList
 
-            val adapter = ShortcutGridAdapter(requireContext(), getList(shortcuts))
+            val adapter = ShortcutGridAdapter(requireContext(), shortcuts)
 
             ThreadUtils.runOnUiThread {
                 view.shortcut_grid.adapter = adapter
@@ -142,25 +146,15 @@ class HomeFragment : Fragment() {
         }
 
         view.shortcut_grid.setOnItemClickListener { _, _, position, _ ->
-            if((view.shortcut_grid.adapter.getItem(position) as ShortcutEntity).add){
-                showCreateShortcutDialog(view.shortcut_grid.adapter as ShortcutGridAdapter)
-            }
-            else{
-                findNavController().navigate(
+            findNavController().navigate(
                     R.id.browserFragment
                 )
 
                 components.sessionUseCases.loadUrl(
-                    (view.shortcut_grid.adapter.getItem(position) as ShortcutEntity).url!!
-                )
-            }
+                    (view.shortcut_grid.adapter.getItem(position) as ShortcutEntity).url!!)
         }
 
         view.shortcut_grid.setOnItemLongClickListener { _, _, position, _ ->
-            if(position == view.shortcut_grid.adapter.count - 1){
-                return@setOnItemLongClickListener true
-            }
-
             val items = arrayOf(resources.getString(R.string.edit_shortcut), resources.getString(R.string.delete_shortcut))
 
             AlertDialog.Builder(requireContext())
@@ -174,6 +168,10 @@ class HomeFragment : Fragment() {
                 .show()
 
             return@setOnItemLongClickListener true
+        }
+
+        view.add_shortcut.setOnClickListener {
+            showCreateShortcutDialog(view.shortcut_grid.adapter as ShortcutGridAdapter)
         }
 
         view.privateBrowsingButton.setOnClickListener {
@@ -206,22 +204,20 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getList(shortcutEntity: MutableList<ShortcutEntity>): MutableList<ShortcutEntity> {
-        shortcutEntity.add(shortcutEntity.size, ShortcutEntity(url = "test", add = true))
-        return shortcutEntity
-    }
-
     private fun showEditShortcutDialog(position: Int, adapter: ShortcutGridAdapter){
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         builder.setTitle(resources.getString(R.string.edit_shortcut))
         val viewInflated: View = LayoutInflater.from(context).inflate(R.layout.add_shortcut_dialog, view as ViewGroup?, false)
-        val input = viewInflated.findViewById<View>(R.id.urlEditText) as EditText
-        input.setText(adapter.list[position].url)
+        val url = viewInflated.findViewById<View>(R.id.urlEditText) as EditText
+        url.setText(adapter.list[position].url)
+        val name = viewInflated.findViewById<View>(R.id.nameEditText) as EditText
+        name.setText(adapter.list[position].title)
         builder.setView(viewInflated)
 
         builder.setPositiveButton(android.R.string.ok) { _, _ ->
             val item = adapter.list[position]
-            item.url = input.text.toString()
+            item.url = url.text.toString()
+            item.title = name.text.toString()
             adapter.notifyDataSetChanged()
 
             GlobalScope.launch {
@@ -237,19 +233,19 @@ class HomeFragment : Fragment() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         builder.setTitle(resources.getString(R.string.add_shortcut))
         val viewInflated: View = LayoutInflater.from(context).inflate(R.layout.add_shortcut_dialog, view as ViewGroup?, false)
-        val input = viewInflated.findViewById<View>(R.id.urlEditText) as EditText
+        val url = viewInflated.findViewById<View>(R.id.urlEditText) as EditText
+        val name = viewInflated.findViewById<View>(R.id.nameEditText) as EditText
         builder.setView(viewInflated)
 
         builder.setPositiveButton(android.R.string.ok) { dialog, _ ->
             dialog.dismiss()
             val list = adapter.list
-            list.add(ShortcutEntity(url = input.text.toString()))
-            list.removeAt(adapter.list.size - 2)
-            adapter.list = getList(list)
+            list.add(ShortcutEntity(url = url.text.toString(), title = name.text.toString()))
+            adapter.list = list
             adapter.notifyDataSetChanged()
 
             GlobalScope.launch {
-                database?.shortcutDao()?.insertAll(ShortcutEntity(url = input.text.toString()))
+                database?.shortcutDao()?.insertAll(ShortcutEntity(url = url.text.toString(), title = name.text.toString()))
             }
         }
         builder.setNegativeButton(android.R.string.cancel) { dialog, _ -> dialog.cancel() }

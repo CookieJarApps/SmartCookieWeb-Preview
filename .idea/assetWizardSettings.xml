@@ -308,7 +308,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$PROJECT_DIR$/../../SDK/icons/material/materialicons/print/baseline_print_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../sdk/icons/material/materialicons/splitscreen/baseline_splitscreen_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -319,7 +319,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="696969" />
-                            <entry key="outputName" value="ic_baseline_print" />
+                            <entry key="outputName" value="ic_baseline_splitscreen" />
                             <entry key="sourceFile" value="D:\CookieJarApps\BiscuitBrowser" />
                           </map>
                         </option>

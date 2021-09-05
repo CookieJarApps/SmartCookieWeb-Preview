@@ -30,10 +30,10 @@
                 android:layout_gravity="end"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/mozac_browser_menu_new_private_tab"
-                android:tint="?android:attr/textColorPrimary"
                 app:srcCompat="@drawable/ic_incognito"
                 app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier=".167"/>
+                app:layout_collapseParallaxMultiplier=".167"
+                app:tint="?android:attr/textColorPrimary" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -80,15 +80,30 @@
         android:orientation="vertical"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <TextView
-            android:id="@+id/shortcut_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="4dp"
-            android:text="@string/shortcuts"
-            android:textSize="18sp"
-            app:drawableEndCompat="@drawable/ic_baseline_chevron_down"
-            app:drawableStartCompat="@drawable/ic_baseline_shortcuts" />
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <TextView
+                    android:id="@+id/shortcut_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="4dp"
+                    android:text="@string/shortcuts"
+                    android:textSize="18sp"
+                    app:drawableEndCompat="@drawable/ic_baseline_chevron_down"
+                    app:drawableStartCompat="@drawable/ic_baseline_shortcuts"
+                    android:layout_weight="1"/>
+
+            <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_round_add"
+                    android:id="@+id/add_shortcut"
+                    android:layout_weight="1"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -104,6 +119,7 @@
                 android:numColumns="5"
                 android:verticalSpacing="8dp" />
         </LinearLayout>
+
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

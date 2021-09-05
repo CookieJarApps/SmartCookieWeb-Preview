@@ -5,6 +5,17 @@
       <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
     </configurations>
   </component>
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/CookieJarApps/BiscuitBrowser/app/src/main/res/drawable/ic_baseline_open_in_new.xml" value="0.37864583333333335" />
+        <entry key="..\:/CookieJarApps/BiscuitBrowser/app/src/main/res/drawable/ic_baseline_splitscreen.xml" value="0.37864583333333335" />
+        <entry key="..\:/CookieJarApps/BiscuitBrowser/app/src/main/res/layout/activity_cover.xml" value="0.276268115942029" />
+        <entry key="..\:/CookieJarApps/BiscuitBrowser/app/src/main/res/layout/fragment_home.xml" value="0.20260416666666667" />
+        <entry key="..\:/CookieJarApps/BiscuitBrowser/app/src/main/res/layout/shortcut_item.xml" value="0.20260416666666667" />
+      </map>
+    </option>
+  </component>
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$" />
   </component>

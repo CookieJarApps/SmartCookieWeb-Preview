@@ -259,7 +259,7 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener,
 
                 GlobalScope.launch {
                     // UPDATE HOMEPAGE
-                    database.shortcutDao().insertAll(ShortcutEntity(url = item.url))
+                    database.shortcutDao().insertAll(ShortcutEntity(url = item.url, title = item.title))
                 }
             }
             R.id.editBookmark -> if (item is BookmarkSiteItem) {
