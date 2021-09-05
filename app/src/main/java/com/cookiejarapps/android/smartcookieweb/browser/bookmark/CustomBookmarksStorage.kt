@@ -70,7 +70,7 @@ class CustomBookmarksStorage(context: Context): BookmarksStorage {
             }
         }
 
-        return bookmarks.filter { s -> s.title?.contains(query) == true || s.url?.contains(query) == true }.slice(IntRange(0, if(bookmarks.size > 19) 19 else bookmarks.size - 1))
+        return bookmarks.filter { s -> s.title?.contains(query) == true || s.url?.contains(query) == true }.take(limit)
     }
 
     override suspend fun updateNode(guid: String, info: BookmarkInfo) {
