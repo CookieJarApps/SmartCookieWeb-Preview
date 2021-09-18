@@ -36,6 +36,12 @@ Need help? Open an issue here, or:
 
 ---
 
+## Sync
+
+FF Sync support will be included in a future update. This service is not affiliated with or endorsed by Mozilla in any way and CookieJarApps is not required to provide support service, warranty, or updates. The feature may stop working at any time.
+
+---
+
 ## Installation
 
 - To get started with this project, import it into Android Studio or build from the command line with Gradle:
