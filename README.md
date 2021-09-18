@@ -1,7 +1,6 @@
 <p align="center"><a href="#"><img src="https://user-images.githubusercontent.com/44752343/112723990-1d100980-8f09-11eb-94d3-a77cfdb00cd3.png" height="180" title="SmartCookieWeb" alt="SmartCookieWeb"></a></p>
 
 <h2 align="center"><b>SmartCookieWeb Preview</b></h2>
-<h4 align="center">This project is temporarily on hold. Updates with new GeckoView versions will continue and bugs will be fixed, but no new features will be added until I resume development. A GeckoView-based web browser for Android with extension support, no telemetry and advanced privacy features.</h4>
 <p align="center">
 <img src="https://img.shields.io/github/issues-raw/cookiejarapps/SmartCookieWeb-Preview" />
 <img src="hhttps://img.shields.io/github/v/release/cookiejarapps/SmartCookieWeb-Preview" />
