@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.mozilla.components:lib-publicsuffixlist:92.0.15@aar">
+  <library name="Gradle: org.mozilla.components:lib-publicsuffixlist:93.0.9@aar">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/2c250c31ed4fd2d89b86ce67746da9f5/transformed/jetified-lib-publicsuffixlist-92.0.8/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2c250c31ed4fd2d89b86ce67746da9f5/transformed/jetified-lib-publicsuffixlist-92.0.8/res" />
@@ -7,7 +7,7 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.components/lib-publicsuffixlist/92.0.15/1e4fa35245d3e726b5fd8a6f6cbd0e5b3e50c2fd/lib-publicsuffixlist-92.0.15-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.components/lib-publicsuffixlist/93.0.9/ead5621c3e40803b66bdf38b464a90ff6c08624d/lib-publicsuffixlist-93.0.9-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

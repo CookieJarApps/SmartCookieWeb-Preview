@@ -1,13 +1,18 @@
 package com.cookiejarapps.android.smartcookieweb.addons
 
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
+import android.widget.LinearLayout
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.ext.components
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_extension_popup.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import mozilla.components.browser.state.action.ContentAction
@@ -18,15 +23,20 @@ import mozilla.components.browser.state.state.EngineState
 import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.state.createCustomTab
 import mozilla.components.concept.engine.EngineSession
+import mozilla.components.concept.engine.EngineView
 import mozilla.components.concept.engine.prompt.PromptRequest
 import mozilla.components.concept.engine.window.WindowRequest
 import mozilla.components.feature.prompts.PromptFeature
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
+import android.widget.RelativeLayout
+import android.util.TypedValue
+import android.util.DisplayMetrics
+import android.util.Log
 
 
-class WebExtensionPopupFragment : DialogFragment(), UserInteractionHandler, EngineSession.Observer {
+class WebExtensionPopupFragment : BottomSheetDialogFragment(), UserInteractionHandler, EngineSession.Observer {
     private val promptsFeature = ViewBoundFeatureWrapper<PromptFeature>()
 
     protected var session: SessionState? = null
@@ -46,10 +56,11 @@ class WebExtensionPopupFragment : DialogFragment(), UserInteractionHandler, Engi
             initializeSession(it)
         }
 
-        dialog?.window?.setGravity(Gravity.END or Gravity.TOP)
-        if(android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.M) dialog?.window?.setDimAmount(0F)
-        dialog?.window?.attributes?.windowAnimations = R.style.ExtensionPopupStyle
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        val modalBottomSheetBehavior = (dialog as BottomSheetDialog).behavior
+        modalBottomSheetBehavior.isDraggable = false
+        modalBottomSheetBehavior.isFitToContents = false
+        modalBottomSheetBehavior.halfExpandedRatio = 0.7F
+        modalBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
 
         return inflater.inflate(R.layout.fragment_extension_popup, container, false)
     }
@@ -57,6 +68,14 @@ class WebExtensionPopupFragment : DialogFragment(), UserInteractionHandler, Engi
     @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val metrics = DisplayMetrics()
+        requireActivity().windowManager.getDefaultDisplay().getMetrics(metrics)
+        val engineViewContainer = view.findViewById<LinearLayout>(R.id.engineViewContainer)
+        val params = engineViewContainer.layoutParams
+
+        params.height = (metrics.heightPixels * 0.7).toInt()
+        engineViewContainer.layoutParams = params
 
         session?.let {
             promptsFeature.set(

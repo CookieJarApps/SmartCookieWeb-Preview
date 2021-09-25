@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 
     <style name="AppThemeAddons" parent="Theme.MaterialComponents.DayNight">
@@ -38,14 +39,24 @@
         <item name="android:background">?attr/colorSurface</item>
     </style>
 
-    <style name="ExtensionPopupStyle" parent="@android:style/Animation.Activity">
-        <item name="android:windowEnterAnimation">@anim/toolbar_in</item>
-        <item name="android:windowExitAnimation">@anim/toolbar_out</item>
+    <style name="ExtensionPopupTabletStyle" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/extension_popup_tablet_in</item>
+        <item name="android:windowExitAnimation">@anim/extension_popup_tablet_out</item>
     </style>
 
     <style name="ToolBarStyle" parent="Theme.AppCompat">
         <item name="android:textColorPrimary">?attr/colorSurface</item>
         <item name="android:textColorSecondary">?attr/colorSurface</item>
         <item name="actionMenuTextColor">?attr/colorSurface</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/rounded_bottom_sheet</item>
     </style>
 </resources>

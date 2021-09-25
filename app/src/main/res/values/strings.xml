@@ -298,4 +298,6 @@
   <string name="show_site_icons">Show site icons?</string>
   <string name="allow_shortcut_favicons">Load icons for shortcuts</string>
   <string name="allow_shortcut_favicons_prompt">SmartCookieWeb Preview can now show icons of the sites you have shortcuts for on the homepage. However, this feature requires the app to send the URLs of your shortcuts to an external service (par1.cookiejarapps.com/favicon/). No logs are kept about sites sent to the service. Would you like to enable this feature?</string>
+
+  <string name="flex_mode">Flex mode</string>
 </resources>

@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.mozilla.components:concept-storage:92.0.15@aar">
+  <library name="Gradle: org.mozilla.components:concept-storage:93.0.9@aar">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/41d43f6d58efea5d7d36581d99b89b6d/transformed/jetified-concept-storage-92.0.8/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/41d43f6d58efea5d7d36581d99b89b6d/transformed/jetified-concept-storage-92.0.8/res" />
@@ -7,7 +7,7 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.components/concept-storage/92.0.15/dbdad8a18584140e0f218853bd67e6e83938aabe/concept-storage-92.0.15-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.components/concept-storage/93.0.9/9645307207742f27cf4a367a9b05e3b36b5d219c/concept-storage-93.0.9-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

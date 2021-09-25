@@ -1,6 +1,7 @@
 package com.cookiejarapps.android.smartcookieweb.utils
 
 import android.content.Context
+import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.*
 import android.util.DisplayMetrics
@@ -57,5 +58,11 @@ open class Utils {
         )
 
         return bitmap
+    }
+
+    fun isTablet(context: Context): Boolean {
+        return ((context.resources.configuration.screenLayout
+                and Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE)
     }
 }

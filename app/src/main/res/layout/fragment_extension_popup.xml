@@ -8,10 +8,17 @@
     android:background="@drawable/rounded_dialog_fragment"
     android:padding="4dp">
 
+    <LinearLayout
+        android:id="@+id/engineViewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
     <mozilla.components.concept.engine.EngineView
-        tools:ignore="Instantiatable"
         android:id="@+id/addonPopupEngineView"
         android:layout_width="match_parent"
-        android:layout_height="512dp" />
+        android:layout_height="match_parent"
+        tools:ignore="Instantiatable" />
+
+    </LinearLayout>
 
 </LinearLayout>

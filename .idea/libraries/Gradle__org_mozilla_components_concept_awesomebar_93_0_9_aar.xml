@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.mozilla.components:concept-awesomebar:92.0.15@aar">
+  <library name="Gradle: org.mozilla.components:concept-awesomebar:93.0.9@aar">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4aff8eb9d1ba53f3b2784d5448dd40bd/transformed/jetified-concept-awesomebar-92.0.8/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4aff8eb9d1ba53f3b2784d5448dd40bd/transformed/jetified-concept-awesomebar-92.0.8/res" />
@@ -7,7 +7,7 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.components/concept-awesomebar/92.0.15/65e580fc8f7d3bcc6a8d0cd60cdc999bc93022e2/concept-awesomebar-92.0.15-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.components/concept-awesomebar/93.0.9/7472a4ef3d2dacbbc9358b2fbc8cdc4725b6e50/concept-awesomebar-93.0.9-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

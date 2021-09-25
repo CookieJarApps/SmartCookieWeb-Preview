@@ -1,14 +1,11 @@
 package com.cookiejarapps.android.smartcookieweb
 
-import android.app.ProgressDialog
 import android.content.ComponentCallbacks2
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.annotation.VisibleForTesting
@@ -21,8 +18,8 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import com.cookiejarapps.android.smartcookieweb.addons.AddonsFragment
 import com.cookiejarapps.android.smartcookieweb.addons.WebExtensionPopupFragment
+import com.cookiejarapps.android.smartcookieweb.addons.WebExtensionTabletPopupFragment
 import com.cookiejarapps.android.smartcookieweb.browser.*
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.ui.BookmarkFragment
 import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
@@ -33,6 +30,7 @@ import com.cookiejarapps.android.smartcookieweb.ext.nav
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.search.SearchDialogFragmentDirections
 import com.cookiejarapps.android.smartcookieweb.utils.PrintUtils
+import com.cookiejarapps.android.smartcookieweb.utils.Utils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.navigation_toolbar.*
 import kotlinx.coroutines.GlobalScope
@@ -187,6 +185,7 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
         components.appRequestInterceptor.setNavController(navHost.navController)
 
         lifecycle.addObserver(webExtensionPopupFeature)
+
     }
 
     final override fun onNewIntent(intent: Intent?) {
@@ -281,7 +280,8 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
     private fun openPopup(webExtensionState: WebExtensionState) {
         val fm: FragmentManager = supportFragmentManager
         val editNameDialogFragment =
-            WebExtensionPopupFragment()
+            if(Utils().isTablet(this)) WebExtensionTabletPopupFragment()
+            else WebExtensionPopupFragment()
 
         val bundle = Bundle()
         bundle.putString("web_extension_id", webExtensionState.id)

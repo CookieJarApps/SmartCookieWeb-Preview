@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: org.mozilla.components:service-digitalassetlinks:92.0.15@aar">
+  <library name="Gradle: org.mozilla.components:service-digitalassetlinks:93.0.9@aar">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/f998f9e014f054dbbdcbf7837d24399f/transformed/jetified-service-digitalassetlinks-92.0.8/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f998f9e014f054dbbdcbf7837d24399f/transformed/jetified-service-digitalassetlinks-92.0.8/res" />
@@ -7,7 +7,7 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.components/service-digitalassetlinks/92.0.15/97023569ac4f6cab9f335ce4cbd4c89b18376396/service-digitalassetlinks-92.0.15-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.components/service-digitalassetlinks/93.0.9/f7684c5b2dd53e3ab3d85a6cbcf1dbcd9fe87cff/service-digitalassetlinks-93.0.9-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
