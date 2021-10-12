@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.appservices:full-megazord:85.4.0@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/042341acda2bde483ab62d6268e46062/transformed/jetified-full-megazord-85.4.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/9bd8ef7a5de6e5c72d64114783401c9e/transformed/jetified-full-megazord-85.4.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9bd8ef7a5de6e5c72d64114783401c9e/transformed/jetified-full-megazord-85.4.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9bd8ef7a5de6e5c72d64114783401c9e/transformed/jetified-full-megazord-85.4.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.appservices/full-megazord/85.4.0/f440dda400165f7e5fc5da1f279853df78cc8711/full-megazord-85.4.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

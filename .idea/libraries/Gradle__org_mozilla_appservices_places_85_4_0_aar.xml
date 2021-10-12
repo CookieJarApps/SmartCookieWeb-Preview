@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.appservices:places:85.4.0@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/10a2a7e5f35d70be9a3634444309a978/transformed/jetified-places-85.4.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/074c179447c48138963d70a9dd783d9e/transformed/jetified-places-85.4.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/074c179447c48138963d70a9dd783d9e/transformed/jetified-places-85.4.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/074c179447c48138963d70a9dd783d9e/transformed/jetified-places-85.4.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.appservices/places/85.4.0/c8c9fd5b03b98a063375ce135b0c7ac9fa478a01/places-85.4.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

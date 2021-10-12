@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:concept-menu:94.0.3@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b80adc014655a85c414bbec427c1172a/transformed/jetified-concept-menu-93.0.9/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3df3f71fde948a8ffa02f5996831fb4a/transformed/jetified-concept-menu-94.0.3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/3df3f71fde948a8ffa02f5996831fb4a/transformed/jetified-concept-menu-94.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3df3f71fde948a8ffa02f5996831fb4a/transformed/jetified-concept-menu-94.0.3/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.components/concept-menu/94.0.3/46ce2d1fc2f6deb36e0f2b841fd3bd833e0ce158/concept-menu-94.0.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

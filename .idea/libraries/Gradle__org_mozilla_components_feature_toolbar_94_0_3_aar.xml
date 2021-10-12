@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-toolbar:94.0.3@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/277292dfef80b750f46e93d3b4dca265/transformed/jetified-feature-toolbar-94.0.3/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/277292dfef80b750f46e93d3b4dca265/transformed/jetified-feature-toolbar-94.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/277292dfef80b750f46e93d3b4dca265/transformed/jetified-feature-toolbar-94.0.3/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-toolbar/94.0.3/101d690ab98d766de512bcc3f36aa1f2a5218c2d/feature-toolbar-94.0.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

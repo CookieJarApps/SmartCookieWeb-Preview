@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:concept-storage:94.0.3@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5925aa2a6804d25ea80e697941d7915e/transformed/jetified-concept-storage-94.0.3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/30542547697148108958bc0e69d1f321/transformed/jetified-concept-storage-94.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/30542547697148108958bc0e69d1f321/transformed/jetified-concept-storage-94.0.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/30542547697148108958bc0e69d1f321/transformed/jetified-concept-storage-94.0.3/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.components/concept-storage/94.0.3/6527198badbe49e141098040e070301fce04dd1d/concept-storage-94.0.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
