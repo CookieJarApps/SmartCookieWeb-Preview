@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/83c2f0ed5301a35a458baa17f8a9a793/transformed/jetified-browser-awesomebar-93.0.2/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/83c2f0ed5301a35a458baa17f8a9a793/transformed/jetified-browser-awesomebar-93.0.2/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/83c2f0ed5301a35a458baa17f8a9a793/transformed/jetified-browser-awesomebar-93.0.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/83c2f0ed5301a35a458baa17f8a9a793/transformed/jetified-browser-awesomebar-93.0.9/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/83c2f0ed5301a35a458baa17f8a9a793/transformed/jetified-browser-awesomebar-93.0.9/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/83c2f0ed5301a35a458baa17f8a9a793/transformed/jetified-browser-awesomebar-93.0.9/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

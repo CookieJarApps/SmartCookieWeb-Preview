@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/05392da1e37c43491d815f4db498c500/transformed/jetified-feature-prompts-93.0.2/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/05392da1e37c43491d815f4db498c500/transformed/jetified-feature-prompts-93.0.2/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/05392da1e37c43491d815f4db498c500/transformed/jetified-feature-prompts-93.0.2/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/05392da1e37c43491d815f4db498c500/transformed/jetified-feature-prompts-93.0.9/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/05392da1e37c43491d815f4db498c500/transformed/jetified-feature-prompts-93.0.9/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/05392da1e37c43491d815f4db498c500/transformed/jetified-feature-prompts-93.0.9/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

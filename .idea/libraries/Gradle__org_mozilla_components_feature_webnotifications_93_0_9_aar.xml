@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/a50ebf9afe514e57e88a02b6603c9cec/transformed/jetified-feature-webnotifications-93.0.2/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a50ebf9afe514e57e88a02b6603c9cec/transformed/jetified-feature-webnotifications-93.0.2/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a50ebf9afe514e57e88a02b6603c9cec/transformed/jetified-feature-webnotifications-93.0.2/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a50ebf9afe514e57e88a02b6603c9cec/transformed/jetified-feature-webnotifications-93.0.9/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a50ebf9afe514e57e88a02b6603c9cec/transformed/jetified-feature-webnotifications-93.0.9/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/a50ebf9afe514e57e88a02b6603c9cec/transformed/jetified-feature-webnotifications-93.0.9/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

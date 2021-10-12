@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c772cd298343c3fb7c0b0d3b7e831cff/transformed/jetified-ui-autocomplete-92.0.8/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c772cd298343c3fb7c0b0d3b7e831cff/transformed/jetified-ui-autocomplete-92.0.8/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c772cd298343c3fb7c0b0d3b7e831cff/transformed/jetified-ui-autocomplete-92.0.8/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c772cd298343c3fb7c0b0d3b7e831cff/transformed/jetified-ui-autocomplete-93.0.9/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c772cd298343c3fb7c0b0d3b7e831cff/transformed/jetified-ui-autocomplete-93.0.9/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c772cd298343c3fb7c0b0d3b7e831cff/transformed/jetified-ui-autocomplete-93.0.9/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

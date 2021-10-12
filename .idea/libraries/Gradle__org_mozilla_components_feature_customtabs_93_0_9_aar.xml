@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/487c4b28e8e68befaa0488c61533dcc5/transformed/jetified-feature-customtabs-93.0.2/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/487c4b28e8e68befaa0488c61533dcc5/transformed/jetified-feature-customtabs-93.0.2/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/487c4b28e8e68befaa0488c61533dcc5/transformed/jetified-feature-customtabs-93.0.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/487c4b28e8e68befaa0488c61533dcc5/transformed/jetified-feature-customtabs-93.0.9/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/487c4b28e8e68befaa0488c61533dcc5/transformed/jetified-feature-customtabs-93.0.9/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/487c4b28e8e68befaa0488c61533dcc5/transformed/jetified-feature-customtabs-93.0.9/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
