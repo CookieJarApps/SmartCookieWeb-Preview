@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:browser-errorpages:93.0.12@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/2b1281275acf6d7dd45dcfab28585710/transformed/jetified-browser-errorpages-93.0.12/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/2b1281275acf6d7dd45dcfab28585710/transformed/jetified-browser-errorpages-93.0.12/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/2b1281275acf6d7dd45dcfab28585710/transformed/jetified-browser-errorpages-93.0.12/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/browser-errorpages/93.0.12/78a4435a8d766d6c6b57ba39d2e8a71698c8df3a/browser-errorpages-93.0.12-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

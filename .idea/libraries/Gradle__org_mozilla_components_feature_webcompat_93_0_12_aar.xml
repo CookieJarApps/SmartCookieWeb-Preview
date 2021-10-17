@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-webcompat:93.0.12@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a669b7bf2dc19c99a272529671a81dd5/transformed/jetified-feature-webcompat-93.0.12/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a669b7bf2dc19c99a272529671a81dd5/transformed/jetified-feature-webcompat-93.0.12/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a669b7bf2dc19c99a272529671a81dd5/transformed/jetified-feature-webcompat-93.0.12/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-webcompat/93.0.12/7294a347686d8f7efd9e75d96eb120dd5b1ed780/feature-webcompat-93.0.12-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
