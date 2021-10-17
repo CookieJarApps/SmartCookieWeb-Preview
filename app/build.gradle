@@ -104,7 +104,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
-    final def mozComponentsVersion = '94.0.7'
+    final def mozComponentsVersion = '93.0.12'
 
     // Mozilla components
     implementation "org.mozilla.components:browser-icons:$mozComponentsVersion"
@@ -176,6 +176,7 @@ dependencies {
     implementation "org.mozilla.components:support-webextensions:$mozComponentsVersion"
     implementation "org.mozilla.components:support-ktx:$mozComponentsVersion"
     implementation "org.mozilla.components:support-locale:$mozComponentsVersion"
+    implementation "org.mozilla.components:service-glean:$mozComponentsVersion"
 
     // GeckoView engine
     implementation "org.mozilla.components:browser-engine-gecko:$mozComponentsVersion"
