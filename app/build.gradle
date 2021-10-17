@@ -176,7 +176,6 @@ dependencies {
     implementation "org.mozilla.components:support-webextensions:$mozComponentsVersion"
     implementation "org.mozilla.components:support-ktx:$mozComponentsVersion"
     implementation "org.mozilla.components:support-locale:$mozComponentsVersion"
-    implementation "org.mozilla.components:service-glean:$mozComponentsVersion"
 
     // GeckoView engine
     implementation "org.mozilla.components:browser-engine-gecko:$mozComponentsVersion"
