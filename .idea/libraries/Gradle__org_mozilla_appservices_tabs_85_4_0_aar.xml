@@ -1,14 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.appservices:tabs:85.4.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8beb49d900d1fb2a714c179f7ee1550c/transformed/jetified-tabs-85.4.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ea5ee747954088e0bef0c83eaed96701/transformed/jetified-tabs-85.4.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/ea5ee747954088e0bef0c83eaed96701/transformed/jetified-tabs-85.4.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ea5ee747954088e0bef0c83eaed96701/transformed/jetified-tabs-85.4.0/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/9399f20f2d775e6eb7e51d7de5e1c989/transformed/jetified-tabs-85.4.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/9399f20f2d775e6eb7e51d7de5e1c989/transformed/jetified-tabs-85.4.0/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/9399f20f2d775e6eb7e51d7de5e1c989/transformed/jetified-tabs-85.4.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.appservices/tabs/85.4.0/db60ff7481053f9d4d885ab4737ffd8af7c94a56/tabs-85.4.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.appservices/tabs/85.4.0/db60ff7481053f9d4d885ab4737ffd8af7c94a56/tabs-85.4.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

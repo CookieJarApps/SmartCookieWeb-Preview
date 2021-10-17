@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-contextmenu:94.0.7@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f316b1683c9a86caff0afce42ae7caa9/transformed/jetified-feature-contextmenu-94.0.3/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f316b1683c9a86caff0afce42ae7caa9/transformed/jetified-feature-contextmenu-94.0.3/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f316b1683c9a86caff0afce42ae7caa9/transformed/jetified-feature-contextmenu-94.0.3/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-contextmenu/94.0.7/1a1c112048d31365e8de4587a2fee4a8723eb9a/feature-contextmenu-94.0.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

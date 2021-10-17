@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:browser-icons:94.0.7@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/1474f725317908d4b3568b1356f9868d/transformed/jetified-browser-icons-94.0.7/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/1474f725317908d4b3568b1356f9868d/transformed/jetified-browser-icons-94.0.7/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/1474f725317908d4b3568b1356f9868d/transformed/jetified-browser-icons-94.0.7/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/browser-icons/94.0.7/aeae0b4b61ca77d5e8624a4d8ed165f40250c0b3/browser-icons-94.0.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
