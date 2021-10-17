@@ -159,17 +159,10 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
         builder.setNegativeButton(resources.getString(R.string.cancel)) { dialog, which -> dialog.cancel() }
 
         builder.show()
-
-        /*val builder = androidx.appcompat.app.AlertDialog.Builder(requireContext())
-        builder.setMessage(resources.getString(R.string.addon_not_available))
-                .setCancelable(false)
-                .setPositiveButton(R.string.mozac_feature_prompts_ok) { dialog, id ->
-                    dialog.cancel()
-                }*/
     }
 
     private fun pickCollectionUser() {
-        val builder = AlertDialog.Builder(requireContext())
+        val builder = MaterialAlertDialogBuilder(requireContext())
         builder.setTitle(resources.getString(R.string.collection_user))
 
         val input = EditText(requireContext())
@@ -193,7 +186,7 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
     }
 
     private fun pickCollectionName() {
-        val builder = AlertDialog.Builder(requireContext())
+        val builder = MaterialAlertDialogBuilder(requireContext())
         builder.setTitle(resources.getString(R.string.collection_name))
 
         val input = EditText(requireContext())
