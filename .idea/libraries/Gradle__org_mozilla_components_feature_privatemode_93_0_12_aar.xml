@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:feature-privatemode:93.0.12@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b432b2a5ea53dc1242ebc4708ba86cb3/transformed/jetified-feature-privatemode-94.0.3/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b432b2a5ea53dc1242ebc4708ba86cb3/transformed/jetified-feature-privatemode-94.0.3/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b432b2a5ea53dc1242ebc4708ba86cb3/transformed/jetified-feature-privatemode-94.0.3/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b432b2a5ea53dc1242ebc4708ba86cb3/transformed/jetified-feature-privatemode-93.0.12/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b432b2a5ea53dc1242ebc4708ba86cb3/transformed/jetified-feature-privatemode-93.0.12/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b432b2a5ea53dc1242ebc4708ba86cb3/transformed/jetified-feature-privatemode-93.0.12/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
