@@ -11,6 +11,7 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -173,16 +174,25 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener,
             0 -> {
                 if (url != null) {
                     components.sessionUseCases.loadUrl(url)
+                    if (!requireActivity().findNavController(R.id.container).popBackStack(R.id.browserFragment, false)) {
+                        requireActivity().findNavController(R.id.container).navigate(R.id.browserFragment)
+                    }
                     closeDrawer()
                 }
             }
             1 -> {
                 if (url != null) {
                     components.tabsUseCases.addTab.invoke(url, selectTab = true)
+                    if (!requireActivity().findNavController(R.id.container).popBackStack(R.id.browserFragment, false)) {
+                        requireActivity().findNavController(R.id.container).navigate(R.id.browserFragment)
+                    }
                 }
             }
             2 -> {
                 if (url != null) {
+                    if (!requireActivity().findNavController(R.id.container).popBackStack(R.id.browserFragment, false)) {
+                        requireActivity().findNavController(R.id.container).navigate(R.id.browserFragment)
+                    }
                     components.tabsUseCases.addTab.invoke(url, selectTab = false)
                 }
             }
