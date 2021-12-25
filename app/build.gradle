@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 30
     lintOptions {
         abortOnError false
     }
@@ -19,7 +19,7 @@ android {
     defaultConfig {
         applicationId "com.cookiejarapps.android.smartcookieweb"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 30
         // Increment by 4 with each update
         versionCode 52
         versionName "13.0"
@@ -71,26 +71,25 @@ android.applicationVariants.all { variant ->
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
-    implementation 'com.google.android.material:material:1.5.0-rc01'
+    implementation 'com.google.android.material:material:1.4.0'
 
     // Support libraries
     implementation "androidx.recyclerview:recyclerview:1.2.1"
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.6.0'
     implementation "androidx.constraintlayout:constraintlayout:2.1.2"
     implementation "androidx.drawerlayout:drawerlayout:1.1.1"
     implementation "androidx.preference:preference-ktx:1.1.1"
     implementation "androidx.palette:palette-ktx:1.0.0"
     implementation "androidx.annotation:annotation:1.3.0"
-    implementation "androidx.appcompat:appcompat:1.4.0"
+    implementation "androidx.appcompat:appcompat:1.3.0"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
     // Room
-    implementation "androidx.room:room-runtime:2.4.0"
-    kapt "androidx.room:room-compiler:2.4.0"
+    implementation "androidx.room:room-runtime:2.3.0"
+    kapt "androidx.room:room-compiler:2.3.0"
 
     final def daggerVersion = '2.38.1'
     implementation "com.google.dagger:dagger:$daggerVersion"

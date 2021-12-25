@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.core.content.ContentProviderCompat.requireContext
 import com.cookiejarapps.android.smartcookieweb.components.Components
 import com.cookiejarapps.android.smartcookieweb.ext.components
-import com.google.android.material.color.DynamicColors
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -33,8 +32,6 @@ class BrowserApp : Application() {
         if (!isMainProcess()) {
             return
         }
-
-        DynamicColors.applyToActivitiesIfAvailable(this)
 
         Facts.registerProcessor(LogFactProcessor())
 
