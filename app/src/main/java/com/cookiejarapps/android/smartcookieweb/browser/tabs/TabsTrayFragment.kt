@@ -253,10 +253,34 @@ class TabsTrayFragment : Fragment() {
                 override fun onTabSelected(tab: TabSessionState, source: String?) {
                     components.tabsUseCases.selectTab(tab.id)
                     closeTabsTray()
+
+                    if(tab.content.url == "about:homepage"){
+                        requireContext().components.sessionUseCases.reload(tab.id)
+                    }
+                    else if (requireActivity().findNavController(R.id.container).currentDestination?.id == R.id.browserFragment) {
+                        return
+                    } else if (!requireActivity().findNavController(R.id.container).popBackStack(R.id.browserFragment, false)) {
+                        requireActivity().findNavController(R.id.container).navigate(R.id.browserFragment)
+                    }
                 }
 
                 override fun onTabClosed(tab: TabSessionState, source: String?) {
                     components.tabsUseCases.removeTab(tab.id)
+
+                    if(tab.content.url == "about:homepage"){
+                        requireContext().components.sessionUseCases.reload(tab.id)
+                    }
+                    else{
+                        if (!requireActivity().findNavController(R.id.container).popBackStack(R.id.browserFragment, false)) {
+                            requireActivity().findNavController(R.id.container).navigate(R.id.browserFragment)
+                        }
+                    }
+
+                    if(requireActivity().components.store.state.tabs.isEmpty() && UserPreferences(requireActivity()).homepageType == HomepageChoice.VIEW.ordinal){
+                        requireActivity().finish()
+                    }
+
+                    //TODO: Snackbar
                 }
             }
         )
