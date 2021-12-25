@@ -247,20 +247,8 @@ class TabsTrayFragment : Fragment() {
     private fun createTabsTray(): TabsTray {
         val thumbnailLoader = ThumbnailLoader(components.thumbnailStorage)
 
-        val trayStyling = TabsTrayStyling(itemBackgroundColor = Color.TRANSPARENT, itemTextColor = Color.WHITE)
-
-        val viewHolderProvider: ViewHolderProvider = { viewGroup ->
-            val view = LayoutInflater.from(context)
-                .inflate(R.layout.browser_tabstray_item, viewGroup, false)
-
-            DefaultTabViewHolder(view, thumbnailLoader)
-        }
-
-        // TODO: SWITCH BACK TO CUSTOM ADAPTER
-        val adapter = TabsAdapter(
+        val adapter = TabListAdapter(
             thumbnailLoader = thumbnailLoader,
-            viewHolderProvider = viewHolderProvider,
-            styling = trayStyling,
             delegate = object : TabsTray.Delegate {
                 override fun onTabSelected(tab: TabSessionState, source: String?) {
                     components.tabsUseCases.selectTab(tab.id)
