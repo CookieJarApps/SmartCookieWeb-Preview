@@ -73,11 +73,11 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
-    implementation 'com.google.android.material:material:1.5.0-alpha05'
+    implementation 'com.google.android.material:material:1.5.0-beta01'
 
     // Support libraries
     implementation "androidx.recyclerview:recyclerview:1.2.1"
-    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'androidx.core:core-ktx:1.7.0'
     implementation "androidx.constraintlayout:constraintlayout:2.1.1"
     implementation "androidx.drawerlayout:drawerlayout:1.1.1"
     implementation "androidx.preference:preference-ktx:1.1.1"
@@ -104,9 +104,20 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
-    final def mozComponentsVersion = '93.0.12'
+    final def mozComponentsVersion = "97.0.20211223190311"
+
+    // Mozilla concept components
+    implementation "org.mozilla.components:concept-engine:$mozComponentsVersion"
+    implementation "org.mozilla.components:concept-storage:$mozComponentsVersion"
+    implementation "org.mozilla.components:concept-menu:$mozComponentsVersion"
+    implementation "org.mozilla.components:concept-toolbar:$mozComponentsVersion"
+    implementation "org.mozilla.components:concept-tabstray:$mozComponentsVersion"
+    implementation "org.mozilla.components:concept-base:$mozComponentsVersion"
+    implementation "org.mozilla.components:concept-fetch:$mozComponentsVersion"
+    implementation "org.mozilla.components:concept-awesomebar:$mozComponentsVersion"
 
     // Mozilla components
+    implementation "org.mozilla.components:browser-engine-gecko:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-icons:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-awesomebar:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-domains:$mozComponentsVersion"
@@ -119,25 +130,6 @@ dependencies {
     implementation "org.mozilla.components:browser-menu:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-storage-sync:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-errorpages:$mozComponentsVersion"
-
-    // Mozilla service components
-    implementation "org.mozilla.components:service-location:$mozComponentsVersion"
-    implementation "org.mozilla.components:service-digitalassetlinks:$mozComponentsVersion"
-
-    // Mozilla concept components
-    implementation "org.mozilla.components:concept-engine:$mozComponentsVersion"
-    implementation "org.mozilla.components:concept-storage:$mozComponentsVersion"
-    implementation "org.mozilla.components:concept-menu:$mozComponentsVersion"
-    implementation "org.mozilla.components:concept-toolbar:$mozComponentsVersion"
-    implementation "org.mozilla.components:concept-tabstray:$mozComponentsVersion"
-    implementation "org.mozilla.components:concept-base:$mozComponentsVersion"
-    implementation "org.mozilla.components:concept-fetch:$mozComponentsVersion"
-    implementation "org.mozilla.components:concept-awesomebar:$mozComponentsVersion"
-
-    // Mozilla lib components
-    implementation "org.mozilla.components:lib-state:$mozComponentsVersion"
-    implementation "org.mozilla.components:lib-publicsuffixlist:$mozComponentsVersion"
-    implementation "org.mozilla.components:lib-fetch-httpurlconnection:$mozComponentsVersion"
 
     // Mozilla feature components
     implementation "org.mozilla.components:feature-awesomebar:$mozComponentsVersion"
@@ -163,12 +155,12 @@ dependencies {
     implementation "org.mozilla.components:feature-findinpage:$mozComponentsVersion"
     implementation "org.mozilla.components:feature-prompts:$mozComponentsVersion"
 
-    // Mozilla UI components
-    implementation "org.mozilla.components:ui-autocomplete:$mozComponentsVersion"
-    implementation "org.mozilla.components:ui-tabcounter:$mozComponentsVersion"
-    implementation "org.mozilla.components:ui-icons:$mozComponentsVersion"
-    implementation "org.mozilla.components:ui-colors:$mozComponentsVersion"
-    implementation "org.mozilla.components:ui-widgets:$mozComponentsVersion"
+    // Mozilla service components
+    implementation "org.mozilla.components:service-location:$mozComponentsVersion"
+    implementation "org.mozilla.components:service-digitalassetlinks:$mozComponentsVersion"
+    implementation ("org.mozilla.components:service-glean:$mozComponentsVersion"){
+        exclude group: 'org.mozilla.telemetry', module: 'glean-native'
+    }
 
     // Mozilla support components
     implementation "org.mozilla.components:support-base:$mozComponentsVersion"
@@ -177,8 +169,17 @@ dependencies {
     implementation "org.mozilla.components:support-ktx:$mozComponentsVersion"
     implementation "org.mozilla.components:support-locale:$mozComponentsVersion"
 
-    // GeckoView engine
-    implementation "org.mozilla.components:browser-engine-gecko:$mozComponentsVersion"
+    // Mozilla UI components
+    implementation "org.mozilla.components:ui-autocomplete:$mozComponentsVersion"
+    implementation "org.mozilla.components:ui-tabcounter:$mozComponentsVersion"
+    implementation "org.mozilla.components:ui-icons:$mozComponentsVersion"
+    implementation "org.mozilla.components:ui-colors:$mozComponentsVersion"
+    implementation "org.mozilla.components:ui-widgets:$mozComponentsVersion"
+
+    // Mozilla lib components
+    implementation "org.mozilla.components:lib-state:$mozComponentsVersion"
+    implementation "org.mozilla.components:lib-publicsuffixlist:$mozComponentsVersion"
+    implementation "org.mozilla.components:lib-fetch-httpurlconnection:$mozComponentsVersion"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -193,4 +194,14 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.4.0'
+}
+
+project.configurations.all {
+    resolutionStrategy.capabilitiesResolution.withCapability("org.mozilla.telemetry:glean-native") {
+        def toBeSelected = candidates.find { it.id instanceof ModuleComponentIdentifier && it.id.module.contains('geckoview') }
+        if (toBeSelected != null) {
+            select(toBeSelected)
+        }
+        because 'use GeckoView Glean instead of standalone Glean'
+    }
 }

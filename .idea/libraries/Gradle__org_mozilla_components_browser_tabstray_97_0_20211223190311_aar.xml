@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:browser-tabstray:97.0.20211223190311@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/728ba7ffa2b2056793ff62c29c5d63a4/transformed/jetified-browser-tabstray-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/728ba7ffa2b2056793ff62c29c5d63a4/transformed/jetified-browser-tabstray-97.0.20211223190311/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/728ba7ffa2b2056793ff62c29c5d63a4/transformed/jetified-browser-tabstray-97.0.20211223190311/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/browser-tabstray/97.0.20211223190311/58e45870f8e0f42863468f8208087173c7465631/browser-tabstray-97.0.20211223190311-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:lib-publicsuffixlist:97.0.20211223190311@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/55dd2ab7f010228ef0741d0bf848a684/transformed/jetified-lib-publicsuffixlist-95.0.5/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/55dd2ab7f010228ef0741d0bf848a684/transformed/jetified-lib-publicsuffixlist-95.0.5/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/55dd2ab7f010228ef0741d0bf848a684/transformed/jetified-lib-publicsuffixlist-95.0.5/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/lib-publicsuffixlist/97.0.20211223190311/41e8c64006e82b1c985a81f14efca0ac13b37a0/lib-publicsuffixlist-97.0.20211223190311-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

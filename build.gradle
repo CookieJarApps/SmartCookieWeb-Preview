@@ -1,6 +1,16 @@
 buildscript {
     ext.kotlin_version = '1.5.21'
     repositories {
+        maven {
+            name "Mozilla Nightly"
+            url "https://nightly.maven.mozilla.org/maven2"
+        }
+
+        maven {
+            name "Mozilla"
+            url "https://maven.mozilla.org/maven2"
+        }
+
         google()
         mavenCentral()
     }
@@ -8,6 +18,8 @@ buildscript {
         classpath 'com.android.tools.build:gradle:4.1.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
+
+        classpath "org.mozilla.components:tooling-glean-gradle:95.0.5"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -16,10 +28,29 @@ buildscript {
 allprojects {
     repositories {
         google()
-        mavenCentral()
+
         maven {
-            url "https://maven.mozilla.org/maven2/"
+            name "Mozilla Nightly"
+            url "https://nightly.maven.mozilla.org/maven2"
+
+            content {
+                // Always fetch components from the snapshots repository
+                includeGroup "org.mozilla.components"
+            }
         }
+
+        maven {
+            name "Mozilla"
+            url "https://maven.mozilla.org/maven2"
+
+            content {
+                // Never fetch components from here. We always want to use snapshots.
+                excludeGroup "org.mozilla.components"
+            }
+        }
+
+        mavenCentral()
+        
         maven { url "https://jitpack.io" }
     }
 }

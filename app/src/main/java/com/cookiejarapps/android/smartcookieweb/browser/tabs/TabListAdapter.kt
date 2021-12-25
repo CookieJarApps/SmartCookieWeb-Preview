@@ -1,10 +1,13 @@
 package com.cookiejarapps.android.smartcookieweb.browser.tabs
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.browser.tabstray.TabViewHolder
 import mozilla.components.browser.tabstray.TabsTrayStyling
 import mozilla.components.concept.base.images.ImageLoader
@@ -19,6 +22,7 @@ typealias ViewHolderProvider = (ViewGroup) -> TabViewHolder
 
 // Shows tab list in drawer
 open class TabListAdapter(
+    private val context: Context,
     thumbnailLoader: ImageLoader? = null,
     private val viewHolderProvider: ViewHolderProvider = { parent ->
         if(UserPreferences(parent.context).showTabsInGrid)
@@ -31,22 +35,25 @@ open class TabListAdapter(
                 LayoutInflater.from(parent.context).inflate(R.layout.tab_list_item, parent, false)
             )
     },
-    delegate: Observable<TabsTray.Observer> = ObserverRegistry()
-) : RecyclerView.Adapter<TabViewHolder>(), TabsTray, Observable<TabsTray.Observer> by delegate {
-    private var tabs: Tabs? = null
+    private val delegate: mozilla.components.browser.tabstray.TabsTray.Delegate
+) : RecyclerView.Adapter<TabViewHolder>() {
+    private var tabs: List<TabSessionState>? = null
 
     var styling: TabsTrayStyling = TabsTrayStyling()
+
+    val selectedTabId = context.components.store.state.selectedTabId
+    val selectedIndex = tabs?.indexOfFirst { it.id == selectedTabId }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TabViewHolder {
         return viewHolderProvider.invoke(parent)
     }
 
-    override fun getItemCount() = tabs?.list?.size ?: 0
+    override fun getItemCount() = tabs?.size ?: 0
 
     override fun onBindViewHolder(holder: TabViewHolder, position: Int) {
         val tabs = tabs ?: return
 
-        holder.bind(tabs.list[position], isTabSelected(tabs, position), styling, this)
+        holder.bind(tabs[position], selectedIndex == position, styling, delegate)
     }
 
     override fun onBindViewHolder(
@@ -55,38 +62,20 @@ open class TabListAdapter(
         payloads: List<Any>
     ) {
         tabs?.let { tabs ->
-            if (tabs.list.isEmpty()) return
+            if (tabs.isEmpty()) return
 
             if (payloads.isEmpty()) {
                 onBindViewHolder(holder, position)
                 return
             }
 
-            if (payloads.contains(HIGHLIGHT_SELECTED_ITEM) && position == tabs.selectedIndex) {
+            if (payloads.contains(HIGHLIGHT_SELECTED_ITEM) && position == selectedIndex) {
                 holder.updateSelectedTabIndicator(true)
-            } else if (payloads.contains(DONT_HIGHLIGHT_SELECTED_ITEM) && position == tabs.selectedIndex) {
+            } else if (payloads.contains(DONT_HIGHLIGHT_SELECTED_ITEM) && position == selectedIndex) {
                 holder.updateSelectedTabIndicator(false)
             }
         }
     }
-
-    override fun updateTabs(tabs: Tabs) {
-        this.tabs = tabs
-
-        notifyObservers { onTabsUpdated() }
-    }
-
-    override fun onTabsInserted(position: Int, count: Int) =
-        notifyItemRangeInserted(position, count)
-
-    override fun onTabsRemoved(position: Int, count: Int) = notifyItemRangeRemoved(position, count)
-
-    override fun onTabsMoved(fromPosition: Int, toPosition: Int) =
-        notifyItemMoved(fromPosition, toPosition)
-
-    override fun onTabsChanged(position: Int, count: Int) = notifyItemRangeChanged(position, count)
-
-    override fun isTabSelected(tabs: Tabs, position: Int) = tabs.selectedIndex == position
 
     companion object {
         val HIGHLIGHT_SELECTED_ITEM: Int = R.id.payload_highlight_selected_item

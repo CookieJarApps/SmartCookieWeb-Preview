@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:ui-autocomplete:97.0.20211223190311@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/72834f967d48bac0432df84502973324/transformed/jetified-ui-autocomplete-95.0.5/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/72834f967d48bac0432df84502973324/transformed/jetified-ui-autocomplete-95.0.5/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/72834f967d48bac0432df84502973324/transformed/jetified-ui-autocomplete-95.0.5/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/ui-autocomplete/97.0.20211223190311/950996b52462466137a09a424ec98f9fd52b014e/ui-autocomplete-97.0.20211223190311-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -229,7 +229,7 @@ open class Components(private val applicationContext: Context) {
     }
 
     val searchUseCases by lazy {
-        SearchUseCases(store, tabsUseCases)
+        SearchUseCases(store, tabsUseCases, sessionUseCases)
     }
 
     val defaultSearchUseCase by lazy {

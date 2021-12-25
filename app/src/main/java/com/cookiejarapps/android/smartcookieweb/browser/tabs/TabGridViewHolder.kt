@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.cookiejarapps.android.smartcookieweb.R
+import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.browser.tabstray.TabViewHolder
 import mozilla.components.browser.tabstray.TabsTrayStyling
 import mozilla.components.browser.tabstray.thumbnail.TabThumbnailView
@@ -37,47 +38,48 @@ class TabGridViewHolder(
 
     private val thumbnailView: TabThumbnailView = itemView.findViewById(R.id.mozac_browser_tabstray_thumbnail)
 
-    override var tab: Tab? = null
-    @VisibleForTesting
-    internal var styling: TabsTrayStyling? = null
+    override var tab: TabSessionState? = null
 
     override fun bind(
-            tab: Tab,
-            isSelected: Boolean,
-            styling: TabsTrayStyling,
-            observable: Observable<TabsTray.Observer>
+        tab: TabSessionState,
+        isSelected: Boolean,
+        styling: TabsTrayStyling,
+        delegate: mozilla.components.browser.tabstray.TabsTray.Delegate
     ) {
         this.tab = tab
         this.styling = styling
 
-        val title = if (tab.title.isNotEmpty()) {
-            tab.title
+        val title = if (tab.content.title.isNotEmpty()) {
+            tab.content.title
         } else {
-            tab.url
+            tab.content.url
         }
 
         titleView.text = title
 
         itemView.setOnClickListener {
-            observable.notifyObservers { onTabSelected(tab) }
+            delegate.onTabSelected(tab)
         }
 
         closeView.setOnClickListener {
-            observable.notifyObservers { onTabClosed(tab) }
+            delegate.onTabClosed(tab)
         }
 
         updateSelectedTabIndicator(isSelected)
 
-        if (thumbnailLoader != null && tab.thumbnail == null) {
+        if (thumbnailLoader != null && tab.content.thumbnail == null) {
             val thumbnailSize = THUMBNAIL_SIZE.dpToPx(thumbnailView.context.resources.displayMetrics)
             thumbnailLoader.loadIntoView(
                 thumbnailView,
                 ImageLoadRequest(id = tab.id, size = thumbnailSize)
             )
-        } else if (tab.thumbnail != null) {
-            thumbnailView.setImageBitmap(tab.thumbnail)
+        } else if (tab.content.thumbnail != null) {
+            thumbnailView.setImageBitmap(tab.content.thumbnail)
         }
     }
+
+    @VisibleForTesting
+    internal var styling: TabsTrayStyling? = null
 
     override fun updateSelectedTabIndicator(showAsSelected: Boolean) {
         if (showAsSelected) {

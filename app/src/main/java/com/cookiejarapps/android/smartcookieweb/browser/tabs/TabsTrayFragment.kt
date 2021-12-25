@@ -1,5 +1,6 @@
 package com.cookiejarapps.android.smartcookieweb.browser.tabs
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -32,6 +33,10 @@ import mozilla.components.browser.state.selector.findTabOrCustomTab
 import mozilla.components.browser.state.selector.getNormalOrPrivateTabs
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.TabSessionState
+import mozilla.components.browser.tabstray.DefaultTabViewHolder
+import mozilla.components.browser.tabstray.TabsAdapter
+import mozilla.components.browser.tabstray.TabsTray
+import mozilla.components.browser.tabstray.TabsTrayStyling
 import mozilla.components.browser.thumbnails.loader.ThumbnailLoader
 import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.feature.tabs.tabstray.TabsFeature
@@ -118,33 +123,14 @@ class TabsTrayFragment : Fragment() {
             true
         }
 
-        val tabsAdapter = createTabsAdapter()
-        tabsTray.adapter = tabsAdapter
-        val layoutManager = if(UserPreferences(requireContext()).showTabsInGrid) GridLayoutManager(
-            context,
-            2
-        ) else LinearLayoutManager(context)
-        layoutManager.stackFromEnd = !UserPreferences(requireContext()).showTabsInGrid && UserPreferences(
-            requireContext()
-        ).stackFromBottom
-        tabsTray.layoutManager = layoutManager
+        val tabsAdapter = createTabsTray()
 
         tabsFeature.set(
             feature = TabsFeature(
                 tabsTray = tabsAdapter,
                 store = components.store,
-                selectTabUseCase = SelectTabWithHomepageUseCase(
-                    components.tabsUseCases.selectTab,
-                    activity as BrowserActivity
-                ),
-                removeTabUseCase = RemoveTabWithUndoUseCase(
-                    components.tabsUseCases.removeTab,
-                    view,
-                    components.tabsUseCases.undo,
-                    requireActivity() as BrowserActivity
-                ),
                 defaultTabsFilter = { it.filterFromConfig(configuration) },
-                closeTabsTray = ::closeTabsTray
+                onCloseTray = ::closeTabsTray
             ),
             owner = this,
             view = view
@@ -258,9 +244,46 @@ class TabsTrayFragment : Fragment() {
         }
     }
 
-    private fun createTabsAdapter(): TabListAdapter {
+    private fun createTabsTray(): TabsTray {
         val thumbnailLoader = ThumbnailLoader(components.thumbnailStorage)
-        return TabListAdapter(thumbnailLoader)
+
+        val trayStyling = TabsTrayStyling(itemBackgroundColor = Color.TRANSPARENT, itemTextColor = Color.WHITE)
+
+        val viewHolderProvider: ViewHolderProvider = { viewGroup ->
+            val view = LayoutInflater.from(context)
+                .inflate(R.layout.browser_tabstray_item, viewGroup, false)
+
+            DefaultTabViewHolder(view, thumbnailLoader)
+        }
+
+        // TODO: SWITCH BACK TO CUSTOM ADAPTER
+        val adapter = TabsAdapter(
+            thumbnailLoader = thumbnailLoader,
+            viewHolderProvider = viewHolderProvider,
+            styling = trayStyling,
+            delegate = object : TabsTray.Delegate {
+                override fun onTabSelected(tab: TabSessionState, source: String?) {
+                    components.tabsUseCases.selectTab(tab.id)
+                    closeTabsTray()
+                }
+
+                override fun onTabClosed(tab: TabSessionState, source: String?) {
+                    components.tabsUseCases.removeTab(tab.id)
+                }
+            }
+        )
+
+        tabsTray.adapter = adapter
+        val layoutManager = if(UserPreferences(requireContext()).showTabsInGrid) GridLayoutManager(
+            context,
+            2
+        ) else LinearLayoutManager(context)
+        layoutManager.stackFromEnd = !UserPreferences(requireContext()).showTabsInGrid && UserPreferences(
+            requireContext()
+        ).stackFromBottom
+        tabsTray.layoutManager = layoutManager
+
+        return adapter
     }
 }
 

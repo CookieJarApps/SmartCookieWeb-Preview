@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:browser-engine-gecko:97.0.20211223190311@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/52e6b17e2cc5059001081f8d27db0473/transformed/jetified-browser-engine-gecko-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/52e6b17e2cc5059001081f8d27db0473/transformed/jetified-browser-engine-gecko-97.0.20211223190311/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/52e6b17e2cc5059001081f8d27db0473/transformed/jetified-browser-engine-gecko-97.0.20211223190311/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/browser-engine-gecko/97.0.20211223190311/69326788166e1b84fce9cae8be7674a0c7b8abad/browser-engine-gecko-97.0.20211223190311-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
