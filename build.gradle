@@ -29,24 +29,15 @@ allprojects {
     repositories {
         google()
 
+        // TODO: Switch back to snapshot repo, create build variants for stable, beta, nightly GV
         maven {
             name "Mozilla Nightly"
             url "https://nightly.maven.mozilla.org/maven2"
-
-            content {
-                // Always fetch components from the snapshots repository
-                includeGroup "org.mozilla.components"
-            }
         }
 
         maven {
             name "Mozilla"
             url "https://maven.mozilla.org/maven2"
-
-            content {
-                // Never fetch components from here. We always want to use snapshots.
-                excludeGroup "org.mozilla.components"
-            }
         }
 
         mavenCentral()
