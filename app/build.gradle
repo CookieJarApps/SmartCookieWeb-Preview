@@ -103,7 +103,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
-    final def mozComponentsVersion = "97.0.20211223190311"
+    final def mozComponentsVersion = "96.0.8"
 
     // Mozilla concept components
     implementation "org.mozilla.components:concept-engine:$mozComponentsVersion"
