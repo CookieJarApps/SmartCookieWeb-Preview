@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:service-digitalassetlinks:96.0.8@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ccbf7fcd11fd385a2b5b0c2e021e98a9/transformed/jetified-service-digitalassetlinks-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ccbf7fcd11fd385a2b5b0c2e021e98a9/transformed/jetified-service-digitalassetlinks-97.0.20211223190311/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ccbf7fcd11fd385a2b5b0c2e021e98a9/transformed/jetified-service-digitalassetlinks-97.0.20211223190311/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/service-digitalassetlinks/96.0.8/e58d44827456e0e3c4ab9f71a0c182ec13683385/service-digitalassetlinks-96.0.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

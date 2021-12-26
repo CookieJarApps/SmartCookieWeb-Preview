@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:service-glean:96.0.8@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d20444f554ea554d1f9515b9516d27c0/transformed/jetified-service-glean-96.0.8/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d20444f554ea554d1f9515b9516d27c0/transformed/jetified-service-glean-96.0.8/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d20444f554ea554d1f9515b9516d27c0/transformed/jetified-service-glean-96.0.8/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/service-glean/96.0.8/b93592398a40a1135af9750c8790e196556f55fa/service-glean-96.0.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

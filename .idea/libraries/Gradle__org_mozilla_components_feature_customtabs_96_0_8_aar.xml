@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-customtabs:96.0.8@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ea3dab4a1c8bc371cf0ade130fd53cb9/transformed/jetified-feature-customtabs-96.0.8/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ea3dab4a1c8bc371cf0ade130fd53cb9/transformed/jetified-feature-customtabs-96.0.8/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ea3dab4a1c8bc371cf0ade130fd53cb9/transformed/jetified-feature-customtabs-96.0.8/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-customtabs/96.0.8/a86835167ebd50d3b07cb940624ea98bcb922c01/feature-customtabs-96.0.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

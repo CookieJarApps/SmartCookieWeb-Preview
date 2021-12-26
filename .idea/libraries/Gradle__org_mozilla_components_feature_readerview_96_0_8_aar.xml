@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-readerview:96.0.8@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/87f14b79ce40b5677304489a92d82a75/transformed/jetified-feature-readerview-96.0.8/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/87f14b79ce40b5677304489a92d82a75/transformed/jetified-feature-readerview-96.0.8/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/87f14b79ce40b5677304489a92d82a75/transformed/jetified-feature-readerview-96.0.8/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-readerview/96.0.8/7b6c2cb021cccc685802639df0f67ff9dcf216c3/feature-readerview-96.0.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

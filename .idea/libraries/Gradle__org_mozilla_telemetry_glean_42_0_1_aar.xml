@@ -1,7 +1,6 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.telemetry:glean:42.0.1@aar">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/aaf59826fd19f40ebb406d9af5c91684/transformed/jetified-glean-42.0.1/res" />
       <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5627b8dad6c1968dc9f9f37fa45bf64c/transformed/jetified-glean-42.0.1/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5627b8dad6c1968dc9f9f37fa45bf64c/transformed/jetified-glean-42.0.1/res" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5627b8dad6c1968dc9f9f37fa45bf64c/transformed/jetified-glean-42.0.1/AndroidManifest.xml" />

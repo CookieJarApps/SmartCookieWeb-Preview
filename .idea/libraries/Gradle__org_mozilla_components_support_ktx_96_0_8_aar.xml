@@ -1,13 +1,13 @@
 <component name="libraryTable">
-  <library name="Gradle: org.mozilla.components:support-ktx:97.0.20211223190311@aar">
+  <library name="Gradle: org.mozilla.components:support-ktx:96.0.8@aar">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5b73140ad6a85a210ff79852e5d65d4f/transformed/jetified-support-ktx-97.0.20211223190311/res" />
       <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5b73140ad6a85a210ff79852e5d65d4f/transformed/jetified-support-ktx-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5b73140ad6a85a210ff79852e5d65d4f/transformed/jetified-support-ktx-97.0.20211223190311/res" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5b73140ad6a85a210ff79852e5d65d4f/transformed/jetified-support-ktx-97.0.20211223190311/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/support-ktx/97.0.20211223190311/b4be2b946dd078ce3e7f15d9207618e839278e2e/support-ktx-97.0.20211223190311-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/support-ktx/96.0.8/5f245d6fd6154a942295d43dd41982e8779da881/support-ktx-96.0.8-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

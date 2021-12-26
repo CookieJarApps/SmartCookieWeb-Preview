@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:browser-storage-sync:96.0.8@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b4297a6e27b65b4ccaa079b4382aff89/transformed/jetified-browser-storage-sync-96.0.8/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b4297a6e27b65b4ccaa079b4382aff89/transformed/jetified-browser-storage-sync-96.0.8/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b4297a6e27b65b4ccaa079b4382aff89/transformed/jetified-browser-storage-sync-96.0.8/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/browser-storage-sync/96.0.8/a096a52f3e5f23d6840a35ae383fc300d1d945cb/browser-storage-sync-96.0.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

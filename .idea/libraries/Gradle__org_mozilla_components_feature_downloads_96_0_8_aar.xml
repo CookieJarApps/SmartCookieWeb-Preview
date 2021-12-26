@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-downloads:96.0.8@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c1ee7dfae2e2d6118186f3d2ac13253e/transformed/jetified-feature-downloads-96.0.8/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c1ee7dfae2e2d6118186f3d2ac13253e/transformed/jetified-feature-downloads-96.0.8/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c1ee7dfae2e2d6118186f3d2ac13253e/transformed/jetified-feature-downloads-96.0.8/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-downloads/96.0.8/e4290101fcb99c5b15acf699e12c11745dd6b849/feature-downloads-96.0.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
