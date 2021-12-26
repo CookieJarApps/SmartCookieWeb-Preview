@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.appservices:tabs:87.1.0@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d6ae165b4f17b122efa59583dc6f229e/transformed/jetified-tabs-87.1.0/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d6ae165b4f17b122efa59583dc6f229e/transformed/jetified-tabs-87.1.0/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d6ae165b4f17b122efa59583dc6f229e/transformed/jetified-tabs-87.1.0/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d55171b93aa914fed1bedb583e2dfb1e/transformed/jetified-tabs-87.1.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d55171b93aa914fed1bedb583e2dfb1e/transformed/jetified-tabs-87.1.0/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d55171b93aa914fed1bedb583e2dfb1e/transformed/jetified-tabs-87.1.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

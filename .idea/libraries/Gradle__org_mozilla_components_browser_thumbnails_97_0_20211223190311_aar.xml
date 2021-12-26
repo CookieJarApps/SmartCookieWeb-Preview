@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:browser-thumbnails:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8805020385b2e8752a385cb7e2dca6ae/transformed/jetified-browser-thumbnails-97.0.20211223190311/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8805020385b2e8752a385cb7e2dca6ae/transformed/jetified-browser-thumbnails-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8805020385b2e8752a385cb7e2dca6ae/transformed/jetified-browser-thumbnails-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d03bb0946734f1792e2f5af861f78d90/transformed/jetified-browser-thumbnails-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d03bb0946734f1792e2f5af861f78d90/transformed/jetified-browser-thumbnails-97.0.20211223190311/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d03bb0946734f1792e2f5af861f78d90/transformed/jetified-browser-thumbnails-97.0.20211223190311/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

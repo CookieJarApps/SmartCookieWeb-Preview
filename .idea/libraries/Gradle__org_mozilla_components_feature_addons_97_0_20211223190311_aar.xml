@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:feature-addons:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c3a2e8fb0f182af6676393bb8a702a22/transformed/jetified-feature-addons-97.0.20211223190311/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c3a2e8fb0f182af6676393bb8a702a22/transformed/jetified-feature-addons-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c3a2e8fb0f182af6676393bb8a702a22/transformed/jetified-feature-addons-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7228c85bad2805924d472c4b71e61411/transformed/jetified-feature-addons-97.0.20211223190311/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7228c85bad2805924d472c4b71e61411/transformed/jetified-feature-addons-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7228c85bad2805924d472c4b71e61411/transformed/jetified-feature-addons-97.0.20211223190311/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

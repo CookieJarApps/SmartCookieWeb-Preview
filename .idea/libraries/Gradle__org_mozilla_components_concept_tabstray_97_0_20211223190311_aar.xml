@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:concept-tabstray:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/22a5cd3e7b1283c57e0d922eba17270c/transformed/jetified-concept-tabstray-97.0.20211223190311/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/22a5cd3e7b1283c57e0d922eba17270c/transformed/jetified-concept-tabstray-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/22a5cd3e7b1283c57e0d922eba17270c/transformed/jetified-concept-tabstray-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/edc40a0326c8513be158ffe3a4a19642/transformed/jetified-concept-tabstray-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/edc40a0326c8513be158ffe3a4a19642/transformed/jetified-concept-tabstray-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/edc40a0326c8513be158ffe3a4a19642/transformed/jetified-concept-tabstray-97.0.20211223190311/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

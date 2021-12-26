@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:concept-fetch:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f58061b97a46c9af4763bf1e83c11bbc/transformed/jetified-concept-fetch-97.0.20211223190311/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f58061b97a46c9af4763bf1e83c11bbc/transformed/jetified-concept-fetch-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f58061b97a46c9af4763bf1e83c11bbc/transformed/jetified-concept-fetch-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/239eae5a80c22fe7dbc961607532e2d5/transformed/jetified-concept-fetch-97.0.20211223190311/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/239eae5a80c22fe7dbc961607532e2d5/transformed/jetified-concept-fetch-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/239eae5a80c22fe7dbc961607532e2d5/transformed/jetified-concept-fetch-97.0.20211223190311/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

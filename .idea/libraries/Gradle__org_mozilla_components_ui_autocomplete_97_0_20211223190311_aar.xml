@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:ui-autocomplete:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/72834f967d48bac0432df84502973324/transformed/jetified-ui-autocomplete-95.0.5/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/72834f967d48bac0432df84502973324/transformed/jetified-ui-autocomplete-95.0.5/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/72834f967d48bac0432df84502973324/transformed/jetified-ui-autocomplete-95.0.5/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d9e30c6da37c25d8798046a598d86244/transformed/jetified-ui-autocomplete-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d9e30c6da37c25d8798046a598d86244/transformed/jetified-ui-autocomplete-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d9e30c6da37c25d8798046a598d86244/transformed/jetified-ui-autocomplete-97.0.20211223190311/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -65,7 +65,6 @@ class WebExtensionPopupFragment : BottomSheetDialogFragment(), UserInteractionHa
         return inflater.inflate(R.layout.fragment_extension_popup, container, false)
     }
 
-    @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

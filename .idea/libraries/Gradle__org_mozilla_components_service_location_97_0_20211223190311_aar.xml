@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:service-location:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/882cb7652cbe5669c19de343cb36b8f5/transformed/jetified-service-location-97.0.20211223190311/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/882cb7652cbe5669c19de343cb36b8f5/transformed/jetified-service-location-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/882cb7652cbe5669c19de343cb36b8f5/transformed/jetified-service-location-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7101237db80847ccb9cf8f34a67adaeb/transformed/jetified-service-location-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7101237db80847ccb9cf8f34a67adaeb/transformed/jetified-service-location-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7101237db80847ccb9cf8f34a67adaeb/transformed/jetified-service-location-97.0.20211223190311/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

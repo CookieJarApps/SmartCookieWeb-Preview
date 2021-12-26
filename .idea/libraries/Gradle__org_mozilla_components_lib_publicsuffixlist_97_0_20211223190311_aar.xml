@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:lib-publicsuffixlist:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/55dd2ab7f010228ef0741d0bf848a684/transformed/jetified-lib-publicsuffixlist-95.0.5/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/55dd2ab7f010228ef0741d0bf848a684/transformed/jetified-lib-publicsuffixlist-95.0.5/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/55dd2ab7f010228ef0741d0bf848a684/transformed/jetified-lib-publicsuffixlist-95.0.5/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6e8f3ac4d45675d8ba814b9b3f678830/transformed/jetified-lib-publicsuffixlist-97.0.20211223190311/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6e8f3ac4d45675d8ba814b9b3f678830/transformed/jetified-lib-publicsuffixlist-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6e8f3ac4d45675d8ba814b9b3f678830/transformed/jetified-lib-publicsuffixlist-97.0.20211223190311/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

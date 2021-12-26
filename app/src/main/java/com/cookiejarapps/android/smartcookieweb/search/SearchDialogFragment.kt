@@ -160,7 +160,6 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
         return view
     }
 
-    @ExperimentalCoroutinesApi
     @SuppressWarnings("LongMethod")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

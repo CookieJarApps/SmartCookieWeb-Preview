@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:concept-engine:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b8bd4596de39be45902d992cf670625e/transformed/jetified-concept-engine-97.0.20211223190311/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b8bd4596de39be45902d992cf670625e/transformed/jetified-concept-engine-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b8bd4596de39be45902d992cf670625e/transformed/jetified-concept-engine-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d9642e304972a7bd5c3398563b219cd0/transformed/jetified-concept-engine-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d9642e304972a7bd5c3398563b219cd0/transformed/jetified-concept-engine-97.0.20211223190311/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d9642e304972a7bd5c3398563b219cd0/transformed/jetified-concept-engine-97.0.20211223190311/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

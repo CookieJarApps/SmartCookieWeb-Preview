@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:feature-intent:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f6d9d5eb1179936c7e18b6e67244590a/transformed/jetified-feature-intent-97.0.20211223190311/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f6d9d5eb1179936c7e18b6e67244590a/transformed/jetified-feature-intent-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f6d9d5eb1179936c7e18b6e67244590a/transformed/jetified-feature-intent-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/2877504d9e9574a902970af80e11461d/transformed/jetified-feature-intent-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/2877504d9e9574a902970af80e11461d/transformed/jetified-feature-intent-97.0.20211223190311/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/2877504d9e9574a902970af80e11461d/transformed/jetified-feature-intent-97.0.20211223190311/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

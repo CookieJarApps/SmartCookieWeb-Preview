@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:feature-media:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/098ae61434214452f694b264af7773d9/transformed/jetified-feature-media-97.0.20211223190311/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/098ae61434214452f694b264af7773d9/transformed/jetified-feature-media-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/098ae61434214452f694b264af7773d9/transformed/jetified-feature-media-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a0f0c746d0a5190063b8052624d0e349/transformed/jetified-feature-media-97.0.20211223190311/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a0f0c746d0a5190063b8052624d0e349/transformed/jetified-feature-media-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a0f0c746d0a5190063b8052624d0e349/transformed/jetified-feature-media-97.0.20211223190311/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

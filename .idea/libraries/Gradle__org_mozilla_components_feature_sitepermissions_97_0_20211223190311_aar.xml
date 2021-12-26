@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:feature-sitepermissions:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c20341c53d1b5386617a2e3d5ccb946c/transformed/jetified-feature-sitepermissions-97.0.20211223190311/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c20341c53d1b5386617a2e3d5ccb946c/transformed/jetified-feature-sitepermissions-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c20341c53d1b5386617a2e3d5ccb946c/transformed/jetified-feature-sitepermissions-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/898219196385b5b26add02ab8707d621/transformed/jetified-feature-sitepermissions-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/898219196385b5b26add02ab8707d621/transformed/jetified-feature-sitepermissions-97.0.20211223190311/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/898219196385b5b26add02ab8707d621/transformed/jetified-feature-sitepermissions-97.0.20211223190311/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

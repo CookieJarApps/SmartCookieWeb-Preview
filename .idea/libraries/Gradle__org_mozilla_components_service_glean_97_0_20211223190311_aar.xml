@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:service-glean:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/08b90fbfbbfb20dd0c4ae6ec34838b3a/transformed/jetified-service-glean-97.0.20211223190311/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/08b90fbfbbfb20dd0c4ae6ec34838b3a/transformed/jetified-service-glean-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/08b90fbfbbfb20dd0c4ae6ec34838b3a/transformed/jetified-service-glean-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a6072bedb25b0acd95c4623672d18cb8/transformed/jetified-service-glean-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a6072bedb25b0acd95c4623672d18cb8/transformed/jetified-service-glean-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a6072bedb25b0acd95c4623672d18cb8/transformed/jetified-service-glean-97.0.20211223190311/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

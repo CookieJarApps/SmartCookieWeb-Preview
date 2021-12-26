@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:feature-webcompat:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/10675955bcba86ecb25d6b598647f59c/transformed/jetified-feature-webcompat-97.0.20211223190311/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/10675955bcba86ecb25d6b598647f59c/transformed/jetified-feature-webcompat-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/10675955bcba86ecb25d6b598647f59c/transformed/jetified-feature-webcompat-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/245f73c1eb4f9cf2a11831344dae5889/transformed/jetified-feature-webcompat-97.0.20211223190311/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/245f73c1eb4f9cf2a11831344dae5889/transformed/jetified-feature-webcompat-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/245f73c1eb4f9cf2a11831344dae5889/transformed/jetified-feature-webcompat-97.0.20211223190311/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

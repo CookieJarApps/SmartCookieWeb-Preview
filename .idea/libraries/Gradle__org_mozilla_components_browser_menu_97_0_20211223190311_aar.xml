@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:browser-menu:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ff1d2b531511444b3bb4ca26c9d419bb/transformed/jetified-browser-menu-97.0.20211223190311/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ff1d2b531511444b3bb4ca26c9d419bb/transformed/jetified-browser-menu-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ff1d2b531511444b3bb4ca26c9d419bb/transformed/jetified-browser-menu-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/9f8320955c53c170baf18ca3e16b2969/transformed/jetified-browser-menu-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/9f8320955c53c170baf18ca3e16b2969/transformed/jetified-browser-menu-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/9f8320955c53c170baf18ca3e16b2969/transformed/jetified-browser-menu-97.0.20211223190311/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

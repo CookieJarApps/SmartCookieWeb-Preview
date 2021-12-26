@@ -27,20 +27,20 @@ class FakeTab @JvmOverloads constructor(
     init {
         val inflater = LayoutInflater.from(context)
         inflater.inflate(R.layout.tab_preview, this, true)
-
-        if (UserPreferences(context).toolbarPosition != ToolbarPosition.BOTTOM.ordinal) {
-            fakeToolbar.updateLayoutParams<LayoutParams> {
-                gravity = Gravity.TOP
-            }
-        }
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
         previewThumbnail.translationY = if (UserPreferences(context).toolbarPosition != ToolbarPosition.BOTTOM.ordinal) {
-            fakeToolbar.height.toFloat()
+            fake_toolbar.height.toFloat()
         } else {
             0f
+        }
+
+        if (UserPreferences(context).toolbarPosition != ToolbarPosition.BOTTOM.ordinal) {
+             fake_toolbar.updateLayoutParams<LayoutParams> {
+                gravity = Gravity.TOP
+            }
         }
     }
 

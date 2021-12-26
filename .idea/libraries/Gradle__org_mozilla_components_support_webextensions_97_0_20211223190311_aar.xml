@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:support-webextensions:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d50a075ea217f84524bdc8d63e003cab/transformed/jetified-support-webextensions-97.0.20211223190311/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d50a075ea217f84524bdc8d63e003cab/transformed/jetified-support-webextensions-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d50a075ea217f84524bdc8d63e003cab/transformed/jetified-support-webextensions-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/56fb10efd782a28cfb5c09cbab91708a/transformed/jetified-support-webextensions-97.0.20211223190311/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/56fb10efd782a28cfb5c09cbab91708a/transformed/jetified-support-webextensions-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/56fb10efd782a28cfb5c09cbab91708a/transformed/jetified-support-webextensions-97.0.20211223190311/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

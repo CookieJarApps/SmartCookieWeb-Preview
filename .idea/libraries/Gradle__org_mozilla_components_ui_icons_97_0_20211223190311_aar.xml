@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:ui-icons:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7e379234ec569ac74f9b00cc531c7d31/transformed/jetified-ui-icons-97.0.20211223190311/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7e379234ec569ac74f9b00cc531c7d31/transformed/jetified-ui-icons-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7e379234ec569ac74f9b00cc531c7d31/transformed/jetified-ui-icons-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7171105fceee30b9b7b20f06382fb5e9/transformed/jetified-ui-icons-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7171105fceee30b9b7b20f06382fb5e9/transformed/jetified-ui-icons-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7171105fceee30b9b7b20f06382fb5e9/transformed/jetified-ui-icons-97.0.20211223190311/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

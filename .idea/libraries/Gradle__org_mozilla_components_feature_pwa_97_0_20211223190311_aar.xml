@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:feature-pwa:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c03037ac37ed1a33d3cf0bb980596e76/transformed/jetified-feature-pwa-97.0.20211223190311/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c03037ac37ed1a33d3cf0bb980596e76/transformed/jetified-feature-pwa-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c03037ac37ed1a33d3cf0bb980596e76/transformed/jetified-feature-pwa-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/913630e3d2905cc31f95f6d57368cd61/transformed/jetified-feature-pwa-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/913630e3d2905cc31f95f6d57368cd61/transformed/jetified-feature-pwa-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/913630e3d2905cc31f95f6d57368cd61/transformed/jetified-feature-pwa-97.0.20211223190311/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:support-utils:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/182a7990301dc5faa7aad7ced509e3ca/transformed/jetified-support-utils-97.0.20211223190311/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/182a7990301dc5faa7aad7ced509e3ca/transformed/jetified-support-utils-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/182a7990301dc5faa7aad7ced509e3ca/transformed/jetified-support-utils-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f5aa82523571b3d82dc8591da56df90f/transformed/jetified-support-utils-97.0.20211223190311/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f5aa82523571b3d82dc8591da56df90f/transformed/jetified-support-utils-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f5aa82523571b3d82dc8591da56df90f/transformed/jetified-support-utils-97.0.20211223190311/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:feature-toolbar:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/90417c92bb072b70a8fa596af6752fb2/transformed/jetified-feature-toolbar-97.0.20211223190311/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/90417c92bb072b70a8fa596af6752fb2/transformed/jetified-feature-toolbar-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/90417c92bb072b70a8fa596af6752fb2/transformed/jetified-feature-toolbar-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/0c5cf8dbaa7f5d202ad8aa1514413996/transformed/jetified-feature-toolbar-97.0.20211223190311/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/0c5cf8dbaa7f5d202ad8aa1514413996/transformed/jetified-feature-toolbar-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/0c5cf8dbaa7f5d202ad8aa1514413996/transformed/jetified-feature-toolbar-97.0.20211223190311/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

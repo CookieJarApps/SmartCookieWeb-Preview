@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:lib-fetch-httpurlconnection:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a9ecefb342c2d34f5e2255f2cdbb0d7a/transformed/jetified-lib-fetch-httpurlconnection-97.0.20211223190311/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a9ecefb342c2d34f5e2255f2cdbb0d7a/transformed/jetified-lib-fetch-httpurlconnection-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a9ecefb342c2d34f5e2255f2cdbb0d7a/transformed/jetified-lib-fetch-httpurlconnection-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/bd9aaa6e381f5fb070d5373d51be2a8a/transformed/jetified-lib-fetch-httpurlconnection-97.0.20211223190311/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/bd9aaa6e381f5fb070d5373d51be2a8a/transformed/jetified-lib-fetch-httpurlconnection-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/bd9aaa6e381f5fb070d5373d51be2a8a/transformed/jetified-lib-fetch-httpurlconnection-97.0.20211223190311/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

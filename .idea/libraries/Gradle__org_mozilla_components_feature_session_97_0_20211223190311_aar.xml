@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:feature-session:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/83c885cb41e03eeea0886df966e22f82/transformed/jetified-feature-session-97.0.20211223190311/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/83c885cb41e03eeea0886df966e22f82/transformed/jetified-feature-session-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/83c885cb41e03eeea0886df966e22f82/transformed/jetified-feature-session-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f76f1043f8d28d1c362f5f0c48917e5e/transformed/jetified-feature-session-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f76f1043f8d28d1c362f5f0c48917e5e/transformed/jetified-feature-session-97.0.20211223190311/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f76f1043f8d28d1c362f5f0c48917e5e/transformed/jetified-feature-session-97.0.20211223190311/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

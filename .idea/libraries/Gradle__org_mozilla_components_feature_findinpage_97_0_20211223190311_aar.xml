@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:feature-findinpage:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/0384e715ce878fbcc265471e982a1256/transformed/jetified-feature-findinpage-97.0.20211223190311/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/0384e715ce878fbcc265471e982a1256/transformed/jetified-feature-findinpage-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/0384e715ce878fbcc265471e982a1256/transformed/jetified-feature-findinpage-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/51fe5f52304763395991cff776f2ca12/transformed/jetified-feature-findinpage-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/51fe5f52304763395991cff776f2ca12/transformed/jetified-feature-findinpage-97.0.20211223190311/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/51fe5f52304763395991cff776f2ca12/transformed/jetified-feature-findinpage-97.0.20211223190311/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

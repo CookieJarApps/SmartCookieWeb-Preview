@@ -12,7 +12,7 @@
         android:background="?attr/colorSurface" />
 
     <LinearLayout
-        android:id="@+id/fakeToolbar"
+        android:id="@+id/fake_toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/browser_toolbar_height"
         android:layout_gravity="bottom"

@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:feature-autofill:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/0c393041f054fe9a93e24f5f2f2eb41a/transformed/jetified-feature-autofill-97.0.20211223190311/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/0c393041f054fe9a93e24f5f2f2eb41a/transformed/jetified-feature-autofill-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/0c393041f054fe9a93e24f5f2f2eb41a/transformed/jetified-feature-autofill-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/de1932f7d3c38fa9c340e3774b7098b7/transformed/jetified-feature-autofill-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/de1932f7d3c38fa9c340e3774b7098b7/transformed/jetified-feature-autofill-97.0.20211223190311/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/de1932f7d3c38fa9c340e3774b7098b7/transformed/jetified-feature-autofill-97.0.20211223190311/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

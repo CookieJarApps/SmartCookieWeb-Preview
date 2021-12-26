@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:support-ktx:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6b3257a87de71b38da328b2d30937758/transformed/jetified-support-ktx-96.0.2/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6b3257a87de71b38da328b2d30937758/transformed/jetified-support-ktx-96.0.2/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6b3257a87de71b38da328b2d30937758/transformed/jetified-support-ktx-96.0.2/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5b73140ad6a85a210ff79852e5d65d4f/transformed/jetified-support-ktx-97.0.20211223190311/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5b73140ad6a85a210ff79852e5d65d4f/transformed/jetified-support-ktx-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5b73140ad6a85a210ff79852e5d65d4f/transformed/jetified-support-ktx-97.0.20211223190311/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

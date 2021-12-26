@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:browser-awesomebar:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/dcfe3969f1b336a4ce2caf26b9c4a5dd/transformed/jetified-browser-awesomebar-97.0.20211223190311/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/dcfe3969f1b336a4ce2caf26b9c4a5dd/transformed/jetified-browser-awesomebar-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/dcfe3969f1b336a4ce2caf26b9c4a5dd/transformed/jetified-browser-awesomebar-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ad6e8b2cc9013e95960c4c6d1f24bcb1/transformed/jetified-browser-awesomebar-97.0.20211223190311/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ad6e8b2cc9013e95960c4c6d1f24bcb1/transformed/jetified-browser-awesomebar-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ad6e8b2cc9013e95960c4c6d1f24bcb1/transformed/jetified-browser-awesomebar-97.0.20211223190311/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:browser-errorpages:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6b7071806619810d26864854013362cb/transformed/jetified-browser-errorpages-97.0.20211223190311/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6b7071806619810d26864854013362cb/transformed/jetified-browser-errorpages-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6b7071806619810d26864854013362cb/transformed/jetified-browser-errorpages-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d520ebc32f0a321363cd4515ae3be4e0/transformed/jetified-browser-errorpages-97.0.20211223190311/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d520ebc32f0a321363cd4515ae3be4e0/transformed/jetified-browser-errorpages-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d520ebc32f0a321363cd4515ae3be4e0/transformed/jetified-browser-errorpages-97.0.20211223190311/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

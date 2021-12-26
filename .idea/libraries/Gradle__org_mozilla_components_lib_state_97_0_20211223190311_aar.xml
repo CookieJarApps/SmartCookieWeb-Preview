@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:lib-state:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b93dad4109a1e618c417d58c7b019a9b/transformed/jetified-lib-state-95.0.5/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b93dad4109a1e618c417d58c7b019a9b/transformed/jetified-lib-state-95.0.5/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/b93dad4109a1e618c417d58c7b019a9b/transformed/jetified-lib-state-95.0.5/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/558a608b398e761881ee82db8b8c46db/transformed/jetified-lib-state-97.0.20211223190311/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/558a608b398e761881ee82db8b8c46db/transformed/jetified-lib-state-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/558a608b398e761881ee82db8b8c46db/transformed/jetified-lib-state-97.0.20211223190311/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:feature-tabs:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8f9bc45add000bbd708a34f70c1e34d4/transformed/jetified-feature-tabs-97.0.20211223190311/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8f9bc45add000bbd708a34f70c1e34d4/transformed/jetified-feature-tabs-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8f9bc45add000bbd708a34f70c1e34d4/transformed/jetified-feature-tabs-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6f751b109bcd74d339bf2164b9ed5cac/transformed/jetified-feature-tabs-97.0.20211223190311/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6f751b109bcd74d339bf2164b9ed5cac/transformed/jetified-feature-tabs-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6f751b109bcd74d339bf2164b9ed5cac/transformed/jetified-feature-tabs-97.0.20211223190311/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:feature-downloads:97.0.20211223190311@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a04870ae58ef91b91f9f03f5dbd8d62c/transformed/jetified-feature-downloads-97.0.20211223190311/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a04870ae58ef91b91f9f03f5dbd8d62c/transformed/jetified-feature-downloads-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a04870ae58ef91b91f9f03f5dbd8d62c/transformed/jetified-feature-downloads-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/0c141969b7c057c352ca38f9445acdd4/transformed/jetified-feature-downloads-97.0.20211223190311/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/0c141969b7c057c352ca38f9445acdd4/transformed/jetified-feature-downloads-97.0.20211223190311/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/0c141969b7c057c352ca38f9445acdd4/transformed/jetified-feature-downloads-97.0.20211223190311/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
