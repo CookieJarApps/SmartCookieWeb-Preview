@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:ui-autocomplete:96.0.8@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d9e30c6da37c25d8798046a598d86244/transformed/jetified-ui-autocomplete-97.0.20211223190311/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d9e30c6da37c25d8798046a598d86244/transformed/jetified-ui-autocomplete-97.0.20211223190311/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d9e30c6da37c25d8798046a598d86244/transformed/jetified-ui-autocomplete-97.0.20211223190311/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d9e30c6da37c25d8798046a598d86244/transformed/jetified-ui-autocomplete-96.0.8/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d9e30c6da37c25d8798046a598d86244/transformed/jetified-ui-autocomplete-96.0.8/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d9e30c6da37c25d8798046a598d86244/transformed/jetified-ui-autocomplete-96.0.8/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
