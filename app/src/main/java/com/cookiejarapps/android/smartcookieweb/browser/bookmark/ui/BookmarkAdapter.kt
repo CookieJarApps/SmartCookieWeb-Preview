@@ -53,7 +53,7 @@ open class BookmarkAdapter(
                 }
 
                 withContext(Dispatchers.Main){
-                    holder.more.setImageBitmap(bitmap)
+                    holder.icon.setImageBitmap(bitmap)
                 }
             }
         }
@@ -90,7 +90,8 @@ open class BookmarkAdapter(
 
     open class BookmarkItemHolder(itemView: View, adapter: BookmarkAdapter) : ArrayRecyclerAdapter.ArrayViewHolder<BookmarkItem>(itemView, adapter) {
         val title: TextView = itemView.findViewById(R.id.titleTextView)
-        val more: ImageButton = itemView.findViewById(R.id.imageButton)
+        val icon: ImageButton = itemView.findViewById(R.id.imageButton)
+        val more: ImageButton = itemView.findViewById(R.id.dropdownBookmark)
 
         init {
             more.setOnClickListener {

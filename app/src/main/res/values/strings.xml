@@ -148,6 +148,7 @@
 
   <string name="add_bookmark">Add bookmark</string>
   <string name="edit_bookmark">Edit bookmark</string>
+  <string name="remove_history_item">Remove history item</string>
   <string name="edit_folder">Edit folder</string>
   <string name="add_folder">Add folder</string>
   <string name="new_folder_name">New folder</string>
