@@ -1,7 +1,9 @@
 package com.cookiejarapps.android.smartcookieweb.addons
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
@@ -21,6 +23,7 @@ import com.cookiejarapps.android.smartcookieweb.databinding.FragmentAddOnsBindin
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBrowserBinding
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -29,6 +32,7 @@ import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.addons.AddonManagerException
 import mozilla.components.feature.addons.ui.*
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
+import org.mozilla.gecko.util.ThreadUtils
 import java.util.*
 import java.util.concurrent.CancellationException
 import kotlin.collections.ArrayList
@@ -194,7 +198,8 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                             val bundle: Bundle? = arguments
                             if (bundle?.getString("ADDON_ID") != null) {
                                 val addonId = bundle.getString("ADDON_ID", "")
-                                installAddonById(addons!!, addonId)
+                                val addonUrl = bundle.getString("ADDON_URL", "")
+                                installAddonById(addons!!, addonId, addonUrl)
                             }
                         } else {
                             adapter?.updateAddons(addons!!)
@@ -215,18 +220,42 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     }
 
     @VisibleForTesting
-    internal fun installAddonById(supportedAddons: List<Addon>, id: String) {
+    internal fun installAddonById(supportedAddons: List<Addon>, id: String, url: String) {
         val addonToInstall = supportedAddons.find { it.downloadId == id }
         if (addonToInstall == null) {
-            val builder = AlertDialog.Builder(requireContext())
+            val builder = MaterialAlertDialogBuilder(requireContext())
             builder.setMessage(resources.getString(R.string.addon_not_available))
-                    .setCancelable(false)
-                    .setPositiveButton(R.string.mozac_feature_prompts_ok) { dialog, id ->
-                        dialog.cancel()
-                    }
+                .setPositiveButton(R.string.mozac_feature_prompts_ok) { dialog, id ->
 
-            val alert: AlertDialog = builder.create()
-            alert.show()
+                    val loadingDialog = ProgressDialog.show(
+                        activity, "",
+                        requireContext().resources.getString(R.string.loading), true
+                    )
+
+                    components.engine.installWebExtension("", url, onSuccess = {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            addons = requireContext().components.addonManager.getAddons()
+                            ThreadUtils.runOnUiThread {
+                                loadingDialog.dismiss()
+                                Toast.makeText(
+                                    requireContext(),
+                                    requireContext().resources.getString(R.string.installed),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                adapter?.updateAddons(addons!!)
+                            }
+                        }
+                    },
+                        onError = { _, _ ->
+                            loadingDialog.dismiss()
+                            Toast.makeText(requireContext(), requireContext().resources.getString(R.string.error), Toast.LENGTH_LONG).show()
+                        })
+                }
+                .setNegativeButton(R.string.cancel) { dialog, id ->
+                    dialog.cancel()
+                }
+
+            builder.create().show()
         } else {
             if (addonToInstall.isInstalled()) {
                 // error

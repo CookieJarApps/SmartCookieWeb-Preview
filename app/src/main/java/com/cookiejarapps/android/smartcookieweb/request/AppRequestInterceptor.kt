@@ -107,6 +107,8 @@ class AppRequestInterceptor(val context: Context) : RequestInterceptor {
                 matchResult.groupValues.getOrNull(1)?.let { addonId ->
                     val intent = Intent(context, AddonsActivity::class.java)
                     intent.putExtra("ADDON_ID", addonId)
+                    intent.putExtra("ADDON_URL", uri)
+                    Log.d("gdsgsdg", uri)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(context, intent, null)
 
