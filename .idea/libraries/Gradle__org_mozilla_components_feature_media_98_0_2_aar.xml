@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-media:98.0.2@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/55640d6b1edf53ade6b7cd7e19ab006b/transformed/jetified-feature-media-98.0.2/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/55640d6b1edf53ade6b7cd7e19ab006b/transformed/jetified-feature-media-98.0.2/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/55640d6b1edf53ade6b7cd7e19ab006b/transformed/jetified-feature-media-98.0.2/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-media/98.0.2/5b33ae961c71f789e0acaf9a7d7a9833f762a01/feature-media-98.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

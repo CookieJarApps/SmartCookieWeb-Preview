@@ -11,7 +11,6 @@ import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.CustomBookmarksStorage
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
-import mozilla.components.browser.awesomebar.BrowserAwesomeBar
 import mozilla.components.browser.state.search.SearchEngine
 import mozilla.components.concept.awesomebar.AwesomeBar
 import mozilla.components.concept.engine.EngineSession
@@ -31,7 +30,7 @@ import mozilla.components.feature.awesomebar.provider.*
 class AwesomeBarView(
     private val activity: BrowserActivity,
     val interactor: AwesomeBarInteractor,
-    val view: BrowserAwesomeBar
+    val view: AwesomeBarWrapper,
 ) {
     private val sessionProvider: SessionSuggestionProvider
     private val historyStorageProvider: HistoryStorageSuggestionProvider
@@ -79,8 +78,6 @@ class AwesomeBarView(
     }
 
     init {
-        view.itemAnimator = null
-
         val components = activity.components
         val primaryTextColor = activity.getColorFromAttr(android.R.attr.textColorPrimary)
 

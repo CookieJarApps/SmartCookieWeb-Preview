@@ -13,7 +13,6 @@ import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.fragment_extension_popup.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.CustomTabListAction
@@ -34,6 +33,8 @@ import android.widget.RelativeLayout
 import android.util.TypedValue
 import android.util.DisplayMetrics
 import android.util.Log
+import com.cookiejarapps.android.smartcookieweb.databinding.FragmentAddOnsBinding
+import com.cookiejarapps.android.smartcookieweb.databinding.FragmentExtensionPopupBinding
 
 
 class WebExtensionPopupFragment : BottomSheetDialogFragment(), UserInteractionHandler, EngineSession.Observer {
@@ -44,6 +45,9 @@ class WebExtensionPopupFragment : BottomSheetDialogFragment(), UserInteractionHa
     private var canGoBack: Boolean = false
 
     private lateinit var webExtensionId: String
+
+    private var _binding: FragmentExtensionPopupBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,7 +66,10 @@ class WebExtensionPopupFragment : BottomSheetDialogFragment(), UserInteractionHa
         modalBottomSheetBehavior.halfExpandedRatio = 0.7F
         modalBottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
 
-        return inflater.inflate(R.layout.fragment_extension_popup, container, false)
+        _binding = FragmentExtensionPopupBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,14 +99,14 @@ class WebExtensionPopupFragment : BottomSheetDialogFragment(), UserInteractionHa
         }
 
         if (engineSession != null) {
-            addonPopupEngineView.render(engineSession!!)
+            binding.addonPopupEngineView.render(engineSession!!)
             consumePopupSession()
         } else {
             consumeFrom(requireContext().components.store) { state ->
                 state.extensions[webExtensionId]?.let { extState ->
                     extState.popupSession?.let {
                         if (engineSession == null) {
-                            addonPopupEngineView.render(it)
+                            binding.addonPopupEngineView.render(it)
                             it.register(this, view)
                             consumePopupSession()
                             engineSession = it

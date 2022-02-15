@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_scrollFlags="scroll|enterAlways|snap|exitUntilCollapsed" />
 
-    <mozilla.components.browser.awesomebar.BrowserAwesomeBar
+    <com.cookiejarapps.android.smartcookieweb.search.awesomebar.AwesomeBarWrapper
         android:id="@+id/awesome_bar"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -37,8 +37,6 @@
         android:nestedScrollingEnabled="false"
         android:requiresFadingEdge="vertical"
         android:visibility="invisible"
-        app:awesomeBarDescriptionTextColor="?android:attr/textColorSecondary"
-        app:awesomeBarTitleTextColor="?android:attr/textColorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/pill_wrapper"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

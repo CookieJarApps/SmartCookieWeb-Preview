@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.geckoview:geckoview-beta-omni:98.0.20220210185745@aar">
+    <ANNOTATIONS>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8c278d2ad58b1df2d25e6871d7a5ffcc/transformed/jetified-geckoview-beta-omni-98.0.20220210185745/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8c278d2ad58b1df2d25e6871d7a5ffcc/transformed/jetified-geckoview-beta-omni-98.0.20220210185745/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8c278d2ad58b1df2d25e6871d7a5ffcc/transformed/jetified-geckoview-beta-omni-98.0.20220210185745/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8c278d2ad58b1df2d25e6871d7a5ffcc/transformed/jetified-geckoview-beta-omni-98.0.20220210185745/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.geckoview/geckoview-beta-omni/98.0.20220210185745/4254986707d41af54d3f891dd645e4a3c7d98dd5/geckoview-beta-omni-98.0.20220210185745-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.geckoview/geckoview-beta-omni/98.0.20220210185745/5226663525e56b0bb8f669a31729ec1fbe418241/geckoview-beta-omni-98.0.20220210185745-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

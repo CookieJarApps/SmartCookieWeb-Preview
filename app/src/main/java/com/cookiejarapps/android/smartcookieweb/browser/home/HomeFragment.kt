@@ -35,14 +35,14 @@ import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutDatabase
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutEntity
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutGridAdapter
+import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBookmarkBinding
+import com.cookiejarapps.android.smartcookieweb.databinding.FragmentHomeBinding
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.ext.nav
 import com.cookiejarapps.android.smartcookieweb.history.HistoryActivity
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.settings.activity.SettingsActivity
 import com.google.android.material.appbar.AppBarLayout
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
@@ -78,8 +78,11 @@ class HomeFragment : Fragment() {
 
     private var appBarLayout: AppBarLayout? = null
 
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
     @VisibleForTesting
-    internal var getMenuButton: () -> MenuButton? = { menuButton }
+    internal var getMenuButton: () -> MenuButton? = { binding.menuButton }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,32 +96,34 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val view = binding.root
+
         val activity = activity as BrowserActivity
         val components = requireContext().components
 
         updateLayout(view)
 
         if(!UserPreferences(requireContext()).showShortcuts){
-            view.shortcut_name.visibility = View.GONE
-            view.shortcut_grid.visibility = View.GONE
+            binding.shortcutName.visibility = View.GONE
+            binding.shortcutGrid.visibility = View.GONE
         }
 
         if(!UserPreferences(requireContext()).shortcutDrawerOpen){
-            view.shortcut_name.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_shortcuts, 0, R.drawable.ic_baseline_chevron_up, 0)
-            view.shortcut_grid.visibility = View.GONE
+            binding.shortcutName.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_shortcuts, 0, R.drawable.ic_baseline_chevron_up, 0)
+            binding.shortcutGrid.visibility = View.GONE
         }
 
-        view.shortcut_name.setOnClickListener {
+        binding.shortcutName.setOnClickListener {
             if(UserPreferences(requireContext()).shortcutDrawerOpen){
                 UserPreferences(requireContext()).shortcutDrawerOpen = false
-                view.shortcut_name.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_shortcuts, 0, R.drawable.ic_baseline_chevron_up, 0)
-                view.shortcut_grid.visibility = View.GONE
+                binding.shortcutName.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_shortcuts, 0, R.drawable.ic_baseline_chevron_up, 0)
+                binding.shortcutGrid.visibility = View.GONE
             }
             else{
                 UserPreferences(requireContext()).shortcutDrawerOpen = true
-                view.shortcut_name.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_shortcuts, 0, R.drawable.ic_baseline_chevron_down, 0)
-                view.shortcut_grid.visibility = View.VISIBLE
+                binding.shortcutName.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_shortcuts, 0, R.drawable.ic_baseline_chevron_down, 0)
+                binding.shortcutGrid.visibility = View.VISIBLE
             }
         }
 
@@ -141,28 +146,28 @@ class HomeFragment : Fragment() {
             val adapter = ShortcutGridAdapter(requireContext(), shortcuts)
 
             ThreadUtils.runOnUiThread {
-                view.shortcut_grid.adapter = adapter
+                binding.shortcutGrid.adapter = adapter
             }
         }
 
-        view.shortcut_grid.setOnItemClickListener { _, _, position, _ ->
+        binding.shortcutGrid.setOnItemClickListener { _, _, position, _ ->
             findNavController().navigate(
                     R.id.browserFragment
                 )
 
                 components.sessionUseCases.loadUrl(
-                    (view.shortcut_grid.adapter.getItem(position) as ShortcutEntity).url!!)
+                    (binding.shortcutGrid.adapter.getItem(position) as ShortcutEntity).url!!)
         }
 
-        view.shortcut_grid.setOnItemLongClickListener { _, _, position, _ ->
+        binding.shortcutGrid.setOnItemLongClickListener { _, _, position, _ ->
             val items = arrayOf(resources.getString(R.string.edit_shortcut), resources.getString(R.string.delete_shortcut))
 
             AlertDialog.Builder(requireContext())
                 .setTitle(resources.getString(R.string.edit_shortcut))
                 .setItems(items) { _, which ->
                     when(which){
-                        0 -> showEditShortcutDialog(position, view.shortcut_grid.adapter as ShortcutGridAdapter)
-                        1 -> deleteShortcut(view.shortcut_grid.adapter.getItem(position) as ShortcutEntity, view.shortcut_grid.adapter as ShortcutGridAdapter)
+                        0 -> showEditShortcutDialog(position, binding.shortcutGrid.adapter as ShortcutGridAdapter)
+                        1 -> deleteShortcut(binding.shortcutGrid.adapter.getItem(position) as ShortcutEntity, binding.shortcutGrid.adapter as ShortcutGridAdapter)
                     }
                 }
                 .show()
@@ -170,22 +175,22 @@ class HomeFragment : Fragment() {
             return@setOnItemLongClickListener true
         }
 
-        view.add_shortcut.setOnClickListener {
-            showCreateShortcutDialog(view.shortcut_grid.adapter as ShortcutGridAdapter)
+        binding.addShortcut.setOnClickListener {
+            showCreateShortcutDialog(binding.shortcutGrid.adapter as ShortcutGridAdapter)
         }
 
-        view.privateBrowsingButton.setOnClickListener {
+        binding.privateBrowsingButton.setOnClickListener {
             if(browsingModeManager.mode == BrowsingMode.Private){
                 browsingModeManager.mode = BrowsingMode.Normal
-                view.homeLayout.background = ColorDrawable(requireContext().getColorFromAttr(R.attr.colorSurface))
+                binding.homeLayout.background = ColorDrawable(requireContext().getColorFromAttr(R.attr.colorSurface))
             }
             else{
                 browsingModeManager.mode = BrowsingMode.Private
-                view.homeLayout.background = resources.getDrawable(R.drawable.private_background)
+                binding.homeLayout.background = resources.getDrawable(R.drawable.private_background)
             }
         }
 
-        appBarLayout = view.homeAppBar
+        appBarLayout = binding.homeAppBar
 
         return view
     }
@@ -200,7 +205,7 @@ class HomeFragment : Fragment() {
         super.onResume()
 
         if (browsingModeManager.mode == BrowsingMode.Private) {
-            view?.homeLayout?.background = resources.getDrawable(R.drawable.private_background)
+            binding?.homeLayout?.background = resources.getDrawable(R.drawable.private_background)
         }
     }
 
@@ -267,7 +272,7 @@ class HomeFragment : Fragment() {
     private fun updateLayout(view: View) {
         when (UserPreferences(view.context).toolbarPosition) {
             ToolbarPosition.TOP.ordinal -> {
-                view.toolbarLayout.layoutParams = CoordinatorLayout.LayoutParams(
+                binding.toolbarLayout.layoutParams = CoordinatorLayout.LayoutParams(
                     ConstraintLayout.LayoutParams.MATCH_PARENT,
                     ConstraintLayout.LayoutParams.WRAP_CONTENT
                 ).apply {
@@ -275,16 +280,16 @@ class HomeFragment : Fragment() {
                 }
 
                 ConstraintSet().apply {
-                    clone(view.toolbarLayout)
-                    clear(view.bottom_bar.id, BOTTOM)
-                    clear(view.bottomBarShadow.id, BOTTOM)
-                    connect(view.bottom_bar.id, TOP, PARENT_ID, TOP)
-                    connect(view.bottomBarShadow.id, TOP, view.bottom_bar.id, BOTTOM)
-                    connect(view.bottomBarShadow.id, BOTTOM, PARENT_ID, BOTTOM)
-                    applyTo(view.toolbarLayout)
+                    clone(binding.toolbarLayout)
+                    clear(binding.bottomBar.id, BOTTOM)
+                    clear(binding.bottomBarShadow.id, BOTTOM)
+                    connect(binding.bottomBar.id, TOP, PARENT_ID, TOP)
+                    connect(binding.bottomBarShadow.id, TOP, binding.bottomBar.id, BOTTOM)
+                    connect(binding.bottomBarShadow.id, BOTTOM, PARENT_ID, BOTTOM)
+                    applyTo(binding.toolbarLayout)
                 }
 
-                view.homeAppBar.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                binding.homeAppBar.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                     topMargin =
                         resources.getDimensionPixelSize(R.dimen.home_fragment_top_toolbar_header_margin)
                 }
@@ -299,21 +304,21 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observeSearchEngineChanges()
-        createHomeMenu(requireContext(), WeakReference(view.menuButton))
+        createHomeMenu(requireContext(), WeakReference(binding.menuButton))
         createTabCounterMenu(view)
 
-        view.menuButton.setColorFilter(
+        binding.menuButton.setColorFilter(
             ContextCompat.getColor(
                 requireContext(),
                 R.color.main_icon
             )
         )
 
-        view.toolbar_wrapper.setOnClickListener {
+        binding.toolbarWrapper.setOnClickListener {
             navigateToSearch()
         }
 
-        view.tab_button.setOnClickListener {
+        binding.tabButton.setOnClickListener {
             openTabDrawer()
         }
 
@@ -345,9 +350,9 @@ class HomeFragment : Fragment() {
                         val searchIcon =
                             BitmapDrawable(requireContext().resources, searchEngine.icon)
                         searchIcon.setBounds(0, 0, iconSize, iconSize)
-                        search_engine_icon?.setImageDrawable(searchIcon)
+                        binding.searchEngineIcon?.setImageDrawable(searchIcon)
                     } else {
-                        search_engine_icon.setImageDrawable(null)
+                        binding.searchEngineIcon.setImageDrawable(null)
                     }
                 }
         }
@@ -365,7 +370,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        view.tab_button.setOnLongClickListener {
+        binding.tabButton.setOnLongClickListener {
             true
         }
     }
@@ -440,7 +445,7 @@ class HomeFragment : Fragment() {
             browserState.normalTabs.size
         }
 
-        view?.tab_button?.setCountWithAnimation(tabCount)
+        binding?.tabButton?.setCountWithAnimation(tabCount)
     }
 
     companion object {

@@ -24,21 +24,19 @@ import com.cookiejarapps.android.smartcookieweb.browser.bookmark.repository.Book
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutDatabase
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutEntity
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBookmarkBinding
+import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBrowserBinding
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
-import kotlinx.android.synthetic.main.fragment_bookmark.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import mozilla.components.browser.state.selector.selectedTab
 
 class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener, PathView.OnPathViewClickListener {
 
-    private var viewBinding: FragmentBookmarkBinding? = null
+    private var _binding: FragmentBookmarkBinding? = null
+    private val binding get() = _binding!!
 
     private var showPathHeader = true
-
-    private val binding: FragmentBookmarkBinding
-        get() = viewBinding!!
 
     private val root: BookmarkFolderItem
         get() = manager.root
@@ -53,8 +51,11 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener,
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         setHasOptionsMenu(true)
-        viewBinding = FragmentBookmarkBinding.inflate(inflater, container, false)
-        return binding.root
+
+        _binding = FragmentBookmarkBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,9 +64,9 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener,
         val recyclerView = binding.recyclerView
         val breadCrumbsView = binding.pathView
 
-        tool_bar.inflateMenu(R.menu.bookmark_menu)
+        binding.toolBar.inflateMenu(R.menu.bookmark_menu)
 
-        tool_bar.setOnMenuItemClickListener {
+        binding.toolBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.addBookmark -> {
                     AddBookmarkSiteDialog(activity, context?.components?.store?.state?.selectedTab?.content?.title ?: "", context?.components?.store?.state?.selectedTab?.content?.url ?: "")
@@ -130,7 +131,7 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener,
     private fun setList(folder: BookmarkFolderItem) {
         val activity = requireActivity()
 
-        tool_bar.setTitle(R.string.action_bookmarks)
+        binding.toolBar.setTitle(R.string.action_bookmarks)
 
         currentFolder = folder
         setPath(folder)
@@ -312,7 +313,7 @@ class BookmarkFragment : Fragment(), BookmarkAdapter.OnBookmarkRecyclerListener,
         if (UserPreferences(requireContext()).bookmarkFolder) {
             UserPreferences(requireContext()).bookmarkFolderId = currentFolder.id
         }
-        viewBinding = null
+        _binding = null
     }
 
     private inner class Touch : ItemTouchHelper.Callback() {

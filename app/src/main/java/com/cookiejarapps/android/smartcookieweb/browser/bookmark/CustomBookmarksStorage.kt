@@ -13,7 +13,7 @@ class CustomBookmarksStorage(context: Context): BookmarksStorage {
 
     private val manager = BookmarkManager.getInstance(context)
 
-    override suspend fun addFolder(parentGuid: String, title: String, position: Int?): String {
+    override suspend fun addFolder(parentGuid: String, title: String, position: UInt?): String {
         TODO("Not yet implemented")
     }
 
@@ -21,12 +21,12 @@ class CustomBookmarksStorage(context: Context): BookmarksStorage {
         parentGuid: String,
         url: String,
         title: String,
-        position: Int?
+        position: UInt?
     ): String {
         TODO("Not yet implemented")
     }
 
-    override suspend fun addSeparator(parentGuid: String, position: Int?): String {
+    override suspend fun addSeparator(parentGuid: String, position: UInt?): String {
         TODO("Not yet implemented")
     }
 
@@ -66,7 +66,8 @@ class CustomBookmarksStorage(context: Context): BookmarksStorage {
         val bookmarks: MutableList<BookmarkNode> = emptyList<BookmarkNode>().toMutableList()
         for(i in manager.root.itemList){
             if(i is BookmarkSiteItem){
-                bookmarks.add(BookmarkNode(BookmarkNodeType.ITEM, UUID.randomUUID().toString(), "", 0, i.title, i.url, 0, null))
+                bookmarks.add(BookmarkNode(BookmarkNodeType.ITEM, UUID.randomUUID().toString(), "",
+                    0u, i.title, i.url, 0, null))
             }
         }
 

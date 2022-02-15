@@ -21,6 +21,8 @@ import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingModeManager
 import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
 import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
+import com.cookiejarapps.android.smartcookieweb.databinding.FragmentHomeBinding
+import com.cookiejarapps.android.smartcookieweb.databinding.FragmentTabstrayBinding
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.ext.nav
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
@@ -28,7 +30,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
-import kotlinx.android.synthetic.main.fragment_tabstray.*
 import mozilla.components.browser.state.selector.findTabOrCustomTab
 import mozilla.components.browser.state.selector.getNormalOrPrivateTabs
 import mozilla.components.browser.state.selector.selectedTab
@@ -51,12 +52,19 @@ class TabsTrayFragment : Fragment() {
     lateinit var browsingModeManager: BrowsingModeManager
     lateinit var configuration: Configuration
 
+    private var _binding: FragmentTabstrayBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View =
-        inflater.inflate(R.layout.fragment_tabstray, container, false)
+    ): View{
+        _binding = FragmentTabstrayBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        return view
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,8 +72,8 @@ class TabsTrayFragment : Fragment() {
         browsingModeManager =  (activity as BrowserActivity).browsingModeManager
         configuration = Configuration(if (browsingModeManager.mode == BrowsingMode.Normal) BrowserTabType.NORMAL else BrowserTabType.PRIVATE)
 
-        toolbar.inflateMenu(R.menu.tabstray_menu)
-        toolbar.setOnMenuItemClickListener {
+        binding.toolbar.inflateMenu(R.menu.tabstray_menu)
+        binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.newTab -> {
                     when (browsingModeManager.mode) {
@@ -136,7 +144,7 @@ class TabsTrayFragment : Fragment() {
             view = view
         )
 
-        tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
+        binding.tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> {
@@ -166,7 +174,7 @@ class TabsTrayFragment : Fragment() {
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
 
-        tabLayout.selectTab(tabLayout.getTabAt(browsingModeManager.mode.ordinal))
+        binding.tabLayout.selectTab(binding.tabLayout.getTabAt(browsingModeManager.mode.ordinal))
     }
 
     private fun removeTabsDialog(view: View) {
@@ -285,7 +293,7 @@ class TabsTrayFragment : Fragment() {
             }
         )
 
-        tabsTray.adapter = adapter
+        binding.tabsTray.adapter = adapter
         val layoutManager = if(UserPreferences(requireContext()).showTabsInGrid) GridLayoutManager(
             context,
             2
@@ -293,7 +301,7 @@ class TabsTrayFragment : Fragment() {
         layoutManager.stackFromEnd = !UserPreferences(requireContext()).showTabsInGrid && UserPreferences(
             requireContext()
         ).stackFromBottom
-        tabsTray.layoutManager = layoutManager
+        binding.tabsTray.layoutManager = layoutManager
 
         return adapter
     }

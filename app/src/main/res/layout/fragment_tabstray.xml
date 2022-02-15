@@ -42,13 +42,11 @@
             android:layout_weight="1">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/normal_tab_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/ic_tabs" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/private_tab_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/ic_incognito" />

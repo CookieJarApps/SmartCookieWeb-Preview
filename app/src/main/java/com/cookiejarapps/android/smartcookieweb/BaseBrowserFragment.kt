@@ -35,8 +35,6 @@ import com.cookiejarapps.android.smartcookieweb.components.toolbar.*
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.integration.FindInPageIntegration
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
-import kotlinx.android.synthetic.main.fragment_browser.*
-import kotlinx.android.synthetic.main.fragment_browser.view.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
@@ -96,6 +94,7 @@ import org.mozilla.fenix.home.HomeScreenViewModel
 import org.mozilla.fenix.home.SharedViewModel
 import java.lang.ref.WeakReference
 import mozilla.components.feature.session.behavior.ToolbarPosition as MozacToolbarPosition
+import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBrowserBinding
 
 /**
  * Base fragment extended by [BrowserFragment].
@@ -150,6 +149,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val homeViewModel: HomeScreenViewModel by activityViewModels()
 
+    private var _binding: FragmentBrowserBinding? = null
+    protected val binding get() = _binding!!
+
     @CallSuper
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -158,7 +160,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     ): View {
         customTabSessionId = requireArguments().getString(EXTRA_SESSION_ID)
 
-        val view = inflater.inflate(R.layout.fragment_browser, container, false)
+        _binding = FragmentBrowserBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         browserFragmentStore = StoreProvider.get(this) {
             BrowserFragmentStore(
@@ -203,8 +206,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         browserAnimator = BrowserAnimator(
             fragment = WeakReference(this),
-            engineView = WeakReference(engineView),
-            swipeRefresh = WeakReference(swipeRefresh),
+            engineView = WeakReference(binding.engineView),
+            swipeRefresh = WeakReference(binding.swipeRefresh),
             viewLifecycleScope = WeakReference(viewLifecycleOwner.lifecycleScope)
         ).apply {
             beginAnimateInIfNecessary()
@@ -219,7 +222,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             store = store,
             activity = activity,
             navController = findNavController(),
-            engineView = engineView,
+            engineView = binding.engineView,
             customTabSessionId = customTabSessionId,
             onTabCounterClicked = {
                 thumbnailsFeature.get()?.requestScreenshot()
@@ -247,7 +250,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         )
 
         _browserToolbarView = BrowserToolbarView(
-            container = view.browserLayout,
+            container = binding.browserLayout,
             toolbarPosition = if(UserPreferences(context).toolbarPosition == ToolbarPosition.BOTTOM.ordinal) ToolbarPosition.BOTTOM else ToolbarPosition.TOP,
             interactor = browserInteractor,
             customTabSession = customTabSessionId?.let { store.state.findCustomTab(it) },
@@ -264,8 +267,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             feature = FindInPageIntegration(
                 store = store,
                 sessionId = customTabSessionId,
-                stub = view.stubFindInPage,
-                engineView = engineView,
+                stub = binding.stubFindInPage,
+                engineView = binding.engineView,
                 toolbarInfo = FindInPageIntegration.ToolbarInfo(
                     browserToolbarView.view,
                     UserPreferences(context).hideBarWhileScrolling,
@@ -296,8 +299,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 components.engine,
                 components.store,
                 browserToolbarView.view,
-                readerViewBar,
-                readerViewAppearanceButton
+                binding.readerViewBar,
+                binding.readerViewAppearanceButton
             ),
             owner = this,
             view = view
@@ -348,7 +351,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             feature = SessionFeature(
                 requireContext().components.store,
                 requireContext().components.sessionUseCases.goBack,
-                view.engineView,
+                binding.engineView,
                 customTabSessionId
             ),
             owner = this,
@@ -450,16 +453,16 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 .collect { tab -> pipModeChanged(tab) }
         }
 
-        view.swipeRefresh.isEnabled = shouldPullToRefreshBeEnabled(false)
+        binding.swipeRefresh.isEnabled = shouldPullToRefreshBeEnabled(false)
 
-        if (view.swipeRefresh.isEnabled) {
+        if (binding.swipeRefresh.isEnabled) {
             val primaryTextColor = ContextCompat.getColor(context, R.color.primary_icon)
-            view.swipeRefresh.setColorSchemeColors(primaryTextColor)
+            binding.swipeRefresh.setColorSchemeColors(primaryTextColor)
             swipeRefreshFeature.set(
                 feature = SwipeRefreshFeature(
                     requireContext().components.store,
                     context.components.sessionUseCases.reload,
-                    view.swipeRefresh,
+                    binding.swipeRefresh,
                     customTabSessionId
                 ),
                 owner = this,
@@ -565,26 +568,26 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         val context = requireContext()
 
         if (UserPreferences(context).hideBarWhileScrolling) {
-            engineView.setDynamicToolbarMaxHeight(toolbarHeight)
+            binding.engineView.setDynamicToolbarMaxHeight(toolbarHeight)
 
             val toolbarPosition = if (UserPreferences(context).shouldUseBottomToolbar) {
                 MozacToolbarPosition.BOTTOM
             } else {
                 MozacToolbarPosition.TOP
             }
-            (swipeRefresh.layoutParams as CoordinatorLayout.LayoutParams).behavior =
+            (binding.swipeRefresh.layoutParams as CoordinatorLayout.LayoutParams).behavior =
                 EngineViewBrowserToolbarBehavior(
                     context,
                     null,
-                    swipeRefresh,
+                    binding.swipeRefresh,
                     toolbarHeight,
                     toolbarPosition
                 )
         } else {
-            engineView.setDynamicToolbarMaxHeight(0)
+            binding.engineView.setDynamicToolbarMaxHeight(0)
 
             val swipeRefreshParams =
-                swipeRefresh.layoutParams as CoordinatorLayout.LayoutParams
+                binding.swipeRefresh.layoutParams as CoordinatorLayout.LayoutParams
             if (UserPreferences(context).shouldUseBottomToolbar) {
                 swipeRefreshParams.bottomMargin = toolbarHeight
             } else {
@@ -851,14 +854,14 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
             browserToolbarView.collapse()
             browserToolbarView.view.isVisible = false
-            val browserEngine = swipeRefresh.layoutParams as CoordinatorLayout.LayoutParams
+            val browserEngine = binding.swipeRefresh.layoutParams as CoordinatorLayout.LayoutParams
             browserEngine.bottomMargin = 0
             browserEngine.topMargin = 0
-            swipeRefresh.translationY = 0f
+            binding.swipeRefresh.translationY = 0f
 
-            engineView.setDynamicToolbarMaxHeight(0)
+            binding.engineView.setDynamicToolbarMaxHeight(0)
             // Without this, fullscreen has a margin at the top.
-            engineView.setVerticalClipping(0)
+            binding.engineView.setVerticalClipping(0)
 
         } else {
             requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -874,7 +877,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             }
         }
 
-        activity?.swipeRefresh?.isEnabled = shouldPullToRefreshBeEnabled(inFullScreen)
+        binding.swipeRefresh?.isEnabled = shouldPullToRefreshBeEnabled(inFullScreen)
     }
 
     /*
@@ -885,6 +888,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         _browserToolbarView = null
         _browserInteractor = null
+        _binding = null
     }
 
     companion object {

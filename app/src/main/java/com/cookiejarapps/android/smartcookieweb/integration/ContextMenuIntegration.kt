@@ -3,7 +3,7 @@ package com.cookiejarapps.android.smartcookieweb.integration
 import android.content.Context
 import android.view.View
 import androidx.fragment.app.FragmentManager
-import kotlinx.android.synthetic.main.fragment_browser.view.*
+import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBrowserBinding
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.feature.app.links.AppLinksUseCases
 import mozilla.components.feature.contextmenu.ContextMenuCandidate
@@ -63,7 +63,7 @@ class ContextMenuIntegration(
     }
 
     private val feature = ContextMenuFeature(
-        fragmentManager, browserStore, candidates, parentView.engineView, contextMenuUseCases
+        fragmentManager, browserStore, candidates, FragmentBrowserBinding.bind(parentView).engineView, contextMenuUseCases
     )
 
     override fun start() {

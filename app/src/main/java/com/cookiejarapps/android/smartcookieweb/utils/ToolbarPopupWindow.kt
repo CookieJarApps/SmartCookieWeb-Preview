@@ -10,9 +10,9 @@ import android.widget.PopupWindow
 import androidx.annotation.VisibleForTesting
 import androidx.core.view.isVisible
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.databinding.BrowserToolbarPopupWindowBinding
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.browser_toolbar_popup_window.view.*
 import mozilla.components.browser.state.selector.findCustomTab
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.store.BrowserStore
@@ -32,6 +32,8 @@ object ToolbarPopupWindow {
 
         val isCustomTabSession = customTabId != null
 
+        val binding = BrowserToolbarPopupWindowBinding.inflate(LayoutInflater.from(context))
+
         val customView = LayoutInflater.from(context)
             .inflate(R.layout.browser_toolbar_popup_window, null)
         val popupWindow = PopupWindow(
@@ -45,13 +47,13 @@ object ToolbarPopupWindow {
 
         popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        customView.copy.isVisible = copyVisible
+        binding.copy.isVisible = copyVisible
 
-        customView.paste.isVisible = !clipboard.text.isNullOrEmpty() && !isCustomTabSession
-        customView.paste_and_go.isVisible =
+        binding.paste.isVisible = !clipboard.text.isNullOrEmpty() && !isCustomTabSession
+        binding.pasteAndGo.isVisible =
             !clipboard.text.isNullOrEmpty() && !isCustomTabSession
 
-        customView.copy.setOnClickListener {
+        binding.copy.setOnClickListener {
             popupWindow.dismiss()
             clipboard.text = getUrlForClipboard(
                 it.context.components.store,
@@ -67,12 +69,12 @@ object ToolbarPopupWindow {
             }
         }
 
-        customView.paste.setOnClickListener {
+        binding.paste.setOnClickListener {
             popupWindow.dismiss()
             handlePaste(clipboard.text!!)
         }
 
-        customView.paste_and_go.setOnClickListener {
+        binding.pasteAndGo.setOnClickListener {
             popupWindow.dismiss()
             handlePasteAndGo(clipboard.text!!)
         }

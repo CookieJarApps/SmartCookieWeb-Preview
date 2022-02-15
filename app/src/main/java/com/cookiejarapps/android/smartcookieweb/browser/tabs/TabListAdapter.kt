@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import mozilla.components.browser.state.state.TabPartition
 import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.browser.tabstray.DefaultTabViewHolder
 import mozilla.components.browser.tabstray.TabViewHolder
@@ -69,7 +70,11 @@ open class TabListAdapter(
         }
     }
 
-    override fun updateTabs(tabs: List<TabSessionState>, selectedTabId: String?) {
+    override fun updateTabs(
+        tabs: List<TabSessionState>,
+        tabPartition: TabPartition?,
+        selectedTabId: String?
+    ) {
         this.selectedTabId = selectedTabId
 
         submitList(tabs)

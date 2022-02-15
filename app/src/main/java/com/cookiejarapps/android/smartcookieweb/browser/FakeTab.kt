@@ -10,10 +10,10 @@ import androidx.core.view.updateLayoutParams
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
-import kotlinx.android.synthetic.main.tab_preview.view.*
 import mozilla.components.browser.thumbnails.loader.ThumbnailLoader
 import mozilla.components.concept.base.images.ImageLoadRequest
 import com.cookiejarapps.android.smartcookieweb.components.toolbar.ToolbarPosition
+import com.cookiejarapps.android.smartcookieweb.databinding.TabPreviewBinding
 import kotlin.math.max
 
 class FakeTab @JvmOverloads constructor(
@@ -22,6 +22,7 @@ class FakeTab @JvmOverloads constructor(
     defStyle: Int = 0
 ) : FrameLayout(context, attrs, defStyle) {
 
+    private val binding = TabPreviewBinding.inflate(LayoutInflater.from(context), this)
     private val thumbnailLoader = ThumbnailLoader(context.components.thumbnailStorage)
 
     init {
@@ -31,14 +32,14 @@ class FakeTab @JvmOverloads constructor(
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        previewThumbnail.translationY = if (UserPreferences(context).toolbarPosition != ToolbarPosition.BOTTOM.ordinal) {
-            fake_toolbar.height.toFloat()
+        binding.previewThumbnail.translationY = if (UserPreferences(context).toolbarPosition != ToolbarPosition.BOTTOM.ordinal) {
+            binding.fakeToolbar.height.toFloat()
         } else {
             0f
         }
 
         if (UserPreferences(context).toolbarPosition != ToolbarPosition.BOTTOM.ordinal) {
-             fake_toolbar.updateLayoutParams<LayoutParams> {
+            binding.fakeToolbar.updateLayoutParams<LayoutParams> {
                 gravity = Gravity.TOP
             }
         }
@@ -46,9 +47,9 @@ class FakeTab @JvmOverloads constructor(
 
     fun loadPreviewThumbnail(thumbnailId: String) {
         doOnNextLayout {
-            val thumbnailSize = max(previewThumbnail.height, previewThumbnail.width)
+            val thumbnailSize = max(binding.previewThumbnail.height, binding.previewThumbnail.width)
             thumbnailLoader.loadIntoView(
-                previewThumbnail,
+                binding.previewThumbnail,
                 ImageLoadRequest(thumbnailId, thumbnailSize)
             )
         }

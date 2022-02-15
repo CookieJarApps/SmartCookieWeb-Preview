@@ -2,10 +2,9 @@ package com.cookiejarapps.android.smartcookieweb
 
 import android.view.View
 import com.cookiejarapps.android.smartcookieweb.browser.ToolbarGestureHandler
+import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBrowserBinding
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
-import kotlinx.android.synthetic.main.fragment_browser.*
-import kotlinx.android.synthetic.main.fragment_browser.view.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.thumbnails.BrowserThumbnails
@@ -31,11 +30,11 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         val context = requireContext()
         val components = context.components
 
-        gestureLayout.addGestureListener(
+        binding.gestureLayout.addGestureListener(
             ToolbarGestureHandler(
                 activity = requireActivity(),
-                contentLayout = browserLayout,
-                tabPreview = tabPreview,
+                contentLayout = binding.browserLayout,
+                tabPreview = binding.tabPreview,
                 toolbarLayout = browserToolbarView.view,
                 store = components.store,
                 selectTabUseCase = components.tabsUseCases.selectTab
@@ -43,7 +42,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         )
 
         thumbnailsFeature.set(
-            feature = BrowserThumbnails(context, view.engineView, components.store),
+            feature = BrowserThumbnails(context, binding.engineView, components.store),
             owner = this,
             view = view
         )

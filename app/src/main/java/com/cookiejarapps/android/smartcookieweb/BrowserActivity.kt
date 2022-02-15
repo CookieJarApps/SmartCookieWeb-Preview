@@ -24,6 +24,7 @@ import com.cookiejarapps.android.smartcookieweb.browser.*
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.ui.BookmarkFragment
 import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
 import com.cookiejarapps.android.smartcookieweb.browser.tabs.TabsTrayFragment
+import com.cookiejarapps.android.smartcookieweb.databinding.ActivityMainBinding
 import com.cookiejarapps.android.smartcookieweb.ext.alreadyOnDestination
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.ext.nav
@@ -31,8 +32,6 @@ import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.search.SearchDialogFragmentDirections
 import com.cookiejarapps.android.smartcookieweb.utils.PrintUtils
 import com.cookiejarapps.android.smartcookieweb.utils.Utils
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.navigation_toolbar.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
@@ -61,6 +60,8 @@ import mozilla.components.support.webextensions.WebExtensionPopupFeature
  * Activity that holds the [BrowserFragment].
  */
 open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostActivity {
+
+    lateinit var binding: ActivityMainBinding
 
     lateinit var browsingModeManager: BrowsingModeManager
 
@@ -101,7 +102,10 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
             if (UserPreferences(this).lastKnownPrivate) BrowsingMode.Private else BrowsingMode.Normal
         )
 
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+
+        setContentView(view)
 
         if(UserPreferences(this).firstLaunch){
             UserPreferences(this).firstLaunch = false
@@ -244,7 +248,7 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
 
     override fun getSupportActionBarAndInflateIfNecessary(): ActionBar {
         if (!isToolbarInflated) {
-            navigationToolbar = navigationToolbarStub.inflate() as Toolbar
+            navigationToolbar = binding.navigationToolbarStub.inflate() as Toolbar
 
             setSupportActionBar(navigationToolbar)
             // Add ids to this that we don't want to have a toolbar back button

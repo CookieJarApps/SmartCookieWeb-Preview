@@ -11,7 +11,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
-import kotlinx.android.synthetic.main.fragment_add_on_settings.*
+import com.cookiejarapps.android.smartcookieweb.databinding.ActivityAddOnSettingsBinding
+import com.cookiejarapps.android.smartcookieweb.databinding.ActivityMainBinding
+import com.cookiejarapps.android.smartcookieweb.databinding.FragmentAddOnSettingsBinding
+import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBrowserBinding
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.feature.addons.Addon
@@ -23,9 +26,15 @@ import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 
 class AddonSettingsActivity : AppCompatActivity() {
 
+    lateinit var binding: ActivityAddOnSettingsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_on_settings)
+
+        binding = ActivityAddOnSettingsBinding.inflate(layoutInflater)
+        val view = binding.root
+
+        setContentView(view)
 
 
         if(UserPreferences(this).appThemeChoice == ThemeChoice.SYSTEM.ordinal) {
@@ -56,17 +65,23 @@ class AddonSettingsActivity : AppCompatActivity() {
         private lateinit var addon: Addon
         private lateinit var engineSession: EngineSession
 
+        private var _binding: FragmentAddOnSettingsBinding? = null
+        protected val binding get() = _binding!!
+
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
             addon = requireNotNull(arguments?.getParcelable("add_on"))
             engineSession = components.engine.createSession()
 
-            return inflater.inflate(R.layout.fragment_add_on_settings, container, false)
+            _binding = FragmentAddOnSettingsBinding.inflate(inflater, container, false)
+            val view = binding.root
+
+            return view
         }
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
 
-            addonSettingsEngineView.render(engineSession)
+            binding.addonSettingsEngineView.render(engineSession)
             addon.installedState?.optionsPageUrl?.let {
                 engineSession.loadUrl(it)
             }
