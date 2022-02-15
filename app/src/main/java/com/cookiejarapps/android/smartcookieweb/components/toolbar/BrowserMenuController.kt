@@ -74,9 +74,9 @@ class DefaultBrowserToolbarMenuController(
                     sessionUseCases.reload.invoke(it.id, flags = flags)
                 }
             }
-            is ToolbarMenu.Item.Stop -> customTabSessionId?.let {
+            is ToolbarMenu.Item.Stop -> currentSession?.let {
                 sessionUseCases.stopLoading.invoke(
-                    it
+                    it.id
                 )
             }
             is ToolbarMenu.Item.Settings -> browserAnimator.captureEngineViewAndDrawStatically {
