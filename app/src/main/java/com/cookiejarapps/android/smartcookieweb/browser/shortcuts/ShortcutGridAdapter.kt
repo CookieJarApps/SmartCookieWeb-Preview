@@ -1,9 +1,11 @@
 package com.cookiejarapps.android.smartcookieweb.browser.shortcuts
 
 import android.content.Context
+import android.content.res.AssetManager
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +15,10 @@ import android.widget.TextView
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.utils.Utils
+import mozilla.components.browser.icons.IconRequest
+import mozilla.components.browser.icons.preparer.TippyTopIconPreparer
 import mozilla.components.support.ktx.android.net.hostWithoutCommonPrefixes
+import okhttp3.internal.wait
 
 internal class ShortcutGridAdapter(
         private val context: Context,
@@ -55,6 +60,7 @@ internal class ShortcutGridAdapter(
 
         val protocolUrl = if(shortcuts[position].url!!.startsWith("http")) shortcuts[position].url else "https://" +  shortcuts[position].url
         val icon: Bitmap = Utils().createImage(name = getUrlCharacter(protocolUrl!!), context = context)
+
         imageView.setImageBitmap(icon)
 
         nameView.text = shortcuts[position].title
