@@ -1,13 +1,14 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:feature-session:98.0.10@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/04c0a7c206d09d80cb177a49f840d67e/transformed/jetified-feature-session-98.0.2/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/04c0a7c206d09d80cb177a49f840d67e/transformed/jetified-feature-session-98.0.2/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/04c0a7c206d09d80cb177a49f840d67e/transformed/jetified-feature-session-98.0.2/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/04c0a7c206d09d80cb177a49f840d67e/transformed/jetified-feature-session-98.0.10/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/04c0a7c206d09d80cb177a49f840d67e/transformed/jetified-feature-session-98.0.10/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/04c0a7c206d09d80cb177a49f840d67e/transformed/jetified-feature-session-98.0.10/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-session/98.0.10/826b76f09768afd6f8130714eafdcda1fc5615d2/feature-session-98.0.10-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-session/98.0.10/826b76f09768afd6f8130714eafdcda1fc5615d2/feature-session-98.0.10-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

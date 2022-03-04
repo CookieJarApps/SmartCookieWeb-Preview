@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:browser-thumbnails:98.0.10@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f198180be3c115469809b7daf66772d8/transformed/jetified-browser-thumbnails-98.0.2/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f198180be3c115469809b7daf66772d8/transformed/jetified-browser-thumbnails-98.0.2/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f198180be3c115469809b7daf66772d8/transformed/jetified-browser-thumbnails-98.0.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/f198180be3c115469809b7daf66772d8/transformed/jetified-browser-thumbnails-98.0.10/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f198180be3c115469809b7daf66772d8/transformed/jetified-browser-thumbnails-98.0.10/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f198180be3c115469809b7daf66772d8/transformed/jetified-browser-thumbnails-98.0.10/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/browser-thumbnails/98.0.10/b79776c894a47b74b7d190fadba64b55858269c9/browser-thumbnails-98.0.10-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.components/browser-thumbnails/98.0.10/b79776c894a47b74b7d190fadba64b55858269c9/browser-thumbnails-98.0.10-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

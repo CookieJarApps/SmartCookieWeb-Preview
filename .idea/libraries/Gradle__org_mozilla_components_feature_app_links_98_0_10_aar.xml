@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:feature-app-links:98.0.10@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e795937c0a60662fdc43ed09e1fb2ec9/transformed/jetified-feature-app-links-98.0.2/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e795937c0a60662fdc43ed09e1fb2ec9/transformed/jetified-feature-app-links-98.0.2/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e795937c0a60662fdc43ed09e1fb2ec9/transformed/jetified-feature-app-links-98.0.2/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e795937c0a60662fdc43ed09e1fb2ec9/transformed/jetified-feature-app-links-98.0.10/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e795937c0a60662fdc43ed09e1fb2ec9/transformed/jetified-feature-app-links-98.0.10/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/e795937c0a60662fdc43ed09e1fb2ec9/transformed/jetified-feature-app-links-98.0.10/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-app-links/98.0.10/5a3a96995fed35c93678f0fc7824656bd4757a32/feature-app-links-98.0.10-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-app-links/98.0.10/5a3a96995fed35c93678f0fc7824656bd4757a32/feature-app-links-98.0.10-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: io.reactivex.rxjava2:rxjava:2.2.17">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.2.17/a10e8688b858b3cc2ae5850224dd6ddd87652b83/rxjava-2.2.17.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.2.17/a10e8688b858b3cc2ae5850224dd6ddd87652b83/rxjava-2.2.17.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.2.17/1f18607b86fd6f55599660ce217b7175dd8db9f1/rxjava-2.2.17-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.2.17/1f18607b86fd6f55599660ce217b7175dd8db9f1/rxjava-2.2.17-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.2.17/ee8d1a4fc470d4b7f4911b2e91b51ff043a3d0b6/rxjava-2.2.17-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.2.17/ee8d1a4fc470d4b7f4911b2e91b51ff043a3d0b6/rxjava-2.2.17-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
