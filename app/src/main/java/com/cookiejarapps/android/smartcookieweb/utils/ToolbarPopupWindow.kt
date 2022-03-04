@@ -33,15 +33,13 @@ object ToolbarPopupWindow {
         val isCustomTabSession = customTabId != null
 
         val binding = BrowserToolbarPopupWindowBinding.inflate(LayoutInflater.from(context))
-
-        val customView = LayoutInflater.from(context)
-            .inflate(R.layout.browser_toolbar_popup_window, null)
         val popupWindow = PopupWindow(
-            customView,
+            binding.root,
             LinearLayout.LayoutParams.WRAP_CONTENT,
             context.resources.getDimensionPixelSize(R.dimen.context_menu_height),
             true
         )
+
         popupWindow.elevation =
             context.resources.getDimension(R.dimen.mozac_browser_menu_elevation)
 

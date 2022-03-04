@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-findinpage:98.0.10@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e04b0f2b320a5b0aabb9a2d9a2c67a35/transformed/jetified-feature-findinpage-98.0.2/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e04b0f2b320a5b0aabb9a2d9a2c67a35/transformed/jetified-feature-findinpage-98.0.2/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e04b0f2b320a5b0aabb9a2d9a2c67a35/transformed/jetified-feature-findinpage-98.0.2/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-findinpage/98.0.10/3110fcad0e28c6a1eafaab5f8b759d1ab76c933c/feature-findinpage-98.0.10-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

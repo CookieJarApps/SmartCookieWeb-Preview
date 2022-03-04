@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:support-locale:98.0.10@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/3d73b6ec1b79fded23ffcfe891a18cd7/transformed/jetified-support-locale-98.0.2/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/3d73b6ec1b79fded23ffcfe891a18cd7/transformed/jetified-support-locale-98.0.2/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/3d73b6ec1b79fded23ffcfe891a18cd7/transformed/jetified-support-locale-98.0.2/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/support-locale/98.0.10/7ca56655532168cb0b078e2a648e21e6821ee7f2/support-locale-98.0.10-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

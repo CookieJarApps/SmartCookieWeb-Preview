@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:ui-widgets:98.0.10@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c82187301634e45913179ad1b8e1c075/transformed/jetified-ui-widgets-98.0.2/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c82187301634e45913179ad1b8e1c075/transformed/jetified-ui-widgets-98.0.2/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c82187301634e45913179ad1b8e1c075/transformed/jetified-ui-widgets-98.0.2/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/ui-widgets/98.0.10/4ee6098d06571b88d5812f2c736f36c6c9a9e5aa/ui-widgets-98.0.10-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
