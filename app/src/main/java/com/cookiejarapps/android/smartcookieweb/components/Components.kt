@@ -6,6 +6,7 @@ import android.content.Intent.ACTION_USER_PRESENT
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat.startActivity
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
@@ -272,6 +273,20 @@ open class Components(private val applicationContext: Context) {
             .build()
 
         runtimeSettings.contentBlocking.setSafeBrowsing(safeBrowsingPolicy)
+
+        if(UserPreferences(applicationContext).safeBrowsing){
+            runtimeSettings.contentBlocking.setSafeBrowsingProviders(
+                ContentBlocking.GOOGLE_SAFE_BROWSING_PROVIDER,
+                ContentBlocking.GOOGLE_LEGACY_SAFE_BROWSING_PROVIDER
+            )
+            runtimeSettings.contentBlocking.setSafeBrowsingPhishingTable(
+                "goog-phish-proto"
+            )
+        }
+        else {
+            runtimeSettings.contentBlocking.setSafeBrowsingProviders()
+            runtimeSettings.contentBlocking.setSafeBrowsingPhishingTable()
+        }
 
         GeckoRuntime.create(applicationContext, runtimeSettings)
     }
