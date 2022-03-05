@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.AbstractComposeView
+import androidx.core.graphics.toColor
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.components.toolbar.ToolbarPosition
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
@@ -14,6 +15,7 @@ import mozilla.components.compose.browser.awesomebar.AwesomeBar
 import mozilla.components.compose.browser.awesomebar.AwesomeBarDefaults
 import mozilla.components.compose.browser.awesomebar.AwesomeBarOrientation
 import mozilla.components.concept.awesomebar.AwesomeBar
+import mozilla.components.support.ktx.android.content.getColorFromAttr
 
 class AwesomeBarWrapper @JvmOverloads constructor(
     context: Context,
@@ -44,9 +46,9 @@ class AwesomeBarWrapper @JvmOverloads constructor(
                // orientation = orientation,
                 colors = AwesomeBarDefaults.colors(
                     background = Color.Transparent,
-                    //title = ThemeManager.resolveAttributeColor(R.attr.primaryText),
-                    //description = ThemeManager.resolveAttributeColor(R.attr.secondaryText),
-                    //autocompleteIcon = ThemeManager.resolveAttributeColor(R.attr.secondaryText)
+                    title = Color(context.getColorFromAttr(android.R.attr.textColorPrimary)),
+                    description = Color(context.getColorFromAttr(android.R.attr.textColorSecondary)),
+                    autocompleteIcon =  Color(context.getColorFromAttr(android.R.attr.textColorSecondary))
                 ),
                 onSuggestionClicked = { suggestion ->
                     suggestion.onSuggestionClicked?.invoke()
