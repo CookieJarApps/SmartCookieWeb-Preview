@@ -16,6 +16,7 @@ import com.cookiejarapps.android.smartcookieweb.browser.bookmark.items.BookmarkF
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.items.BookmarkItem
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.repository.BookmarkManager
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
 import java.net.IDN
 
@@ -46,7 +47,7 @@ abstract class AddBookmarkDialog<S : BookmarkItem, T>(
 
         initView(view, title, url)
 
-        mDialog = AlertDialog.Builder(context)
+        mDialog = MaterialAlertDialogBuilder(context)
             .setTitle(if (mItem == null) R.string.add_bookmark else R.string.edit_bookmark)
             .setView(view)
             .setPositiveButton(android.R.string.ok, null)

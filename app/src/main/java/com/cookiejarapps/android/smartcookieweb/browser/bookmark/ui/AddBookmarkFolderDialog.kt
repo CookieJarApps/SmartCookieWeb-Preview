@@ -13,9 +13,10 @@ import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.items.BookmarkFolderItem
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.repository.BookmarkManager
 import com.cookiejarapps.android.smartcookieweb.utils.BookmarkUtils
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class AddBookmarkFolderDialog @JvmOverloads constructor(context: Context, private var mManager: BookmarkManager?, title: String?, private var mParent: BookmarkFolderItem?, private val item: BookmarkFolderItem? = null) {
-    private val mDialog: AlertDialog
+    private val mDialog: androidx.appcompat.app.AlertDialog
     private val titleEditText: EditText
     private val addToTopCheckBox: CheckBox
     private var mOnClickListener: DialogInterface.OnClickListener? = null
@@ -33,7 +34,7 @@ class AddBookmarkFolderDialog @JvmOverloads constructor(context: Context, privat
 
         titleEditText.setText(title)
 
-        mDialog = AlertDialog.Builder(context)
+        mDialog = MaterialAlertDialogBuilder(context)
             .setTitle(if (item == null) R.string.add_folder else R.string.edit_bookmark)
             .setView(view)
             .setPositiveButton(android.R.string.ok, null)
