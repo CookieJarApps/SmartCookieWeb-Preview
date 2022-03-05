@@ -153,24 +153,22 @@ class DefaultBrowserToolbarMenuController(
                 activity.startActivity(settings)
             }
             is ToolbarMenu.Item.NewTab -> {
-                if (UserPreferences(activity).homepageType == HomepageChoice.VIEW.ordinal) {
-                    navController.navigate(
-                        HomeFragmentDirections.actionGlobalHome(
-                            focusOnAddressBar = true
-                        )
-                    )
-                } else {
-                    when (activity.browsingModeManager.mode) {
-                        BrowsingMode.Normal -> activity.components.tabsUseCases.addTab.invoke(
-                            if(UserPreferences(activity).homepageType == HomepageChoice.BLANK_PAGE.ordinal) "about:blank" else UserPreferences(activity).customHomepageUrl,
-                            selectTab = true
-                        )
-                        BrowsingMode.Private -> activity.components.tabsUseCases.addPrivateTab.invoke(
-                            if(UserPreferences(activity).homepageType == HomepageChoice.BLANK_PAGE.ordinal) "about:blank" else UserPreferences(activity).customHomepageUrl,
-                            selectTab = true
-                        )
-                    }
-                }
+                activity.components.tabsUseCases.addTab.invoke(
+                    if (UserPreferences(activity).homepageType == HomepageChoice.VIEW.ordinal) "about:homepage" else if (UserPreferences(
+                            activity
+                        ).homepageType == HomepageChoice.BLANK_PAGE.ordinal
+                    ) "about:blank" else UserPreferences(activity).customHomepageUrl,
+                    selectTab = true
+                )
+            }
+            is ToolbarMenu.Item.NewPrivateTab -> {
+                activity.components.tabsUseCases.addTab.invoke(
+                    if (UserPreferences(activity).homepageType == HomepageChoice.VIEW.ordinal) "about:homepage" else if (UserPreferences(
+                            activity
+                        ).homepageType == HomepageChoice.BLANK_PAGE.ordinal
+                    ) "about:blank" else UserPreferences(activity).customHomepageUrl,
+                    selectTab = true, private = true
+                )
             }
         }
     }

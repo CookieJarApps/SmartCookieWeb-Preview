@@ -21,20 +21,6 @@
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll">
 
-            <ImageButton
-                android:id="@+id/privateBrowsingButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="12dp"
-                android:layout_gravity="end"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/mozac_browser_menu_new_private_tab"
-                app:srcCompat="@drawable/ic_incognito"
-                app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier=".167"
-                app:tint="?android:attr/textColorPrimary" />
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="156dp"

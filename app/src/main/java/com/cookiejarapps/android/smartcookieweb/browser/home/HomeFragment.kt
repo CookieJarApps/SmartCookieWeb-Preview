@@ -179,17 +179,6 @@ class HomeFragment : Fragment() {
             showCreateShortcutDialog(binding.shortcutGrid.adapter as ShortcutGridAdapter)
         }
 
-        binding.privateBrowsingButton.setOnClickListener {
-            if(browsingModeManager.mode == BrowsingMode.Private){
-                browsingModeManager.mode = BrowsingMode.Normal
-                binding.homeLayout.background = ColorDrawable(requireContext().getColorFromAttr(R.attr.colorSurface))
-            }
-            else{
-                browsingModeManager.mode = BrowsingMode.Private
-                binding.homeLayout.background = resources.getDrawable(R.drawable.private_background)
-            }
-        }
-
         appBarLayout = binding.homeAppBar
 
         return view

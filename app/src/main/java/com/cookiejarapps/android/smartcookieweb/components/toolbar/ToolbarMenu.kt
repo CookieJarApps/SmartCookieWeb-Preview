@@ -15,6 +15,7 @@ interface ToolbarMenu {
         object Stop : Item()
         object AddToHomeScreen : Item()
         object NewTab : Item()
+        object NewPrivateTab : Item()
         object OpenInApp : Item()
         object Bookmarks : Item()
         object History : Item()

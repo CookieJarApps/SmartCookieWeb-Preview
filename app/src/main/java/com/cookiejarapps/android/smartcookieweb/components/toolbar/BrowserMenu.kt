@@ -137,6 +137,7 @@ class BrowserMenu(
             externalAppItem,
             desktopMode,
             BrowserMenuDivider(),
+            newPrivateTabItem,
             newTabItem,
             BrowserMenuDivider(),
             menuToolbar
@@ -205,6 +206,14 @@ class BrowserMenu(
         primaryTextColor()
     ) {
         onItemTapped.invoke(ToolbarMenu.Item.NewTab)
+    }
+
+    val newPrivateTabItem = BrowserMenuImageText(
+        context.getString(R.string.mozac_browser_menu_new_private_tab),
+        R.drawable.ic_incognito,
+        primaryTextColor()
+    ) {
+        onItemTapped.invoke(ToolbarMenu.Item.NewPrivateTab)
     }
 
     val bookmarksItem = BrowserMenuImageText(
