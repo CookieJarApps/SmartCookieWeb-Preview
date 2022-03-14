@@ -21,6 +21,7 @@ import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
@@ -45,9 +46,11 @@ import mozilla.components.feature.addons.ui.translateSummary
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import java.io.IOException
+import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
+
 
 private const val VIEW_HOLDER_TYPE_SECTION = 0
 private const val VIEW_HOLDER_TYPE_ADDON = 1
@@ -55,10 +58,7 @@ private const val VIEW_HOLDER_TYPE_ADDON = 1
 /**
  * An adapter for displaying add-on items. This will display information related to the state of
  * an add-on such as recommended, unsupported or installed. In addition, it will perform actions
- * such as installing an add-on. Compatible with AddonsManagerAdapter.
- *
- * Unlike AddonsManagerAdapter in Mozilla Android Components, this correctly recognises sideloaded
- * add-ons as their own category, instead of add-ons left over from a previous Fennec install.
+ * such as installing an add-on.
  *
  * @property addonCollectionProvider Provider of AMO collection API.
  * @property addonsManagerDelegate Delegate that will provides method for handling the add-on items.
@@ -66,19 +66,21 @@ private const val VIEW_HOLDER_TYPE_ADDON = 1
  * @property style Indicates how items should look like.
  * @property excludedAddonIDs The list of add-on IDs to be excluded from the recommended section.
  */
-@Suppress("LargeClass")
+@Suppress("LargeClass", "DEPRECATION")
 class AddonsAdapter(
     private val addonCollectionProvider: AddonCollectionProvider,
     private val addonsManagerDelegate: AddonsManagerAdapterDelegate,
     private val addons: List<Addon>,
     private val style: Style? = null,
     private val excludedAddonIDs: List<String> = emptyList(),
-    private val userPreferences: UserPreferences
+    private val context: Context
 ) : ListAdapter<Any, CustomViewHolder>(DifferCallback) {
     private val scope = CoroutineScope(Dispatchers.IO)
 
     @VisibleForTesting
     internal var addonsMap: MutableMap<String, Addon> = addons.associateBy({ it.id }, { it }).toMutableMap()
+
+    internal val userPreferences: UserPreferences = UserPreferences(context)
 
     init {
         submitList(createListWithSections(addons))
@@ -166,7 +168,7 @@ class AddonsAdapter(
             holder.ratingView.contentDescription = ratingContentDescription
             holder.ratingAccessibleView.text = ratingContentDescription
             holder.ratingView.rating = it.average
-            holder.userCountView.text = String.format(userCount, getFormattedAmount(it.reviews))
+            holder.userCountView.text = String.format(userCount, NumberFormat.getNumberInstance(Locale.getDefault()).format(it.reviews))
         } ?: run {
             holder.ratingView.visibility = View.GONE
             holder.userCountView.visibility = View.GONE
@@ -198,7 +200,7 @@ class AddonsAdapter(
         }
 
         holder.allowedInPrivateBrowsingLabel.isVisible = addon.isAllowedInPrivateBrowsing()
-        style?.maybeSetPrivateBrowsingLabelDrawale(holder.allowedInPrivateBrowsingLabel)
+        style?.maybeSetPrivateBrowsingLabelDrawable(holder.allowedInPrivateBrowsingLabel)
 
         fetchIcon(addon, holder.iconView)
         style?.maybeSetAddonNameTextColor(holder.titleView)
@@ -230,7 +232,7 @@ class AddonsAdapter(
                     scope.launch(Main) {
                         val context = iconView.context
                         val att = context.theme.resolveAttribute(android.R.attr.textColorPrimary)
-                        val drawable = ContextCompat.getDrawable(context, R.drawable.mozac_ic_extensions)
+                        val drawable = AppCompatResources.getDrawable(context, R.drawable.mozac_ic_extensions)
                         drawable?.setColorFilter(ContextCompat.getColor(context, att), PorterDuff.Mode.SRC_ATOP)
                         iconView.setImageDrawable(
                             drawable
@@ -242,7 +244,7 @@ class AddonsAdapter(
                 scope.launch(Main) {
                     val context = iconView.context
                     val att = context.theme.resolveAttribute(android.R.attr.textColorPrimary)
-                    val drawable = ContextCompat.getDrawable(context, R.drawable.mozac_ic_extensions)
+                    val drawable = AppCompatResources.getDrawable(context, R.drawable.mozac_ic_extensions)
                     drawable?.setColorFilter(ContextCompat.getColor(context, att), PorterDuff.Mode.SRC_ATOP)
                     iconView.setImageDrawable(
                         drawable
@@ -268,7 +270,6 @@ class AddonsAdapter(
             }
         }
 
-        //TODO: When uninstalling and installing add-ons, whole thing must be refreshed. LOOK INTO THIS!!! 30 mins then publish
         sort(recommendedAddons, userPreferences)
         sort(installedAddons, userPreferences)
         sort(disabledAddons, userPreferences)
@@ -346,9 +347,9 @@ class AddonsAdapter(
             }
         }
 
-        internal fun maybeSetPrivateBrowsingLabelDrawale(imageView: ImageView) {
+        internal fun maybeSetPrivateBrowsingLabelDrawable(imageView: ImageView) {
             addonAllowPrivateBrowsingLabelDrawableRes?.let {
-                imageView.setImageDrawable(ContextCompat.getDrawable(imageView.context, it))
+                imageView.setImageDrawable(AppCompatResources.getDrawable(imageView.context, it))
             }
         }
 
@@ -369,44 +370,24 @@ class AddonsAdapter(
                 array.sortWith { item1, item2 ->
                     if (item1.rating != null && item2.rating != null) {
                         if (item1.rating!!.average == 0F && item2.rating!!.average == 0F) {
-                            if (item1.translatableName["en"] != null && item2.translatableName["en"] != null ) {
-                                item1.translatableName["en"]!!.compareTo(
-                                    item2.translatableName["en"]!!,
-                                    true
-                                )
-                            }
-                            else if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null ) {
-                                item1.translatableName["en-us"]!!.compareTo(
-                                    item2.translatableName["en-us"]!!,
-                                    true
-                                )
-                            } else {
-                                item1.id.compareTo(item2.id)
-                            }
+                            item1.translateName(context).compareTo(
+                                item2.translateName(context),
+                                true
+                            )
                         } else if ((item1.rating!!.average * 2).roundToInt() / 2.0 == (item2.rating!!.average * 2).roundToInt() / 2.0) {
                             -item1.rating!!.reviews.compareTo(item2.rating!!.reviews)
                         } else {
                             -item1.rating!!.average.compareTo(item2.rating!!.average)
                         }
                     } else {
-                        if (item1.translatableName["en"] != null && item2.translatableName["en"] != null ) {
-                            item1.translatableName["en"]!!.compareTo(
-                                item2.translatableName["en"]!!,
-                                true
-                            )
-                        }
-                        else if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null ) {
-                            item1.translatableName["en-us"]!!.compareTo(
-                                item2.translatableName["en-us"]!!,
-                                true
-                            )
-                        } else {
-                            item1.id.compareTo(item2.id)
-                        }
+                        item1.translateName(context).compareTo(
+                            item2.translateName(context),
+                            true
+                        )
                     }
                 }
             }
-            AddonSortType.A_Z.ordinal -> {
+            AddonSortType.A_Z.ordinal-> {
                 sortByAZ(array)
             }
             AddonSortType.Z_A.ordinal -> {
@@ -418,26 +399,14 @@ class AddonsAdapter(
 
     fun sortByAZ(array: ArrayList<Addon>){
         array.sortWith { item1, item2 ->
-            Log.d("fasdfs", item1.translatableName.toString())
-            if (item1.translatableName["en"] != null && item2.translatableName["en"] != null ) {
-                item1.translatableName["en"]!!.compareTo(
-                    item2.translatableName["en"]!!,
-                    true
-                )
-            }
-            else if (item1.translatableName["en-us"] != null && item2.translatableName["en-us"] != null ) {
-                item1.translatableName["en-us"]!!.compareTo(
-                    item2.translatableName["en-us"]!!,
-                    true
-                )
-            }
-            else {
-                item1.id.compareTo(item2.id)
-            }
+            item1.translateName(context).compareTo(
+                item2.translateName(context),
+                true
+            )
         }
     }
 
-    fun reSort(){
+    fun sortAddonList(){
         submitList(createListWithSections(addonsMap.values.toList()))
     }
 

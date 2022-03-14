@@ -104,13 +104,13 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
         })
     }
 
+
     private fun filterAddonByQuery(query: String): Boolean {
         val filteredList = arrayListOf<Addon>()
 
         addons?.forEach { addon ->
-            val names = addon.translatableName
-            names["en"]?.let { name ->
-                if (name.toLowerCase(Locale.ENGLISH).contains(query.toLowerCase(Locale.ENGLISH))) {
+            addon.translateName(requireContext()).let { name ->
+                if (name.lowercase(Locale.ENGLISH).contains(query.lowercase(Locale.ENGLISH))) {
                     filteredList.add(addon)
                 }
             }
@@ -122,7 +122,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
             binding.addOnsNoResults.visibility = View.VISIBLE
             binding.addOnsList.visibility = View.GONE
         } else {
-            view?.let { view ->
+            view?.let { _ ->
                 binding.addOnsNoResults.visibility = View.GONE
                 binding.addOnsList.visibility = View.VISIBLE
             }
@@ -142,7 +142,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
         val adapter: ArrayAdapter<String> =
             ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, users)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.setAdapter(adapter)
+        spinner.adapter = adapter
         spinner.setSelection(UserPreferences(requireContext()).addonSort)
 
         spinner.onItemSelectedListener = object : OnItemSelectedListener {
@@ -154,7 +154,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
             ) {
                 UserPreferences(requireContext()).addonSort = position
                 if(recyclerView.adapter != null && recyclerView.adapter is AddonsAdapter){
-                    (recyclerView.adapter as AddonsAdapter).reSort()
+                    (recyclerView.adapter as AddonsAdapter).sortAddonList()
                 }
             }
 
@@ -191,7 +191,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                                 addonsManagerDelegate = this@AddonsFragment,
                                 addons = addons!!,
                                 style = style,
-                                userPreferences = UserPreferences(requireContext())
+                                context = requireContext()
                             )
                             recyclerView.adapter = adapter
 
