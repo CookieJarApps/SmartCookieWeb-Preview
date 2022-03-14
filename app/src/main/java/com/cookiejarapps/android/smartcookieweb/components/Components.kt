@@ -84,6 +84,7 @@ import mozilla.components.browser.engine.gecko.permission.GeckoSitePermissionsSt
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.permission.SitePermissionsStorage
 import mozilla.components.feature.sitepermissions.OnDiskSitePermissionsStorage
+import mozilla.components.support.base.worker.Frequency
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import org.mozilla.geckoview.ContentBlocking
 import java.util.concurrent.TimeUnit
@@ -140,7 +141,7 @@ open class Components(private val applicationContext: Context) {
     }
 
     val addonUpdater =
-            DefaultAddonUpdater(applicationContext, AddonUpdater.Frequency(1, TimeUnit.DAYS))
+            DefaultAddonUpdater(applicationContext, Frequency(1, TimeUnit.DAYS))
 
     // Engine
     open val engine: Engine by lazy {
@@ -222,7 +223,7 @@ open class Components(private val applicationContext: Context) {
 
     val supportedAddonsChecker by lazy {
         DefaultSupportedAddonsChecker(
-                applicationContext, SupportedAddonsChecker.Frequency(
+                applicationContext, Frequency(
                 1,
                 TimeUnit.DAYS
         )

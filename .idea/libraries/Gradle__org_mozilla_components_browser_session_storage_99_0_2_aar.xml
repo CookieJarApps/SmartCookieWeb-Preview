@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:browser-session-storage:99.0.2@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/49758e260f775a9895360d4503dd28e6/transformed/jetified-browser-session-storage-99.0.2/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/49758e260f775a9895360d4503dd28e6/transformed/jetified-browser-session-storage-99.0.2/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/49758e260f775a9895360d4503dd28e6/transformed/jetified-browser-session-storage-99.0.2/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/browser-session-storage/99.0.2/e2faa46a22becb04f090e7833b9a5ec9c27b164c/browser-session-storage-99.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
