@@ -100,7 +100,6 @@ class DefaultToolbarIntegration(
         toolbar.private = isPrivate
 
         toolbar.display.indicators =
-            //TODO settings protection
              listOf(
                     DisplayToolbar.Indicators.SECURITY,
                     DisplayToolbar.Indicators.EMPTY,

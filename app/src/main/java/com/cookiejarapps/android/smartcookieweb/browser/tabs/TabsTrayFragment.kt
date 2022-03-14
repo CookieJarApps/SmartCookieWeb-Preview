@@ -30,6 +30,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
 import mozilla.components.browser.state.selector.findTabOrCustomTab
 import mozilla.components.browser.state.selector.getNormalOrPrivateTabs
 import mozilla.components.browser.state.selector.selectedTab
@@ -76,8 +77,9 @@ class TabsTrayFragment : Fragment() {
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.newTab -> {
-                    when (browsingModeManager.mode) {
-                            BrowsingMode.Normal -> {
+                    when (binding.tabLayout.selectedTabPosition) {
+                            0 -> {
+                                browsingModeManager.mode = BrowsingMode.Normal
                                 when(UserPreferences(requireContext()).homepageType){
                                     HomepageChoice.VIEW.ordinal -> {
                                         components.tabsUseCases.addTab.invoke(
@@ -99,7 +101,8 @@ class TabsTrayFragment : Fragment() {
                                     }
                                 }
                             }
-                            BrowsingMode.Private -> {
+                            1 -> {
+                                browsingModeManager.mode = BrowsingMode.Private
                                 when(UserPreferences(requireContext()).homepageType){
                                     HomepageChoice.VIEW.ordinal -> {
                                         components.tabsUseCases.addPrivateTab.invoke(
@@ -148,7 +151,6 @@ class TabsTrayFragment : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> {
-                        browsingModeManager.mode = BrowsingMode.Normal
                         tabsFeature.get()?.filterTabs {
                             it.filterFromConfig(
                                 Configuration(
@@ -158,7 +160,6 @@ class TabsTrayFragment : Fragment() {
                         }
                     }
                     1 -> {
-                        browsingModeManager.mode = BrowsingMode.Private
                         tabsFeature.get()?.filterTabs {
                             it.filterFromConfig(
                                 Configuration(
@@ -275,10 +276,11 @@ class TabsTrayFragment : Fragment() {
                 override fun onTabClosed(tab: TabSessionState, source: String?) {
                     components.tabsUseCases.removeTab(tab.id)
 
-                    if(tab.content.url == "about:homepage"){
-                        requireContext().components.sessionUseCases.reload(tab.id)
-                    }
-                    else{
+                    // Running the above line doesn't seem to immediately close the tab, so we can't check whether the newly selected tab is
+                    // a homepage tab or not, so we switch to the browser fragment just in case and reload so the browser will switch back to
+                    // the homepage if the new tab loads about:homepage
+                    // TODO
+                    if(requireContext().components.store.state.findCustomTabOrSelectedTab()?.content?.url == "about:homepage"){
                         if (!requireActivity().findNavController(R.id.container).popBackStack(R.id.browserFragment, false)) {
                             requireActivity().findNavController(R.id.container).navigate(R.id.browserFragment)
                         }
@@ -287,8 +289,6 @@ class TabsTrayFragment : Fragment() {
                     if(requireActivity().components.store.state.tabs.isEmpty() && UserPreferences(requireActivity()).homepageType == HomepageChoice.VIEW.ordinal){
                         requireActivity().finish()
                     }
-
-                    //TODO: Snackbar
                 }
             }
         )
@@ -305,64 +305,12 @@ class TabsTrayFragment : Fragment() {
 
         return adapter
     }
-}
 
-private class SelectTabWithHomepageUseCase(
-    private val actual: TabsUseCases.SelectTabUseCase,
-    private val activity: BrowserActivity
-) : TabsUseCases.SelectTabUseCase {
-    override fun invoke(tabId: String) {
-        actual(tabId)
+    fun notifyBrowsingModeStateChanged() {
+        browsingModeManager =  (activity as BrowserActivity).browsingModeManager
+        configuration = Configuration(if (browsingModeManager.mode == BrowsingMode.Normal) BrowserTabType.NORMAL else BrowserTabType.PRIVATE)
 
-        if(activity.components.store.state.findTabOrCustomTab(tabId)?.content?.url == "about:homepage"){
-            activity.components.sessionUseCases.reload(activity.components.store.state.findTabOrCustomTab(tabId)?.id)
-        }
-        else if (activity.findNavController(R.id.container).currentDestination?.id == R.id.browserFragment) {
-            return
-        } else if (!activity.findNavController(R.id.container).popBackStack(R.id.browserFragment, false)) {
-            activity.findNavController(R.id.container).navigate(R.id.browserFragment)
-        }
-    }
-}
-
-private class RemoveTabWithUndoUseCase(
-    private val actual: TabsUseCases.RemoveTabUseCase,
-    private val view: View,
-    private val undo: TabsUseCases.UndoTabRemovalUseCase,
-    private val activity: BrowserActivity
-) : TabsUseCases.RemoveTabUseCase {
-    override fun invoke(sessionId: String) {
-        actual(sessionId)
-
-        if(activity.components.store.state.selectedTab?.content?.url == "about:homepage"){
-            activity.components.sessionUseCases.reload(activity.components.store.state.selectedTabId)
-        }
-        else{
-            if (!activity.findNavController(R.id.container).popBackStack(R.id.browserFragment, false)) {
-                activity.findNavController(R.id.container).navigate(R.id.browserFragment)
-            }
-        }
-
-        if(activity.components.store.state.tabs.isEmpty() && UserPreferences(activity).homepageType == HomepageChoice.VIEW.ordinal){
-            activity.finish()
-        }
-        else{
-            showSnackbar()
-        }
-    }
-
-    private fun showSnackbar() {
-        val snackbar = Snackbar.make(
-            view,
-            view.resources.getString(R.string.tab_removed),
-            Snackbar.LENGTH_LONG
-        ).setAction(
-            view.resources.getString(R.string.undo)
-        ) {
-            undo.invoke()
-        }
-        if(UserPreferences(activity).shouldUseBottomToolbar) snackbar.anchorView = activity.findViewById(R.id.toolbar)
-        snackbar.show()
+        binding.tabLayout.selectTab(binding.tabLayout.getTabAt(browsingModeManager.mode.ordinal))
     }
 }
 

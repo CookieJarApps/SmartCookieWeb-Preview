@@ -3,9 +3,7 @@ package com.cookiejarapps.android.smartcookieweb
 import android.content.ComponentCallbacks2
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
-import android.os.StrictMode
 import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.IdRes
@@ -14,6 +12,9 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
@@ -34,8 +35,6 @@ import com.cookiejarapps.android.smartcookieweb.search.SearchDialogFragmentDirec
 import com.cookiejarapps.android.smartcookieweb.utils.PrintUtils
 import com.cookiejarapps.android.smartcookieweb.utils.Utils
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import mozilla.components.browser.icons.IconRequest
 import mozilla.components.browser.state.search.SearchEngine
@@ -48,12 +47,10 @@ import mozilla.components.concept.engine.webextension.MessageHandler
 import mozilla.components.concept.engine.webextension.Port
 import mozilla.components.feature.contextmenu.ext.DefaultSelectionActionDelegate
 import mozilla.components.feature.search.ext.createSearchEngine
-import mozilla.components.lib.state.ext.flowScoped
 import mozilla.components.support.base.feature.ActivityResultHandler
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.ktx.kotlin.isUrl
 import mozilla.components.support.ktx.kotlin.toNormalizedUrl
-import mozilla.components.support.ktx.kotlinx.coroutines.flow.filterChanged
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupFeature
 import org.json.JSONObject
@@ -187,7 +184,18 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
             commit()
         }
 
-        // TODO: test performance impact
+        binding.drawerLayout.addDrawerListener(object : SimpleDrawerListener() {
+            override fun onDrawerStateChanged(newState: Int) {
+                if (newState == DrawerLayout.STATE_SETTLING && !binding.drawerLayout.isDrawerOpen(
+                        GravityCompat.START
+                    )
+                ) {
+                     val tabDrawer = if(UserPreferences(this@BrowserActivity).swapDrawers) rightDrawer else leftDrawer
+                    (tabDrawer as TabsTrayFragment).notifyBrowsingModeStateChanged()
+                }
+            }
+        })
+
         installPrintExtension()
 
         components.appRequestInterceptor.setNavController(navHost.navController)
