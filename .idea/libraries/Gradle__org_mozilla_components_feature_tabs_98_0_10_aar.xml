@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:feature-tabs:98.0.10@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5efada2984b09ca00e4f796778465d43/transformed/jetified-feature-tabs-98.0.10/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/5efada2984b09ca00e4f796778465d43/transformed/jetified-feature-tabs-98.0.10/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5efada2984b09ca00e4f796778465d43/transformed/jetified-feature-tabs-98.0.10/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5efada2984b09ca00e4f796778465d43/transformed/jetified-feature-tabs-98.0.2/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5efada2984b09ca00e4f796778465d43/transformed/jetified-feature-tabs-98.0.2/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5efada2984b09ca00e4f796778465d43/transformed/jetified-feature-tabs-98.0.2/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-tabs/98.0.10/594f9819ff09f647c363cdb0242436210e46137d/feature-tabs-98.0.10-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-tabs/98.0.10/594f9819ff09f647c363cdb0242436210e46137d/feature-tabs-98.0.10-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

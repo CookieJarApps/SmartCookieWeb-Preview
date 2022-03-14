@@ -15,7 +15,7 @@
     {
       "matches": ["https://*/*"],
       "js": ["print.js"],
-      "run_at": "document_idle"
+      "run_at": "document_end"
     }
   ],
   "permissions": [

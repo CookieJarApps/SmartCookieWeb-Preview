@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.StrictMode
 import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.IdRes
@@ -44,6 +45,7 @@ import mozilla.components.browser.state.state.WebExtensionState
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.concept.engine.webextension.MessageHandler
+import mozilla.components.concept.engine.webextension.Port
 import mozilla.components.feature.contextmenu.ext.DefaultSelectionActionDelegate
 import mozilla.components.feature.search.ext.createSearchEngine
 import mozilla.components.lib.state.ext.flowScoped
@@ -54,6 +56,7 @@ import mozilla.components.support.ktx.kotlin.toNormalizedUrl
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.filterChanged
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupFeature
+import org.json.JSONObject
 
 
 /**
@@ -83,8 +86,9 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
         WebExtensionPopupFeature(components.store, ::openPopup)
     }
 
-    private var printExtension: mozilla.components.concept.engine.webextension.WebExtension? =
-        null
+    private var mPort: Port? = null
+
+    private var originalContext: Context? = null
 
     protected open fun getIntentSessionId(intent: SafeIntent): String? = null
 
@@ -366,18 +370,19 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
     }
 
     private fun installPrintExtension(){
-        val messageDelegate: MessageHandler = object :
-            MessageHandler {
-            override fun onMessage(
-                message: Any, source: EngineSession?
-            ): Any {
-                if(message is String){
-                    val converter = PrintUtils.instance
-                    converter!!.convert(this@BrowserActivity, message, components.store.state.selectedTab?.content?.url)
-                    printExtension?.let { components.engine.disableWebExtension(it, onSuccess = {}) }
-                }
+        val messageHandler = object : MessageHandler {
+            override fun onPortConnected(port: Port) {
+                mPort = port
+            }
 
-                return ""
+            override fun onPortDisconnected(port: Port) { }
+
+            override fun onPortMessage(message: Any, port: Port) {
+                val converter = PrintUtils.instance
+                converter!!.convert(originalContext, message.toString(), components.store.state.selectedTab?.content?.url)
+            }
+
+            override fun onMessage(message: Any, source: EngineSession?) {
             }
         }
 
@@ -385,33 +390,20 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
             "print@cookiejarapps.com",
             "resource://android/assets/print/",
             onSuccess = { extension ->
-                extension.let { components.engine.disableWebExtension(it, onSuccess = {}) }
-                printExtension = extension
-                val store = components.store
-                store.flowScoped { flow ->
-                    flow.map { it.tabs }
-                        .filterChanged { it.engineState.engineSession }
-                        .collect { state ->
-                            val session = state.engineState.engineSession ?: return@collect
-
-                            extension.registerContentMessageHandler(
-                                session,
-                                "browser",
-                                messageDelegate
-                            )
-                        }
-                }
+                extension.registerBackgroundMessageHandler("print", messageHandler)
             }
         )
     }
 
     fun printPage(){
-        // Reload page and enable add-on at the same time to load the add-on, then reload again to trigger add-on on page
-        printExtension?.let { webExtension ->
-            components.engine.enableWebExtension(webExtension, onSuccess = {
-            components.sessionUseCases.reload.invoke(components.store.state.selectedTabId, flags = EngineSession.LoadUrlFlags.select(EngineSession.LoadUrlFlags.BYPASS_CACHE))
-        }
-        )}
+        val message = JSONObject()
+        message.put("print", true)
+        mPort!!.postMessage(message)
+    }
+
+    override fun attachBaseContext(base: Context) {
+        this.originalContext = base
+        super.attachBaseContext(base)
     }
 
     companion object {

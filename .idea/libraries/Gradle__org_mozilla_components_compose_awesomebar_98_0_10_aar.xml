@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: org.mozilla.components:compose-awesomebar:98.0.10@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3b72bf1c2f53984a210eceba7f68b069/transformed/jetified-compose-awesomebar-98.0.10/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/3b72bf1c2f53984a210eceba7f68b069/transformed/jetified-compose-awesomebar-98.0.10/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3b72bf1c2f53984a210eceba7f68b069/transformed/jetified-compose-awesomebar-98.0.10/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/3b72bf1c2f53984a210eceba7f68b069/transformed/jetified-compose-awesomebar-98.0.10/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/3b72bf1c2f53984a210eceba7f68b069/transformed/jetified-compose-awesomebar-98.0.10/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/3b72bf1c2f53984a210eceba7f68b069/transformed/jetified-compose-awesomebar-98.0.10/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mozilla.components/compose-awesomebar/98.0.10/76f36fefefe30b5997e339a1770e0b5ca03b07a3/compose-awesomebar-98.0.10-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/compose-awesomebar/98.0.10/76f36fefefe30b5997e339a1770e0b5ca03b07a3/compose-awesomebar-98.0.10-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
