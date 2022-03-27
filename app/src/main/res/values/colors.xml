@@ -21,6 +21,7 @@
     <color name="primary_icon">#5e5e5e</color>
     <color name="secondary_icon">#e3e3e3</color>
     <color name="toolbar_background">#E6E8E8</color>
+    <color name="statusbar_background">#797979</color>
 
     <color name="selected_tab">#e3e3e3</color>
 

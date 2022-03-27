@@ -4,6 +4,9 @@
       <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/78bb7a2d6bb89c6c1e86edecb2f68e6e/transformed/jetified-service-glean-98.0.2/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/78bb7a2d6bb89c6c1e86edecb2f68e6e/transformed/jetified-service-glean-98.0.2/res" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/78bb7a2d6bb89c6c1e86edecb2f68e6e/transformed/jetified-service-glean-98.0.2/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/78bb7a2d6bb89c6c1e86edecb2f68e6e/transformed/jetified-service-glean-99.0.2/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/78bb7a2d6bb89c6c1e86edecb2f68e6e/transformed/jetified-service-glean-99.0.2/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/78bb7a2d6bb89c6c1e86edecb2f68e6e/transformed/jetified-service-glean-99.0.2/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

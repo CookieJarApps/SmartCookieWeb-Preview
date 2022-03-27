@@ -4,6 +4,9 @@
       <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/fa6f40410c9b63de6b7a84885ddf4e9d/transformed/jetified-support-webextensions-98.0.2/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/fa6f40410c9b63de6b7a84885ddf4e9d/transformed/jetified-support-webextensions-98.0.2/res" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/fa6f40410c9b63de6b7a84885ddf4e9d/transformed/jetified-support-webextensions-98.0.2/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/fa6f40410c9b63de6b7a84885ddf4e9d/transformed/jetified-support-webextensions-99.0.2/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/fa6f40410c9b63de6b7a84885ddf4e9d/transformed/jetified-support-webextensions-99.0.2/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/fa6f40410c9b63de6b7a84885ddf4e9d/transformed/jetified-support-webextensions-99.0.2/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
