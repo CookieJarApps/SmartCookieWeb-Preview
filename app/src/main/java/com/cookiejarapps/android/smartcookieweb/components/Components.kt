@@ -280,12 +280,17 @@ open class Components(private val applicationContext: Context) {
                 ContentBlocking.GOOGLE_SAFE_BROWSING_PROVIDER,
                 ContentBlocking.GOOGLE_LEGACY_SAFE_BROWSING_PROVIDER
             )
+            runtimeSettings.contentBlocking.setSafeBrowsingMalwareTable(
+                "goog-malware-proto",
+                "goog-unwanted-proto"
+            )
             runtimeSettings.contentBlocking.setSafeBrowsingPhishingTable(
                 "goog-phish-proto"
             )
         }
         else {
             runtimeSettings.contentBlocking.setSafeBrowsingProviders()
+            runtimeSettings.contentBlocking.setSafeBrowsingMalwareTable()
             runtimeSettings.contentBlocking.setSafeBrowsingPhishingTable()
         }
 

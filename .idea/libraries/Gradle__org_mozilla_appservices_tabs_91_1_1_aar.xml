@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.appservices:tabs:91.1.1@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/dbde2e7b4b3fba93c16a7045821296da/transformed/jetified-tabs-91.1.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/dbde2e7b4b3fba93c16a7045821296da/transformed/jetified-tabs-91.1.1/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/dbde2e7b4b3fba93c16a7045821296da/transformed/jetified-tabs-91.1.1/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.appservices/tabs/91.1.1/e9477ee43c3af1204fa40bde54a75c7f46997be1/tabs-91.1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
