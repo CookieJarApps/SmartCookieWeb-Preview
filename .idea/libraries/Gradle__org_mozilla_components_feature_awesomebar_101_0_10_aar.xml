@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-awesomebar:101.0.10@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e70f916fe2e210e47385a4880d836191/transformed/jetified-feature-awesomebar-101.0.10/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e70f916fe2e210e47385a4880d836191/transformed/jetified-feature-awesomebar-101.0.10/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e70f916fe2e210e47385a4880d836191/transformed/jetified-feature-awesomebar-101.0.10/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-awesomebar/101.0.10/fe895ddba5177b95aae6eb0ea9f57c8747849d49/feature-awesomebar-101.0.10-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
