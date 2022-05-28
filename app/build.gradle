@@ -163,9 +163,6 @@ dependencies {
     // Mozilla service components
     implementation "org.mozilla.components:service-location:$mozComponentsVersion"
     implementation "org.mozilla.components:service-digitalassetlinks:$mozComponentsVersion"
-    implementation ("org.mozilla.components:service-glean:$mozComponentsVersion"){
-        exclude group: 'org.mozilla.telemetry', module: 'glean-native'
-    }
 
     // Mozilla support components
     implementation "org.mozilla.components:support-base:$mozComponentsVersion"
@@ -214,4 +211,8 @@ project.configurations.all {
         }
         because 'use GeckoView Glean instead of standalone Glean'
     }
+}
+
+configurations {
+    all*.exclude group: 'com.google.android.gms', module: 'play-services-fido'
 }
