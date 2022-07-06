@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:lib-fetch-httpurlconnection:103.0.4@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/beacdf317a89d941403e61c44f8c90fe/transformed/jetified-lib-fetch-httpurlconnection-103.0.4/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/beacdf317a89d941403e61c44f8c90fe/transformed/jetified-lib-fetch-httpurlconnection-103.0.4/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/beacdf317a89d941403e61c44f8c90fe/transformed/jetified-lib-fetch-httpurlconnection-103.0.4/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/lib-fetch-httpurlconnection/103.0.4/546ead0dd92b4e1c1da7294650a54439aa862d5d/lib-fetch-httpurlconnection-103.0.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

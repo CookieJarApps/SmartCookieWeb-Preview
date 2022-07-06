@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:concept-sync:103.0.4@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/09d5f4aad1a2c4f6611376ca42896645/transformed/jetified-concept-sync-103.0.4/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/09d5f4aad1a2c4f6611376ca42896645/transformed/jetified-concept-sync-103.0.4/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/09d5f4aad1a2c4f6611376ca42896645/transformed/jetified-concept-sync-103.0.4/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/concept-sync/103.0.4/5a87438b085c8806fe382567e8a3a32fb8c23212/concept-sync-103.0.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-intent:103.0.4@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5f0dddba1470febd377f8c6a8b2b9597/transformed/jetified-feature-intent-103.0.4/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5f0dddba1470febd377f8c6a8b2b9597/transformed/jetified-feature-intent-103.0.4/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5f0dddba1470febd377f8c6a8b2b9597/transformed/jetified-feature-intent-103.0.4/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-intent/103.0.4/689af5268db4dc8fe59dc8431b43ebc3e2cb7b20/feature-intent-103.0.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

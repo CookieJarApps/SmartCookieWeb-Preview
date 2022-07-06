@@ -146,6 +146,7 @@ class AppRequestInterceptor(val context: Context) : RequestInterceptor {
 
         ErrorType.ERROR_SECURITY_BAD_CERT,
         ErrorType.ERROR_SECURITY_SSL,
+        ErrorType.ERROR_BAD_HSTS_CERT,
         ErrorType.ERROR_PORT_BLOCKED -> ErrorCategory.SSL
 
         ErrorType.ERROR_SAFEBROWSING_HARMFUL_URI,

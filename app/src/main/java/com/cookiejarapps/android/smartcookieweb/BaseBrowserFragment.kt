@@ -322,7 +322,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         fullScreenMediaSessionFeature.set(
             feature = MediaSessionFullscreenFeature(
                 requireActivity(),
-                context.components.store
+                context.components.store,
+                customTabSessionId
             ),
             owner = this,
             view = view
