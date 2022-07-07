@@ -21,8 +21,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         // Increment by 4 with each update
-        versionCode 64
-        versionName "16.0"
+        versionCode 68
+        versionName "17.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     kotlinOptions {
@@ -113,7 +113,9 @@ dependencies {
     implementation "org.mozilla.components:compose-awesomebar:$mozComponentsVersion"
 
     // Mozilla concept components
-    implementation "org.mozilla.components:concept-engine:$mozComponentsVersion"
+
+    implementation files('libs/concept-engine-release.aar')
+
     implementation "org.mozilla.components:concept-storage:$mozComponentsVersion"
     implementation "org.mozilla.components:concept-menu:$mozComponentsVersion"
     implementation "org.mozilla.components:concept-toolbar:$mozComponentsVersion"
@@ -123,11 +125,19 @@ dependencies {
     implementation "org.mozilla.components:concept-awesomebar:$mozComponentsVersion"
 
     // Mozilla components
-    implementation "org.mozilla.components:browser-engine-gecko:$mozComponentsVersion"
+
+
+    // Temporary forked version of android components with PDF export support from source at https://github.com/jonalmeida/android-components/tree/issue-12267
+    // Will be removed once Mozilla merges https://github.com/mozilla-mobile/android-components/pull/12277
+    implementation files('libs/browser-engine-gecko-release.aar')
+    api "org.mozilla.geckoview:geckoview-beta-omni:103.0.20220705185846"
+
     implementation "org.mozilla.components:browser-icons:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-domains:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-thumbnails:$mozComponentsVersion"
-    implementation "org.mozilla.components:browser-state:$mozComponentsVersion"
+
+    implementation files('libs/browser-state-release.aar')
+
     implementation "org.mozilla.components:browser-toolbar:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-engine-system:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-session-storage:$mozComponentsVersion"
@@ -142,7 +152,9 @@ dependencies {
     implementation "org.mozilla.components:feature-readerview:$mozComponentsVersion"
     implementation "org.mozilla.components:feature-media:$mozComponentsVersion"
     implementation "org.mozilla.components:feature-search:$mozComponentsVersion"
-    implementation "org.mozilla.components:feature-session:$mozComponentsVersion"
+
+    implementation files('libs/feature-session-release.aar')
+
     implementation "org.mozilla.components:feature-tabs:$mozComponentsVersion"
     implementation "org.mozilla.components:feature-toolbar:$mozComponentsVersion"
     implementation "org.mozilla.components:feature-intent:$mozComponentsVersion"
@@ -215,4 +227,7 @@ project.configurations.all {
 
 configurations {
     all*.exclude group: 'com.google.android.gms', module: 'play-services-fido'
+    all*.exclude group: "org.mozilla.components", module: "concept-engine"
+    all*.exclude group: "org.mozilla.components", module: "feature-session"
+    all*.exclude group: "org.mozilla.components", module: "browser-state"
 }

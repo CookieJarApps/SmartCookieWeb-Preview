@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: D./CookieJarApps/BiscuitBrowser/app/libs/feature-session-release.aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/94c19580da23573f84b210c36401b3f5/transformed/jetified-feature-session-release/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/94c19580da23573f84b210c36401b3f5/transformed/jetified-feature-session-release/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/94c19580da23573f84b210c36401b3f5/transformed/jetified-feature-session-release/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

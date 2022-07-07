@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: D./CookieJarApps/BiscuitBrowser/app/libs/browser-state-release.aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c4ac5269f03031d14d76cd487c2cdf42/transformed/jetified-browser-state-release/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c4ac5269f03031d14d76cd487c2cdf42/transformed/jetified-browser-state-release/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c4ac5269f03031d14d76cd487c2cdf42/transformed/jetified-browser-state-release/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

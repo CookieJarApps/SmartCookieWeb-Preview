@@ -95,6 +95,9 @@ class DefaultBrowserToolbarMenuController(
             is ToolbarMenu.Item.Print -> {
                 activity.printPage()
             }
+            is ToolbarMenu.Item.PDF -> {
+                activity.components.sessionUseCases.saveToPdf.invoke()
+            }
             is ToolbarMenu.Item.AddToHomeScreen -> {
                 MainScope().launch {
                     with(activity.components.webAppUseCases) {

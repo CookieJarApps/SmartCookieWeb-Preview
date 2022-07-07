@@ -133,6 +133,7 @@ class BrowserMenu(
             bookmarksItem,
             BrowserMenuDivider(),
             printItem,
+            saveAsPdfItem,
             addToHomescreen.apply { visible = ::canAddToHomescreen },
             externalAppItem,
             desktopMode,
@@ -198,6 +199,14 @@ class BrowserMenu(
         primaryTextColor()
     ) {
         onItemTapped.invoke(ToolbarMenu.Item.Print)
+    }
+
+    val saveAsPdfItem = BrowserMenuImageText(
+        context.getString(R.string.save_as_pdf),
+        R.drawable.ic_baseline_pdf,
+        primaryTextColor()
+    ) {
+        onItemTapped.invoke(ToolbarMenu.Item.PDF)
     }
 
     val newTabItem = BrowserMenuImageText(

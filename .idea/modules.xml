@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BiscuitBrowser.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BiscuitBrowser.app.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BiscuitBrowser.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BiscuitBrowser.app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BiscuitBrowser.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BiscuitBrowser.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/engine-gecko/BiscuitBrowser.engine-gecko.iml" filepath="$PROJECT_DIR$/.idea/modules/engine-gecko/BiscuitBrowser.engine-gecko.iml" />
     </modules>
   </component>
 </project>

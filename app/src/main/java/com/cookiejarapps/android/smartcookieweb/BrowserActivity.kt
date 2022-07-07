@@ -36,6 +36,7 @@ import com.cookiejarapps.android.smartcookieweb.utils.PrintUtils
 import com.cookiejarapps.android.smartcookieweb.utils.Utils
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import mozilla.components.browser.engine.gecko.GeckoEngineSession
 import mozilla.components.browser.icons.IconRequest
 import mozilla.components.browser.state.search.SearchEngine
 import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab

@@ -20,6 +20,7 @@ interface ToolbarMenu {
         object Bookmarks : Item()
         object History : Item()
         object Print : Item()
+        object PDF : Item()
     }
 
     val menuBuilder: BrowserMenuBuilder
