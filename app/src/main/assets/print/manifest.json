@@ -1,11 +1,11 @@
 {
   "manifest_version": 2,
-  "name": "print",
-  "version": "2.0",
+  "name": "print-helper",
+  "version": "1.0",
   "description": "Prints a page.",
   "browser_specific_settings": {
     "gecko": {
-      "id": "print@cookiejarapps.com"
+      "id": "print-helper@cookiejarapps.com"
     }
   },
   "background": {

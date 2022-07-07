@@ -397,7 +397,7 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
         }
 
         components.engine.installWebExtension(
-            "print@cookiejarapps.com",
+            "print-helper@cookiejarapps.com",
             "resource://android/assets/print/",
             onSuccess = { extension ->
                 extension.registerBackgroundMessageHandler("print", messageHandler)

@@ -1,5 +1,4 @@
 function codeToInject() {
-    // Do here whatever your script requires. For example:
     window.print = function() {
         alert("This page called window.print() to attempt to print the page. This feature is currently unsupported in this browser. Please use the built-in print function.")
      };
