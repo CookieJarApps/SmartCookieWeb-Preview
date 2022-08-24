@@ -107,16 +107,14 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
-    final def mozComponentsVersion = "103.0.4"
+    final def mozComponentsVersion = "105.0.0"
 
     // Mozilla compose components
     implementation "org.mozilla.components:compose-awesomebar:$mozComponentsVersion"
 
     // Mozilla concept components
-
-    implementation files('libs/concept-engine-release.aar')
-
     implementation "org.mozilla.components:concept-storage:$mozComponentsVersion"
+    implementation "org.mozilla.components:concept-engine:$mozComponentsVersion"
     implementation "org.mozilla.components:concept-menu:$mozComponentsVersion"
     implementation "org.mozilla.components:concept-toolbar:$mozComponentsVersion"
     implementation "org.mozilla.components:concept-tabstray:$mozComponentsVersion"
@@ -125,20 +123,14 @@ dependencies {
     implementation "org.mozilla.components:concept-awesomebar:$mozComponentsVersion"
 
     // Mozilla components
-
-
-    // Temporary forked version of android components with PDF export support from source at https://github.com/jonalmeida/android-components/tree/issue-12267
-    // Will be removed once Mozilla merges https://github.com/mozilla-mobile/android-components/pull/12277
-    implementation files('libs/browser-engine-gecko-release.aar')
-    api "org.mozilla.geckoview:geckoview-beta-omni:103.0.20220705185846"
-
+    implementation "org.mozilla.components:browser-engine-gecko:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-icons:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-domains:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-thumbnails:$mozComponentsVersion"
-
-    implementation files('libs/browser-state-release.aar')
+    implementation "org.mozilla.components:browser-state:$mozComponentsVersion"
 
     implementation "org.mozilla.components:browser-toolbar:$mozComponentsVersion"
+    implementation "org.mozilla.components:browser-state:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-engine-system:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-session-storage:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-tabstray:$mozComponentsVersion"
@@ -153,9 +145,8 @@ dependencies {
     implementation "org.mozilla.components:feature-media:$mozComponentsVersion"
     implementation "org.mozilla.components:feature-search:$mozComponentsVersion"
 
-    implementation files('libs/feature-session-release.aar')
-
     implementation "org.mozilla.components:feature-tabs:$mozComponentsVersion"
+    implementation "org.mozilla.components:feature-session:$mozComponentsVersion"
     implementation "org.mozilla.components:feature-toolbar:$mozComponentsVersion"
     implementation "org.mozilla.components:feature-intent:$mozComponentsVersion"
     implementation "org.mozilla.components:feature-contextmenu:$mozComponentsVersion"
@@ -227,7 +218,4 @@ project.configurations.all {
 
 configurations {
     all*.exclude group: 'com.google.android.gms', module: 'play-services-fido'
-    all*.exclude group: "org.mozilla.components", module: "concept-engine"
-    all*.exclude group: "org.mozilla.components", module: "feature-session"
-    all*.exclude group: "org.mozilla.components", module: "browser-state"
 }

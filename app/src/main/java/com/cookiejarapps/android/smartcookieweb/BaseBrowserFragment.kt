@@ -74,8 +74,7 @@ import mozilla.components.support.base.feature.ActivityResultHandler
 import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
-import mozilla.components.support.ktx.android.view.enterToImmersiveMode
-import mozilla.components.support.ktx.android.view.exitImmersiveModeIfNeeded
+import mozilla.components.support.ktx.android.view.exitImmersiveMode
 import mozilla.components.support.ktx.android.view.hideKeyboard
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
@@ -88,8 +87,6 @@ import com.cookiejarapps.android.smartcookieweb.components.toolbar.ToolbarPositi
 import com.cookiejarapps.android.smartcookieweb.integration.ReaderModeIntegration
 import com.cookiejarapps.android.smartcookieweb.ssl.showSslDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import mozilla.components.concept.engine.prompt.ShareData
-import mozilla.components.feature.prompts.share.ShareDelegate
 import org.mozilla.fenix.home.HomeScreenViewModel
 import org.mozilla.fenix.home.SharedViewModel
 import java.lang.ref.WeakReference
@@ -869,7 +866,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
             requireActivity().window.getDecorView().systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
 
-            activity?.exitImmersiveModeIfNeeded()
+            activity?.exitImmersiveMode()
             if (webAppToolbarShouldBeVisible) {
                 browserToolbarView.view.isVisible = true
                 val toolbarHeight = resources.getDimensionPixelSize(R.dimen.browser_toolbar_height)
