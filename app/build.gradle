@@ -107,7 +107,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
-    final def mozComponentsVersion = "105.0.0"
+    final def mozComponentsVersion = "106.0.20220823152515"
 
     // Mozilla compose components
     implementation "org.mozilla.components:compose-awesomebar:$mozComponentsVersion"
@@ -214,8 +214,4 @@ project.configurations.all {
         }
         because 'use GeckoView Glean instead of standalone Glean'
     }
-}
-
-configurations {
-    all*.exclude group: 'com.google.android.gms', module: 'play-services-fido'
 }
