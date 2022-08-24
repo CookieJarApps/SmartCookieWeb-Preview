@@ -25,6 +25,12 @@
 
 ---
 
+## F-Droid
+
+SCWP needs source code changes to be accepted on F-Droid which have not currently been made (building GV and AC from source instead of fetching from Mozilla Maven, replacing GMS Fido for WebAuthn, etc). Currently, it is available pre-built in the CookieJarApps F-Droid repo instead: https://cookiejarapps.com/fdroid/repo/
+
+---
+
 ## Support
 
 Need help? Open an issue here, or:
