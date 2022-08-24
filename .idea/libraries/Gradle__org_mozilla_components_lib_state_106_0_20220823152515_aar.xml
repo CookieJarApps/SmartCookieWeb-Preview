@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:lib-state:106.0.20220823152515@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a5600299a5b99f08ed5d8a87ea1970c1/transformed/jetified-lib-state-105.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a5600299a5b99f08ed5d8a87ea1970c1/transformed/jetified-lib-state-105.0.0/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a5600299a5b99f08ed5d8a87ea1970c1/transformed/jetified-lib-state-105.0.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/lib-state/106.0.20220823152515/58b0f6b074a777ebe9f79ae96ab2098f39bdd7fa/lib-state-106.0.20220823152515-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

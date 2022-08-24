@@ -21,8 +21,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         // Increment by 4 with each update
-        versionCode 68
-        versionName "17.0"
+        versionCode 72
+        versionName "18.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     kotlinOptions {
