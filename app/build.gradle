@@ -5,21 +5,15 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
-    compileSdkVersion 31
-    lintOptions {
-        abortOnError false
-    }
+    compileSdkVersion 33
     buildFeatures {
         viewBinding true
         compose true
     }
-    aaptOptions{
-        noCompress 'ja'
-    }
     defaultConfig {
         applicationId "com.cookiejarapps.android.smartcookieweb"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 33
         // Increment by 4 with each update
         versionCode 72
         versionName "18.0"
@@ -49,7 +43,13 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = '1.1.0'
+        kotlinCompilerExtensionVersion = '1.3.2'
+    }
+    androidResources {
+        noCompress 'ja'
+    }
+    lint {
+        abortOnError false
     }
 }
 
@@ -107,7 +107,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
-    final def mozComponentsVersion = "106.0.20220823152515"
+    final def mozComponentsVersion = "110.0.20230107143316"
 
     // Mozilla compose components
     implementation "org.mozilla.components:compose-awesomebar:$mozComponentsVersion"
@@ -200,9 +200,9 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.4.0'
 
-    implementation "androidx.compose.ui:ui:1.1.0"
-    implementation "androidx.compose.foundation:foundation:1.1.0"
-    implementation "androidx.compose.material:material:1.1.0"
+    implementation "androidx.compose.ui:ui:1.3.2"
+    implementation "androidx.compose.foundation:foundation:1.3.1"
+    implementation "androidx.compose.material:material:1.3.1"
 
 }
 

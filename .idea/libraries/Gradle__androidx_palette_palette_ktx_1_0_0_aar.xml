@@ -1,9 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.palette:palette-ktx:1.0.0@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/3a0671578d3e5ae2825fb43645fa77cd/transformed/jetified-palette-ktx-1.0.0/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/3a0671578d3e5ae2825fb43645fa77cd/transformed/jetified-palette-ktx-1.0.0/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/3a0671578d3e5ae2825fb43645fa77cd/transformed/jetified-palette-ktx-1.0.0/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/fafcdda71cf79fc57990654712d72309/transformed/jetified-palette-ktx-1.0.0/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/cf06c55da8878b2be0d835637dfcc6f9/transformed/jetified-palette-ktx-1.0.0/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/550f28bb342730a43e2b2dee47a7b617/transformed/jetified-palette-ktx-1.0.0/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6b74dc89c6229ecc25a6bf81bf61e0b0/transformed/jetified-palette-ktx-1.0.0/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6b74dc89c6229ecc25a6bf81bf61e0b0/transformed/jetified-palette-ktx-1.0.0/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6b74dc89c6229ecc25a6bf81bf61e0b0/transformed/jetified-palette-ktx-1.0.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

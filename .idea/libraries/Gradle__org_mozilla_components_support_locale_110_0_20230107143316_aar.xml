@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:support-locale:110.0.20230107143316@aar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8513d3fab41b75783b31d60ff3f36d88/transformed/jetified-support-locale-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/1900d406e5fe826dbc434c8e05aba6d7/transformed/jetified-support-locale-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8f2eab874971e411292ead966955edcb/transformed/jetified-support-locale-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/2fb6ccb0530c26552f6279c4eb652ac0/transformed/jetified-support-locale-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/0776cd03175b3b95655fc2f3b2c92d37/transformed/jetified-support-locale-110.0.20230107143316/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/0776cd03175b3b95655fc2f3b2c92d37/transformed/jetified-support-locale-110.0.20230107143316/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/0776cd03175b3b95655fc2f3b2c92d37/transformed/jetified-support-locale-110.0.20230107143316/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/support-locale/110.0.20230107143316/caeb85b0212163d37e84c71ca86cb84988f7db2f/support-locale-110.0.20230107143316-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

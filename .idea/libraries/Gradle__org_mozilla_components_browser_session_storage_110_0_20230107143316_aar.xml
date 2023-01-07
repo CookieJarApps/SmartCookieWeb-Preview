@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:browser-session-storage:110.0.20230107143316@aar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e968e421595a7d52f09b01b1bcb00ded/transformed/jetified-browser-session-storage-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/6900cf5edd3581547b86ce4a70f50a07/transformed/jetified-browser-session-storage-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f3f5c31291ab3e89ca36dc3dbd06dca8/transformed/jetified-browser-session-storage-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e5d624c079b097577a9b4ffa7c9ad952/transformed/jetified-browser-session-storage-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d659fc60621ee8c60ba6453395ff9822/transformed/jetified-browser-session-storage-110.0.20230107143316/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d659fc60621ee8c60ba6453395ff9822/transformed/jetified-browser-session-storage-110.0.20230107143316/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d659fc60621ee8c60ba6453395ff9822/transformed/jetified-browser-session-storage-110.0.20230107143316/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/browser-session-storage/110.0.20230107143316/4514973574483238362e77771f41dad51b95a6e1/browser-session-storage-110.0.20230107143316-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

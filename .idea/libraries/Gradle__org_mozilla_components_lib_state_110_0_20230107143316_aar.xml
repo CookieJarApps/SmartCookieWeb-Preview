@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:lib-state:110.0.20230107143316@aar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/dd5ffb30cabdd3a53fc732f0e73acaf2/transformed/jetified-lib-state-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e9aeec125b87949f646ac789e0d80838/transformed/jetified-lib-state-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/bf78dbbdd8449ca627cb8ce1594b8eb8/transformed/jetified-lib-state-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/427cb0f4515cfba4d131b876d6e1a62c/transformed/jetified-lib-state-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ba939a0db7dddc9110101e5e3eb68372/transformed/jetified-lib-state-110.0.20230107143316/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ba939a0db7dddc9110101e5e3eb68372/transformed/jetified-lib-state-110.0.20230107143316/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/ba939a0db7dddc9110101e5e3eb68372/transformed/jetified-lib-state-110.0.20230107143316/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/lib-state/110.0.20230107143316/a48ba2a37a9fc111053ae3ce7eed65806395a372/lib-state-110.0.20230107143316-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

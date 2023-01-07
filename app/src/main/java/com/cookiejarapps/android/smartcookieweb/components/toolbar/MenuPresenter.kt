@@ -47,11 +47,11 @@ class MenuPresenter(
         menuToolbar.invalidateActions()
     }
 
-    override fun onViewDetachedFromWindow(v: View?) {
-        menuToolbar.onStop()
+    override fun onViewAttachedToWindow(p0: View) {
+        // no-op
     }
 
-    override fun onViewAttachedToWindow(v: View?) {
-        // no-op
+    override fun onViewDetachedFromWindow(p0: View) {
+        menuToolbar.onStop()
     }
 }

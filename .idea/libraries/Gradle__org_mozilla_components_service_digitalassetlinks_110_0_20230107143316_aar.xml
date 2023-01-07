@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:service-digitalassetlinks:110.0.20230107143316@aar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8d1edf1f9e15e6d0a2310c9fee4ca9f0/transformed/jetified-service-digitalassetlinks-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8007b8550717a41847c2b252203c4ba2/transformed/jetified-service-digitalassetlinks-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/5391e373ee20bdf66741ca043cdfd7af/transformed/jetified-service-digitalassetlinks-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/fa342ef1bb37278c195e6d694d629bb8/transformed/jetified-service-digitalassetlinks-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/304981575dd28e5a13e3a2d039c32f31/transformed/jetified-service-digitalassetlinks-110.0.20230107143316/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/304981575dd28e5a13e3a2d039c32f31/transformed/jetified-service-digitalassetlinks-110.0.20230107143316/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/304981575dd28e5a13e3a2d039c32f31/transformed/jetified-service-digitalassetlinks-110.0.20230107143316/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/service-digitalassetlinks/110.0.20230107143316/42ec859fc760cc8ba69576469be5f410a07ecb85/service-digitalassetlinks-110.0.20230107143316-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

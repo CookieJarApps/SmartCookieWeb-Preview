@@ -412,6 +412,7 @@ class HomeFragment : Fragment() {
                         settings.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                         activity?.startActivity(settings)
                     }
+                    else -> {}
                 }
             },
             onHighlightPresent = { menuButtonView.get()?.setHighlight(it) },

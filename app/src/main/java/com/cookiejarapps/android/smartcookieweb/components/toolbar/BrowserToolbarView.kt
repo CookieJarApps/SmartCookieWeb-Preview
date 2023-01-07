@@ -20,7 +20,7 @@ import mozilla.components.browser.state.state.CustomTabSessionState
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.browser.toolbar.behavior.BrowserToolbarBehavior
 import mozilla.components.browser.toolbar.display.DisplayToolbar
-import mozilla.components.support.utils.URLStringUtils
+import mozilla.components.support.ktx.util.URLStringUtils.toDisplayUrl
 import mozilla.components.ui.tabcounter.TabCounterMenu
 import java.lang.ref.WeakReference
 import mozilla.components.browser.toolbar.behavior.ToolbarPosition as MozacToolbarPosition
@@ -119,7 +119,7 @@ class BrowserToolbarView(
                     if (UserPreferences(context).showUrlProtocol) {
                             url -> url
                     } else {
-                            url -> URLStringUtils.toDisplayUrl(url)
+                            url -> toDisplayUrl(url)
                     }
 
                 display.colors = display.colors.copy(

@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-intent:110.0.20230107143316@aar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/646214b2e299fcf707e378d235332582/transformed/jetified-feature-intent-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/206986bb3b0b971dece3d311a99767ce/transformed/jetified-feature-intent-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c28dd0133dd2bd95659cf6b234c465a2/transformed/jetified-feature-intent-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/422ca4c0552160beebde5f317c890bc8/transformed/jetified-feature-intent-110.0.20230107143316/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7cc3f33b34466e4e1da834367979a59e/transformed/jetified-feature-intent-110.0.20230107143316/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7cc3f33b34466e4e1da834367979a59e/transformed/jetified-feature-intent-110.0.20230107143316/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7cc3f33b34466e4e1da834367979a59e/transformed/jetified-feature-intent-110.0.20230107143316/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-intent/110.0.20230107143316/39a2eff46a97d5226a4e4b0fdafa213d8f26305d/feature-intent-110.0.20230107143316-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

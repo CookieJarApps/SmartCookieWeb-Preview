@@ -21,18 +21,18 @@ class SwipeGestureLayout @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
-        override fun onDown(e: MotionEvent?): Boolean {
+        override fun onDown(e: MotionEvent): Boolean {
             return true
         }
 
         override fun onScroll(
-            e1: MotionEvent?,
-            e2: MotionEvent?,
+            e1: MotionEvent,
+            e2: MotionEvent,
             distanceX: Float,
             distanceY: Float
         ): Boolean {
-            val start = e1?.let { event -> PointF(event.rawX, event.rawY) } ?: return false
-            val next = e2?.let { event -> PointF(event.rawX, event.rawY) } ?: return false
+            val start = e1.let { event -> PointF(event.rawX, event.rawY) }
+            val next = e2.let { event -> PointF(event.rawX, event.rawY) }
 
             if (activeListener == null && !handledInitialScroll) {
                 activeListener = listeners.firstOrNull { listener ->
@@ -45,8 +45,8 @@ class SwipeGestureLayout @JvmOverloads constructor(
         }
 
         override fun onFling(
-            e1: MotionEvent?,
-            e2: MotionEvent?,
+            e1: MotionEvent,
+            e2: MotionEvent,
             velocityX: Float,
             velocityY: Float
         ): Boolean {
@@ -70,8 +70,8 @@ class SwipeGestureLayout @JvmOverloads constructor(
         listeners.add(listener)
     }
 
-    override fun onInterceptTouchEvent(event: MotionEvent?): Boolean {
-        return when (event?.actionMasked) {
+    override fun onInterceptTouchEvent(event: MotionEvent): Boolean {
+        return when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 handledInitialScroll = false
                 gestureDetector.onTouchEvent(event)
@@ -81,8 +81,8 @@ class SwipeGestureLayout @JvmOverloads constructor(
         }
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        return when (event?.actionMasked) {
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        return when (event.actionMasked) {
             MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> {
                 gestureDetector.onTouchEvent(event)
                 activeListener?.onSwipeFinished(

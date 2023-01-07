@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.Dimension
-import androidx.annotation.Dimension.DP
+import androidx.annotation.Dimension.Companion.DP
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -67,14 +67,12 @@ class TabGridViewHolder(
 
         updateSelectedTabIndicator(isSelected)
 
-        if (thumbnailLoader != null && tab.content.thumbnail == null) {
+        if (thumbnailLoader != null) {
             val thumbnailSize = THUMBNAIL_SIZE.dpToPx(thumbnailView.context.resources.displayMetrics)
             thumbnailLoader.loadIntoView(
                 thumbnailView,
                 ImageLoadRequest(id = tab.id, size = thumbnailSize)
             )
-        } else if (tab.content.thumbnail != null) {
-            thumbnailView.setImageBitmap(tab.content.thumbnail)
         }
     }
 

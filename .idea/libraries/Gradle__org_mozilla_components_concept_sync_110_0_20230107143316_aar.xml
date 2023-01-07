@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:concept-sync:110.0.20230107143316@aar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f0797ab78540f3995f95189266799a35/transformed/jetified-concept-sync-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/3626cc3470362a58c2ecd1226265d8bd/transformed/jetified-concept-sync-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c79bae46160c815fb15ff14bb5717bcc/transformed/jetified-concept-sync-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/cdbcbdb799377a2a95d323ee30b6e120/transformed/jetified-concept-sync-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/02fc7f08c7a5c91e744edcb0ab29da2e/transformed/jetified-concept-sync-110.0.20230107143316/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/02fc7f08c7a5c91e744edcb0ab29da2e/transformed/jetified-concept-sync-110.0.20230107143316/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/02fc7f08c7a5c91e744edcb0ab29da2e/transformed/jetified-concept-sync-110.0.20230107143316/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/concept-sync/110.0.20230107143316/2c9a83f6b56b1fd4539b2f289dc5aed003ac91fd/concept-sync-110.0.20230107143316-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

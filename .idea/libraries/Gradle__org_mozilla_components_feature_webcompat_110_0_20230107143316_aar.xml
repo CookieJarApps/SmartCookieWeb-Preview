@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-webcompat:110.0.20230107143316@aar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/4f00d7b530f3538b891a184d96e8e6d5/transformed/jetified-feature-webcompat-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/082a0ffd49fef42e0e10b2bf11168860/transformed/jetified-feature-webcompat-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7d753444670f422fdf75ad40d069441d/transformed/jetified-feature-webcompat-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/9b1e13981cfcc19a05a38e6a5b4c2b1d/transformed/jetified-feature-webcompat-110.0.20230107143316/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a69b928995793e2beeefca9331a13319/transformed/jetified-feature-webcompat-110.0.20230107143316/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a69b928995793e2beeefca9331a13319/transformed/jetified-feature-webcompat-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/a69b928995793e2beeefca9331a13319/transformed/jetified-feature-webcompat-110.0.20230107143316/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-webcompat/110.0.20230107143316/5e60cec293c054b754f41c4f14dd9b8656619ffc/feature-webcompat-110.0.20230107143316-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

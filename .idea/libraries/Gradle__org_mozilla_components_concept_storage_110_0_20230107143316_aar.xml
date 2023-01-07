@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:concept-storage:110.0.20230107143316@aar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/f26fdc4fd80e081e646cd2cff8cf8d5d/transformed/jetified-concept-storage-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8cc8a1fb773624976a3650e93f92e7ba/transformed/jetified-concept-storage-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/17217f72ae3bd5a8ddc81bdf8fe17240/transformed/jetified-concept-storage-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/61ffb445e53377fd19c536bbfcc36a73/transformed/jetified-concept-storage-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/4cf4093b3f7d52ddcbe7c504c6e9927a/transformed/jetified-concept-storage-110.0.20230107143316/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/4cf4093b3f7d52ddcbe7c504c6e9927a/transformed/jetified-concept-storage-110.0.20230107143316/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/4cf4093b3f7d52ddcbe7c504c6e9927a/transformed/jetified-concept-storage-110.0.20230107143316/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/concept-storage/110.0.20230107143316/77329985eef17ae91c97b4d545f7d7e6d172c72e/concept-storage-110.0.20230107143316-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

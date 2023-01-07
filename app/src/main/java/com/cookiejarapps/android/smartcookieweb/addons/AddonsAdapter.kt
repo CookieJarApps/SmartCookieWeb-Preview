@@ -142,6 +142,7 @@ class AddonsAdapter(
         when (holder) {
             is SectionViewHolder -> bindSection(holder, item as Section, position)
             is AddonViewHolder -> bindAddon(holder, item as Addon)
+            else -> {}
         }
     }
 

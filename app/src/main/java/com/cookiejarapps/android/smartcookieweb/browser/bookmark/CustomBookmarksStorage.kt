@@ -58,7 +58,7 @@ class CustomBookmarksStorage(context: Context): BookmarksStorage {
         TODO("Not yet implemented")
     }
 
-    override suspend fun runMaintenance() {
+    override suspend fun runMaintenance(dbSizeLimit: UInt) {
         TODO("Not yet implemented")
     }
 

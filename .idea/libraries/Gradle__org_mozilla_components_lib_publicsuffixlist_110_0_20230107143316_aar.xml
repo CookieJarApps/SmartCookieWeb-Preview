@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:lib-publicsuffixlist:110.0.20230107143316@aar">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/4548f288a5d072c49d5a478931f13da8/transformed/jetified-lib-publicsuffixlist-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/055c293d4a88a5325d4a7c8a7525bb42/transformed/jetified-lib-publicsuffixlist-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/cd0b42d56fd3be28f9c4e11368e2144c/transformed/jetified-lib-publicsuffixlist-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/c453bff8c6a68f2a71b24381b37d1680/transformed/jetified-lib-publicsuffixlist-110.0.20230107143316/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7e0f06c681e844312de5f9400e407c93/transformed/jetified-lib-publicsuffixlist-110.0.20230107143316/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7e0f06c681e844312de5f9400e407c93/transformed/jetified-lib-publicsuffixlist-110.0.20230107143316/res" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/7e0f06c681e844312de5f9400e407c93/transformed/jetified-lib-publicsuffixlist-110.0.20230107143316/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/lib-publicsuffixlist/110.0.20230107143316/cf3c31c4bdde9cbf67369f5d1c492b19cee9f0e1/lib-publicsuffixlist-110.0.20230107143316-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

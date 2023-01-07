@@ -40,6 +40,7 @@ abstract class ToolbarIntegration(
         toolbar,
         store,
         sessionId,
+        true,
         ToolbarFeature.UrlRenderConfiguration(
             PublicSuffixList(context),
             ContextCompat.getColor(context, R.color.primary_icon),
