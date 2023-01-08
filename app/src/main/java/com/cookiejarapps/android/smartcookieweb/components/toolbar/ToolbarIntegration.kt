@@ -40,7 +40,7 @@ abstract class ToolbarIntegration(
         toolbar,
         store,
         sessionId,
-        true,
+        false,
         ToolbarFeature.UrlRenderConfiguration(
             PublicSuffixList(context),
             ContextCompat.getColor(context, R.color.primary_icon),
@@ -126,6 +126,10 @@ class DefaultToolbarIntegration(
         )
 
         toolbar.display.setUrlBackground(AppCompatResources.getDrawable(context, R.drawable.toolbar_background))
+
+        if(isPrivate) {
+            toolbar.display.setUrlBackground(AppCompatResources.getDrawable(context, R.drawable.toolbar_background_private))
+        }
 
         val tabCounterMenu = TabCounterMenu(
             context = context,

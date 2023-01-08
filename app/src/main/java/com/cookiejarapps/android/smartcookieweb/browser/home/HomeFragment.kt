@@ -179,6 +179,10 @@ class HomeFragment : Fragment() {
             showCreateShortcutDialog(binding.shortcutGrid.adapter as ShortcutGridAdapter)
         }
 
+        if(browsingModeManager.mode == BrowsingMode.Private) {
+            binding.toolbarWrapper.background = context?.let { ContextCompat.getDrawable(it, R.drawable.toolbar_background_private) }
+        }
+
         appBarLayout = binding.homeAppBar
 
         return view
@@ -188,14 +192,6 @@ class HomeFragment : Fragment() {
         super.onConfigurationChanged(newConfig)
 
         getMenuButton()?.dismissMenu()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        if (browsingModeManager.mode == BrowsingMode.Private) {
-            binding?.homeLayout?.background = resources.getDrawable(R.drawable.private_background)
-        }
     }
 
     private fun showEditShortcutDialog(position: Int, adapter: ShortcutGridAdapter){
