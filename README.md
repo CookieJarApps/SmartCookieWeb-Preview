@@ -7,7 +7,6 @@
 <a href="https://liberapay.com/CookieJarApps"><img src="https://img.shields.io/liberapay/patrons/CookieJarApps" /></a>
 <img src="https://img.shields.io/github/stars/cookiejarapps/SmartCookieWeb-Preview?style=social" />
  </p>
- <p align="center">Also available at https://vcs.cookiejarapps.com/CookieJarApps/SmartCookieWeb-Preview</p>
 
 ---
 
