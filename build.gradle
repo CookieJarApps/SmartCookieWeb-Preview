@@ -10,7 +10,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.2'
+        classpath 'com.android.tools.build:gradle:8.0.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3"
 
@@ -23,12 +23,6 @@ buildscript {
 allprojects {
     repositories {
         google()
-
-        // TODO: Switch back to snapshot repo, create build variants for stable, beta, nightly GV
-        maven {
-            name "Mozilla Nightly"
-            url "https://nightly.maven.mozilla.org/maven2"
-        }
 
         maven {
             name "Mozilla"

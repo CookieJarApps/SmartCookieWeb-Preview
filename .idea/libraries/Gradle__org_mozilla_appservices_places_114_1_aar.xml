@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.appservices:places:114.1@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/36c2ff1d85fa652f8a9f0e4e9465f35a/transformed/jetified-places-114.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/36c2ff1d85fa652f8a9f0e4e9465f35a/transformed/jetified-places-114.1/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.appservices/places/114.1/a5c8102613dcc6ea6bbaa2eeff9e0d384712f046/places-114.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

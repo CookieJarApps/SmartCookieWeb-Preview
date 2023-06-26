@@ -8,7 +8,6 @@ import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import mozilla.components.browser.domains.autocomplete.DomainAutocompleteProvider
 import mozilla.components.browser.state.selector.normalTabs
 import mozilla.components.browser.state.selector.privateTabs
 import mozilla.components.browser.toolbar.BrowserToolbar
@@ -80,7 +79,6 @@ class DefaultToolbarIntegration(
     context: Context,
     toolbar: BrowserToolbar,
     toolbarMenu: ToolbarMenu,
-    domainAutocompleteProvider: DomainAutocompleteProvider,
     historyStorage: HistoryStorage,
     lifecycleOwner: LifecycleOwner,
     sessionId: String? = null,
@@ -165,18 +163,5 @@ class DefaultToolbarIntegration(
         tabsAction.updateCount(tabCount)
 
         toolbar.addNavigationAction(tabsAction)
-
-        val engineForSpeculativeConnects = if (!isPrivate) engine else null
-
-        ToolbarAutocompleteFeature(
-            toolbar,
-            engineForSpeculativeConnects
-        ).apply {
-            addDomainProvider(domainAutocompleteProvider)
-            // TODO: SETTING
-            if (true) {
-                addHistoryStorageProvider(historyStorage)
-            }
-        }
     }
 }

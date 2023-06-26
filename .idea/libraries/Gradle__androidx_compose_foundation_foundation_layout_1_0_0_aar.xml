@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.compose.foundation:foundation-layout:1.0.0@aar">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8e1357b88b0b2a2250ceacfde0810a00/transformed/jetified-foundation-layout-1.0.0/res" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8e1357b88b0b2a2250ceacfde0810a00/transformed/jetified-foundation-layout-1.0.0/AndroidManifest.xml" />
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8e1357b88b0b2a2250ceacfde0810a00/transformed/jetified-foundation-layout-1.0.0/jars/classes.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e93c87780a9c7629affaae3cb0bab37a/transformed/jetified-foundation-layout-1.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e93c87780a9c7629affaae3cb0bab37a/transformed/jetified-foundation-layout-1.0.0/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/e93c87780a9c7629affaae3cb0bab37a/transformed/jetified-foundation-layout-1.0.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

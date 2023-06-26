@@ -55,12 +55,10 @@ import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.browser.thumbnails.BrowserThumbnails
 import mozilla.components.feature.app.links.AppLinksFeature
 import mozilla.components.feature.downloads.DownloadsFeature
-import mozilla.components.feature.downloads.share.ShareDownloadFeature
 import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
 import mozilla.components.feature.media.fullscreen.MediaSessionFullscreenFeature
 import mozilla.components.feature.privatemode.feature.SecureWindowFeature
 import mozilla.components.feature.prompts.PromptFeature
-import mozilla.components.feature.readerview.ReaderViewFeature
 import mozilla.components.feature.search.SearchFeature
 import mozilla.components.feature.session.FullScreenFeature
 import mozilla.components.feature.session.PictureInPictureFeature
@@ -92,6 +90,7 @@ import org.mozilla.fenix.home.SharedViewModel
 import java.lang.ref.WeakReference
 import mozilla.components.feature.session.behavior.ToolbarPosition as MozacToolbarPosition
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBrowserBinding
+import mozilla.components.feature.downloads.temporary.ShareDownloadFeature
 
 /**
  * Base fragment extended by [BrowserFragment].
@@ -121,7 +120,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private val sessionFeature = ViewBoundFeatureWrapper<SessionFeature>()
     private val contextMenuIntegration = ViewBoundFeatureWrapper<ContextMenuIntegration>()
     private val downloadsFeature = ViewBoundFeatureWrapper<DownloadsFeature>()
-    private val shareDownloadsFeature = ViewBoundFeatureWrapper<ShareDownloadFeature>()
+    private val shareDownloadFeature = ViewBoundFeatureWrapper<ShareDownloadFeature>()
     private val appLinksFeature = ViewBoundFeatureWrapper<AppLinksFeature>()
     private val promptsFeature = ViewBoundFeatureWrapper<PromptFeature>()
     private val findInPageIntegration = ViewBoundFeatureWrapper<FindInPageIntegration>()
@@ -417,7 +416,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 downloadManager = FetchDownloadManager(
                     requireContext().applicationContext,
                     components.store,
-                    DownloadService::class
+                    DownloadService::class,
+                   notificationsDelegate = components.notificationsDelegate
                 ),
                 tabId = customTabSessionId,
                 onNeedToRequestPermissions = { permissions ->
@@ -461,6 +461,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                     requireContext().components.store,
                     context.components.sessionUseCases.reload,
                     binding.swipeRefresh,
+                    ({}),
                     customTabSessionId
                 ),
                 owner = this,

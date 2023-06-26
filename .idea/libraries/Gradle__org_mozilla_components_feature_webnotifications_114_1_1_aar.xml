@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:feature-webnotifications:114.1.1@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8c4f72924925760dd7166af982b63468/transformed/jetified-feature-webnotifications-114.1.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8c4f72924925760dd7166af982b63468/transformed/jetified-feature-webnotifications-114.1.1/res" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/8c4f72924925760dd7166af982b63468/transformed/jetified-feature-webnotifications-114.1.1/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/feature-webnotifications/114.1.1/340b467a5d242b569e639eeffe825af444b2e210/feature-webnotifications-114.1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

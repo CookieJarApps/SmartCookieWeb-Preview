@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: org.mozilla.components:browser-domains:114.1.1@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d4684279710a983c4c5889be6abae17b/transformed/jetified-browser-domains-114.1.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-3/d4684279710a983c4c5889be6abae17b/transformed/jetified-browser-domains-114.1.1/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/modules-2/files-2.1/org.mozilla.components/browser-domains/114.1.1/96c5fa211811cca99afa5187e938a323e668e8fb/browser-domains-114.1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

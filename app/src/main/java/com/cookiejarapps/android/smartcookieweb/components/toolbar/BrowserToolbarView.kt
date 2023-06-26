@@ -156,7 +156,6 @@ class BrowserToolbarView(
                     this,
                     view,
                     menuToolbar,
-                    ShippedDomainsProvider().also { it.initialize(this) },
                     components.historyStorage,
                     lifecycleOwner,
                     sessionId = null,

@@ -84,17 +84,6 @@ class ToolbarView(
                 }
             })
         }
-
-        val engineForSpeculativeConnects = if (!isPrivate) engine else null
-
-        // TODO: SETTING
-        ToolbarAutocompleteFeature(
-                view,
-                engineForSpeculativeConnects
-        ).apply {
-            addDomainProvider(ShippedDomainsProvider().also { it.initialize(view.context) })
-            historyStorage?.also(::addHistoryStorageProvider)
-        }
     }
 
     fun update(searchState: SearchFragmentState) {

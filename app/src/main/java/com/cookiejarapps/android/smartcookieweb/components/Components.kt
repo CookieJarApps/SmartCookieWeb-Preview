@@ -3,6 +3,7 @@ package com.cookiejarapps.android.smartcookieweb.components
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import androidx.core.app.NotificationManagerCompat
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.BuildConfig
 import com.cookiejarapps.android.smartcookieweb.R
@@ -60,6 +61,7 @@ import mozilla.components.browser.engine.gecko.ext.toContentBlockingSetting
 import mozilla.components.browser.engine.gecko.permission.GeckoSitePermissionsStorage
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.feature.sitepermissions.OnDiskSitePermissionsStorage
+import mozilla.components.support.base.android.NotificationsDelegate
 import mozilla.components.support.base.worker.Frequency
 import org.mozilla.geckoview.ContentBlocking
 import java.util.concurrent.TimeUnit
@@ -115,8 +117,16 @@ open class Components(private val applicationContext: Context) {
         }
     }
 
+    private val notificationManagerCompat = NotificationManagerCompat.from(applicationContext)
+
+    val notificationsDelegate: NotificationsDelegate by lazy {
+        NotificationsDelegate(
+            notificationManagerCompat,
+        )
+    }
+
     val addonUpdater =
-            DefaultAddonUpdater(applicationContext, Frequency(1, TimeUnit.DAYS))
+            DefaultAddonUpdater(applicationContext, Frequency(1, TimeUnit.DAYS), notificationsDelegate)
 
     // Engine
     open val engine: Engine by lazy {
@@ -151,7 +161,7 @@ open class Components(private val applicationContext: Context) {
                                 LocationService.default()
                         ),
                         SearchMiddleware(applicationContext),
-                        RecordingDevicesMiddleware(applicationContext),
+                        RecordingDevicesMiddleware(applicationContext, notificationsDelegate),
                         LastAccessMiddleware()
                 ) + EngineMiddleware.create(engine)
         ).apply{
@@ -159,7 +169,8 @@ open class Components(private val applicationContext: Context) {
 
             WebNotificationFeature(
                     applicationContext, engine, icons, R.drawable.ic_notification,
-                    permissionStorage, BrowserActivity::class.java
+                    permissionStorage, BrowserActivity::class.java,
+                notificationsDelegate = notificationsDelegate
             )
 
             MediaSessionFeature(applicationContext, MediaSessionService::class.java, this).start()

@@ -370,7 +370,6 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
                             searchTermOrURL,
                             SessionState.Source.Internal.UserEntered,
                             true,
-                            mode.isPrivate,
                             searchEngine = engine
                     )
             } else {
