@@ -70,19 +70,10 @@ class HomeMenu(
             onItemTapped.invoke(Item.Settings)
         }
 
-        val downloadsItem = BrowserMenuImageText(
-            context.getString(R.string.action_downloads),
-            R.drawable.mozac_feature_download_ic_download,
-            R.color.primary_icon
-        ) {
-            onItemTapped.invoke(Item.Downloads)
-        }
-
         val menuItems = listOfNotNull(
             BrowserMenuDivider(),
             BrowserMenuDivider(),
             historyItem,
-            downloadsItem,
             bookmarksItem,
             BrowserMenuDivider(),
             settingsItem,
