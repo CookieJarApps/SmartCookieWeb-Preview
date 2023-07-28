@@ -73,6 +73,7 @@ class HistoryActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                     override fun onLongItemClick(view: View?, position: Int) {
                         val items = arrayOf(
                             resources.getString(R.string.open_new),
+                            resources.getString(R.string.open_new_private),
                             resources.getString(R.string.mozac_selection_context_menu_share),
                             resources.getString(R.string.copy),
                             resources.getString(R.string.remove_history_item)
@@ -92,6 +93,16 @@ class HistoryActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                                         )
                                     }
                                     1 -> {
+                                        onBackPressed()
+                                        components.tabsUseCases.addTab.invoke(
+                                            (recyclerView.adapter as HistoryItemRecyclerViewAdapter).getItem(
+                                                position
+                                            ).url,
+                                            selectTab = true,
+                                            private = true
+                                        )
+                                    }
+                                    2 -> {
                                         val shareIntent = Intent(Intent.ACTION_SEND)
                                         shareIntent.type = "text/plain"
                                         shareIntent.putExtra(
@@ -109,7 +120,7 @@ class HistoryActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                                             null
                                         )
                                     }
-                                    2 -> {
+                                    3 -> {
                                         val clipboard = getSystemService(
                                             this@HistoryActivity,
                                             ClipboardManager::class.java
@@ -122,7 +133,7 @@ class HistoryActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                                         )
                                         clipboard?.setPrimaryClip(clip)
                                     }
-                                    3 -> {
+                                    4 -> {
                                         GlobalScope.launch {
                                             components.historyStorage.deleteVisit(
                                                 (recyclerView.adapter as HistoryItemRecyclerViewAdapter).getItem(

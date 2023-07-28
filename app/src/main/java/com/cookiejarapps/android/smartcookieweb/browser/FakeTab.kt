@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.doOnNextLayout
 import androidx.core.view.updateLayoutParams
 import com.cookiejarapps.android.smartcookieweb.R
@@ -14,6 +15,8 @@ import mozilla.components.browser.thumbnails.loader.ThumbnailLoader
 import mozilla.components.concept.base.images.ImageLoadRequest
 import com.cookiejarapps.android.smartcookieweb.components.toolbar.ToolbarPosition
 import com.cookiejarapps.android.smartcookieweb.databinding.TabPreviewBinding
+import mozilla.components.browser.state.selector.getNormalOrPrivateTabs
+import mozilla.components.browser.state.selector.selectedTab
 import kotlin.math.max
 
 class FakeTab @JvmOverloads constructor(
@@ -24,24 +27,29 @@ class FakeTab @JvmOverloads constructor(
 
     private val binding = TabPreviewBinding.inflate(LayoutInflater.from(context), this)
     private val thumbnailLoader = ThumbnailLoader(context.components.thumbnailStorage)
+    private val preferences = UserPreferences(context)
 
     init {
-        val inflater = LayoutInflater.from(context)
-        inflater.inflate(R.layout.tab_preview, this, true)
+        if (preferences.toolbarPosition != ToolbarPosition.BOTTOM.ordinal) {
+            binding.fakeToolbar.updateLayoutParams<LayoutParams> {
+                gravity = Gravity.TOP
+            }
+        }
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        binding.previewThumbnail.translationY = if (UserPreferences(context).toolbarPosition != ToolbarPosition.BOTTOM.ordinal) {
+
+        val store = context.components.store
+        store.state.selectedTab?.let {
+            val count = store.state.getNormalOrPrivateTabs(it.content.private).size
+            binding.tabButton.setCount(count)
+        }
+
+        binding.previewThumbnail.translationY = if (preferences.shouldUseBottomToolbar) {
             binding.fakeToolbar.height.toFloat()
         } else {
             0f
-        }
-
-        if (UserPreferences(context).toolbarPosition != ToolbarPosition.BOTTOM.ordinal) {
-            binding.fakeToolbar.updateLayoutParams<LayoutParams> {
-                gravity = Gravity.TOP
-            }
         }
     }
 

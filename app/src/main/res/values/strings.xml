@@ -166,6 +166,7 @@
   <string name="delete_folder">Delete folder</string>
   <string name="open">Open</string>
   <string name="open_new">Open in new tab</string>
+  <string name="open_new_private">Open in new private tab</string>
   <string name="open_bg">Open in background tab</string>
   <string name="confirm">Are you sure you want to delete this item?</string>
 
