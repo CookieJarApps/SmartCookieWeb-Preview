@@ -56,10 +56,12 @@ import org.mozilla.geckoview.GeckoRuntime
 import org.mozilla.geckoview.GeckoRuntimeSettings
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.request.AppRequestInterceptor
+import com.cookiejarapps.android.smartcookieweb.share.SaveToPDFMiddleware
 import com.cookiejarapps.android.smartcookieweb.utils.ClipboardHandler
 import mozilla.components.browser.engine.gecko.ext.toContentBlockingSetting
 import mozilla.components.browser.engine.gecko.permission.GeckoSitePermissionsStorage
 import mozilla.components.concept.engine.EngineSession
+import mozilla.components.feature.prompts.PromptMiddleware
 import mozilla.components.feature.sitepermissions.OnDiskSitePermissionsStorage
 import mozilla.components.support.base.android.NotificationsDelegate
 import mozilla.components.support.base.worker.Frequency
@@ -162,8 +164,13 @@ open class Components(private val applicationContext: Context) {
                         ),
                         SearchMiddleware(applicationContext),
                         RecordingDevicesMiddleware(applicationContext, notificationsDelegate),
-                        LastAccessMiddleware()
-                ) + EngineMiddleware.create(engine)
+                        PromptMiddleware(),
+                        LastAccessMiddleware(),
+                        SaveToPDFMiddleware(applicationContext)
+                ) + EngineMiddleware.create(
+                    engine,
+                    trimMemoryAutomatically = false,
+                )
         ).apply{
             icons.install(engine, this)
 

@@ -21,6 +21,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import mozilla.components.browser.state.action.EngineAction
 import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.store.BrowserStore
@@ -93,7 +94,10 @@ class DefaultBrowserToolbarMenuController(
                 }
             }
             is ToolbarMenu.Item.Print -> {
-                activity.printPage()
+                store.state.selectedTab?.let {
+                    store.dispatch(EngineAction.PrintContentAction(it.id))
+                }
+                //activity.components.sessionUseCases.printContent.invoke()
             }
             is ToolbarMenu.Item.PDF -> {
                 activity.components.sessionUseCases.saveToPdf.invoke()

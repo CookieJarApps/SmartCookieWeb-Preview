@@ -1,3 +1,4 @@
+@file:Suppress("INLINE_FROM_HIGHER_PLATFORM")
 package com.cookiejarapps.android.smartcookieweb
 
 import android.app.Application

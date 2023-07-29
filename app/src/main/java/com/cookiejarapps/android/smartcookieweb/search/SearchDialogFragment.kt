@@ -37,10 +37,10 @@ import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.ktx.android.content.getColorFromAttr
 import mozilla.components.support.ktx.android.view.hideKeyboard
-import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
 import mozilla.components.ui.autocomplete.InlineAutocompleteEditText
 import com.cookiejarapps.android.smartcookieweb.search.awesomebar.AwesomeBarView
 import com.cookiejarapps.android.smartcookieweb.search.toolbar.ToolbarView
+import kotlinx.coroutines.flow.distinctUntilChanged
 
 typealias SearchDialogFragmentStore = SearchFragmentStore
 
@@ -168,7 +168,7 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
 
         consumeFlow(components.store) { flow ->
             flow.map { state -> state.search }
-                .ifChanged()
+                .distinctUntilChanged()
                 .collect { search ->
                     store.dispatch(SearchFragmentAction.UpdateSearchState(search))
                 }

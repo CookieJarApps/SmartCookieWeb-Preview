@@ -1,6 +1,9 @@
 package com.cookiejarapps.android.smartcookieweb
 
+import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.cookiejarapps.android.smartcookieweb.browser.ToolbarGestureHandler
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBrowserBinding
 import com.cookiejarapps.android.smartcookieweb.ext.components
@@ -12,6 +15,7 @@ import mozilla.components.feature.tabs.WindowFeature
 import mozilla.components.feature.toolbar.WebExtensionToolbarFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
+import mozilla.components.support.locale.ActivityContextWrapper
 
 /**
  * Fragment used for browsing the web within the main app.
@@ -19,6 +23,8 @@ import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 @ExperimentalCoroutinesApi
 @Suppress("TooManyFunctions", "LargeClass")
 class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
+
+    private var _binding: FragmentBrowserBinding? = null
 
     private val windowFeature = ViewBoundFeatureWrapper<WindowFeature>()
     private val webExtToolbarFeature = ViewBoundFeatureWrapper<WebExtensionToolbarFeature>()

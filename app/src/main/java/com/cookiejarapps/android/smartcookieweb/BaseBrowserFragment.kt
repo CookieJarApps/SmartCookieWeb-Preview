@@ -2,6 +2,7 @@ package com.cookiejarapps.android.smartcookieweb
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
@@ -58,7 +59,6 @@ import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
 import mozilla.components.feature.media.fullscreen.MediaSessionFullscreenFeature
 import mozilla.components.feature.privatemode.feature.SecureWindowFeature
-import mozilla.components.feature.prompts.PromptFeature
 import mozilla.components.feature.search.SearchFeature
 import mozilla.components.feature.session.FullScreenFeature
 import mozilla.components.feature.session.PictureInPictureFeature
@@ -75,7 +75,6 @@ import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.ktx.android.view.exitImmersiveMode
 import mozilla.components.support.ktx.android.view.hideKeyboard
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
-import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
 import com.cookiejarapps.android.smartcookieweb.components.toolbar.ToolbarIntegration
 import com.cookiejarapps.android.smartcookieweb.downloads.DownloadService
 import com.cookiejarapps.android.smartcookieweb.integration.ContextMenuIntegration
@@ -90,7 +89,13 @@ import org.mozilla.fenix.home.SharedViewModel
 import java.lang.ref.WeakReference
 import mozilla.components.feature.session.behavior.ToolbarPosition as MozacToolbarPosition
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBrowserBinding
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.distinctUntilChangedBy
+import mozilla.components.browser.state.state.createTab
 import mozilla.components.feature.downloads.temporary.ShareDownloadFeature
+import mozilla.components.feature.prompts.PromptFeature
+import mozilla.components.support.locale.ActivityContextWrapper
+import mozilla.components.support.utils.ext.requestInPlacePermissions
 
 /**
  * Base fragment extended by [BrowserFragment].
@@ -159,6 +164,10 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         _binding = FragmentBrowserBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        val activity = activity as BrowserActivity
+        val originalContext = ActivityContextWrapper.getOriginalContext(activity)
+        binding.engineView.setActivityContext(originalContext)
+
         browserFragmentStore = StoreProvider.get(this) {
             BrowserFragmentStore(
                 BrowserFragmentState()
@@ -222,6 +231,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             customTabSessionId = customTabSessionId,
             onTabCounterClicked = {
                 thumbnailsFeature.get()?.requestScreenshot()
+                // TODO: thumbnail feature not working, tab select bugs, inconsistent incognito behaviour, differing search bar widths, save as PDF crashes, print crashes, permissions
 
                 val drawerLayout = activity.findViewById<DrawerLayout>(R.id.drawer_layout)
                 val tabDrawer = if(UserPreferences(activity).swapDrawers) activity.findViewById<FrameLayout>(R.id.right_drawer) else activity.findViewById<FrameLayout>(R.id.left_drawer)
@@ -303,16 +313,27 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         )
 
         promptsFeature.set(
-                feature = PromptFeature(
-                        activity = activity,
-                        store = components.store,
-                        customTabId = customTabSessionId,
-                        fragmentManager = parentFragmentManager,
-                        onNeedToRequestPermissions = { permissions ->
-                            requestPermissions(permissions, REQUEST_CODE_PROMPT_PERMISSIONS)
-                        }),
-                owner = this,
-                view = view
+            PromptFeature(
+                fragment = this,
+                store = components.store,
+                tabsUseCases = components.tabsUseCases,
+                fragmentManager = parentFragmentManager,
+                onNeedToRequestPermissions = { permissions ->
+                    requestInPlacePermissions(REQUEST_KEY_PROMPT_PERMISSIONS, permissions) { result ->
+                        promptsFeature.get()?.onPermissionsResult(
+                            result.keys.toTypedArray(),
+                            result.values.map {
+                                when (it) {
+                                    true -> PackageManager.PERMISSION_GRANTED
+                                    false -> PackageManager.PERMISSION_DENIED
+                                }
+                            }.toIntArray(),
+                        )
+                    }
+                },
+            ),
+            this,
+            view,
         )
 
         fullScreenMediaSessionFeature.set(
@@ -445,12 +466,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         expandToolbarOnNavigation(store)
 
-        store.flowScoped(viewLifecycleOwner) { flow ->
-            flow.mapNotNull { state -> state.findTabOrCustomTabOrSelectedTab(customTabSessionId) }
-                .ifChanged { tab -> tab.content.pictureInPictureEnabled }
-                .collect { tab -> pipModeChanged(tab) }
-        }
-
         binding.swipeRefresh.isEnabled = shouldPullToRefreshBeEnabled(false)
 
         if (binding.swipeRefresh.isEnabled) {
@@ -487,6 +502,14 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 }
         }
     }
+
+    /**
+     * The tab associated with this fragment.
+     */
+    val tab: SessionState
+        get() = customTabSessionId?.let { components.store.state.findTabOrCustomTab(it) }
+        // Workaround for tab not existing temporarily.
+            ?: createTab("about:blank")
 
     /**
      * Preserves current state of the [DynamicDownloadDialog] to persist through tab changes and
@@ -602,7 +625,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         val activity = activity as BrowserActivity
         consumeFlow(store) { flow ->
             flow.map { state -> state.restoreComplete }
-                .ifChanged()
+                .distinctUntilChanged()
                 .collect { restored ->
                     if (restored) {
                         val tabs =
@@ -644,7 +667,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     @VisibleForTesting
     internal fun observeTabSelection(store: BrowserStore) {
         consumeFlow(store) { flow ->
-            flow.ifChanged {
+            flow.distinctUntilChangedBy {
                 it.selectedTabId
             }
                 .mapNotNull {
@@ -885,6 +908,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     override fun onDestroyView() {
         super.onDestroyView()
 
+        binding.engineView.setActivityContext(null)
         _browserToolbarView = null
         _browserInteractor = null
         _binding = null
@@ -892,6 +916,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
     companion object {
         private const val KEY_CUSTOM_TAB_SESSION_ID = "custom_tab_session_id"
+        private const val REQUEST_KEY_PROMPT_PERMISSIONS = "promptFeature"
         private const val REQUEST_CODE_DOWNLOAD_PERMISSIONS = 1
         private const val REQUEST_CODE_PROMPT_PERMISSIONS = 2
         private const val REQUEST_CODE_APP_PERMISSIONS = 3

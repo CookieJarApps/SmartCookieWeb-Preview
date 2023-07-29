@@ -53,6 +53,7 @@ import mozilla.components.support.base.feature.ActivityResultHandler
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.ktx.kotlin.isUrl
 import mozilla.components.support.ktx.kotlin.toNormalizedUrl
+import mozilla.components.support.locale.LocaleAwareAppCompatActivity
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupFeature
 import org.json.JSONObject
@@ -61,7 +62,7 @@ import org.json.JSONObject
 /**
  * Activity that holds the [BrowserFragment].
  */
-open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostActivity {
+open class BrowserActivity : LocaleAwareAppCompatActivity(), ComponentCallbacks2, NavHostActivity {
 
     lateinit var binding: ActivityMainBinding
 
@@ -204,6 +205,7 @@ open class BrowserActivity : AppCompatActivity(), ComponentCallbacks2, NavHostAc
 
         lifecycle.addObserver(webExtensionPopupFeature)
 
+        components.notificationsDelegate.bindToActivity(this)
     }
 
     final override fun onNewIntent(intent: Intent?) {

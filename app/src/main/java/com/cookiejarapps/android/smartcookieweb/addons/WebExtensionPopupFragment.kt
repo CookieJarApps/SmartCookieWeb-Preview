@@ -1,5 +1,6 @@
 package com.cookiejarapps.android.smartcookieweb.addons
 
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -33,8 +34,10 @@ import android.widget.RelativeLayout
 import android.util.TypedValue
 import android.util.DisplayMetrics
 import android.util.Log
+import com.cookiejarapps.android.smartcookieweb.BaseBrowserFragment
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentAddOnsBinding
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentExtensionPopupBinding
+import mozilla.components.support.utils.ext.requestInPlacePermissions
 
 
 class WebExtensionPopupFragment : BottomSheetDialogFragment(), UserInteractionHandler, EngineSession.Observer {
@@ -85,16 +88,27 @@ class WebExtensionPopupFragment : BottomSheetDialogFragment(), UserInteractionHa
 
         session?.let {
             promptsFeature.set(
-                    feature = PromptFeature(
-                            fragment = this,
-                            store = components.store,
-                            customTabId = it.id,
-                            fragmentManager = parentFragmentManager,
-                            onNeedToRequestPermissions = { permissions ->
-                                requestPermissions(permissions, REQUEST_CODE_PROMPT_PERMISSIONS)
-                            }),
-                    owner = this,
-                    view = view
+                PromptFeature(
+                    fragment = this,
+                    store = components.store,
+                    tabsUseCases = components.tabsUseCases,
+                    fragmentManager = parentFragmentManager,
+                    onNeedToRequestPermissions = { permissions ->
+                        requestInPlacePermissions(REQUEST_KEY_PROMPT_PERMISSIONS, permissions) { result ->
+                            promptsFeature.get()?.onPermissionsResult(
+                                result.keys.toTypedArray(),
+                                result.values.map {
+                                    when (it) {
+                                        true -> PackageManager.PERMISSION_GRANTED
+                                        false -> PackageManager.PERMISSION_DENIED
+                                    }
+                                }.toIntArray(),
+                            )
+                        }
+                    },
+                ),
+                this,
+                view
             )
         }
 
@@ -197,5 +211,6 @@ class WebExtensionPopupFragment : BottomSheetDialogFragment(), UserInteractionHa
             }
         }
         private const val REQUEST_CODE_PROMPT_PERMISSIONS = 1
+        private const val REQUEST_KEY_PROMPT_PERMISSIONS = "promptFeature"
     }
 }

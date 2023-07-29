@@ -1,5 +1,6 @@
 package com.cookiejarapps.android.smartcookieweb.addons
 
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -24,6 +25,7 @@ import mozilla.components.feature.prompts.PromptFeature
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
+import mozilla.components.support.utils.ext.requestInPlacePermissions
 
 
 class WebExtensionTabletPopupFragment : DialogFragment(), UserInteractionHandler, EngineSession.Observer {
@@ -65,16 +67,27 @@ class WebExtensionTabletPopupFragment : DialogFragment(), UserInteractionHandler
 
         session?.let {
             promptsFeature.set(
-                    feature = PromptFeature(
-                            fragment = this,
-                            store = components.store,
-                            customTabId = it.id,
-                            fragmentManager = parentFragmentManager,
-                            onNeedToRequestPermissions = { permissions ->
-                                requestPermissions(permissions, REQUEST_CODE_PROMPT_PERMISSIONS)
-                            }),
-                    owner = this,
-                    view = view
+                PromptFeature(
+                    fragment = this,
+                    store = components.store,
+                    tabsUseCases = components.tabsUseCases,
+                    fragmentManager = parentFragmentManager,
+                    onNeedToRequestPermissions = { permissions ->
+                        requestInPlacePermissions(REQUEST_KEY_PROMPT_PERMISSIONS, permissions) { result ->
+                            promptsFeature.get()?.onPermissionsResult(
+                                result.keys.toTypedArray(),
+                                result.values.map {
+                                    when (it) {
+                                        true -> PackageManager.PERMISSION_GRANTED
+                                        false -> PackageManager.PERMISSION_DENIED
+                                    }
+                                }.toIntArray(),
+                            )
+                        }
+                    },
+                ),
+                this,
+                view
             )
         }
 
@@ -177,5 +190,6 @@ class WebExtensionTabletPopupFragment : DialogFragment(), UserInteractionHandler
             }
         }
         private const val REQUEST_CODE_PROMPT_PERMISSIONS = 1
+        private const val REQUEST_KEY_PROMPT_PERMISSIONS = "promptFeature"
     }
 }

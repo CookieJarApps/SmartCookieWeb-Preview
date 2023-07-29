@@ -46,6 +46,7 @@ import com.google.android.material.appbar.AppBarLayout
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import mozilla.components.browser.menu.view.MenuButton
@@ -58,7 +59,6 @@ import mozilla.components.browser.toolbar.behavior.ToolbarPosition
 import mozilla.components.lib.state.ext.consumeFlow
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.ktx.android.content.getColorFromAttr
-import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifChanged
 import mozilla.components.ui.tabcounter.TabCounterMenu
 import org.mozilla.gecko.util.ThreadUtils
 import java.lang.ref.WeakReference
@@ -327,7 +327,7 @@ class HomeFragment : Fragment() {
     private fun observeSearchEngineChanges() {
         consumeFlow(store) { flow ->
             flow.map { state -> state.search.selectedOrDefaultSearchEngine }
-                .ifChanged()
+                .distinctUntilChanged()
                 .collect { searchEngine ->
                     if (searchEngine != null) {
                         val iconSize =
