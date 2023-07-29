@@ -2,7 +2,6 @@ package com.cookiejarapps.android.smartcookieweb.components.toolbar
 
 import android.content.Intent
 import android.os.Environment
-import com.cookiejarapps.android.smartcookieweb.utils.PrintUtils
 import android.util.Log
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
@@ -97,7 +96,6 @@ class DefaultBrowserToolbarMenuController(
                 store.state.selectedTab?.let {
                     store.dispatch(EngineAction.PrintContentAction(it.id))
                 }
-                //activity.components.sessionUseCases.printContent.invoke()
             }
             is ToolbarMenu.Item.PDF -> {
                 activity.components.sessionUseCases.saveToPdf.invoke()

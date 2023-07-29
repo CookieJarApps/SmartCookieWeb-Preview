@@ -32,7 +32,6 @@ import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.ext.nav
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.search.SearchDialogFragmentDirections
-import com.cookiejarapps.android.smartcookieweb.utils.PrintUtils
 import com.cookiejarapps.android.smartcookieweb.utils.Utils
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -198,8 +197,6 @@ open class BrowserActivity : LocaleAwareAppCompatActivity(), ComponentCallbacks2
                 }
             }
         })
-
-        installPrintExtension()
 
         components.appRequestInterceptor.setNavController(navHost.navController)
 
@@ -378,38 +375,6 @@ open class BrowserActivity : LocaleAwareAppCompatActivity(), ComponentCallbacks2
                 components.searchUseCases.defaultSearch.invoke(searchTermOrURL, engine)
             }
         }
-    }
-
-    private fun installPrintExtension(){
-        val messageHandler = object : MessageHandler {
-            override fun onPortConnected(port: Port) {
-                mPort = port
-            }
-
-            override fun onPortDisconnected(port: Port) { }
-
-            override fun onPortMessage(message: Any, port: Port) {
-                val converter = PrintUtils.instance
-                converter!!.convert(originalContext, message.toString(), components.store.state.selectedTab?.content?.url)
-            }
-
-            override fun onMessage(message: Any, source: EngineSession?) {
-            }
-        }
-
-        components.engine.installWebExtension(
-            "print-helper@cookiejarapps.com",
-            "resource://android/assets/print/",
-            onSuccess = { extension ->
-                extension.registerBackgroundMessageHandler("print", messageHandler)
-            }
-        )
-    }
-
-    fun printPage(){
-        val message = JSONObject()
-        message.put("print", true)
-        mPort!!.postMessage(message)
     }
 
     override fun attachBaseContext(base: Context) {
