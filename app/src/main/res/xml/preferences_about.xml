@@ -26,11 +26,11 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/licenses">
         <Preference
-            android:summary="@string/license_gpl"
+            android:summary="@string/mpl_license"
             android:title="@string/app_name">
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="http://www.gnu.org/licenses/gpl.html">
+                android:data="https://www.mozilla.org/en-US/MPL/2.0/">
                 <extra
                     android:name="SOURCE"
                     android:value="SELF" />
@@ -52,7 +52,7 @@
             android:title="@string/mozac">
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="https://www.mozilla.org/en-US/MPL/">
+                android:data="https://www.mozilla.org/en-US/MPL/2.0/">
                 <extra
                     android:name="SOURCE"
                     android:value="SELF" />
@@ -63,7 +63,7 @@
             android:title="@string/geckoview">
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="https://www.mozilla.org/en-US/MPL/">
+                android:data="https://www.mozilla.org/en-US/MPL/2.0/">
                 <extra
                     android:name="SOURCE"
                     android:value="SELF" />
