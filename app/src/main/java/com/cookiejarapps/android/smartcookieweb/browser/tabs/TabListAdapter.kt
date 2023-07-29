@@ -62,11 +62,12 @@ open class TabListAdapter(
         }
 
         val tab = getItem(position)
-
-        if (payloads.contains(PAYLOAD_HIGHLIGHT_SELECTED_ITEM) && tab.id == selectedTabId) {
-            holder.updateSelectedTabIndicator(true)
-        } else if (payloads.contains(PAYLOAD_DONT_HIGHLIGHT_SELECTED_ITEM) && tab.id == selectedTabId) {
-            holder.updateSelectedTabIndicator(false)
+        if (tab.id == selectedTabId) {
+            if (payloads.contains(PAYLOAD_HIGHLIGHT_SELECTED_ITEM)) {
+                holder.updateSelectedTabIndicator(true)
+            } else if (payloads.contains(PAYLOAD_DONT_HIGHLIGHT_SELECTED_ITEM)) {
+                holder.updateSelectedTabIndicator(false)
+            }
         }
     }
 

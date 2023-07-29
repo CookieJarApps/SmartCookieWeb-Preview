@@ -231,7 +231,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             customTabSessionId = customTabSessionId,
             onTabCounterClicked = {
                 thumbnailsFeature.get()?.requestScreenshot()
-                // TODO: thumbnail feature not working, tab select bugs, inconsistent incognito behaviour, differing search bar widths, save as PDF crashes, print crashes, permissions
 
                 val drawerLayout = activity.findViewById<DrawerLayout>(R.id.drawer_layout)
                 val tabDrawer = if(UserPreferences(activity).swapDrawers) activity.findViewById<FrameLayout>(R.id.right_drawer) else activity.findViewById<FrameLayout>(R.id.left_drawer)
