@@ -26,6 +26,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.cookiejarapps.android.smartcookieweb.*
+import com.cookiejarapps.android.smartcookieweb.addons.WebExtensionPromptFeature
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
 import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.ui.BookmarkFragment
@@ -89,9 +90,12 @@ import org.mozilla.fenix.home.SharedViewModel
 import java.lang.ref.WeakReference
 import mozilla.components.feature.session.behavior.ToolbarPosition as MozacToolbarPosition
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBrowserBinding
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.withContext
 import mozilla.components.browser.state.state.createTab
+import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.downloads.temporary.ShareDownloadFeature
 import mozilla.components.feature.prompts.PromptFeature
 import mozilla.components.support.locale.ActivityContextWrapper
@@ -133,6 +137,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private val sitePermissionsFeature = ViewBoundFeatureWrapper<SitePermissionsFeature>()
     private val fullScreenFeature = ViewBoundFeatureWrapper<FullScreenFeature>()
     private val swipeRefreshFeature = ViewBoundFeatureWrapper<SwipeRefreshFeature>()
+    private val webExtensionPromptFeature = ViewBoundFeatureWrapper<WebExtensionPromptFeature>()
     private val secureWindowFeature = ViewBoundFeatureWrapper<SecureWindowFeature>()
     private var fullScreenMediaSessionFeature =
         ViewBoundFeatureWrapper<MediaSessionFullscreenFeature>()
@@ -483,7 +488,26 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             )
         }
 
+        webExtensionPromptFeature.set(
+            feature = WebExtensionPromptFeature(
+                store = components.store,
+                provideAddons = ::provideAddons,
+                context = requireContext(),
+                fragmentManager = parentFragmentManager,
+                view = view,
+            ),
+            owner = this,
+            view = view,
+        )
+
         initializeEngineView(toolbarHeight)
+    }
+
+    private suspend fun provideAddons(): List<Addon> {
+        return withContext(IO) {
+            val addons = requireContext().components.addonManager.getAddons(allowCache = false)
+            addons
+        }
     }
 
     @VisibleForTesting

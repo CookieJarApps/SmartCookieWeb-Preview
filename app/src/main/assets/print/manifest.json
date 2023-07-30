@@ -1,0 +1,12 @@
+{
+  "name": "Print",
+  "short_name": "Print",
+  "description": "Placeholder for Print extension",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "print-helper@cookiejarapps.com"
+    }
+  },
+  "version": "0.0.1",
+  "manifest_version": 2
+}

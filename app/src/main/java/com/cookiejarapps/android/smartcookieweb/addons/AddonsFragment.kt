@@ -31,6 +31,7 @@ import kotlinx.coroutines.launch
 import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.addons.AddonManagerException
 import mozilla.components.feature.addons.ui.*
+import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import org.mozilla.gecko.util.ThreadUtils
 import java.util.*
@@ -45,7 +46,8 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     private lateinit var spinner: Spinner
     private val scope = CoroutineScope(Dispatchers.IO)
     private var adapter: AddonsAdapter? = null
-    private var addons: List<Addon>? = null
+    private lateinit var addons: List<Addon>
+    private val webExtensionPromptFeature = ViewBoundFeatureWrapper<WebExtensionPromptFeature>()
 
     private var _binding: FragmentAddOnsBinding? = null
     private val binding get() = _binding!!
@@ -66,6 +68,18 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     override fun onViewCreated(rootView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(rootView, savedInstanceState)
         bindRecyclerView(rootView)
+
+        webExtensionPromptFeature.set(
+            feature = WebExtensionPromptFeature(
+                store = components.store,
+                provideAddons = { addons },
+                context = requireContext(),
+                fragmentManager = parentFragmentManager,
+                view = rootView,
+            ),
+            owner = this,
+            view = rootView,
+        )
     }
 
     override fun onStart() {
@@ -246,7 +260,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                             }
                         }
                     },
-                        onError = { _, _ ->
+                        onError = { _, error ->
                             loadingDialog.dismiss()
                             Toast.makeText(requireContext(), requireContext().resources.getString(R.string.error), Toast.LENGTH_LONG).show()
                         })
@@ -260,7 +274,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
             if (addonToInstall.isInstalled()) {
                 // error
             } else {
-                showPermissionDialog(addonToInstall)
+                installAddon(addonToInstall)
             }
         }
     }
@@ -280,7 +294,29 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     }
 
     override fun onInstallAddonButtonClicked(addon: Addon) {
-        showPermissionDialog(addon)
+        installAddon(addon)
+    }
+
+    internal fun installAddon(addon: Addon) {
+        requireContext().components.addonManager.installAddon(
+            addon,
+            onSuccess = {
+               isInstallationInProgress = false
+                adapter?.updateAddon(it)
+                binding?.addonProgressOverlay?.root?.visibility = View.GONE
+                showInstallationDialog(it)
+            },
+            onError = { _, e ->
+                this.view?.let { view ->
+                    // No need to display an error message if installation was cancelled by the user.
+                    if (e !is CancellationException) {
+                        Toast.makeText(requireContext(), requireContext().resources.getString(R.string.error), Toast.LENGTH_LONG).show()
+                    }
+                    binding?.addonProgressOverlay?.root?.visibility = View.GONE
+                    isInstallationInProgress = false
+                }
+            },
+        )
     }
 
     override fun onNotYetSupportedSectionClicked(unsupportedAddons: List<Addon>) {
@@ -304,21 +340,6 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
         return parentFragmentManager.findFragmentByTag(
             INSTALLATION_DIALOG_FRAGMENT_TAG
         ) as? AddonInstallationDialogFragment
-    }
-
-    private fun showPermissionDialog(addon: Addon) {
-        if (isInstallationInProgress) {
-            return
-        }
-
-        val dialog = PermissionsDialogFragment.newInstance(
-            addon = addon,
-            onPositiveButtonClicked = onConfirmPermissionButtonClicked
-        )
-
-        if (!isAlreadyADialogCreated() && isAdded) {
-            dialog.show(parentFragmentManager, PERMISSIONS_DIALOG_FRAGMENT_TAG)
-        }
     }
 
     private fun showInstallationDialog(addon: Addon) {

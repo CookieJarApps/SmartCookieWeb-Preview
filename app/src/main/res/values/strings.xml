@@ -251,7 +251,7 @@
   <string name="load_xpi">Sideload XPI</string>
   <string name="load_xpi_description">Are you sure you want to install %1$s to this browser? This add-on has not been checked for security or stability by CookieJarApps.</string>
 
-  <string name="addon_not_available">This add-on is not available from the add-on store. Would you like to sideload it?</string>
+  <string name="addon_not_available">This add-on is not available from the add-on store. SmartCookieWeb cannot confirm the permissions it requests. Only proceed if you trust this extension.</string>
 
   <string name="swipe_to_refresh">Swipe to refresh</string>
 

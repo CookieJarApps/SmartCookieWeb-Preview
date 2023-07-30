@@ -4,10 +4,14 @@ import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.os.Bundle
 import android.text.InputType
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.preference.Preference
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.addons.WebExtensionPromptFeature
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -15,10 +19,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import org.mozilla.gecko.util.ThreadUtils.runOnUiThread
 
 
 class AdvancedSettingsFragment : BaseSettingsFragment() {
+
+    private val webExtensionPromptFeature = ViewBoundFeatureWrapper<WebExtensionPromptFeature>()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, s: String?) {
         addPreferencesFromResource(R.xml.preferences_advanced)
@@ -40,7 +47,7 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
                 isChecked = UserPreferences(requireContext()).remoteDebugging
         ) {
             UserPreferences(requireContext()).remoteDebugging = it
-               Toast.makeText(
+            Toast.makeText(
                         context,
                         requireContext().resources.getText(R.string.app_restart),
                         Toast.LENGTH_LONG
@@ -207,5 +214,21 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
         builder.setNegativeButton(resources.getString(R.string.cancel)) { dialog, which -> dialog.cancel() }
 
         builder.show()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        webExtensionPromptFeature.set(
+            feature = WebExtensionPromptFeature(
+                store = components.store,
+                provideAddons = { listOf() },
+                context = requireContext(),
+                fragmentManager = parentFragmentManager,
+                view = view,
+            ),
+            owner = this,
+            view = view,
+        )
     }
 }

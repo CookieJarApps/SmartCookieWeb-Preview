@@ -7,16 +7,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import mozilla.components.browser.state.action.SystemAction
+import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.feature.addons.update.GlobalAddonDependencyProvider
 import mozilla.components.support.base.facts.Facts
 import mozilla.components.support.base.facts.processor.LogFactProcessor
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.content.isMainProcess
 import mozilla.components.support.ktx.android.content.runOnlyInMainProcess
+import mozilla.components.support.locale.LocaleAwareApplication
 import mozilla.components.support.webextensions.WebExtensionSupport
 import java.util.concurrent.TimeUnit
 
-class BrowserApp : Application() {
+class BrowserApp : LocaleAwareApplication() {
 
     private val logger = Logger("BrowserApp")
 
@@ -38,33 +40,42 @@ class BrowserApp : Application() {
             components.webAppManifestStorage.warmUpScopes(System.currentTimeMillis())
         }
         components.downloadsUseCases.restoreDownloads()
-        try {
-            GlobalAddonDependencyProvider.initialize(
-                components.addonManager,
-                components.addonUpdater
-            )
-            WebExtensionSupport.initialize(
-                components.engine,
-                components.store,
-                onNewTabOverride = {
-                    _, engineSession, url ->
-                        components.tabsUseCases.addTab(url, selectTab = true, engineSession = engineSession)
-                },
-                onCloseTabOverride = {
-                    _, sessionId -> components.tabsUseCases.removeTab(sessionId)
-                },
-                onSelectTabOverride = {
-                    _, sessionId -> components.tabsUseCases.selectTab(sessionId)
-                },
-                onUpdatePermissionRequest = components.addonUpdater::onUpdatePermissionRequest,
-                onExtensionsLoaded = { extensions ->
-                    components.addonUpdater.registerForFutureUpdates(extensions)
-                    components.supportedAddonsChecker.registerForChecks()
-                }
-            )
-        } catch (e: UnsupportedOperationException) {
-            // Web extension support is only available for engine gecko
-            Logger.error("Failed to initialize web extension support", e)
+
+        run {
+            try {
+                GlobalAddonDependencyProvider.initialize(
+                    components.addonManager,
+                    components.addonUpdater,
+                    onCrash = { logger.error("Addon dependency provider crashed", it) },
+                )
+                WebExtensionSupport.initialize(
+                    components.engine,
+                    components.store,
+                    onNewTabOverride = { _, engineSession, url ->
+                        val shouldCreatePrivateSession =
+                            components.store.state.selectedTab?.content?.private ?: false
+
+                        components.tabsUseCases.addTab(
+                            url = url,
+                            selectTab = true,
+                            engineSession = engineSession,
+                            private = shouldCreatePrivateSession,
+                        )
+                    },
+                    onCloseTabOverride = { _, sessionId ->
+                        components.tabsUseCases.removeTab(sessionId)
+                    },
+                    onSelectTabOverride = { _, sessionId ->
+                        components.tabsUseCases.selectTab(sessionId)
+                    },
+                    onExtensionsLoaded = { extensions ->
+                        components.addonUpdater.registerForFutureUpdates(extensions)
+                    },
+                    onUpdatePermissionRequest = components.addonUpdater::onUpdatePermissionRequest,
+                )
+            } catch (e: UnsupportedOperationException) {
+                Logger.error("Failed to initialize web extension support", e)
+            }
         }
     }
 
