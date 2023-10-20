@@ -1,6 +1,7 @@
 package com.cookiejarapps.android.smartcookieweb.addons
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.TransitionDrawable
 import android.net.Uri
@@ -65,7 +66,7 @@ class AddonDetailsActivity : AppCompatActivity() {
         val text = HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT)
 
         CoroutineScope(Dispatchers.IO).launch {
-            val iconBitmap = components.addonCollectionProvider.getAddonIconBitmap(addon)
+            val iconBitmap: Bitmap = components.addonCollectionProvider.getAddonIconBitmap(addon)!!
             runOnUiThread {
                 val bitmapDrawable = BitmapDrawable(resources, iconBitmap)
                 val animation = TransitionDrawable(arrayOf(bitmapDrawable))

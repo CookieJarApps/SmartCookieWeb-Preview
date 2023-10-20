@@ -85,7 +85,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/fill_link_from_clipboard"
         app:layout_constraintStart_toStartOf="@+id/fill_link_from_clipboard"
         app:layout_constraintTop_toTopOf="@+id/fill_link_from_clipboard"
-        app:srcCompat="@drawable/mozac_ic_link"
+        app:srcCompat="@drawable/mozac_ic_link_24"
         tools:visibility="visible" />
 
     <TextView

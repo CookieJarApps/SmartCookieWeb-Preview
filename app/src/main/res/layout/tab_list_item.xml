@@ -50,6 +50,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/mozac_ic_close" />
+        app:srcCompat="@drawable/mozac_ic_cross_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

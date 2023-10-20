@@ -105,21 +105,24 @@ class TabsTrayFragment : Fragment() {
                                 browsingModeManager.mode = BrowsingMode.Private
                                 when(UserPreferences(requireContext()).homepageType){
                                     HomepageChoice.VIEW.ordinal -> {
-                                        components.tabsUseCases.addPrivateTab.invoke(
+                                        components.tabsUseCases.addTab.invoke(
                                             "about:homepage",
-                                            selectTab = true
+                                            selectTab = true,
+                                            private = true
                                         )
                                     }
                                     HomepageChoice.BLANK_PAGE.ordinal -> {
-                                        components.tabsUseCases.addPrivateTab.invoke(
+                                        components.tabsUseCases.addTab.invoke(
                                             "about:blank",
-                                            selectTab = true
+                                            selectTab = true,
+                                            private = true
                                         )
                                     }
                                     HomepageChoice.CUSTOM_PAGE.ordinal -> {
-                                        components.tabsUseCases.addPrivateTab.invoke(
+                                        components.tabsUseCases.addTab.invoke(
                                             UserPreferences(requireContext()).customHomepageUrl,
-                                            selectTab = true
+                                            selectTab = true,
+                                            private = true
                                         )
                                     }
                                 }

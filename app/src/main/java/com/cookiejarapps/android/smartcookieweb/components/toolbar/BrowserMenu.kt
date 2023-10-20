@@ -48,7 +48,7 @@ class BrowserMenu(
 
     override val menuToolbar by lazy {
         val back = BrowserMenuItemToolbar.TwoStateButton(
-            primaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_back,
+            primaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_back_24,
             primaryContentDescription = null.toString(),
             primaryImageTintResource = primaryTextColor(),
             isInPrimaryState = {
@@ -62,7 +62,7 @@ class BrowserMenu(
         }
 
         val forward = BrowserMenuItemToolbar.TwoStateButton(
-            primaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_forward,
+            primaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_forward_24,
             primaryContentDescription = context.getString(R.string.forward),
             primaryImageTintResource = primaryTextColor(),
             isInPrimaryState = {
@@ -76,7 +76,7 @@ class BrowserMenu(
         }
 
         val refresh = BrowserMenuItemToolbar.TwoStateButton(
-            primaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_refresh,
+            primaryImageResource = mozilla.components.ui.icons.R.drawable.mozac_ic_arrow_clockwise_24,
             primaryContentDescription = context.getString(R.string.reload),
             primaryImageTintResource = primaryTextColor(),
             isInPrimaryState = {
@@ -179,7 +179,7 @@ class BrowserMenu(
 
     private val findInPage = BrowserMenuImageText(
         label = context.getString(R.string.mozac_feature_findindpage_input),
-        imageResource = R.drawable.mozac_ic_search,
+        imageResource = R.drawable.mozac_ic_search_24,
         iconTintColorResource = primaryTextColor()
     ) {
         onItemTapped.invoke(ToolbarMenu.Item.FindInPage)
@@ -211,7 +211,7 @@ class BrowserMenu(
 
     val newTabItem = BrowserMenuImageText(
         context.getString(R.string.mozac_browser_menu_new_tab),
-        R.drawable.mozac_ic_tab_new,
+        R.drawable.mozac_ic_tab_new_24,
         primaryTextColor()
     ) {
         onItemTapped.invoke(ToolbarMenu.Item.NewTab)

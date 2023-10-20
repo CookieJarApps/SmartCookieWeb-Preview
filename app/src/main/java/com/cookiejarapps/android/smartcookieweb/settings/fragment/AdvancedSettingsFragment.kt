@@ -136,7 +136,7 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
 
             components.engine.installWebExtension("", input.text.toString(), onSuccess = {
                 CoroutineScope(Dispatchers.IO).launch {
-                    val addons = requireContext().components.addonCollectionProvider.getAvailableAddons()
+                    val addons = requireContext().components.addonCollectionProvider.getFeaturedAddons()
                     for(i in addons){
                         if(i.id == it.id){
                             runOnUiThread {

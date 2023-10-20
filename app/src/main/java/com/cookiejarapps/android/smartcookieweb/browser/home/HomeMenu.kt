@@ -1,8 +1,6 @@
 package com.cookiejarapps.android.smartcookieweb.browser.home
 
 import android.content.Context
-import androidx.core.content.ContextCompat.getColor
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
@@ -10,7 +8,6 @@ import mozilla.components.browser.menu.BrowserMenuBuilder
 import mozilla.components.browser.menu.BrowserMenuHighlight
 import mozilla.components.browser.menu.ext.getHighlight
 import mozilla.components.browser.menu.item.BrowserMenuDivider
-import mozilla.components.browser.menu.item.BrowserMenuHighlightableItem
 import mozilla.components.browser.menu.item.BrowserMenuImageText
 
 class HomeMenu(
@@ -56,7 +53,7 @@ class HomeMenu(
 
         val addons = BrowserMenuImageText(
             context.getString(R.string.mozac_browser_menu_addons),
-            R.drawable.mozac_ic_extensions,
+            R.drawable.mozac_ic_extension_24,
             R.color.primary_icon
         ) {
             onItemTapped.invoke(Item.AddonsManager)

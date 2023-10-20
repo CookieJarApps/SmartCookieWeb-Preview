@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 34
     buildFeatures {
         viewBinding true
         compose true
@@ -13,10 +13,10 @@ android {
     defaultConfig {
         applicationId "com.cookiejarapps.android.smartcookieweb"
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 34
         // Increment by 4 with each update
-        versionCode 84
-        versionName "20.1"
+        versionCode 88
+        versionName "21.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
@@ -94,8 +94,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
 
     // Room
-    implementation "androidx.room:room-runtime:2.4.3"
-    kapt "androidx.room:room-compiler:2.4.3"
+    implementation "androidx.room:room-runtime:2.6.0"
+    kapt "androidx.room:room-compiler:2.6.0"
 
     final def daggerVersion = '2.38.1'
     implementation "com.google.dagger:dagger:$daggerVersion"
@@ -109,7 +109,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
-    final def mozComponentsVersion = "116.0b8"
+    final def mozComponentsVersion = "119.0b9"
 
     // Mozilla compose components
     implementation "org.mozilla.components:compose-awesomebar:$mozComponentsVersion"
@@ -196,7 +196,7 @@ dependencies {
     implementation"com.squareup.moshi:moshi:1.11.0"
 
     // OkHTTP
-    implementation "com.squareup.okhttp3:okhttp:4.9.0"
+    implementation "com.squareup.okhttp3:okhttp:4.9.3"
 
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.17'

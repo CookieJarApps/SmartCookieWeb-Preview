@@ -96,7 +96,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
         findPreviousInstallationDialogFragment()?.let { dialog ->
             dialog.onConfirmButtonClicked = onConfirmInstallationButtonClicked
-            dialog.addonCollectionProvider = requireContext().components.addonCollectionProvider
+            dialog.addonsProvider = requireContext().components.addonCollectionProvider
         }
     }
 
@@ -349,7 +349,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
         val addonCollectionProvider = requireContext().components.addonCollectionProvider
         val dialog = AddonInstallationDialogFragment.newInstance(
             addon = addon,
-            addonCollectionProvider = addonCollectionProvider,
+            addonsProvider = addonCollectionProvider,
             onConfirmButtonClicked = onConfirmInstallationButtonClicked
         )
 

@@ -2,14 +2,11 @@ package com.cookiejarapps.android.smartcookieweb.addons
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.TransitionDrawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,15 +32,13 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import mozilla.components.feature.addons.Addon
-import mozilla.components.feature.addons.amo.AddonCollectionProvider
+import mozilla.components.feature.addons.amo.AMOAddonsProvider
 import mozilla.components.feature.addons.ui.AddonsManagerAdapterDelegate
 import mozilla.components.feature.addons.ui.CustomViewHolder
 import mozilla.components.feature.addons.ui.CustomViewHolder.AddonViewHolder
 import mozilla.components.feature.addons.ui.CustomViewHolder.SectionViewHolder
-import mozilla.components.feature.addons.ui.CustomViewHolder.UnsupportedSectionViewHolder
 import mozilla.components.feature.addons.ui.translateName
 import mozilla.components.feature.addons.ui.translateSummary
-import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import java.io.IOException
 import java.text.NumberFormat
@@ -68,7 +63,7 @@ private const val VIEW_HOLDER_TYPE_ADDON = 1
  */
 @Suppress("LargeClass", "DEPRECATION")
 class AddonsAdapter(
-    private val addonCollectionProvider: AddonCollectionProvider,
+    private val addonCollectionProvider: AMOAddonsProvider,
     private val addonsManagerDelegate: AddonsManagerAdapterDelegate,
     private val addons: List<Addon>,
     private val style: Style? = null,
@@ -233,7 +228,7 @@ class AddonsAdapter(
                     scope.launch(Main) {
                         val context = iconView.context
                         val att = context.theme.resolveAttribute(android.R.attr.textColorPrimary)
-                        val drawable = AppCompatResources.getDrawable(context, R.drawable.mozac_ic_extensions)
+                        val drawable = AppCompatResources.getDrawable(context, R.drawable.mozac_ic_extension_24)
                         drawable?.setColorFilter(ContextCompat.getColor(context, att), PorterDuff.Mode.SRC_ATOP)
                         iconView.setImageDrawable(
                             drawable
@@ -245,7 +240,7 @@ class AddonsAdapter(
                 scope.launch(Main) {
                     val context = iconView.context
                     val att = context.theme.resolveAttribute(android.R.attr.textColorPrimary)
-                    val drawable = AppCompatResources.getDrawable(context, R.drawable.mozac_ic_extensions)
+                    val drawable = AppCompatResources.getDrawable(context, R.drawable.mozac_ic_extension_24)
                     drawable?.setColorFilter(ContextCompat.getColor(context, att), PorterDuff.Mode.SRC_ATOP)
                     iconView.setImageDrawable(
                         drawable

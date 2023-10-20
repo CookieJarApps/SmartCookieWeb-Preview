@@ -25,7 +25,6 @@ import mozilla.components.concept.engine.Engine
 import mozilla.components.concept.engine.mediaquery.PreferredColorScheme
 import mozilla.components.concept.fetch.Client
 import mozilla.components.feature.addons.AddonManager
-import mozilla.components.feature.addons.amo.AddonCollectionProvider
 import mozilla.components.feature.addons.migration.DefaultSupportedAddonsChecker
 import mozilla.components.feature.addons.update.DefaultAddonUpdater
 import mozilla.components.feature.app.links.AppLinksInterceptor
@@ -61,6 +60,7 @@ import com.cookiejarapps.android.smartcookieweb.utils.ClipboardHandler
 import mozilla.components.browser.engine.gecko.ext.toContentBlockingSetting
 import mozilla.components.browser.engine.gecko.permission.GeckoSitePermissionsStorage
 import mozilla.components.concept.engine.EngineSession
+import mozilla.components.feature.addons.amo.AMOAddonsProvider
 import mozilla.components.feature.prompts.PromptMiddleware
 import mozilla.components.feature.sitepermissions.OnDiskSitePermissionsStorage
 import mozilla.components.support.base.android.NotificationsDelegate
@@ -194,7 +194,7 @@ open class Components(private val applicationContext: Context) {
     // TODO: Swap out version code for proper collection user
     val addonCollectionProvider by lazy {
         if(UserPreferences(applicationContext).customAddonCollection){
-            AddonCollectionProvider(
+            AMOAddonsProvider(
                     applicationContext,
                     client,
                     collectionUser = UserPreferences(applicationContext).customAddonCollectionUser,
@@ -203,7 +203,7 @@ open class Components(private val applicationContext: Context) {
             )
         }
         else{
-            AddonCollectionProvider(
+            AMOAddonsProvider(
                     applicationContext,
                     client,
                     collectionUser = BuildConfig.VERSION_CODE.toString(),

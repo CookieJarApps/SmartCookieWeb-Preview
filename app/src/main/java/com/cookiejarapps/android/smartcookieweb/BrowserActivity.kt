@@ -54,7 +54,7 @@ import mozilla.components.support.ktx.kotlin.isUrl
 import mozilla.components.support.ktx.kotlin.toNormalizedUrl
 import mozilla.components.support.locale.LocaleAwareAppCompatActivity
 import mozilla.components.support.utils.SafeIntent
-import mozilla.components.support.webextensions.WebExtensionPopupFeature
+import mozilla.components.support.webextensions.WebExtensionPopupObserver
 import org.json.JSONObject
 
 
@@ -82,7 +82,7 @@ open class BrowserActivity : LocaleAwareAppCompatActivity(), ComponentCallbacks2
     }
 
     private val webExtensionPopupFeature by lazy {
-        WebExtensionPopupFeature(components.store, ::openPopup)
+        WebExtensionPopupObserver(components.store, ::openPopup)
     }
 
     private var mPort: Port? = null
@@ -353,15 +353,16 @@ open class BrowserActivity : LocaleAwareAppCompatActivity(), ComponentCallbacks2
     ) {
         val mode = browsingModeManager.mode
 
-        val loadUrlUseCase = if (newTab) {
-            when (mode) {
-                BrowsingMode.Private -> components.tabsUseCases.addPrivateTab
-                BrowsingMode.Normal -> components.tabsUseCases.addTab
-            }
-        } else components.sessionUseCases.loadUrl
-
         if ((!forceSearch && searchTermOrURL.isUrl()) || engine == null) {
-            loadUrlUseCase.invoke(searchTermOrURL.toNormalizedUrl(), flags)
+            if(newTab) {
+                components.tabsUseCases.addTab.invoke(
+                    searchTermOrURL.toNormalizedUrl(),
+                    flags = flags,
+                    private = true,
+                )
+            } else {
+                components.sessionUseCases.loadUrl.invoke(searchTermOrURL.toNormalizedUrl(), flags)
+            }
         } else {
             if (newTab) {
                 components.searchUseCases.newTabSearch

@@ -58,7 +58,7 @@ class FakeTab @JvmOverloads constructor(
             val thumbnailSize = max(binding.previewThumbnail.height, binding.previewThumbnail.width)
             thumbnailLoader.loadIntoView(
                 binding.previewThumbnail,
-                ImageLoadRequest(thumbnailId, thumbnailSize)
+                ImageLoadRequest(thumbnailId, thumbnailSize, false)
             )
         }
     }

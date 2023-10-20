@@ -110,7 +110,7 @@ class DefaultBrowserToolbarController(
                         activity.components.tabsUseCases.addTab.invoke(it.content.url, true)
                     }
                     else{
-                        activity.components.tabsUseCases.addPrivateTab.invoke(it.content.url, true)
+                        activity.components.tabsUseCases.addTab.invoke(it.content.url, true, private = true)
                     }
                 }
             }

@@ -47,7 +47,7 @@ class WebExtensionPromptFeature(
             flow.mapNotNull { state ->
                 state.webExtensionPromptRequest
             }.distinctUntilChanged().collect { promptRequest ->
-                if (promptRequest is WebExtensionPromptRequest.Permissions && !hasExistingPermissionDialogFragment()) {
+                if (promptRequest is WebExtensionPromptRequest.AfterInstallation.Permissions && !hasExistingPermissionDialogFragment()) {
                     val addon = provideAddons().find { addon ->
                         addon.id == promptRequest.extension.id
                     }
@@ -77,7 +77,7 @@ class WebExtensionPromptFeature(
     @VisibleForTesting
     internal fun showPermissionDialog(
         addon: Addon,
-        promptRequest: WebExtensionPromptRequest.Permissions,
+        promptRequest: WebExtensionPromptRequest.AfterInstallation.Permissions,
     ) {
         if (!isInstallationInProgress && !hasExistingPermissionDialogFragment()) {
             val dialog = PermissionsDialogFragment.newInstance(
@@ -104,8 +104,7 @@ class WebExtensionPromptFeature(
         findPreviousDialogFragment()?.let { dialog ->
             dialog.onPositiveButtonClicked = { addon ->
                 store.state.webExtensionPromptRequest?.let { promptRequest ->
-                    if (addon.id == promptRequest.extension.id &&
-                        promptRequest is WebExtensionPromptRequest.Permissions
+                    if (promptRequest is WebExtensionPromptRequest.AfterInstallation.Permissions
                     ) {
                         handleApprovedPermissions(promptRequest)
                     }
@@ -113,7 +112,7 @@ class WebExtensionPromptFeature(
             }
             dialog.onNegativeButtonClicked = {
                 store.state.webExtensionPromptRequest?.let { promptRequest ->
-                    if (promptRequest is WebExtensionPromptRequest.Permissions) {
+                    if (promptRequest is WebExtensionPromptRequest.AfterInstallation.Permissions) {
                         handleDeniedPermissions(promptRequest)
                     }
                 }
@@ -121,12 +120,12 @@ class WebExtensionPromptFeature(
         }
     }
 
-    private fun handleDeniedPermissions(promptRequest: WebExtensionPromptRequest.Permissions) {
+    private fun handleDeniedPermissions(promptRequest: WebExtensionPromptRequest.AfterInstallation.Permissions) {
         promptRequest.onConfirm(false)
         consumePromptRequest()
     }
 
-    private fun handleApprovedPermissions(promptRequest: WebExtensionPromptRequest.Permissions) {
+    private fun handleApprovedPermissions(promptRequest: WebExtensionPromptRequest.AfterInstallation.Permissions) {
         promptRequest.onConfirm(true)
         consumePromptRequest()
     }

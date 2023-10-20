@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/removeTabs"
-        android:icon="@drawable/mozac_ic_delete"
+        android:icon="@drawable/mozac_ic_delete_24"
         android:title="@string/mozac_feature_addons_remove"
         app:iconTint="?android:attr/textColorPrimary"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/newTab"
-        android:icon="@drawable/mozac_ic_tab_new"
+        android:icon="@drawable/mozac_ic_tab_new_24"
         android:title="@string/new_tab"
         app:iconTint="?android:attr/textColorPrimary"
         app:showAsAction="ifRoom" />
