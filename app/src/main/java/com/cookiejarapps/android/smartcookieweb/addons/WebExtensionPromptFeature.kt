@@ -17,6 +17,7 @@ import mozilla.components.browser.state.action.WebExtensionAction
 import mozilla.components.browser.state.state.extension.WebExtensionPromptRequest
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.feature.addons.Addon
+import mozilla.components.feature.addons.ui.AddonDialogFragment
 import mozilla.components.feature.addons.ui.PermissionsDialogFragment
 import mozilla.components.lib.state.ext.flowScoped
 import mozilla.components.support.base.feature.LifecycleAwareFeature
@@ -82,7 +83,7 @@ class WebExtensionPromptFeature(
         if (!isInstallationInProgress && !hasExistingPermissionDialogFragment()) {
             val dialog = PermissionsDialogFragment.newInstance(
                 addon = addon,
-                promptsStyling = PermissionsDialogFragment.PromptsStyling(
+                promptsStyling = AddonDialogFragment.PromptsStyling(
                     gravity = Gravity.BOTTOM,
                     shouldWidthMatchParent = true
                 ),

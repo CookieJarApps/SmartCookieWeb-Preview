@@ -96,7 +96,6 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
         findPreviousInstallationDialogFragment()?.let { dialog ->
             dialog.onConfirmButtonClicked = onConfirmInstallationButtonClicked
-            dialog.addonsProvider = requireContext().components.addonCollectionProvider
         }
     }
 
@@ -235,7 +234,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
     @VisibleForTesting
     internal fun installAddonById(supportedAddons: List<Addon>, id: String, url: String) {
-        val addonToInstall = supportedAddons.find { it.downloadId == id }
+        val addonToInstall = supportedAddons.find { it.id == id }
         if (addonToInstall == null) {
             val builder = MaterialAlertDialogBuilder(requireContext())
             builder.setMessage(resources.getString(R.string.addon_not_available))
@@ -349,7 +348,6 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
         val addonCollectionProvider = requireContext().components.addonCollectionProvider
         val dialog = AddonInstallationDialogFragment.newInstance(
             addon = addon,
-            addonsProvider = addonCollectionProvider,
             onConfirmButtonClicked = onConfirmInstallationButtonClicked
         )
 

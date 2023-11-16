@@ -21,6 +21,7 @@ import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import kotlinx.coroutines.*
 import mozilla.components.feature.addons.Addon
+import mozilla.components.feature.addons.ui.setIcon
 import mozilla.components.feature.addons.ui.showInformationDialog
 import mozilla.components.feature.addons.ui.translateDescription
 import mozilla.components.feature.addons.ui.translateName
@@ -65,18 +66,8 @@ class AddonDetailsActivity : AppCompatActivity() {
         val htmlText = detailsText.replace("\n", "<br>")
         val text = HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT)
 
-        CoroutineScope(Dispatchers.IO).launch {
-            val iconBitmap: Bitmap = components.addonCollectionProvider.getAddonIconBitmap(addon)!!
-            runOnUiThread {
-                val bitmapDrawable = BitmapDrawable(resources, iconBitmap)
-                val animation = TransitionDrawable(arrayOf(bitmapDrawable))
-                animation.isCrossFadeEnabled = true
-                iconView.setImageDrawable(animation)
-                animation.startTransition(1700)
+        iconView.setIcon(addon)
 
-                iconView.setImageBitmap(iconBitmap)
-            }
-        }
         titleView.text = addon.translateName(this)
 
         detailsView.text = text
@@ -84,11 +75,7 @@ class AddonDetailsActivity : AppCompatActivity() {
 
         val authorsView = findViewById<TextView>(R.id.author_text)
 
-        val authorText = addon.authors.joinToString { author ->
-            author.name + " \n"
-        }
-
-        authorsView.text = authorText
+        authorsView.text = addon.author?.name.orEmpty()
 
         val versionView = findViewById<TextView>(R.id.version_text)
         versionView.text = addon.installedState?.version?.ifEmpty { addon.version } ?: addon.version
@@ -105,7 +92,7 @@ class AddonDetailsActivity : AppCompatActivity() {
 
         findViewById<View>(R.id.home_page_text).setOnClickListener {
             val intent =
-                    Intent(Intent.ACTION_VIEW).setData(Uri.parse(addon.siteUrl))
+                    Intent(Intent.ACTION_VIEW).setData(Uri.parse(addon.homepageUrl))
             startActivity(intent)
         }
 

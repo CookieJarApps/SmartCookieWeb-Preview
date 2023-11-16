@@ -37,8 +37,11 @@ import mozilla.components.feature.addons.ui.AddonsManagerAdapterDelegate
 import mozilla.components.feature.addons.ui.CustomViewHolder
 import mozilla.components.feature.addons.ui.CustomViewHolder.AddonViewHolder
 import mozilla.components.feature.addons.ui.CustomViewHolder.SectionViewHolder
+import mozilla.components.feature.addons.ui.setIcon
 import mozilla.components.feature.addons.ui.translateName
 import mozilla.components.feature.addons.ui.translateSummary
+import mozilla.components.support.ktx.android.content.appName
+import mozilla.components.support.ktx.android.content.appVersionName
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import java.io.IOException
 import java.text.NumberFormat
@@ -107,9 +110,10 @@ class AddonsAdapter(
         val summaryView = view.findViewById<TextView>(R.id.add_on_description)
         val ratingView = view.findViewById<RatingBar>(R.id.rating)
         val ratingAccessibilityView = view.findViewById<TextView>(R.id.rating_accessibility)
-        val userCountView = view.findViewById<TextView>(R.id.users_count)
+        val reviewCountView = view.findViewById<TextView>(R.id.review_count)
         val addButton = view.findViewById<ImageView>(R.id.add_button)
         val allowedInPrivateBrowsingLabel = view.findViewById<ImageView>(R.id.allowed_in_private_browsing_label)
+        val statusErrorView = view.findViewById<View>(R.id.add_on_status_error)
         return AddonViewHolder(
             view,
             iconView,
@@ -117,9 +121,10 @@ class AddonsAdapter(
             summaryView,
             ratingView,
             ratingAccessibilityView,
-            userCountView,
+            reviewCountView,
             addButton,
-            allowedInPrivateBrowsingLabel
+            allowedInPrivateBrowsingLabel,
+            statusErrorView
         )
     }
 
@@ -152,30 +157,33 @@ class AddonsAdapter(
         }
     }
 
-    internal fun bindAddon(holder: AddonViewHolder, addon: Addon) {
+    internal fun bindAddon(
+        holder: AddonViewHolder,
+        addon: Addon,
+        appName: String = holder.itemView.context.appName,
+        appVersion: String = holder.itemView.context.appVersionName) {
         val context = holder.itemView.context
         addon.rating?.let {
-            val userCount = context.getString(R.string.mozac_feature_addons_user_rating_count_2)
+            val reviewCount = context.getString(R.string.mozac_feature_addons_user_rating_count_2)
             val ratingContentDescription =
                 String.format(
                     context.getString(R.string.mozac_feature_addons_rating_content_description),
-                    it.average
+                    it.average,
                 )
             holder.ratingView.contentDescription = ratingContentDescription
+
             holder.ratingAccessibleView.text = ratingContentDescription
             holder.ratingView.rating = it.average
-            holder.userCountView.text = String.format(userCount, NumberFormat.getNumberInstance(Locale.getDefault()).format(it.reviews))
-        } ?: run {
-            holder.ratingView.visibility = View.GONE
-            holder.userCountView.visibility = View.GONE
+            holder.reviewCountView.text = String.format(reviewCount, getFormattedAmount(it.reviews))
         }
 
-        holder.titleView.text =
-            if (addon.translatableName.isNotEmpty()) {
-                addon.translateName(context)
-            } else {
-                addon.id
-            }
+        val addonName = if (addon.translatableName.isNotEmpty()) {
+            addon.translateName(context)
+        } else {
+            addon.id
+        }
+
+        holder.titleView.text = addonName
 
         if (!addon.translatableSummary.isEmpty()) {
             holder.summaryView.text = addon.translateSummary(context)
@@ -198,55 +206,43 @@ class AddonsAdapter(
         holder.allowedInPrivateBrowsingLabel.isVisible = addon.isAllowedInPrivateBrowsing()
         style?.maybeSetPrivateBrowsingLabelDrawable(holder.allowedInPrivateBrowsingLabel)
 
-        fetchIcon(addon, holder.iconView)
+        holder.iconView.setIcon(addon)
+
         style?.maybeSetAddonNameTextColor(holder.titleView)
         style?.maybeSetAddonSummaryTextColor(holder.summaryView)
-    }
 
-    internal fun fetchIcon(addon: Addon, iconView: ImageView, scope: CoroutineScope = this.scope): Job {
-        return scope.launch {
-            try {
-                // Don't fade in icon if it loads in less than 1 second
-                val startTime = System.currentTimeMillis()
-                val iconBitmap = addonCollectionProvider.getAddonIconBitmap(addon)
-                val loadTime: Double = (System.currentTimeMillis() - startTime) / 1000.toDouble()
-                if (iconBitmap != null) {
-                    scope.launch(Main) {
-                        if (loadTime < 1) {
-                            iconView.setImageDrawable(BitmapDrawable(iconView.resources, iconBitmap))
-                        } else {
-                            setWithAnimation(iconView, iconBitmap)
-                        }
-                    }
-                } else if (addon.installedState?.icon != null) {
-                    scope.launch(Main) {
-                        iconView.setImageDrawable(BitmapDrawable(iconView.resources, addon.installedState!!.icon))
-                    }
-                }
-                else{
-                    // If icon is null, load placeholder
-                    scope.launch(Main) {
-                        val context = iconView.context
-                        val att = context.theme.resolveAttribute(android.R.attr.textColorPrimary)
-                        val drawable = AppCompatResources.getDrawable(context, R.drawable.mozac_ic_extension_24)
-                        drawable?.setColorFilter(ContextCompat.getColor(context, att), PorterDuff.Mode.SRC_ATOP)
-                        iconView.setImageDrawable(
-                            drawable
-                        )
-                    }
-                }
-            } catch (e: IOException) {
-                // If icon load fails, load placeholder
-                scope.launch(Main) {
-                    val context = iconView.context
-                    val att = context.theme.resolveAttribute(android.R.attr.textColorPrimary)
-                    val drawable = AppCompatResources.getDrawable(context, R.drawable.mozac_ic_extension_24)
-                    drawable?.setColorFilter(ContextCompat.getColor(context, att), PorterDuff.Mode.SRC_ATOP)
-                    iconView.setImageDrawable(
-                        drawable
-                    )
-                }
+        val statusErrorMessage = holder.statusErrorView.findViewById<TextView>(R.id.add_on_status_error_message)
+        val statusErrorLearnMoreLink = holder.statusErrorView.findViewById<TextView>(
+            R.id.add_on_status_error_learn_more_link,
+        )
+        if (addon.isDisabledAsBlocklisted()) {
+            statusErrorMessage.text = context.getString(R.string.mozac_feature_addons_status_blocklisted, addonName)
+            statusErrorLearnMoreLink.setOnClickListener {
+                addonsManagerDelegate.onLearnMoreLinkClicked(
+                    AddonsManagerAdapterDelegate.LearnMoreLinks.BLOCKLISTED_ADDON,
+                    addon,
+                )
             }
+            holder.statusErrorView.isVisible = true
+        } else if (addon.isDisabledAsNotCorrectlySigned()) {
+            statusErrorMessage.text = context.getString(R.string.mozac_feature_addons_status_unsigned, addonName)
+            statusErrorLearnMoreLink.setOnClickListener {
+                addonsManagerDelegate.onLearnMoreLinkClicked(
+                    AddonsManagerAdapterDelegate.LearnMoreLinks.ADDON_NOT_CORRECTLY_SIGNED,
+                    addon,
+                )
+            }
+            holder.statusErrorView.isVisible = true
+        } else if (addon.isDisabledAsIncompatible()) {
+            statusErrorMessage.text = context.getString(
+                R.string.mozac_feature_addons_status_incompatible,
+                addonName,
+                appName,
+                appVersion,
+            )
+            holder.statusErrorView.isVisible = true
+            // There is no link when the add-on is disabled because it isn't compatible with the application version.
+            statusErrorLearnMoreLink.isVisible = false
         }
     }
 
