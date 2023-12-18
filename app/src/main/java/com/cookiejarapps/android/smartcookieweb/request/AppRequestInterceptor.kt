@@ -95,8 +95,6 @@ class AppRequestInterceptor(val context: Context) : RequestInterceptor {
         uri: String,
         hasUserGesture: Boolean
     ): InterceptionResponse? {
-        // TODO: Swap for smartcookieweb.com URL
-        // - addons downloads are currently hosted by Mozilla, but there are plans to change this in the future
         if (hasUserGesture && uri.startsWith("https://addons.mozilla.org") && !UserPreferences(
                 context
             ).customAddonCollection) {
@@ -108,7 +106,6 @@ class AppRequestInterceptor(val context: Context) : RequestInterceptor {
                     val intent = Intent(context, AddonsActivity::class.java)
                     intent.putExtra("ADDON_ID", addonId)
                     intent.putExtra("ADDON_URL", uri)
-                    Log.d("gdsgsdg", uri)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(context, intent, null)
 
