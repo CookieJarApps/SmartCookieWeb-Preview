@@ -816,6 +816,10 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         ).any { it.onActivityResult(requestCode, data, resultCode) }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        promptsFeature.withFeature { it.onActivityResult(requestCode, data, resultCode) }
+    }
+
     /**
      * Removes the session if it was opened by an ACTION_VIEW intent
      * or if it has a parent session and no more history
