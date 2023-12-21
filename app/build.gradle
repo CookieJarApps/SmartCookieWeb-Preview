@@ -15,8 +15,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 34
         // Increment by 4 with each update
-        versionCode 92
-        versionName "22.0"
+        versionCode 96
+        versionName "23.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
