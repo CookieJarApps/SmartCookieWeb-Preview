@@ -263,6 +263,9 @@ open class Components(private val applicationContext: Context) {
 
         val runtimeSettings = builder
             .aboutConfigEnabled(true)
+            .extensionsProcessEnabled(true)
+            .debugLogging(BuildConfig.DEBUG)
+            .extensionsWebAPIEnabled(true)
             .contentBlocking(trackingPolicy.toContentBlockingSetting())
             .build()
 

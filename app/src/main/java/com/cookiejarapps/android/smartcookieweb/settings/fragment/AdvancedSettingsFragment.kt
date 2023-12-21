@@ -128,7 +128,7 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 
-        builder.setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { dialog, which ->
+        builder.setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { _, _ ->
             val loadingDialog = ProgressDialog.show(
                 activity, "",
                 requireContext().resources.getString(R.string.loading), true
@@ -143,7 +143,7 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
                                 MaterialAlertDialogBuilder(requireContext())
                                     .setTitle(resources.getString(R.string.error))
                                     .setMessage(resources.getString(R.string.already_available))
-                                    .setNeutralButton(resources.getString(R.string.mozac_feature_prompts_ok)) { dialog, which ->
+                                    .setNeutralButton(resources.getString(R.string.mozac_feature_prompts_ok)) { dialog, _ ->
                                         dialog.dismiss()
                                     }
                                     .show()
@@ -159,11 +159,12 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
                     }
                 }
             },
-                onError = { exception, e ->
+                onError = { _, _ ->
                     Toast.makeText(requireContext(), requireContext().resources.getString(R.string.error), Toast.LENGTH_LONG).show()
+                    loadingDialog.dismiss()
                 })
         }
-        builder.setNegativeButton(resources.getString(R.string.cancel)) { dialog, which -> dialog.cancel() }
+        builder.setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ -> dialog.cancel() }
 
         builder.show()
     }
@@ -178,7 +179,7 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
 
         input.setText(UserPreferences(requireContext()).customAddonCollectionUser)
 
-        builder.setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { dialog, which ->
+        builder.setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { _, _ ->
             val text = input.text.toString()
             UserPreferences(requireContext()).customAddonCollectionUser = text
             Toast.makeText(
@@ -187,7 +188,7 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
                 Toast.LENGTH_LONG
             ).show()
         }
-        builder.setNegativeButton(resources.getString(R.string.cancel)) { dialog, which -> dialog.cancel() }
+        builder.setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ -> dialog.cancel() }
 
         builder.show()
     }
@@ -202,7 +203,7 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
 
         input.setText(UserPreferences(requireContext()).customAddonCollectionName)
 
-        builder.setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { dialog, which ->
+        builder.setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { _, _ ->
             val text = input.text.toString()
             UserPreferences(requireContext()).customAddonCollectionName = text
             Toast.makeText(
@@ -211,7 +212,7 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
                 Toast.LENGTH_LONG
             ).show()
         }
-        builder.setNegativeButton(resources.getString(R.string.cancel)) { dialog, which -> dialog.cancel() }
+        builder.setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ -> dialog.cancel() }
 
         builder.show()
     }

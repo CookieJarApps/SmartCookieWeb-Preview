@@ -251,27 +251,18 @@ class AddonsAdapter(
         val recommendedAddons = ArrayList<Addon>()
         val installedAddons = ArrayList<Addon>()
         val disabledAddons = ArrayList<Addon>()
-        val sideloadedAddons = ArrayList<Addon>()
 
         addons.forEach { addon ->
             when {
                 addon.inRecommendedSection() -> recommendedAddons.add(addon)
                 addon.inInstalledSection() -> installedAddons.add(addon)
                 addon.inDisabledSection() -> disabledAddons.add(addon)
-                addon.inSideloadedSection() -> sideloadedAddons.add(addon)
             }
         }
 
         sort(recommendedAddons, userPreferences)
         sort(installedAddons, userPreferences)
         sort(disabledAddons, userPreferences)
-        sort(sideloadedAddons, userPreferences)
-
-        // Add sideloaded section
-        if (sideloadedAddons.isNotEmpty()) {
-            addonList.add(Section(R.string.sideloaded_addons, false))
-            addonList.addAll(sideloadedAddons)
-        }
 
         // Add installed section and addons if available
         if (installedAddons.isNotEmpty()) {
