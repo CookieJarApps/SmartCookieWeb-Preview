@@ -31,7 +31,7 @@ class ShortcutsSuggestionProvider(
                 }
             )
         }
-        
+
         return suggestions
     }
 }
