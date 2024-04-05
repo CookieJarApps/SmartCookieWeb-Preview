@@ -3,11 +3,9 @@ package com.cookiejarapps.android.smartcookieweb.search
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.speech.RecognizerIntent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,9 +26,10 @@ import com.cookiejarapps.android.smartcookieweb.databinding.FragmentSearchDialog
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.search.*
-import kotlinx.coroutines.flow.collect
+import com.cookiejarapps.android.smartcookieweb.search.awesomebar.AwesomeBarView
+import com.cookiejarapps.android.smartcookieweb.search.toolbar.ToolbarView
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
-import mozilla.components.browser.toolbar.behavior.ToolbarPosition
 import mozilla.components.concept.storage.HistoryStorage
 import mozilla.components.lib.state.ext.consumeFlow
 import mozilla.components.lib.state.ext.consumeFrom
@@ -38,9 +37,7 @@ import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.ktx.android.content.getColorFromAttr
 import mozilla.components.support.ktx.android.view.hideKeyboard
 import mozilla.components.ui.autocomplete.InlineAutocompleteEditText
-import com.cookiejarapps.android.smartcookieweb.search.awesomebar.AwesomeBarView
-import com.cookiejarapps.android.smartcookieweb.search.toolbar.ToolbarView
-import kotlinx.coroutines.flow.distinctUntilChanged
+import mozilla.components.ui.widgets.behavior.ToolbarPosition as OldToolbarPosition
 
 typealias SearchDialogFragmentStore = SearchFragmentStore
 
@@ -261,7 +258,7 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
     }
 
     private fun setupConstraints(view: View) {
-        if (UserPreferences(view.context).toolbarPosition == ToolbarPosition.BOTTOM.ordinal) {
+        if (UserPreferences(view.context).toolbarPosition == OldToolbarPosition.BOTTOM.ordinal) {
             ConstraintSet().apply {
                 clone(binding.searchWrapper)
 
@@ -290,7 +287,7 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
         binding.fillLinkFromClipboard.isVisible = shouldShowView
         binding.fillLinkDivider.isVisible = shouldShowView
         binding.pillWrapperDivider.isVisible =
-            !(shouldShowView && UserPreferences(requireContext()).toolbarPosition == ToolbarPosition.BOTTOM.ordinal)
+            !(shouldShowView && UserPreferences(requireContext()).toolbarPosition == OldToolbarPosition.BOTTOM.ordinal)
         binding.clipboardTitle.isVisible = shouldShowView
         binding.clipboardTitle.isVisible = shouldShowView
         binding.linkIcon.isVisible = shouldShowView

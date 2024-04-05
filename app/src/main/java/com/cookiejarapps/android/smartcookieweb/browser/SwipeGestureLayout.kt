@@ -20,6 +20,8 @@ class SwipeGestureLayout @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
+    var isSwipeEnabled = true
+
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
         override fun onDown(e: MotionEvent): Boolean {
             return true
@@ -71,6 +73,10 @@ class SwipeGestureLayout @JvmOverloads constructor(
     }
 
     override fun onInterceptTouchEvent(event: MotionEvent): Boolean {
+        if (!isSwipeEnabled) {
+            return false
+        }
+
         return when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 handledInitialScroll = false

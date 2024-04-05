@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Display.FLAG_SECURE
 import android.view.Gravity
@@ -17,7 +16,9 @@ import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.constraintlayout.widget.ConstraintSet.*
+import androidx.constraintlayout.widget.ConstraintSet.BOTTOM
+import androidx.constraintlayout.widget.ConstraintSet.PARENT_ID
+import androidx.constraintlayout.widget.ConstraintSet.TOP
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.updateLayoutParams
@@ -35,7 +36,6 @@ import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutDatabase
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutEntity
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutGridAdapter
-import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBookmarkBinding
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentHomeBinding
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.ext.nav
@@ -45,7 +45,6 @@ import com.cookiejarapps.android.smartcookieweb.settings.activity.SettingsActivi
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -55,13 +54,12 @@ import mozilla.components.browser.state.selector.privateTabs
 import mozilla.components.browser.state.state.BrowserState
 import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
 import mozilla.components.browser.state.store.BrowserStore
-import mozilla.components.browser.toolbar.behavior.ToolbarPosition
 import mozilla.components.lib.state.ext.consumeFlow
 import mozilla.components.lib.state.ext.consumeFrom
-import mozilla.components.support.ktx.android.content.getColorFromAttr
 import mozilla.components.ui.tabcounter.TabCounterMenu
 import org.mozilla.gecko.util.ThreadUtils
 import java.lang.ref.WeakReference
+import mozilla.components.ui.widgets.behavior.ToolbarPosition as OldToolbarPosition
 
 
 @ExperimentalCoroutinesApi
@@ -256,7 +254,7 @@ class HomeFragment : Fragment() {
 
     private fun updateLayout(view: View) {
         when (UserPreferences(view.context).toolbarPosition) {
-            ToolbarPosition.TOP.ordinal -> {
+            OldToolbarPosition.TOP.ordinal -> {
                 binding.toolbarLayout.layoutParams = CoordinatorLayout.LayoutParams(
                     ConstraintLayout.LayoutParams.MATCH_PARENT,
                     ConstraintLayout.LayoutParams.WRAP_CONTENT
@@ -279,8 +277,7 @@ class HomeFragment : Fragment() {
                         resources.getDimensionPixelSize(R.dimen.home_fragment_top_toolbar_header_margin)
                 }
             }
-            ToolbarPosition.BOTTOM.ordinal -> {
-            }
+            OldToolbarPosition.BOTTOM.ordinal -> { }
         }
     }
 

@@ -19,6 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import mozilla.components.concept.engine.webextension.InstallationMethod
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import org.mozilla.gecko.util.ThreadUtils.runOnUiThread
 
@@ -134,7 +135,7 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
                 requireContext().resources.getString(R.string.loading), true
             )
 
-            components.engine.installWebExtension("", input.text.toString(), onSuccess = {
+            components.engine.installWebExtension(input.text.toString(), InstallationMethod.FROM_FILE, onSuccess = {
                 CoroutineScope(Dispatchers.IO).launch {
                     val addons = requireContext().components.addonCollectionProvider.getFeaturedAddons()
                     for(i in addons){
@@ -159,7 +160,7 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
                     }
                 }
             },
-                onError = { _, _ ->
+                onError = { _ ->
                     Toast.makeText(requireContext(), requireContext().resources.getString(R.string.error), Toast.LENGTH_LONG).show()
                     loadingDialog.dismiss()
                 })

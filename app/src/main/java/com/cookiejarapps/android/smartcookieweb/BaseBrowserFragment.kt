@@ -6,11 +6,9 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.view.accessibility.AccessibilityManager
 import android.widget.FrameLayout
 import androidx.annotation.CallSuper
@@ -29,19 +27,27 @@ import com.cookiejarapps.android.smartcookieweb.*
 import com.cookiejarapps.android.smartcookieweb.addons.WebExtensionPromptFeature
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
 import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
-import com.cookiejarapps.android.smartcookieweb.browser.bookmark.ui.BookmarkFragment
+import com.cookiejarapps.android.smartcookieweb.browser.SwipeGestureLayout
 import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
-import com.cookiejarapps.android.smartcookieweb.browser.tabs.TabsTrayFragment
 import com.cookiejarapps.android.smartcookieweb.components.StoreProvider
 import com.cookiejarapps.android.smartcookieweb.components.toolbar.*
+import com.cookiejarapps.android.smartcookieweb.components.toolbar.ToolbarPosition
+import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBrowserBinding
+import com.cookiejarapps.android.smartcookieweb.downloads.DownloadService
 import com.cookiejarapps.android.smartcookieweb.ext.components
+import com.cookiejarapps.android.smartcookieweb.integration.ContextMenuIntegration
 import com.cookiejarapps.android.smartcookieweb.integration.FindInPageIntegration
+import com.cookiejarapps.android.smartcookieweb.integration.ReaderModeIntegration
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import com.cookiejarapps.android.smartcookieweb.ssl.showSslDialog
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.withContext
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.selector.findCustomTab
 import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
@@ -53,53 +59,41 @@ import mozilla.components.browser.state.state.CustomTabSessionState
 import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.browser.state.state.content.DownloadState
+import mozilla.components.browser.state.state.createTab
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.browser.thumbnails.BrowserThumbnails
+import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.app.links.AppLinksFeature
 import mozilla.components.feature.downloads.DownloadsFeature
+import mozilla.components.feature.downloads.manager.FetchDownloadManager
+import mozilla.components.feature.downloads.temporary.ShareDownloadFeature
 import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
 import mozilla.components.feature.media.fullscreen.MediaSessionFullscreenFeature
 import mozilla.components.feature.privatemode.feature.SecureWindowFeature
+import mozilla.components.feature.prompts.PromptFeature
 import mozilla.components.feature.search.SearchFeature
 import mozilla.components.feature.session.FullScreenFeature
 import mozilla.components.feature.session.PictureInPictureFeature
 import mozilla.components.feature.session.SessionFeature
 import mozilla.components.feature.session.SwipeRefreshFeature
-import mozilla.components.feature.session.behavior.EngineViewBrowserToolbarBehavior
 import mozilla.components.feature.sitepermissions.SitePermissionsFeature
 import mozilla.components.lib.state.ext.consumeFlow
-import mozilla.components.lib.state.ext.flowScoped
 import mozilla.components.support.base.feature.ActivityResultHandler
 import mozilla.components.support.base.feature.PermissionsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
+import mozilla.components.support.base.log.logger.Logger.Companion.debug
+import mozilla.components.support.ktx.android.view.enterImmersiveMode
 import mozilla.components.support.ktx.android.view.exitImmersiveMode
 import mozilla.components.support.ktx.android.view.hideKeyboard
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
-import com.cookiejarapps.android.smartcookieweb.components.toolbar.ToolbarIntegration
-import com.cookiejarapps.android.smartcookieweb.downloads.DownloadService
-import com.cookiejarapps.android.smartcookieweb.integration.ContextMenuIntegration
-import mozilla.components.feature.downloads.manager.FetchDownloadManager
-import mozilla.components.support.base.log.logger.Logger.Companion.debug
-import com.cookiejarapps.android.smartcookieweb.components.toolbar.ToolbarPosition
-import com.cookiejarapps.android.smartcookieweb.integration.ReaderModeIntegration
-import com.cookiejarapps.android.smartcookieweb.ssl.showSslDialog
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import mozilla.components.support.locale.ActivityContextWrapper
+import mozilla.components.support.utils.ext.requestInPlacePermissions
 import org.mozilla.fenix.home.HomeScreenViewModel
 import org.mozilla.fenix.home.SharedViewModel
 import java.lang.ref.WeakReference
-import mozilla.components.feature.session.behavior.ToolbarPosition as MozacToolbarPosition
-import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBrowserBinding
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.withContext
-import mozilla.components.browser.state.state.createTab
-import mozilla.components.feature.addons.Addon
-import mozilla.components.feature.downloads.temporary.ShareDownloadFeature
-import mozilla.components.feature.prompts.PromptFeature
-import mozilla.components.support.locale.ActivityContextWrapper
-import mozilla.components.support.utils.ext.requestInPlacePermissions
+import mozilla.components.ui.widgets.behavior.EngineViewClippingBehavior as OldEngineViewClippingBehavior
+import mozilla.components.ui.widgets.behavior.ToolbarPosition as OldToolbarPosition
 
 /**
  * Base fragment extended by [BrowserFragment].
@@ -322,6 +316,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 store = components.store,
                 tabsUseCases = components.tabsUseCases,
                 fragmentManager = parentFragmentManager,
+                fileUploadsDirCleaner = components.fileUploadsDirCleaner,
                 onNeedToRequestPermissions = { permissions ->
                     requestInPlacePermissions(REQUEST_KEY_PROMPT_PERMISSIONS, permissions) { result ->
                         promptsFeature.get()?.onPermissionsResult(
@@ -449,7 +444,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                     requestPermissions(permissions, REQUEST_CODE_DOWNLOAD_PERMISSIONS)
                 }),
             owner = this,
-            view = view
+            view = view,
         )
 
         fullScreenFeature.set(
@@ -616,12 +611,12 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             binding.engineView.setDynamicToolbarMaxHeight(toolbarHeight)
 
             val toolbarPosition = if (UserPreferences(context).shouldUseBottomToolbar) {
-                MozacToolbarPosition.BOTTOM
+                OldToolbarPosition.BOTTOM
             } else {
-                MozacToolbarPosition.TOP
+                OldToolbarPosition.TOP
             }
             (binding.swipeRefresh.layoutParams as CoordinatorLayout.LayoutParams).behavior =
-                EngineViewBrowserToolbarBehavior(
+                OldEngineViewClippingBehavior(
                     context,
                     null,
                     binding.swipeRefresh,
@@ -796,7 +791,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     final override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
         val feature: PermissionsFeature? = when (requestCode) {
             REQUEST_CODE_DOWNLOAD_PERMISSIONS -> downloadsFeature.get()
@@ -893,13 +888,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             // Close find in page bar if opened
             findInPageIntegration.onBackPressed()
 
-            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-            requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-            requireActivity().window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    or View.SYSTEM_UI_FLAG_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+            activity?.enterImmersiveMode()
+            (view as? SwipeGestureLayout)?.isSwipeEnabled = false
 
             browserToolbarView.collapse()
             browserToolbarView.view.isVisible = false
@@ -909,15 +899,11 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             binding.swipeRefresh.translationY = 0f
 
             binding.engineView.setDynamicToolbarMaxHeight(0)
-            // Without this, fullscreen has a margin at the top.
             binding.engineView.setVerticalClipping(0)
-
         } else {
-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-            requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-            requireActivity().window.getDecorView().systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
-
             activity?.exitImmersiveMode()
+            (view as? SwipeGestureLayout)?.isSwipeEnabled = true
+
             if (webAppToolbarShouldBeVisible) {
                 browserToolbarView.view.isVisible = true
                 val toolbarHeight = resources.getDimensionPixelSize(R.dimen.browser_toolbar_height)
@@ -926,7 +912,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             }
         }
 
-        binding.swipeRefresh?.isEnabled = shouldPullToRefreshBeEnabled(inFullScreen)
+        binding.swipeRefresh.isEnabled = shouldPullToRefreshBeEnabled(inFullScreen)
     }
 
     /*

@@ -62,6 +62,7 @@ import mozilla.components.browser.engine.gecko.permission.GeckoSitePermissionsSt
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.feature.addons.amo.AMOAddonsProvider
 import mozilla.components.feature.prompts.PromptMiddleware
+import mozilla.components.feature.prompts.file.FileUploadsDirCleaner
 import mozilla.components.feature.sitepermissions.OnDiskSitePermissionsStorage
 import mozilla.components.support.base.android.NotificationsDelegate
 import mozilla.components.support.base.worker.Frequency
@@ -256,6 +257,10 @@ open class Components(private val applicationContext: Context) {
                 applicationContext,
                 webAppManifestStorage
         )
+    }
+
+    val fileUploadsDirCleaner: FileUploadsDirCleaner by lazy {
+        FileUploadsDirCleaner { applicationContext.cacheDir }
     }
 
     private val runtime by lazy {

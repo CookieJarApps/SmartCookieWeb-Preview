@@ -10,21 +10,19 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.utils.ToolbarPopupWindow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import mozilla.components.browser.domains.autocomplete.ShippedDomainsProvider
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.CustomTabSessionState
 import mozilla.components.browser.toolbar.BrowserToolbar
-import mozilla.components.browser.toolbar.behavior.BrowserToolbarBehavior
 import mozilla.components.browser.toolbar.display.DisplayToolbar
 import mozilla.components.support.ktx.util.URLStringUtils.toDisplayUrl
 import mozilla.components.ui.tabcounter.TabCounterMenu
+import mozilla.components.ui.widgets.behavior.EngineViewScrollingBehavior
 import java.lang.ref.WeakReference
-import mozilla.components.browser.toolbar.behavior.ToolbarPosition as MozacToolbarPosition
+import mozilla.components.ui.widgets.behavior.ViewPosition as MozacToolbarPosition
 
 interface BrowserToolbarViewInteractor {
     fun onBrowserToolbarPaste(text: String)
@@ -173,7 +171,7 @@ class BrowserToolbarView(
         }
 
         (view.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
-            (behavior as? BrowserToolbarBehavior)?.forceExpand(view)
+            (behavior as? EngineViewScrollingBehavior)?.forceExpand(view)
         }
     }
 
@@ -184,7 +182,7 @@ class BrowserToolbarView(
         }
 
         (view.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
-            (behavior as? BrowserToolbarBehavior)?.forceCollapse(view)
+            (behavior as? EngineViewScrollingBehavior)?.forceCollapse(view)
         }
     }
 
@@ -236,7 +234,7 @@ class BrowserToolbarView(
     @VisibleForTesting
     internal fun setDynamicToolbarBehavior(toolbarPosition: MozacToolbarPosition) {
         (view.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
-            behavior = BrowserToolbarBehavior(view.context, null, toolbarPosition)
+            behavior = EngineViewScrollingBehavior(view.context, null, toolbarPosition)
         }
     }
 

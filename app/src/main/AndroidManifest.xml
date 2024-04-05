@@ -3,20 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools">
 
   <uses-permission android:name="android.permission.CAMERA" />
+  <uses-feature
+      android:name="android.hardware.camera"
+      android:required="false" />
+  <uses-feature
+      android:name="android.hardware.camera.autofocus"
+      android:required="false" />
   <uses-permission android:name="android.permission.RECORD_AUDIO" />
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission
+      android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+      android:maxSdkVersion="28"
+      tools:ignore="ScopedStorage"
+      />
   <uses-permission android:name="android.permission.BLUETOOTH" />
-  <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-  <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
   <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-
+  <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+  <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+  <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
   <application
     android:name=".BrowserApp"
@@ -154,10 +161,13 @@
 
     </activity>
 
-    <service android:name=".downloads.DownloadService"
-        android:foregroundServiceType="dataSync"/>
-
     <service android:name=".media.MediaSessionService"
+        android:foregroundServiceType="mediaPlayback"
+        android:exported="false" />
+
+    <service
+        android:name=".downloads.DownloadService"
+        android:foregroundServiceType="dataSync"
         android:exported="false" />
 
   </application>

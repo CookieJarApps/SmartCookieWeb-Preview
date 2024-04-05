@@ -1,20 +1,18 @@
 package com.cookiejarapps.android.smartcookieweb.addons
 
 import android.content.pm.PackageManager
-import android.content.res.Configuration
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.*
+import android.util.DisplayMetrics
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.fragment.app.DialogFragment
-import androidx.navigation.fragment.findNavController
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.databinding.FragmentExtensionPopupBinding
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.CustomTabListAction
 import mozilla.components.browser.state.action.WebExtensionAction
@@ -23,20 +21,12 @@ import mozilla.components.browser.state.state.EngineState
 import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.state.createCustomTab
 import mozilla.components.concept.engine.EngineSession
-import mozilla.components.concept.engine.EngineView
 import mozilla.components.concept.engine.prompt.PromptRequest
 import mozilla.components.concept.engine.window.WindowRequest
 import mozilla.components.feature.prompts.PromptFeature
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
-import android.widget.RelativeLayout
-import android.util.TypedValue
-import android.util.DisplayMetrics
-import android.util.Log
-import com.cookiejarapps.android.smartcookieweb.BaseBrowserFragment
-import com.cookiejarapps.android.smartcookieweb.databinding.FragmentAddOnsBinding
-import com.cookiejarapps.android.smartcookieweb.databinding.FragmentExtensionPopupBinding
 import mozilla.components.support.utils.ext.requestInPlacePermissions
 
 
@@ -93,6 +83,7 @@ class WebExtensionPopupFragment : BottomSheetDialogFragment(), UserInteractionHa
                     store = components.store,
                     tabsUseCases = components.tabsUseCases,
                     fragmentManager = parentFragmentManager,
+                    fileUploadsDirCleaner = components.fileUploadsDirCleaner,
                     onNeedToRequestPermissions = { permissions ->
                         requestInPlacePermissions(REQUEST_KEY_PROMPT_PERMISSIONS, permissions) { result ->
                             promptsFeature.get()?.onPermissionsResult(

@@ -34,6 +34,10 @@ class CustomBookmarksStorage(context: Context): BookmarksStorage {
         TODO("Not yet implemented")
     }
 
+    override suspend fun countBookmarksInTrees(guids: List<String>): UInt {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun deleteNode(guid: String): Boolean {
         TODO("Not yet implemented")
     }

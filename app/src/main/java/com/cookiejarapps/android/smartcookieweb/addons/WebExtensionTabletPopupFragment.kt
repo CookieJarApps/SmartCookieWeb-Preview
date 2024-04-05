@@ -4,13 +4,14 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.databinding.FragmentExtensionPopupBinding
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentExtensionPopupTabletBinding
 import com.cookiejarapps.android.smartcookieweb.ext.components
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.CustomTabListAction
 import mozilla.components.browser.state.action.WebExtensionAction
@@ -72,6 +73,7 @@ class WebExtensionTabletPopupFragment : DialogFragment(), UserInteractionHandler
                     store = components.store,
                     tabsUseCases = components.tabsUseCases,
                     fragmentManager = parentFragmentManager,
+                    fileUploadsDirCleaner = components.fileUploadsDirCleaner,
                     onNeedToRequestPermissions = { permissions ->
                         requestInPlacePermissions(REQUEST_KEY_PROMPT_PERMISSIONS, permissions) { result ->
                             promptsFeature.get()?.onPermissionsResult(

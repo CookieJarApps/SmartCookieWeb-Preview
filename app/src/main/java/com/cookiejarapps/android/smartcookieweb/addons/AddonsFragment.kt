@@ -3,8 +3,11 @@ package com.cookiejarapps.android.smartcookieweb.addons
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
@@ -12,7 +15,6 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -20,7 +22,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentAddOnsBinding
-import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBrowserBinding
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -28,15 +29,18 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import mozilla.components.concept.engine.webextension.InstallationMethod
 import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.addons.AddonManagerException
-import mozilla.components.feature.addons.ui.*
+import mozilla.components.feature.addons.ui.AddonInstallationDialogFragment
+import mozilla.components.feature.addons.ui.AddonsManagerAdapterDelegate
+import mozilla.components.feature.addons.ui.PermissionsDialogFragment
+import mozilla.components.feature.addons.ui.translateName
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import org.mozilla.gecko.util.ThreadUtils
-import java.util.*
+import java.util.Locale
 import java.util.concurrent.CancellationException
-import kotlin.collections.ArrayList
 
 
 // Fragment used for managing add-ons.
@@ -245,7 +249,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                         requireContext().resources.getString(R.string.loading), true
                     )
 
-                    components.engine.installWebExtension("", url, onSuccess = {
+                    components.engine.installWebExtension(url, InstallationMethod.FROM_FILE, onSuccess = {
                         CoroutineScope(Dispatchers.IO).launch {
                             addons = requireContext().components.addonManager.getAddons()
                             ThreadUtils.runOnUiThread {
@@ -259,7 +263,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                             }
                         }
                     },
-                        onError = { _, error ->
+                        onError = {
                             loadingDialog.dismiss()
                             Toast.makeText(requireContext(), requireContext().resources.getString(R.string.error), Toast.LENGTH_LONG).show()
                         })
@@ -298,14 +302,15 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
     internal fun installAddon(addon: Addon) {
         requireContext().components.addonManager.installAddon(
-            addon,
+            addon.downloadUrl,
+            InstallationMethod.MANAGER,
             onSuccess = {
                isInstallationInProgress = false
                 adapter?.updateAddon(it)
                 binding?.addonProgressOverlay?.root?.visibility = View.GONE
                 showInstallationDialog(it)
             },
-            onError = { _, e ->
+            onError = { e ->
                 this.view?.let { view ->
                     // No need to display an error message if installation was cancelled by the user.
                     if (e !is CancellationException) {
@@ -370,7 +375,8 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
         isInstallationInProgress = true
 
         val installOperation = requireContext().components.addonManager.installAddon(
-            addon,
+            addon.downloadUrl,
+            InstallationMethod.MANAGER,
             onSuccess = { installedAddon ->
                 context?.let {
                     adapter?.updateAddon(installedAddon)
@@ -379,7 +385,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                     showInstallationDialog(installedAddon)
                 }
             },
-            onError = { _, e ->
+            onError = { e ->
                 // No need to display an error message if installation was cancelled by the user.
                 if (e !is CancellationException) {
                     Toast.makeText(

@@ -3,7 +3,6 @@ package com.cookiejarapps.android.smartcookieweb.addons
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.TransitionDrawable
@@ -28,9 +27,6 @@ import com.cookiejarapps.android.smartcookieweb.browser.AddonSortType
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.addons.amo.AMOAddonsProvider
 import mozilla.components.feature.addons.ui.AddonsManagerAdapterDelegate
@@ -42,11 +38,7 @@ import mozilla.components.feature.addons.ui.translateName
 import mozilla.components.feature.addons.ui.translateSummary
 import mozilla.components.support.ktx.android.content.appName
 import mozilla.components.support.ktx.android.content.appVersionName
-import mozilla.components.support.ktx.android.content.res.resolveAttribute
-import java.io.IOException
-import java.text.NumberFormat
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 
@@ -105,26 +97,28 @@ class AddonsAdapter(
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.mozac_feature_addons_item, parent, false)
+        val contentWrapperView = view.findViewById<View>(R.id.add_on_content_wrapper)
         val iconView = view.findViewById<ImageView>(R.id.add_on_icon)
         val titleView = view.findViewById<TextView>(R.id.add_on_name)
         val summaryView = view.findViewById<TextView>(R.id.add_on_description)
         val ratingView = view.findViewById<RatingBar>(R.id.rating)
-        val ratingAccessibilityView = view.findViewById<TextView>(R.id.rating_accessibility)
+        val ratingAccessibleView = view.findViewById<TextView>(R.id.rating_accessibility)
         val reviewCountView = view.findViewById<TextView>(R.id.review_count)
         val addButton = view.findViewById<ImageView>(R.id.add_button)
         val allowedInPrivateBrowsingLabel = view.findViewById<ImageView>(R.id.allowed_in_private_browsing_label)
         val statusErrorView = view.findViewById<View>(R.id.add_on_status_error)
         return AddonViewHolder(
             view,
+            contentWrapperView,
             iconView,
             titleView,
             summaryView,
             ratingView,
-            ratingAccessibilityView,
+            ratingAccessibleView,
             reviewCountView,
             addButton,
             allowedInPrivateBrowsingLabel,
-            statusErrorView
+            statusErrorView,
         )
     }
 
