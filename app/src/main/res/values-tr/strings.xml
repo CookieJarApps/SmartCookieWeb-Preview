@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">SmartCookieWeb Preview</string>
+    <string name="url_project" translatable="false">https://github.com/CookieJarApps/SmartCookieWeb-preview</string>
+    <string name="key_javascript_enabled" translatable="false">javascript_enabled</string>
+    <string name="key_app_theme_type" translatable="false">app_theme_type</string>
+    <string name="key_web_theme_type" translatable="false">web_theme_type</string>
+    <string name="key_search_engine" translatable="false">search_engine</string>
+    <string name="key_show_addons_in_bar" translatable="false">show_addons_in_bar</string>
+    <string name="key_clear_tabs" translatable="false">clear_tabs</string>
+    <string name="key_clear_history" translatable="false">clear_history</string>
+    <string name="key_clear_cookies" translatable="false">clear_cookies</string>
+    <string name="key_clear_cache" translatable="false">clear_cache</string>
+    <string name="key_clear_permissions" translatable="false">clear_permissions</string>
+    <string name="key_homepage_type" translatable="false">homepage_type</string>
+    <string name="key_move_navbar" translatable="false">move_navbar</string>
+    <string name="key_use_custom_collection" translatable="false">use_custom_collection</string>
+    <string name="key_collection_name" translatable="false">collection_name</string>
+    <string name="key_collection_user" translatable="false">collection_user</string>
+    <string name="key_auto_font_size" translatable="false">auto_font_size</string>
+    <string name="key_font_size_factor" translatable="false">font_size_factor</string>
+    <string name="key_hide_url_bar" translatable="false">hide_url_bar</string>
+    <string name="key_swap_drawers" translatable="false">swap_drawers</string>
+    <string name="key_stack_from_bottom" translatable="false">stack_from_bottom</string>
+    <string name="key_show_tabs_in_grid" translatable="false">show_tabs_in_grid</string>
+    <string name="key_sideload_xpi" translatable="false">sideload_xpi</string>
+    <string name="key_swipe_refresh" translatable="false">swipe_refresh</string>
+    <string name="key_remote_debugging" translatable="false">remote_debugging</string>
+    <string name="key_export_bookmarks" translatable="false">export_bookmarks</string>
+    <string name="key_import_bookmarks" translatable="false">import_bookmarks</string>
+    <string name="key_export_settings" translatable="false">export_settings</string>
+    <string name="key_import_settings" translatable="false">import_settings</string>
+    <string name="key_clear_settings" translatable="false">clear_settings</string>
+    <string name="key_prompt_external_downloader" translatable="false">prompt_external_downloader</string>
+    <string name="key_show_protocol" translatable="false">show_url_protocol</string>
+    <string name="key_search_suggestions_enabled" translatable="false">search_suggestions_enabled</string>
+    <string name="key_safe_browsing" translatable="false">safe_browsing</string>
+    <string name="key_shortcuts_visible" translatable="false">shortcuts_visible</string>
+    <string name="key_news_visible" translatable="false">news_visible</string>
+    <string name="key_tracking_protection" translatable="false">tracking_protection</string>
+    <string name="key_trust_third_party_certs" translatable="false">trust_third_party_certs</string>
+    <string name="more">Daha Fazla Bilgi</string>
+    <string name="version">Uygulama sürümü</string>
+    <string name="licenses">Açık Kaynak Lisansları</string>
+    <string name="mpl_license">Mozilla Kamu Lisansı 2.0</string>
+    <string name="apache">Apache Lisansı 2.0</string>
+    <string name="freeware">Ücretsiz yazılım</string>
+    <string name="mozac">Mozilla Android Bileşenleri</string>
+    <string name="android_open_source_project">Android Açık Kaynak Projesi</string>
+    <string name="geckoview">GeckoView</string>
+    <string name="license_gnu">GNU Kısıtlı Genel Kamu Lisansı</string>
+    <string name="license_gpl">GNU Genel Kamu Lisansı</string>
+    <string name="no_ads">Reklam veya izleyici yok</string>
+    <string name="infinity">∞</string>
+    <string name="custom">Özel</string>
+    <string name="tabs">Sekmeler</string>
+    <string name="tab_grid">Sekmeleri ızgarada göster</string>
+    <string name="action_print">Yazdır</string>
+    <string name="action_add_to_homescreen">Ana ekrana ekle</string>
+    <string name="action_history">Öyküsü</string>
+    <string name="action_bookmarks">Yer İmleri</string>
+    <string name="action_downloads">İndirmeler</string>
+    <string name="action_add_bookmark">Yer işareti ekle</string>
+    <string name="action_copy">Bağlantıyı kopyala</string>
+    <string name="forward">İleri</string>
+    <string name="reload">Yeniden yükle</string>
+    <string name="settings">Ayarlar</string>
+    <string name="new_tab">Yeni sekme</string>
+    <string name="duplicate_tab">Sekmeyi çoğalt</string>
+    <string name="move_to_private">Özel moda geç</string>
+    <string name="move_to_normal">Normal moda geç</string>
+    <string name="close_tab">Sekmeyi kapat</string>
+    <string name="desktop_mode">Masaüstü sitesi</string>
+    <string name="wait">Bekle</string>
+    <string name="stop">Durdur</string>
+    <string name="install">Yükle</string>
+    <string name="cancel">İptal</string>
+    <string name="export_bookmarks">Yer imlerini yedeklemeye aktar</string>
+    <string name="import_backup">Yer imlerini yedekten içe aktar</string>
+    <string name="export_tabs">Sekmeleri yedeklemeye aktar</string>
+    <string name="import_tabs">Sekmeleri yedekten içe aktar</string>
+    <string name="settings_general">Genel Ayarlar</string>
+    <string name="settings_general_explain">JavaScript…</string>
+    <string name="settings_privacy_and_security">Gizlilik ve güvenlik ayarları</string>
+    <string name="settings_privacy_and_security_explain">Geçmişi temizle...</string>
+    <string name="settings_import_and_export">Ayarları içe ve dışa aktarma</string>
+    <string name="settings_import_and_export_explain">Dışa ve içe aktarılıyor…</string>
+    <string name="settings_customization">Özelleştirme ayarları</string>
+    <string name="settings_customization_explain">Uygulama teması, alt gezinme çubuğu…</string>
+    <string name="settings_advanced">Gelişmiş ayarlar</string>
+    <string name="settings_advanced_explain">Eklenti koleksiyonu…</string>
+    <string name="settings_addons">Eklenti ayarları</string>
+    <string name="settings_addons_explain">Eklentileri etkinleştir, eklentileri kaldır…</string>
+    <string name="settings_about">Hakkında</string>
+    <string name="settings_about_explain">Uygulama sürümü, açık kaynak lisansları…</string>
+    <string name="dark_mode">Web karanlık modu</string>
+    <string name="dark_mode_summary">Desteklenen web sitelerini karartır</string>
+    <string name="follow_system">Sistem temasını takip et</string>
+    <string name="follow_system_summary">Sistem karanlık modu etkinleştirildiğinde tarayıcı kullanıcı arayüzünü koyulaştırır</string>
+    <string name="javascript_enabled">JavaScript\'i etkinleştir</string>
+    <string name="clear_tabs">Açık sekmeleri temizle</string>
+    <string name="clear_history">Tarama geçmişini ve site verilerini temizle</string>
+    <string name="clear_cookies">Çerezleri temizle</string>
+    <string name="clear_cache">Önbelleği temizle</string>
+    <string name="clear_permissions">İzinleri temizle</string>
+    <string name="sites">(%1$s) site</string>
+    <string name="app_restart">Değişikliğin geçerli olması için lütfen uygulamayı yeniden başlatın.</string>
+    <string name="mozac_reader_view_description">Okuyucu Görünümünü Etkinleştir</string>
+    <string name="mozac_reader_view_description_selected">Okuyucu Görünümünü Devre Dışı Bırak</string>
+    <string name="other_addons">Diğer eklentiler</string>
+    <string name="tab_removed">Sekme kaldırıldı</string>
+    <string name="undo">Geri al</string>
+    <string name="hide_url_bar">Kaydırma sırasında URL çubuğunu gizle</string>
+    <string name="search">Ara</string>
+    <string name="no_results">Sonuç yok</string>
+    <string name="bookmark">Yer imi</string>
+    <string name="title">Başlık</string>
+    <string name="url">URL</string>
+    <string name="folder">Klasör</string>
+    <string name="add_to_top">Listenin başına ekle</string>
+    <string name="add_bookmark">Yer işareti ekle</string>
+    <string name="edit_bookmark">Yer işaretini düzenle</string>
+    <string name="remove_history_item">Geçmiş öğesini kaldır</string>
+    <string name="edit_folder">Klasörü düzenle</string>
+    <string name="add_folder">Klasör ekle</string>
+    <string name="new_folder_name">Yeni klasör</string>
+    <string name="url_empty_mes">URL boş!</string>
+    <string name="title_empty_mes">Başlık boş!</string>
+    <string name="sort">Sırala</string>
+    <string name="sort_rating">Derecelendirme</string>
+    <string name="sort_a_z">A - Z</string>
+    <string name="sort_z_a">Z - A</string>
+    <string name="select_this_item">Bu öğeyi seç</string>
+    <string name="move_bookmark">Klasöre taşı</string>
+    <string name="open_all_new">Tümünü yeni sekmelerde aç</string>
+    <string name="open_all_bg">Tümünü arka plan sekmelerinde aç</string>
+    <string name="delete_bookmark">Yer işaretini sil</string>
+    <string name="delete_folder">Klasörü sil</string>
+    <string name="open">Açık</string>
+    <string name="open_new">Yeni sekmede aç</string>
+    <string name="open_new_private">Yeni özel sekmede aç</string>
+    <string name="open_bg">Arka plan sekmesinde aç</string>
+    <string name="confirm">Bu öğeyi silmek istediğinizden emin misiniz?</string>
+    <string name="start_sort">Sıralama</string>
+    <string name="end_sort">Sıralama yapılmıyor</string>
+    <string name="successful">Başarılı</string>
+    <string name="failed">Başarısız</string>
+    <string name="search_engine">Arama motoru</string>
+    <string name="fill_from_clipboard">Panodan doldur</string>
+    <string name="copy">Kopyala</string>
+    <string name="paste">Yapıştır</string>
+    <string name="paste_and_go">Yapıştır ve git</string>
+    <string name="copied">Panoya kopyalandı</string>
+    <string name="loading_addons">Eklentiler yükleniyor...</string>
+    <string name="loading">Yükleniyor...</string>
+    <string name="tabs_cleared">Sekmeler temizlendi!</string>
+    <string name="history_cleared">Tarih temizlendi!</string>
+    <string name="cookies_cleared">Çerezler temizlendi!</string>
+    <string name="cache_cleared">Önbellek temizlendi!</string>
+    <string name="permissions_cleared">İzinler temizlendi!</string>
+    <string name="show_addons_in_bar">Eklentileri gezinme çubuğunda göster</string>
+    <string name="shortcuts">Kısayollar</string>
+    <string name="add_shortcut">Kısayol ekle</string>
+    <string name="edit_shortcut">Kısayolu düzenle</string>
+    <string name="delete_shortcut">Kısayolu sil</string>
+    <string name="homepage_type">Ana sayfa türü</string>
+    <string name="default_word">Varsayılan</string>
+    <string name="blank_page">Boş sayfa</string>
+    <string name="custom_page">Özel sayfa</string>
+    <string name="move_navbar">Gezinme çubuğunu alta taşı</string>
+    <string-array name="homepage_types">
+        <item>@string/default_word</item>
+        <item>@string/blank_page</item>
+        <item>@string/custom_page</item>
+    </string-array>
+    <string name="custom_collection">Özel eklenti koleksiyonu</string>
+    <string name="use_custom_collection">Özel eklenti koleksiyonu kullan</string>
+    <string name="use_custom_collection_disclaimer">Özel bir eklenti koleksiyonu kullanırken, tarayıcı Mozilla sunucularını eklentiler için sorgular. CookieJarApps, bu eklentilerin güvenli olduğunu veya cihazınızda doğru şekilde çalışacağını garanti edemez.</string>
+    <string name="collection_user">Tahsilat kullanıcısı</string>
+    <string name="collection_name">Koleksiyon adı</string>
+    <string name="backup_bookmarks">Yer imlerini yedekle</string>
+    <string name="theme">Uygulama teması</string>
+    <string name="theme_explain">Tarayıcının kullanıcı arayüzü öğelerinin teması.</string>
+    <string name="web_theme">Web teması</string>
+    <string name="web_theme_explain">Tarayıcının uzantıları ve web sitesini kullanmasını istediği tema.</string>
+    <string name="light_theme">Açık</string>
+    <string name="dark_theme">Koyu</string>
+    <string name="auto">Sistemi takip et</string>
+    <string name="auto_font">Otomatik yazı tipi boyutu</string>
+    <string name="font_size">Yazı tipi boyutu</string>
+    <string-array name="theme_types">
+        <item>@string/light_theme</item>
+        <item>@string/dark_theme</item>
+        <item>@string/auto</item>
+    </string-array>
+    <string name="rate">Oran</string>
+    <string name="report">Rapor</string>
+    <string name="swap_bookmarks_and_tabs">Yer imi ve sekme çekmecelerini değiştirin</string>
+    <string name="stack_items_reverse">Öğeleri çekmecenin altından istifleyin</string>
+    <string name="browser_sync">Tarayıcı senkronizasyonu</string>
+    <string name="browser_sync_disclaimer">Senkronizasyonu kullanırken, tarayıcı sekmelerinizi Firefox hesabınızla senkronize eder. Bu, tarayıcının verilerinizi Mozilla tarafından işletilen Firefox Sync sunucularında şifrelenmiş biçimde depolayacağı anlamına gelir. Bu hizmet Mozilla ile bağlantılı değildir veya Mozilla tarafından desteklenmemektedir ve CookieJarApps\'in destek hizmeti, garanti veya güncelleme sağlaması gerekmez.</string>
+    <string name="load_xpi">Sideload XPI</string>
+    <string name="load_xpi_description">Bu tarayıcıya %1$s yüklemek istediğinizden emin misiniz? Bu eklenti, CookieJarApps tarafından güvenlik veya istikrar açısından kontrol edilmemiştir.</string>
+    <string name="addon_not_available">Bu eklenti, eklenti mağazasında mevcut değil. SmartCookieWeb istediği izinleri onaylayamıyor. Yalnızca bu uzantıya güveniyorsanız devam edin.</string>
+    <string name="swipe_to_refresh">Yenilemek için kaydırın</string>
+    <string name="sideloaded_addons">Sideloaded eklentiler</string>
+    <string name="already_available">Bu eklenti resmi eklenti mağazasında zaten mevcut. Resmi mağazada bulunan eklentiler yan yüklenemez.</string>
+    <string name="installed">Başarıyla yüklendi</string>
+    <string name="error">Hata</string>
+    <string name="remote_debugging">Uzaktan hata ayıklama</string>
+    <string name="export_settings">Ayarları yedekten dışa aktar</string>
+    <string name="import_settings">Ayarları yedekten içe aktar</string>
+    <string name="clear_settings">Ayarları sıfırla</string>
+    <string name="backup_settings">Ayar yedekleme</string>
+    <string name="prompt_external_downloader">Dosyaları indirmek için hangi uygulamayı kullanacağınızı sorun</string>
+    <string name="close_current_tab">Geçerli sekmeyi kapat</string>
+    <string name="close_all_tabs">Tüm sekmeleri kapat</string>
+    <string name="close_other_tabs">Diğer sekmeleri kapat</string>
+    <string name="close_app">Tarayıcıyı kapat</string>
+    <string name="dialog_title_close_browser">Sekmeleri kapat</string>
+    <string name="show_protocol_in_url">Araç çubuğunda URL protokolünü göster</string>
+    <string name="search_suggestions">Arama önerileri</string>
+    <string name="safe_browsing">Güvenli gezinme</string>
+    <string name="tracking_protection">İzleme koruması</string>
+    <string name="show_newsfeed">Haber akışını göster</string>
+    <string name="show_shortcuts">Kısayolları göster</string>
+    <string name="disable_newsfeed">Haber akışını devre dışı bırak</string>
+    <string name="configure">Yapılandır</string>
+    <string name="newsfeed_privacy">CookieJarApps gizliliğinize saygı duyar ve sizinle ilgili hiçbir veri toplamaz veya saklamaz. Bu nedenle, haber akışı özelliğini kullanmak için, almak istediğiniz haberler hakkında bazı genel bilgileri doldurmanız gerekir.</string>
+    <string name="trust_third_party_certs">Üçüncü taraf CA sertifikalarına güvenin</string>
+    <string name="custom_search_engine">Özel arama motoru</string>
+    <string name="custom_search_engine_details">Sorgu yerine URL\'yi \'{searchTerms}\' ile girin</string>
+    <string name="custom_search_engine_error">Arama URL\'si \'{searchTerms}\' içermiyor</string>
+    <string name="clear">Temizle</string>
+    <string name="name">Ad</string>
+    <string name="show_site_icons">Site simgeleri gösterilsin mi?</string>
+    <string name="allow_shortcut_favicons">Kısayollar için simgeleri yükle</string>
+    <string name="allow_shortcut_favicons_prompt">SmartCookieWeb Preview artık ana sayfada kısayollara sahip olduğunuz sitelerin simgelerini gösterebilir. Ancak bu özellik, uygulamanın kısayollarınızın URL\'lerini harici bir hizmete (par1.cookiejarapps.com/favicon/) göndermesini gerektirir. Servise gönderilen siteler hakkında herhangi bir log tutulmamaktadır. Bu özelliği etkinleştirmek ister misiniz?</string>
+    <string name="flex_mode">Esnek mod</string>
+    <string name="save_as_pdf">PDF olarak kaydet</string>
+</resources>
