@@ -163,7 +163,7 @@ class ImportExportSettingsFragment : BaseSettingsFragment() {
                 val folderName: String = `object`.getString(KEY_FOLDER)
 
                 var folder = manager.root
-                
+
                 // Not the best way to do this, but it should be OK because names are unique in the old bookmark system
                 if(folderName != "") {
                     folder = folderItemArray[uniqueFolderArray.indexOf(folderName)]
