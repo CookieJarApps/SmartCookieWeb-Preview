@@ -52,7 +52,7 @@ class HomeMenu(
         }
 
         val addons = BrowserMenuImageText(
-            context.getString(R.string.mozac_browser_menu_addons),
+            context.getString(R.string.mozac_browser_menu_extensions),
             R.drawable.mozac_ic_extension_24,
             R.color.primary_icon
         ) {

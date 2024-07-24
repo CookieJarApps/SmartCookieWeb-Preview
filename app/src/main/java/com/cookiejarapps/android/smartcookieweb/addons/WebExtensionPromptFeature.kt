@@ -93,6 +93,7 @@ class WebExtensionPromptFeature(
                 onNegativeButtonClicked = {
                     handleDeniedPermissions(promptRequest)
                 },
+                permissions = addon.permissions
             )
             dialog.show(
                 fragmentManager,

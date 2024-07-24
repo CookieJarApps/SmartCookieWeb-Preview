@@ -15,8 +15,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 33
         // Increment by 4 with each update
-        versionCode 100
-        versionName "24.0"
+        versionCode 104
+        versionName "25.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
@@ -109,7 +109,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
-    final def mozComponentsVersion = "125.0b8"
+    final def mozComponentsVersion = "129.0b5"
 
     // Mozilla compose components
     implementation "org.mozilla.components:compose-awesomebar:$mozComponentsVersion"

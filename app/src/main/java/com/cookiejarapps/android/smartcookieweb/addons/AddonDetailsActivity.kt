@@ -102,7 +102,7 @@ class AddonDetailsActivity : AppCompatActivity() {
 
             ratingNum.text = "(${getFormattedAmount(it.reviews)})"
 
-            val ratingContentDescription = getString(R.string.mozac_feature_addons_rating_content_description)
+            val ratingContentDescription = getString(R.string.mozac_feature_addons_rating_content_description_2)
             ratingView.contentDescription = String.format(ratingContentDescription, it.average)
             ratingView.rating = it.average
         }
