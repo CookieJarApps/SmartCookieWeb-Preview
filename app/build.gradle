@@ -207,6 +207,7 @@ dependencies {
     implementation "androidx.compose.foundation:foundation:1.6.8"
     implementation "androidx.compose.material:material:1.6.8"
 
+    implementation 'org.jsoup:jsoup:1.14.3'
 }
 
 project.configurations.configureEach {

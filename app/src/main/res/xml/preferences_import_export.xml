@@ -10,6 +10,10 @@
             android:key="@string/key_export_bookmarks"
             android:singleLineTitle="false"
             android:title="@string/export_bookmarks"/>
+        <Preference
+            android:key="@string/key_clear_bookmarks"
+            android:singleLineTitle="false"
+            android:title="@string/clear_bookmarks"/>
     </PreferenceCategory>
 
     <!--<PreferenceCategory android:title="@string/backup_tabs">

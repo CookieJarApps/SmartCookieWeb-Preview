@@ -42,6 +42,7 @@
   <string name="key_trust_third_party_certs" translatable="false">trust_third_party_certs</string>
   <string name="key_homepage_background_image" translatable="false">homepage_background_image</string>
   <string name="key_load_shortcut_icons" translatable="false">load_shortcut_icons</string>
+  <string name="key_clear_bookmarks" translatable="false">clear_bookmarks</string>
 
   <string name="more">More Info</string>
   <string name="version">Application version</string>
@@ -89,6 +90,8 @@
 
   <string name="export_bookmarks">Export bookmarks to backup</string>
   <string name="import_backup">Import bookmarks from backup</string>
+  <string name="clear_bookmarks">Clear bookmarks</string>
+  <string name="clear_bookmarks_confirm">Are you sure you want to clear all bookmarks?</string>
   <string name="export_tabs">Export tabs to backup</string>
   <string name="import_tabs">Import tabs from backup</string>
 
