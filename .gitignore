@@ -4,6 +4,7 @@
 /local.properties
 /.idea/workspace.xml
 /build
+app/release
 
 # Crowdin
 crowdin.properties
