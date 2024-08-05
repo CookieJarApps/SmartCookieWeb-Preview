@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.cookiejarapps.android.smartcookieweb.browser.AddonSortType
+import com.cookiejarapps.android.smartcookieweb.browser.HomepageBackgroundChoice
 import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
 import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.components.toolbar.ToolbarPosition
@@ -32,6 +33,8 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var customHomepageUrl by stringPreference(HOMEPAGE_URL, "")
     var appThemeChoice by intPreference(APP_THEME_CHOICE, ThemeChoice.SYSTEM.ordinal)
     var webThemeChoice by intPreference(WEB_THEME_CHOICE, ThemeChoice.SYSTEM.ordinal)
+    var homepageBackgroundChoice by intPreference(HOMEPAGE_BACKGROUND_CHOICE, HomepageBackgroundChoice.NONE.ordinal)
+    var homepageBackgroundUrl by stringPreference(HOMEPAGE_BACKGROUND_URL, "")
     var launchInApp by booleanPreference(LAUNCH_IN_APP, true)
     var customAddonCollection by booleanPreference(CUSTOM_ADDON_BOOL, false)
     var shownCollectionDisclaimer by booleanPreference(SHOWN_ADDON_DISCLAIMER, false)
@@ -52,6 +55,7 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var safeBrowsing by booleanPreference(SAFE_BROWSING, true)
     var trackingProtection by booleanPreference(TRACKING_PROTECTION, true)
     var showShortcuts by booleanPreference(SHOW_SHORTCUTS, true)
+    var loadShortcutIcons by booleanPreference(LOAD_SHORTCUT_ICONS, true)
     var trustThirdPartyCerts by booleanPreference(TRUST_THIRD_PARTY_CERTS, false)
 
     // TODO: make these configurable & clean up duplicates
@@ -60,7 +64,7 @@ class UserPreferences(appContext: Context): PreferencesHolder {
             return toolbarPosition == ToolbarPosition.BOTTOM.ordinal
         }
         set(value){
-            if(value) toolbarPosition = ToolbarPosition.BOTTOM.ordinal else toolbarPosition = ToolbarPosition.TOP.ordinal
+            toolbarPosition = if(value) ToolbarPosition.BOTTOM.ordinal else ToolbarPosition.TOP.ordinal
         }
 
     val toolbarPositionType: ToolbarPosition
@@ -101,5 +105,8 @@ class UserPreferences(appContext: Context): PreferencesHolder {
         const val TRACKING_PROTECTION = "tracking_protection"
         const val SHOW_SHORTCUTS = "show_shortcuts"
         const val TRUST_THIRD_PARTY_CERTS = "trust_third_party_certs"
+        const val HOMEPAGE_BACKGROUND_CHOICE = "homepage_background_choice"
+        const val HOMEPAGE_BACKGROUND_URL = "homepage_background_url"
+        const val LOAD_SHORTCUT_ICONS = "load_shortcut_icons"
     }
 }

@@ -27,7 +27,7 @@ class BookmarkFoldersDialog(private val context: Context, private val manager: B
 
     init {
         val top = View.inflate(context, R.layout.dialog_title, null)
-        val button = top.findViewById(R.id.addButton) as ImageButton
+        val button: ImageButton = top.findViewById(R.id.addButton)
 
         titleText = top.findViewById(R.id.titleText)
 

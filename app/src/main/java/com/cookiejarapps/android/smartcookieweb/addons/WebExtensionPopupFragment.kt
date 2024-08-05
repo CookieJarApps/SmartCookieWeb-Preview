@@ -46,7 +46,7 @@ class WebExtensionPopupFragment : BottomSheetDialogFragment(), UserInteractionHa
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         webExtensionId = requireNotNull(arguments?.getString("web_extension_id"))
 
         components.store.state.extensions[webExtensionId]?.popupSession?.let {
@@ -69,7 +69,7 @@ class WebExtensionPopupFragment : BottomSheetDialogFragment(), UserInteractionHa
         super.onViewCreated(view, savedInstanceState)
 
         val metrics = DisplayMetrics()
-        requireActivity().windowManager.getDefaultDisplay().getMetrics(metrics)
+        requireActivity().windowManager.defaultDisplay.getMetrics(metrics)
         val engineViewContainer = view.findViewById<LinearLayout>(R.id.engineViewContainer)
         val params = engineViewContainer.layoutParams
 

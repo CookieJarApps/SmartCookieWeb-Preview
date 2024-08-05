@@ -169,7 +169,7 @@ class HistoryActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         menuInflater.inflate(R.menu.search_menu, menu)
 
         val searchItem: MenuItem = menu.findItem(R.id.search)
-        val searchView: SearchView = searchItem.getActionView() as SearchView
+        val searchView: SearchView = searchItem.actionView as SearchView
         searchView.setOnQueryTextListener(this)
 
         return super.onCreateOptionsMenu(menu)

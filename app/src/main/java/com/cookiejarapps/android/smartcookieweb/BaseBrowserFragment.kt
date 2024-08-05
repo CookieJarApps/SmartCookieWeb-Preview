@@ -1,6 +1,5 @@
 package com.cookiejarapps.android.smartcookieweb
 
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
@@ -58,7 +57,6 @@ import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.CustomTabSessionState
 import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.state.TabSessionState
-import mozilla.components.browser.state.state.content.DownloadState
 import mozilla.components.browser.state.state.createTab
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.browser.thumbnails.BrowserThumbnails
@@ -89,8 +87,8 @@ import mozilla.components.support.ktx.android.view.hideKeyboard
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 import mozilla.components.support.locale.ActivityContextWrapper
 import mozilla.components.support.utils.ext.requestInPlacePermissions
-import org.mozilla.fenix.home.HomeScreenViewModel
-import org.mozilla.fenix.home.SharedViewModel
+import com.cookiejarapps.android.smartcookieweb.browser.home.HomeScreenViewModel
+import com.cookiejarapps.android.smartcookieweb.browser.home.SharedViewModel
 import java.lang.ref.WeakReference
 import mozilla.components.ui.widgets.behavior.EngineViewClippingBehavior as OldEngineViewClippingBehavior
 import mozilla.components.ui.widgets.behavior.ToolbarPosition as OldToolbarPosition
@@ -466,7 +464,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         expandToolbarOnNavigation(store)
 
-        binding.swipeRefresh.isEnabled = shouldPullToRefreshBeEnabled(false)
+        binding.swipeRefresh.isEnabled = shouldPullToRefreshBeEnabled()
 
         if (binding.swipeRefresh.isEnabled) {
             val primaryTextColor = ContextCompat.getColor(context, R.color.primary_icon)
@@ -531,23 +529,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             ?: createTab("about:blank")
 
     /**
-     * Preserves current state of the [DynamicDownloadDialog] to persist through tab changes and
-     * other fragments navigation.
-     * */
-    private fun saveDownloadDialogState(
-        sessionId: String?,
-        downloadState: DownloadState,
-        downloadJobStatus: DownloadState.Status
-    ) {
-        sessionId?.let { id ->
-            sharedViewModel.downloadDialogState[id] = Pair(
-                downloadState,
-                downloadJobStatus == DownloadState.Status.FAILED
-            )
-        }
-    }
-
-    /**
      * Re-initializes [DynamicDownloadDialog] if the user hasn't dismissed the dialog
      * before navigating away from it's original tab.
      * onTryAgain it will use [ContentAction.UpdateDownloadAction] to re-enqueue the former failed
@@ -555,52 +536,20 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
      * */
     @VisibleForTesting
     internal fun resumeDownloadDialogState(
-        sessionId: String?,
-        store: BrowserStore,
-        view: View,
-        context: Context,
-        toolbarHeight: Int
+        sessionId: String?
     ) {
         val savedDownloadState =
             sharedViewModel.downloadDialogState[sessionId]
 
         if (savedDownloadState == null || sessionId == null) {
-            //view.viewDynamicDownloadDialog.visibility = View.GONE
             return
         }
-
-        val onTryAgain: (String) -> Unit = {
-            savedDownloadState.first?.let { dlState ->
-                store.dispatch(
-                    ContentAction.UpdateDownloadAction(
-                        sessionId, dlState.copy(skipConfirmation = true)
-                    )
-                )
-            }
-        }
-
-        val onDismiss: () -> Unit =
-            { sharedViewModel.downloadDialogState.remove(sessionId) }
-
-        /*DynamicDownloadDialog(
-            container = view.browserLayout,
-            downloadState = savedDownloadState.first,
-            metrics = requireComponents.analytics.metrics,
-            didFail = savedDownloadState.second,
-            tryAgain = onTryAgain,
-            onCannotOpenFile = {
-                showCannotOpenFileError(view.browserLayout, context, it)
-            },
-            view = view.viewDynamicDownloadDialog,
-            toolbarHeight = toolbarHeight,
-            onDismiss = onDismiss
-        ).show()*/
 
         browserToolbarView.expand()
     }
 
     @VisibleForTesting
-    internal fun shouldPullToRefreshBeEnabled(inFullScreen: Boolean): Boolean {
+    internal fun shouldPullToRefreshBeEnabled(): Boolean {
         return UserPreferences(requireContext()).swipeToRefresh
     }
 
@@ -636,8 +585,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             }
         }
     }
-
-    //TODO: Custom add-on collections, final clean up, VideoDL + update SCW/BB
 
     @VisibleForTesting
     internal fun observeRestoreComplete(store: BrowserStore, navController: NavController) {
@@ -710,7 +657,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
                 val toolbarHeight = resources.getDimensionPixelSize(R.dimen.browser_toolbar_height)
                 val context = requireContext()
-                resumeDownloadDialogState(selectedTab.id, context.components.store, view, context, toolbarHeight)
+                resumeDownloadDialogState(selectedTab.id)
             }
         } else {
             view?.let { view -> initializeUI(view) }
@@ -913,7 +860,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             }
         }
 
-        binding.swipeRefresh.isEnabled = shouldPullToRefreshBeEnabled(inFullScreen)
+        binding.swipeRefresh.isEnabled = shouldPullToRefreshBeEnabled()
     }
 
     /*

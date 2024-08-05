@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.devtools.ksp'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
@@ -44,7 +45,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = '1.5.2'
+        kotlinCompilerExtensionVersion = '1.5.14'
     }
     androidResources {
         noCompress 'ja'
@@ -59,7 +60,7 @@ ext.abiCodes = ['arm64-v8a':1, x86:2, x86_64:3]
 
 import com.android.build.OutputFile
 
-android.applicationVariants.all { variant ->
+android.applicationVariants.configureEach { variant ->
 
     variant.outputs.each { output ->
 
@@ -78,24 +79,24 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
 
     // Support libraries
-    implementation "androidx.recyclerview:recyclerview:1.2.1"
-    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation "androidx.recyclerview:recyclerview:1.3.2"
+    implementation 'androidx.core:core-ktx:1.13.1'
     implementation "androidx.constraintlayout:constraintlayout:2.1.4"
-    implementation "androidx.drawerlayout:drawerlayout:1.1.1"
-    implementation "androidx.preference:preference-ktx:1.2.0"
+    implementation "androidx.drawerlayout:drawerlayout:1.2.0"
+    implementation "androidx.preference:preference-ktx:1.2.1"
     implementation "androidx.palette:palette-ktx:1.0.0"
-    implementation "androidx.annotation:annotation:1.5.0"
-    implementation "androidx.appcompat:appcompat:1.5.1"
+    implementation "androidx.annotation:annotation:1.8.1"
+    implementation "androidx.appcompat:appcompat:1.7.0"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.7'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.7'
 
     // Room
-    implementation "androidx.room:room-runtime:2.5.0"
-    kapt "androidx.room:room-compiler:2.5.0"
+    implementation "androidx.room:room-runtime:2.6.1"
+    ksp "androidx.room:room-compiler:2.6.1"
 
     final def daggerVersion = '2.38.1'
     implementation "com.google.dagger:dagger:$daggerVersion"
@@ -189,8 +190,8 @@ dependencies {
     implementation "org.mozilla.components:lib-fetch-httpurlconnection:$mozComponentsVersion"
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 
     // JSON parsing
     implementation"com.squareup.moshi:moshi:1.11.0"
@@ -202,13 +203,13 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.4.0'
 
-    implementation "androidx.compose.ui:ui:1.6.5"
-    implementation "androidx.compose.foundation:foundation:1.6.5"
-    implementation "androidx.compose.material:material:1.6.5"
+    implementation "androidx.compose.ui:ui:1.6.8"
+    implementation "androidx.compose.foundation:foundation:1.6.8"
+    implementation "androidx.compose.material:material:1.6.8"
 
 }
 
-project.configurations.all {
+project.configurations.configureEach {
     resolutionStrategy.capabilitiesResolution.withCapability("org.mozilla.telemetry:glean-native") {
         def toBeSelected = candidates.find { it.id instanceof ModuleComponentIdentifier && it.id.module.contains('geckoview') }
         if (toBeSelected != null) {

@@ -42,7 +42,7 @@ abstract class BaseSettingsFragment : PreferenceFragmentCompat() {
         isEnabled: Boolean = true,
         summary: String? = null,
         onClick: (SummaryUpdater) -> Unit
-    ) = findPreference<androidx.preference.Preference>(preference)?.apply {
+    ) = findPreference<Preference>(preference)?.apply {
         this.isEnabled = isEnabled
         summary?.let {
             this.summary = summary

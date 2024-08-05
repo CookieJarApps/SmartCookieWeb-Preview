@@ -33,7 +33,12 @@ open class HistoryItemRecyclerViewAdapter(
                 } else {
                     val filteredList: MutableList<VisitInfo> = ArrayList<VisitInfo>()
                     for (row in oldList) {
-                        if (row.url.toLowerCase().contains(charString.toLowerCase()) || row.title?.toLowerCase()?.contains(charString.toLowerCase()) == true) {
+                        if (row.url.lowercase(Locale.getDefault()).contains(charString.lowercase(Locale.getDefault())) || row.title?.lowercase(
+                                Locale.getDefault()
+                            )
+                                ?.contains(
+                                charString.lowercase(Locale.getDefault())
+                            ) == true) {
                             filteredList.add(row)
                         }
                     }

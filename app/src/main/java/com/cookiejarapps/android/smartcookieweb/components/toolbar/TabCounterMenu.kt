@@ -14,7 +14,7 @@ class TabCounterMenu(
     iconColor: Int? = null
 ) : TabCounterMenu(context, onItemTapped, iconColor) {
 
-    open class ExtendedItem: TabCounterMenu.Item() {
+    open class ExtendedItem: Item() {
         object DuplicateTab : Item()
     }
 

@@ -71,7 +71,7 @@ class PrivacyAndSecuritySettingsFragment : BaseSettingsFragment() {
         val inflater = requireContext().getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val layout: View =
             inflater.inflate(R.layout.dialog_clear_history, null)
-        // TODO: check times work correctly
+
         val timeArray: Array<Long> = arrayOf(System.currentTimeMillis() - TimeUnit.HOURS.toMillis(1),
             System.currentTimeMillis() - TimeUnit.DAYS.toMillis(1),
             System.currentTimeMillis() - TimeUnit.DAYS.toMillis(2),

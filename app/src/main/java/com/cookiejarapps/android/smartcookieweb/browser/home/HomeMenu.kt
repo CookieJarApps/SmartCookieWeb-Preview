@@ -18,15 +18,15 @@ class HomeMenu(
     private val onHighlightPresent: (BrowserMenuHighlight) -> Unit = {}
 ) {
     sealed class Item {
-        object WhatsNew : Item()
-        object Help : Item()
-        object AddonsManager : Item()
-        object Settings : Item()
-        object SyncedTabs : Item()
-        object History : Item()
-        object Bookmarks : Item()
-        object Downloads : Item()
-        object Quit : Item()
+        data object WhatsNew : Item()
+        data object Help : Item()
+        data object AddonsManager : Item()
+        data object Settings : Item()
+        data object SyncedTabs : Item()
+        data object History : Item()
+        data object Bookmarks : Item()
+        data object Downloads : Item()
+        data object Quit : Item()
     }
 
     private val shouldUseBottomToolbar = UserPreferences(context).shouldUseBottomToolbar

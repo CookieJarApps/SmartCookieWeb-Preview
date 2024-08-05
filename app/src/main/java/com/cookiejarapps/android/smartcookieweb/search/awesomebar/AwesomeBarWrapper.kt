@@ -33,7 +33,7 @@ class AwesomeBarWrapper @JvmOverloads constructor(
             return
         }
 
-        val orientation = if (UserPreferences(context).toolbarPosition == ToolbarPosition.TOP.ordinal) {
+        if (UserPreferences(context).toolbarPosition == ToolbarPosition.TOP.ordinal) {
             AwesomeBarOrientation.BOTTOM
         } else {
             AwesomeBarOrientation.TOP
@@ -43,7 +43,6 @@ class AwesomeBarWrapper @JvmOverloads constructor(
             AwesomeBar(
                 text = text.value,
                 providers = providers.value,
-               // orientation = orientation,
                 colors = AwesomeBarDefaults.colors(
                     background = Color.Transparent,
                     title = Color(context.getColorFromAttr(android.R.attr.textColorPrimary)),
@@ -81,7 +80,7 @@ class AwesomeBarWrapper @JvmOverloads constructor(
 
     override fun removeProviders(vararg providers: AwesomeBar.SuggestionProvider) {
         val newProviders = this.providers.value.toMutableList()
-        newProviders.removeAll(providers)
+        newProviders.removeAll(providers.toSet())
         this.providers.value = newProviders
     }
 

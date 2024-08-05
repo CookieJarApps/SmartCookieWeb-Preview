@@ -81,7 +81,7 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val args by navArgs<SearchDialogFragmentArgs>()
         _binding = FragmentSearchDialogBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -202,7 +202,7 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
             *  query as consumeFrom may run several times on fragment start due to state updates.
             * */
             if (it.url != it.query) firstUpdate = false
-            binding.awesomeBar?.visibility = if (shouldShowAwesomebar(it)) View.VISIBLE else View.INVISIBLE
+            binding.awesomeBar.visibility = if (shouldShowAwesomebar(it)) View.VISIBLE else View.INVISIBLE
             updateClipboardSuggestion(it, requireContext().components.clipboardHandler.url)
             updateToolbarContentDescription(it)
             updateSearchShortcutsIcon(it)
@@ -244,7 +244,7 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
         return true
     }
 
-    private fun historyStorageProvider(): HistoryStorage? {
+    private fun historyStorageProvider(): HistoryStorage {
         return components.historyStorage
     }
 

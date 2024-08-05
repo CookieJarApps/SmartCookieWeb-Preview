@@ -33,30 +33,13 @@ class SaveToPDFMiddleware(
 
             is EngineAction.SaveToPdfCompleteAction -> { }
 
-            is EngineAction.SaveToPdfExceptionAction -> {
-                /*context.components.appStore.dispatch(
-                    AppAction.UpdateStandardSnackbarErrorAction(
-                        StandardSnackbarError(
-                            context.getString(R.string.unable_to_save_to_pdf_error),
-                        ),
-                    ),
-                )
-                postTelemetryFailed(ctx.state.findTab(action.tabId), action.throwable, isPrint = false)*/
-            }
+            is EngineAction.SaveToPdfExceptionAction -> { }
 
             is EngineAction.PrintContentAction -> {
                 next(action)
             }
             is EngineAction.PrintContentCompletedAction -> { }
-            is EngineAction.PrintContentExceptionAction -> {
-                /*context.components.appStore.dispatch(
-                    AppAction.UpdateStandardSnackbarErrorAction(
-                        StandardSnackbarError(
-                            context.getString(R.string.unable_to_print_error),
-                        ),
-                    ),
-                )*/
-            }
+            is EngineAction.PrintContentExceptionAction -> { }
             else -> {
                 next(action)
             }

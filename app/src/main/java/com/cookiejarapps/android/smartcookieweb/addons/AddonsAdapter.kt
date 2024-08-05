@@ -179,7 +179,7 @@ class AddonsAdapter(
 
         holder.titleView.text = addonName
 
-        if (!addon.translatableSummary.isEmpty()) {
+        if (addon.translatableSummary.isNotEmpty()) {
             holder.summaryView.text = addon.translateSummary(context)
         } else {
             holder.summaryView.visibility = View.GONE

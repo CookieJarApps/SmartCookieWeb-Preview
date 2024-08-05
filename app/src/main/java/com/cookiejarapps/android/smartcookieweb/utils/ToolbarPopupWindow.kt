@@ -63,7 +63,7 @@ object ToolbarPopupWindow {
                     it,
                     context.resources.getString(R.string.copied),
                     Snackbar.LENGTH_SHORT
-                )
+                ).show()
             }
         }
 

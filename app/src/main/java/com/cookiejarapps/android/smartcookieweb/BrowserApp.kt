@@ -93,8 +93,6 @@ class BrowserApp : LocaleAwareApplication() {
 
         runOnlyInMainProcess {
             components.icons.onTrimMemory(level)
-
-            // TODO: ADD SETTING TO DISABLE THIS
             components.store.dispatch(SystemAction.LowMemoryAction(level))
         }
     }

@@ -192,7 +192,6 @@ open class Components(private val applicationContext: Context) {
         AddonManager(store, engine, addonCollectionProvider, addonUpdater)
     }
 
-    // TODO: Swap out version code for proper collection user
     val addonCollectionProvider by lazy {
         if(UserPreferences(applicationContext).customAddonCollection){
             AMOAddonsProvider(

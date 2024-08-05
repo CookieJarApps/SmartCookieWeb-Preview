@@ -40,6 +40,8 @@
   <string name="key_news_visible" translatable="false">news_visible</string>
   <string name="key_tracking_protection" translatable="false">tracking_protection</string>
   <string name="key_trust_third_party_certs" translatable="false">trust_third_party_certs</string>
+  <string name="key_homepage_background_image" translatable="false">homepage_background_image</string>
+  <string name="key_load_shortcut_icons" translatable="false">load_shortcut_icons</string>
 
   <string name="more">More Info</string>
   <string name="version">Application version</string>
@@ -206,6 +208,18 @@
   <string name="blank_page">Blank page</string>
   <string name="custom_page">Custom page</string>
 
+  <string name="homepage_background_image">Homepage background image</string>
+  <string name="homepage_background_gallery">Choose from gallery</string>
+  <string name="homepage_background_url">Enter URL</string>
+
+  <string name="load_shortcut_icons">Load website icons for shortcuts</string>
+
+  <string-array name="homepage_background_image_types">
+    <item>@string/none</item>
+    <item>@string/homepage_background_gallery</item>
+    <item>@string/homepage_background_url</item>
+  </string-array>
+
   <string name="move_navbar">Move navbar to bottom</string>
 
   <string-array name="homepage_types">
@@ -296,6 +310,7 @@
 
   <string name="clear">Clear</string>
   <string name="name">Name</string>
+  <string name="none">None</string>
 
   <string name="show_site_icons">Show site icons?</string>
   <string name="allow_shortcut_favicons">Load icons for shortcuts</string>

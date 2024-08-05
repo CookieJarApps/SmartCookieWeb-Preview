@@ -45,7 +45,7 @@ class WebExtensionTabletPopupFragment : DialogFragment(), UserInteractionHandler
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         webExtensionId = requireNotNull(arguments?.getString("web_extension_id"))
 
         components.store.state.extensions[webExtensionId]?.popupSession?.let {

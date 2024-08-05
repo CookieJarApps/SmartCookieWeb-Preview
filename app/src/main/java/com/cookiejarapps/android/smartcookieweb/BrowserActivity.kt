@@ -113,7 +113,6 @@ open class BrowserActivity : LocaleAwareAppCompatActivity(), ComponentCallbacks2
         if(UserPreferences(this).firstLaunch){
             UserPreferences(this).firstLaunch = false
         }
-        //TODO: remove this once most people have updated
         if(UserPreferences(this).showTabsInGrid && UserPreferences(this).stackFromBottom) UserPreferences(this).stackFromBottom = false
 
         //TODO: Move to settings page so app restart no longer required

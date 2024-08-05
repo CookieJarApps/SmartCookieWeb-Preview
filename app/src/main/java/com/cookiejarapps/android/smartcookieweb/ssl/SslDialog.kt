@@ -31,7 +31,7 @@ fun Context.showSslDialog() {
 
     MaterialAlertDialogBuilder(this)
         .setIcon(icon)
-        .setTitle(host ?: this.resources.getString(R.string.blank_page))
+        .setTitle(host)
         .setPositiveButton(R.string.mozac_feature_prompts_ok, null)
         .setView(contentView)
         .show()

@@ -61,7 +61,6 @@ class BrowserToolbarView(
 
     val toolbarIntegration: ToolbarIntegration
 
-    //TODO: FIX THIS
     @VisibleForTesting
     internal val isPwaTabOrTwaTab: Boolean
         get() = false
@@ -135,20 +134,21 @@ class BrowserToolbarView(
             }
 
             val menuToolbar: ToolbarMenu
-            menuToolbar = BrowserMenu(
-                    context = this,
-                    store = components.store,
-                    onItemTapped = {
-                        it.performHapticIfNeeded(view)
-                        interactor.onBrowserToolbarMenuItemTapped(it)
-                    },
-                    lifecycleOwner = lifecycleOwner,
-                    isPinningSupported = isPinningSupported,
+            BrowserMenu(
+                context = this,
+                store = components.store,
+                onItemTapped = {
+                    it.performHapticIfNeeded(view)
+                    interactor.onBrowserToolbarMenuItemTapped(it)
+                },
+                lifecycleOwner = lifecycleOwner,
+                isPinningSupported = isPinningSupported,
                 shouldReverseItems = settings.toolbarPosition == ToolbarPosition.TOP.ordinal
-                )
-                view.display.setMenuDismissAction {
-                    view.invalidateActions()
-                }
+            ).also { menuToolbar = it }
+
+            view.display.setMenuDismissAction {
+                view.invalidateActions()
+            }
 
             toolbarIntegration = DefaultToolbarIntegration(
                     this,

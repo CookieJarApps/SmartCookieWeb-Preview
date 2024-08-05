@@ -88,7 +88,7 @@ open class BookmarkAdapter(
         val url: TextView = itemView.findViewById(R.id.urlTextView)
     }
 
-    open class BookmarkItemHolder(itemView: View, adapter: BookmarkAdapter) : ArrayRecyclerAdapter.ArrayViewHolder<BookmarkItem>(itemView, adapter) {
+    open class BookmarkItemHolder(itemView: View, adapter: BookmarkAdapter) : ArrayViewHolder<BookmarkItem>(itemView, adapter) {
         val title: TextView = itemView.findViewById(R.id.titleTextView)
         val icon: ImageButton = itemView.findViewById(R.id.imageButton)
         val more: ImageButton = itemView.findViewById(R.id.dropdownBookmark)

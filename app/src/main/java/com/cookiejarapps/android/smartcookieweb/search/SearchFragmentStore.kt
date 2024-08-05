@@ -28,7 +28,7 @@ class SearchFragmentStore(
 sealed class SearchEngineSource {
     abstract val searchEngine: SearchEngine?
 
-    object None : SearchEngineSource() {
+    data object None : SearchEngineSource() {
         override val searchEngine: SearchEngine? = null
     }
 

@@ -89,7 +89,7 @@ fun View.updateAccessibilityCollectionInfo(
             info: AccessibilityNodeInfo
         ) {
             super.onInitializeAccessibilityNodeInfo(host, info)
-            info?.collectionInfo = AccessibilityNodeInfo.CollectionInfo.obtain(
+            info.collectionInfo = AccessibilityNodeInfo.CollectionInfo.obtain(
                 rowCount,
                 columnCount,
                 false
@@ -169,5 +169,5 @@ internal fun View.getKeyboardHeight(): Int {
  * The assumed minimum height of the keyboard.
  */
 @VisibleForTesting
-@Dimension(unit = Dimension.DP)
+@Dimension(unit = DP)
 internal const val MINIMUM_KEYBOARD_HEIGHT = 100

@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/title"
+            android:importantForAutofill="no"
             android:inputType="text">
 
             <requestFocus />
@@ -43,6 +44,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/url"
+            android:importantForAutofill="no"
             android:inputType="textUri" />
 
     </com.google.android.material.textfield.TextInputLayout>

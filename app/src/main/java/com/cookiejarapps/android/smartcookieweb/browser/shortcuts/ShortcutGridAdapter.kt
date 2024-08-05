@@ -12,7 +12,9 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.graphics.drawable.toDrawable
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.utils.Utils
 import mozilla.components.browser.icons.IconRequest
@@ -46,7 +48,7 @@ internal class ShortcutGridAdapter(
             position: Int,
             convertView: View?,
             parent: ViewGroup
-    ): View? {
+    ): View {
         var convertView = convertView
         if (layoutInflater == null) {
             layoutInflater =
@@ -56,12 +58,23 @@ internal class ShortcutGridAdapter(
             convertView = layoutInflater!!.inflate(R.layout.shortcut_item, null)
         }
         imageView = convertView!!.findViewById(R.id.shortcut_icon)
-        nameView = convertView!!.findViewById(R.id.shortcut_name)
+        nameView = convertView.findViewById(R.id.shortcut_name)
 
         val protocolUrl = if(shortcuts[position].url!!.startsWith("http")) shortcuts[position].url else "https://" +  shortcuts[position].url
-        val icon: Bitmap = Utils().createImage(name = getUrlCharacter(protocolUrl!!), context = context)
 
-        imageView.setImageBitmap(icon)
+        if(UserPreferences(context).loadShortcutIcons) {
+            val iconPlaceholder =
+                Utils().createImage(name = getUrlCharacter(protocolUrl!!), context = context)
+                    .toDrawable(context.resources)
+            context.components.icons.loadIntoView(
+                imageView,
+                IconRequest(protocolUrl),
+                iconPlaceholder,
+                iconPlaceholder
+            )
+        } else {
+            imageView.setImageDrawable(Utils().createImage(name = getUrlCharacter(protocolUrl!!), context = context).toDrawable(context.resources))
+        }
 
         nameView.text = shortcuts[position].title
 
@@ -89,7 +102,7 @@ internal class ShortcutGridAdapter(
 
         snippet.forEach { character ->
             if (character.isLetterOrDigit()) {
-                return character.toUpperCase().toString()
+                return character.uppercaseChar().toString()
             }
         }
 

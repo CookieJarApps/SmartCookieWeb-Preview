@@ -63,7 +63,7 @@ class AppRequestInterceptor(val context: Context) : RequestInterceptor {
         session: EngineSession,
         errorType: ErrorType,
         uri: String?
-    ): RequestInterceptor.ErrorResponse? {
+    ): RequestInterceptor.ErrorResponse {
         val riskLevel = getErrorCategory(errorType)
 
         if (uri == "about:homepage") {

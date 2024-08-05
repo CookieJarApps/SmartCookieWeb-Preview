@@ -1,18 +1,51 @@
 package com.cookiejarapps.android.smartcookieweb.settings.fragment
 
+import android.app.AlertDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.UserManager
+import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreference
 import androidx.preference.SwitchPreferenceCompat
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.browser.HomepageBackgroundChoice
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 class CustomizationSettingsFragment : BaseSettingsFragment() {
+
+    private lateinit var getBackgroundImageUri: ActivityResultLauncher<String>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        getBackgroundImageUri = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            // Handle the returned Uri
+            if (uri != null) {
+                requireContext().contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                UserPreferences(requireContext()).homepageBackgroundUrl = uri.toString()
+                Toast.makeText(
+                    context,
+                    requireContext().resources.getText(R.string.successful),
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                UserPreferences(requireContext()).homepageBackgroundChoice = HomepageBackgroundChoice.NONE.ordinal
+                Toast.makeText(
+                    context,
+                    requireContext().resources.getText(R.string.failed),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, s: String?) {
         addPreferencesFromResource(R.xml.preferences_customization)
@@ -138,6 +171,14 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
             }
         )
 
+        switchPreference(
+            preference = requireContext().resources.getString(R.string.key_load_shortcut_icons),
+            isChecked = UserPreferences(requireContext()).loadShortcutIcons,
+            onCheckChange = {
+                UserPreferences(requireContext()).loadShortcutIcons = it
+            }
+        )
+
         clickablePreference(
             preference = requireContext().resources.getString(R.string.key_app_theme_type),
             onClick = { pickAppTheme() }
@@ -146,6 +187,12 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
         clickablePreference(
             preference = requireContext().resources.getString(R.string.key_web_theme_type),
             onClick = { pickWebTheme() }
+        )
+
+        clickablePreference(
+            preference = requireContext().resources.getString(R.string.key_homepage_background_image),
+            onClick = { pickHomepageBackground() },
+            summary = resources.getStringArray(R.array.homepage_background_image_types)[UserPreferences(requireContext()).homepageBackgroundChoice]
         )
 
         switchPreference(
@@ -167,6 +214,60 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
                 }
         )
 
+    }
+
+    private fun pickHomepageBackground() {
+        val startingChoice = UserPreferences(requireContext()).homepageBackgroundChoice
+        val singleItems = resources.getStringArray(R.array.homepage_background_image_types).toMutableList()
+        val checkedItem = UserPreferences(requireContext()).homepageBackgroundChoice
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.homepage_background_image))
+            .setNeutralButton(resources.getString(R.string.cancel)) { _, _ ->
+                UserPreferences(requireContext()).homepageBackgroundChoice = startingChoice
+            }
+            .setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { _, _ ->}
+            .setSingleChoiceItems(singleItems.toTypedArray(), checkedItem) { _ , which ->
+                UserPreferences(requireContext()).homepageBackgroundChoice = which
+                preferenceScreen.findPreference<Preference>(requireContext().resources.getString(R.string.key_homepage_background_image))!!.summary = singleItems[which]
+                when(which) {
+                    HomepageBackgroundChoice.URL.ordinal -> {
+                        AlertDialog.Builder(requireContext())
+                            .setTitle(resources.getString(R.string.homepage_background_image))
+                            .setMessage(resources.getString(R.string.url))
+                            .setView(R.layout.dialog_edittext)
+                            .setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { dialog, _ ->
+                                val editText = (dialog as AlertDialog).findViewById<EditText>(R.id.edit_text)
+                                if (editText != null) {
+                                    UserPreferences(requireContext()).homepageBackgroundUrl = editText.text.toString()
+                                    Toast.makeText(
+                                        context,
+                                        requireContext().resources.getText(R.string.successful),
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                } else {
+                                    UserPreferences(requireContext()).homepageBackgroundChoice = HomepageBackgroundChoice.NONE.ordinal
+                                    Toast.makeText(
+                                        context,
+                                        requireContext().resources.getText(R.string.failed),
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                            }
+                            .setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ ->
+                                UserPreferences(requireContext()).homepageBackgroundChoice = HomepageBackgroundChoice.NONE.ordinal
+                            }
+                            .show()
+                            .apply {
+                                findViewById<EditText>(R.id.edit_text)?.setText(UserPreferences(requireContext()).homepageBackgroundUrl)
+                            }
+                    }
+                    HomepageBackgroundChoice.GALLERY.ordinal -> {
+                        getBackgroundImageUri.launch("image/*")
+                    }
+                }
+            }
+            .show()
     }
 
     private fun pickAppTheme(){

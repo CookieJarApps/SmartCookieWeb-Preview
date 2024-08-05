@@ -45,7 +45,7 @@ class ToolbarGestureHandler(
 
     private sealed class Destination {
         data class Tab(val tab: TabSessionState) : Destination()
-        object None : Destination()
+        data object None : Destination()
     }
 
     private val windowWidth: Int

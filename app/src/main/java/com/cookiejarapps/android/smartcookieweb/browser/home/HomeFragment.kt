@@ -3,8 +3,14 @@ package com.cookiejarapps.android.smartcookieweb.browser.home
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.Display.FLAG_SECURE
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -33,6 +39,7 @@ import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.addons.AddonsActivity
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
+import com.cookiejarapps.android.smartcookieweb.browser.HomepageBackgroundChoice
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutDatabase
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutEntity
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutGridAdapter
@@ -54,6 +61,8 @@ import mozilla.components.browser.state.selector.privateTabs
 import mozilla.components.browser.state.state.BrowserState
 import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
 import mozilla.components.browser.state.store.BrowserStore
+import mozilla.components.concept.fetch.Request
+import mozilla.components.lib.fetch.httpurlconnection.HttpURLConnectionClient
 import mozilla.components.lib.state.ext.consumeFlow
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.ui.tabcounter.TabCounterMenu
@@ -93,11 +102,11 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        val activity = activity as BrowserActivity
+        activity as BrowserActivity
         val components = requireContext().components
 
         updateLayout(view)
@@ -110,6 +119,68 @@ class HomeFragment : Fragment() {
         if(!UserPreferences(requireContext()).shortcutDrawerOpen){
             binding.shortcutName.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_shortcuts, 0, R.drawable.ic_baseline_chevron_up, 0)
             binding.shortcutGrid.visibility = View.GONE
+        }
+
+        when(UserPreferences(requireContext()).homepageBackgroundChoice) {
+            HomepageBackgroundChoice.URL.ordinal -> {
+                val url = UserPreferences(requireContext()).homepageBackgroundUrl
+                if(url != ""){
+                    val fullUrl = if(url.startsWith("http")) url else "https://$url"
+                    val request = Request(fullUrl)
+                    val client = HttpURLConnectionClient()
+
+                    GlobalScope.launch {
+                        val response = client.fetch(request)
+                        response.use {
+                            val bitmap = it.body.useStream { stream -> BitmapFactory.decodeStream(stream) }
+                            ThreadUtils.runOnUiThread {
+                                if(activity != null) {
+                                    val customBackground = object : BitmapDrawable(resources, bitmap) {
+                                        override fun draw(canvas: Canvas) {
+                                            val width = bounds.width()
+                                            val height = bounds.height()
+                                            val bitmapWidth = bitmap.width
+                                            val bitmapHeight = bitmap.height
+
+                                            val scale = maxOf(
+                                                width.toFloat() / bitmapWidth.toFloat(),
+                                                height.toFloat() / bitmapHeight.toFloat()
+                                            )
+
+                                            val scaledWidth = (bitmapWidth * scale).toInt()
+                                            val scaledHeight = (bitmapHeight * scale).toInt()
+
+                                            val left = (width - scaledWidth) / 2
+                                            val top = (height - scaledHeight) / 2
+
+                                            val src = Rect(0, 0, bitmapWidth, bitmapHeight)
+                                            val dst = Rect(left, top, left + scaledWidth, top + scaledHeight)
+
+                                            canvas.drawBitmap(bitmap, src, dst, paint)
+                                        }
+                                    }
+
+                                    customBackground.gravity = Gravity.CENTER
+
+                                    binding.homeLayout.background = customBackground
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            HomepageBackgroundChoice.GALLERY.ordinal -> {
+                val uri = UserPreferences(requireContext()).homepageBackgroundUrl
+                if(uri != ""){
+                    if(activity != null) {
+                        val bitmap = MediaStore.Images.Media.getBitmap(
+                            requireContext().contentResolver,
+                            Uri.parse(uri)
+                        )
+                        binding.homeLayout.background = BitmapDrawable(resources, bitmap)
+                    }
+                }
+            }
         }
 
         binding.shortcutName.setOnClickListener {
@@ -128,8 +199,8 @@ class HomeFragment : Fragment() {
         GlobalScope.launch {
             // Update shortcut database to hold name
             val MIGRATION_1_2: Migration = object : Migration(1, 2) {
-                override fun migrate(database: SupportSQLiteDatabase) {
-                    database.execSQL("ALTER TABLE shortcutentity ADD COLUMN title TEXT")
+                override fun migrate(db: SupportSQLiteDatabase) {
+                    db.execSQL("ALTER TABLE shortcutentity ADD COLUMN title TEXT")
                 }
             }
 
@@ -332,7 +403,7 @@ class HomeFragment : Fragment() {
                         val searchIcon =
                             BitmapDrawable(requireContext().resources, searchEngine.icon)
                         searchIcon.setBounds(0, 0, iconSize, iconSize)
-                        binding.searchEngineIcon?.setImageDrawable(searchIcon)
+                        binding.searchEngineIcon.setImageDrawable(searchIcon)
                     } else {
                         binding.searchEngineIcon.setImageDrawable(null)
                     }
@@ -371,7 +442,6 @@ class HomeFragment : Fragment() {
                 sessionId = null
             )
 
-        // TODO: OPTIONS
         nav(R.id.homeFragment, directions, null)
     }
 
@@ -428,7 +498,7 @@ class HomeFragment : Fragment() {
             browserState.normalTabs.size
         }
 
-        binding?.tabButton?.setCountWithAnimation(tabCount)
+        binding.tabButton.setCountWithAnimation(tabCount)
     }
 
     companion object {

@@ -74,10 +74,10 @@ class PathViewAdapter<T : PathView.Path>(context: Context, private val pathView:
 
         val padding: Int
 
-        if (position == items.lastIndex){
-            padding = endPadding.toInt()
+        padding = if (position == items.lastIndex){
+            endPadding.toInt()
         } else{
-            padding = standardPadding.toInt()
+            standardPadding.toInt()
         }
 
         textView.setPadding(standardPadding.toInt(), 0, padding, 0)

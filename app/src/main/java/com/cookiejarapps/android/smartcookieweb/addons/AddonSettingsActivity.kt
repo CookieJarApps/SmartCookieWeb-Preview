@@ -68,7 +68,7 @@ class AddonSettingsActivity : AppCompatActivity() {
         private var _binding: FragmentAddOnSettingsBinding? = null
         protected val binding get() = _binding!!
 
-        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
             addon = requireNotNull(arguments?.getParcelable("add_on"))
             engineSession = components.engine.createSession()
 

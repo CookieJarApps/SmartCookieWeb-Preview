@@ -145,7 +145,7 @@ abstract class ArrayRecyclerAdapter<T, VH : ArrayRecyclerAdapter.ArrayViewHolder
         return itemSelected.get(position, false)
     }
 
-    open class ArrayViewHolder<I>(itemView: View, adapter: ArrayRecyclerAdapter<I, *>) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+    open class ArrayViewHolder<I>(itemView: View, adapter: ArrayRecyclerAdapter<I, *>) : RecyclerView.ViewHolder(itemView) {
 
         private var target: I? = null
         protected val item: I

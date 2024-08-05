@@ -71,7 +71,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
     override fun onViewCreated(rootView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(rootView, savedInstanceState)
-        bindRecyclerView(rootView)
+        bindRecyclerView()
 
         webExtensionPromptFeature.set(
             feature = WebExtensionPromptFeature(
@@ -90,7 +90,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
         super.onStart()
 
         this@AddonsFragment.view?.let { view ->
-            bindRecyclerView(view)
+            bindRecyclerView()
             bindSpinner(view)
         }
 
@@ -125,7 +125,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     private fun filterAddonByQuery(query: String): Boolean {
         val filteredList = arrayListOf<Addon>()
 
-        addons?.forEach { addon ->
+        addons.forEach { addon ->
             addon.translateName(requireContext()).let { name ->
                 if (name.lowercase(Locale.ENGLISH).contains(query.lowercase(Locale.ENGLISH))) {
                     filteredList.add(addon)
@@ -170,7 +170,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                 row: Long
             ) {
                 UserPreferences(requireContext()).addonSort = position
-                if(recyclerView.adapter != null && recyclerView.adapter is AddonsAdapter){
+                if (recyclerView.adapter != null && recyclerView.adapter is AddonsAdapter) {
                     (recyclerView.adapter as AddonsAdapter).sortAddonList()
                 }
             }
@@ -181,7 +181,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
         }
     }
 
-    private fun bindRecyclerView(rootView: View) {
+    private fun bindRecyclerView() {
         recyclerView = binding.addOnsList
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         scope.launch {
@@ -190,7 +190,8 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
                 scope.launch(Dispatchers.Main) {
                     context?.let {
-                        val addonCollectionProvider = requireContext().components.addonCollectionProvider
+                        val addonCollectionProvider =
+                            requireContext().components.addonCollectionProvider
 
                         val style = AddonsAdapter.Style(
                             dividerColor = requireContext().theme.resolveAttribute(android.R.attr.textColorSecondary),
@@ -206,7 +207,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                             adapter = AddonsAdapter(
                                 addonCollectionProvider = addonCollectionProvider,
                                 addonsManagerDelegate = this@AddonsFragment,
-                                addons = addons!!,
+                                addons = addons,
                                 style = style,
                                 context = requireContext()
                             )
@@ -216,10 +217,10 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                             if (bundle?.getString("ADDON_ID") != null) {
                                 val addonId = bundle.getString("ADDON_ID", "")
                                 val addonUrl = bundle.getString("ADDON_URL", "")
-                                installAddonById(addons!!, addonId, addonUrl)
+                                installAddonById(addons, addonId, addonUrl)
                             }
                         } else {
-                            adapter?.updateAddons(addons!!)
+                            adapter?.updateAddons(addons)
                         }
                     }
                 }
@@ -242,33 +243,38 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
         if (addonToInstall == null) {
             val builder = MaterialAlertDialogBuilder(requireContext())
             builder.setMessage(resources.getString(R.string.addon_not_available))
-                .setPositiveButton(R.string.mozac_feature_prompts_ok) { dialog, id ->
-
+                .setPositiveButton(R.string.mozac_feature_prompts_ok) { _, _ ->
                     val loadingDialog = ProgressDialog.show(
                         activity, "",
                         requireContext().resources.getString(R.string.loading), true
                     )
 
-                    components.engine.installWebExtension(url, InstallationMethod.FROM_FILE, onSuccess = {
-                        CoroutineScope(Dispatchers.IO).launch {
-                            addons = requireContext().components.addonManager.getAddons()
-                            ThreadUtils.runOnUiThread {
-                                loadingDialog.dismiss()
-                                Toast.makeText(
-                                    requireContext(),
-                                    requireContext().resources.getString(R.string.installed),
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                adapter?.updateAddons(addons!!)
+                    components.engine.installWebExtension(url,
+                        InstallationMethod.FROM_FILE,
+                        onSuccess = {
+                            CoroutineScope(Dispatchers.IO).launch {
+                                addons = requireContext().components.addonManager.getAddons()
+                                ThreadUtils.runOnUiThread {
+                                    loadingDialog.dismiss()
+                                    Toast.makeText(
+                                        requireContext(),
+                                        requireContext().resources.getString(R.string.installed),
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                    adapter?.updateAddons(addons)
+                                }
                             }
-                        }
-                    },
+                        },
                         onError = {
                             loadingDialog.dismiss()
-                            Toast.makeText(requireContext(), requireContext().resources.getString(R.string.error), Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                requireContext(),
+                                requireContext().resources.getString(R.string.error),
+                                Toast.LENGTH_LONG
+                            ).show()
                         })
                 }
-                .setNegativeButton(R.string.cancel) { dialog, id ->
+                .setNegativeButton(R.string.cancel) { dialog, _ ->
                     dialog.cancel()
                 }
 
@@ -305,18 +311,22 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
             addon.downloadUrl,
             InstallationMethod.MANAGER,
             onSuccess = {
-               isInstallationInProgress = false
+                isInstallationInProgress = false
                 adapter?.updateAddon(it)
-                binding?.addonProgressOverlay?.root?.visibility = View.GONE
+                binding.addonProgressOverlay.root.visibility = View.GONE
                 showInstallationDialog(it)
             },
             onError = { e ->
-                this.view?.let { view ->
+                this.view?.let {
                     // No need to display an error message if installation was cancelled by the user.
                     if (e !is CancellationException) {
-                        Toast.makeText(requireContext(), requireContext().resources.getString(R.string.error), Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            requireContext(),
+                            requireContext().resources.getString(R.string.error),
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
-                    binding?.addonProgressOverlay?.root?.visibility = View.GONE
+                    binding.addonProgressOverlay.root.visibility = View.GONE
                     isInstallationInProgress = false
                 }
             },
@@ -350,7 +360,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
         if (isInstallationInProgress) {
             return
         }
-        val addonCollectionProvider = requireContext().components.addonCollectionProvider
+        requireContext().components.addonCollectionProvider
         val dialog = AddonInstallationDialogFragment.newInstance(
             addon = addon,
             onConfirmButtonClicked = onConfirmInstallationButtonClicked
@@ -361,14 +371,15 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
         }
     }
 
-    private val onConfirmInstallationButtonClicked: ((Addon, Boolean) -> Unit) = { addon, allowInPrivateBrowsing ->
-        if (allowInPrivateBrowsing) {
-            requireContext().components.addonManager.setAddonAllowedInPrivateBrowsing(
-                addon,
-                allowInPrivateBrowsing
-            )
+    private val onConfirmInstallationButtonClicked: ((Addon, Boolean) -> Unit) =
+        { addon, allowInPrivateBrowsing ->
+            if (allowInPrivateBrowsing) {
+                requireContext().components.addonManager.setAddonAllowedInPrivateBrowsing(
+                    addon,
+                    allowInPrivateBrowsing
+                )
+            }
         }
-    }
 
     private val onConfirmPermissionButtonClicked: ((Addon) -> Unit) = { addon ->
         binding.addonProgressOverlay.root.visibility = View.VISIBLE

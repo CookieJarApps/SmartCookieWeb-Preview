@@ -1,4 +1,4 @@
-package org.mozilla.fenix.home
+package com.cookiejarapps.android.smartcookieweb.browser.home
 
 import androidx.lifecycle.ViewModel
 import mozilla.components.browser.state.state.content.DownloadState

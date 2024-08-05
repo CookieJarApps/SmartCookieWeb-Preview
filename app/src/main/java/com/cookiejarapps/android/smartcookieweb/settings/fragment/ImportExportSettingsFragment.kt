@@ -110,7 +110,7 @@ class ImportExportSettingsFragment : BaseSettingsFragment() {
         while (true) {
             val rsz = `in`.read(buffer, 0, buffer.size)
             if (rsz < 0) break
-            out.append(buffer, 0, rsz)
+            out.appendRange(buffer, 0, rsz)
         }
 
         val content = out.toString()
@@ -205,7 +205,8 @@ class ImportExportSettingsFragment : BaseSettingsFragment() {
         builder.setTitle(getString(R.string.clear_settings))
 
         builder.setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)){dialogInterface , which ->
-            Toast.makeText(getActivity(),
+            Toast.makeText(
+                activity,
                     R.string.successful, Toast.LENGTH_LONG).show()
 
             requireContext().getSharedPreferences(SCW_PREFERENCES, 0).edit().clear().apply()
@@ -221,7 +222,7 @@ class ImportExportSettingsFragment : BaseSettingsFragment() {
 
     private fun exportSettings(uri: Uri) {
         val userPref = requireActivity().getSharedPreferences(SCW_PREFERENCES, 0)
-        val allEntries: Map<String, *> = userPref!!.getAll()
+        val allEntries: Map<String, *> = userPref!!.all
         var string = "{"
         for (entry in allEntries.entries) {
             string += "\"${entry.key}\"=\"${entry.value}\","
@@ -250,7 +251,7 @@ class ImportExportSettingsFragment : BaseSettingsFragment() {
         while (true) {
             val rsz = `in`.read(buffer, 0, buffer.size)
             if (rsz < 0) break
-            out.append(buffer, 0, rsz)
+            out.appendRange(buffer, 0, rsz)
         }
 
         val content = out.toString()
@@ -265,7 +266,7 @@ class ImportExportSettingsFragment : BaseSettingsFragment() {
                 if(value.matches("-?\\d+".toRegex())){
                     putInt(key, value.toInt())
                 }
-                else if(value.equals("true") || value.equals("false")){
+                else if(value == "true" || value == "false"){
                     putBoolean(key, value.toBoolean())
                 }
                 else{

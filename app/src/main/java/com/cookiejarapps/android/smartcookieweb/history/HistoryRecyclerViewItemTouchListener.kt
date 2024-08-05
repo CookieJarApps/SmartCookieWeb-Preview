@@ -12,13 +12,25 @@ class HistoryRecyclerViewItemTouchListener(
     context: Context?,
     recyclerView: RecyclerView,
     private val mListener: OnItemClickListener?
-) : RecyclerView.OnItemTouchListener {
+) : OnItemTouchListener {
     interface OnItemClickListener {
         fun onItemClick(view: View?, position: Int)
         fun onLongItemClick(view: View?, position: Int)
     }
 
-    var mGestureDetector: GestureDetector
+    var mGestureDetector: GestureDetector = GestureDetector(context, object : SimpleOnGestureListener() {
+        override fun onSingleTapUp(e: MotionEvent): Boolean {
+            return true
+        }
+
+        override fun onLongPress(e: MotionEvent) {
+            val child: View? = recyclerView.findChildViewUnder(e.x, e.y)
+            if (child != null && mListener != null) {
+                mListener.onLongItemClick(child, recyclerView.getChildAdapterPosition(child))
+            }
+        }
+    })
+
     override fun onInterceptTouchEvent(view: RecyclerView, e: MotionEvent): Boolean {
         val childView: View? = view.findChildViewUnder(e.x, e.y)
         if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
@@ -30,19 +42,4 @@ class HistoryRecyclerViewItemTouchListener(
 
     override fun onTouchEvent(view: RecyclerView, motionEvent: MotionEvent) {}
     override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
-
-    init {
-        mGestureDetector = GestureDetector(context, object : SimpleOnGestureListener() {
-            override fun onSingleTapUp(e: MotionEvent): Boolean {
-                return true
-            }
-
-            override fun onLongPress(e: MotionEvent) {
-                val child: View? = recyclerView.findChildViewUnder(e.x, e.y)
-                if (child != null && mListener != null) {
-                    mListener.onLongItemClick(child, recyclerView.getChildAdapterPosition(child))
-                }
-            }
-        })
-    }
 }

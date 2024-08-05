@@ -3,78 +3,91 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
-            app:key="@string/key_app_theme_type"
-            app:title="@string/theme"
-            app:summary="@string/theme_explain"
-            app:singleLineTitle="false"
-            app:defaultValue="false"/>
+        app:key="@string/key_app_theme_type"
+        app:title="@string/theme"
+        app:summary="@string/theme_explain"
+        app:singleLineTitle="false"
+        app:defaultValue="false" />
 
     <Preference
-            app:key="@string/key_web_theme_type"
-            app:title="@string/web_theme"
-            app:summary="@string/web_theme_explain"
-            app:singleLineTitle="false"
-            app:defaultValue="false"/>
+        app:key="@string/key_web_theme_type"
+        app:title="@string/web_theme"
+        app:summary="@string/web_theme_explain"
+        app:singleLineTitle="false"
+        app:defaultValue="false" />
+
+    <Preference
+        app:key="@string/key_homepage_background_image"
+        app:title="@string/homepage_background_image"
+        app:summary="@string/none"
+        app:singleLineTitle="false"
+        app:defaultValue="false" />
 
     <SwitchPreferenceCompat
         app:key="@string/key_move_navbar"
         app:title="@string/move_navbar"
         app:singleLineTitle="false"
-        app:defaultValue="false"/>
+        app:defaultValue="false" />
 
     <SwitchPreferenceCompat
         app:key="@string/key_swipe_refresh"
         app:title="@string/swipe_to_refresh"
         app:singleLineTitle="false"
-        app:defaultValue="true"/>
+        app:defaultValue="true" />
 
     <SwitchPreferenceCompat
         app:key="@string/key_show_protocol"
         app:title="@string/show_protocol_in_url"
         app:singleLineTitle="false"
-        app:defaultValue="false"/>
+        app:defaultValue="false" />
 
     <SwitchPreferenceCompat
         app:key="@string/key_hide_url_bar"
         app:title="@string/hide_url_bar"
         app:singleLineTitle="false"
-        app:defaultValue="true"/>
+        app:defaultValue="true" />
 
     <SwitchPreferenceCompat
         app:key="@string/key_show_tabs_in_grid"
         app:title="@string/tab_grid"
         app:singleLineTitle="false"
-        app:defaultValue="true"/>
+        app:defaultValue="true" />
 
     <SwitchPreferenceCompat
         app:key="@string/key_swap_drawers"
         app:title="@string/swap_bookmarks_and_tabs"
         app:singleLineTitle="false"
-        app:defaultValue="true"/>
+        app:defaultValue="true" />
 
     <SwitchPreferenceCompat
         app:key="@string/key_stack_from_bottom"
         app:title="@string/stack_items_reverse"
         app:singleLineTitle="false"
-        app:defaultValue="true"/>
+        app:defaultValue="true" />
 
     <SwitchPreferenceCompat
         app:key="@string/key_show_addons_in_bar"
         app:title="@string/show_addons_in_bar"
         app:singleLineTitle="false"
-        app:defaultValue="true"/>
+        app:defaultValue="true" />
 
     <SwitchPreferenceCompat
-            app:key="@string/key_shortcuts_visible"
-            app:title="@string/show_shortcuts"
-            app:singleLineTitle="false"
-            app:defaultValue="true"/>
+        app:key="@string/key_shortcuts_visible"
+        app:title="@string/show_shortcuts"
+        app:singleLineTitle="false"
+        app:defaultValue="true" />
+
+    <SwitchPreferenceCompat
+        app:key="@string/key_load_shortcut_icons"
+        app:title="@string/load_shortcut_icons"
+        app:singleLineTitle="false"
+        app:defaultValue="true" />
 
     <SwitchPreferenceCompat
         app:key="@string/key_auto_font_size"
         app:title="@string/auto_font"
         app:singleLineTitle="false"
-        app:defaultValue="true"/>
+        app:defaultValue="true" />
 
     <SeekBarPreference
         android:max="150"
@@ -83,6 +96,6 @@
         app:title="@string/font_size"
         app:showSeekBarValue="true"
         app:singleLineTitle="false"
-        app:defaultValue="100"/>
+        app:defaultValue="100" />
 
 </PreferenceScreen>
