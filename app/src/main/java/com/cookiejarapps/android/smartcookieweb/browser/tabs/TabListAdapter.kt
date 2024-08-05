@@ -78,7 +78,9 @@ open class TabListAdapter(
     ) {
         this.selectedTabId = selectedTabId
 
-        submitList(tabs)
+        submitList(tabs) {
+            notifyDataSetChanged()
+        }
     }
 
     companion object {

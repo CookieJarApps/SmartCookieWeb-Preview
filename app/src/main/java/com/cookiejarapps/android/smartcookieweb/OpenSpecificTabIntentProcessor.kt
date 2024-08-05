@@ -13,7 +13,7 @@ class OpenSpecificTabIntentProcessor(
 
     override fun process(intent: Intent, navController: NavController, out: Intent): Boolean {
         if (intent.action == AbstractMediaSessionService.Companion.ACTION_SWITCH_TAB) {
-            val browserStore = activity.components.store
+            activity.components.store
             val tabId = intent.extras?.getString(AbstractMediaSessionService.Companion.EXTRA_TAB_ID)
 
             if (tabId != null) {

@@ -30,8 +30,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import mozilla.components.browser.state.ext.getUrl
 import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
 import mozilla.components.browser.state.selector.findTabOrCustomTab
+import mozilla.components.browser.state.selector.findTabOrCustomTabOrSelectedTab
 import mozilla.components.browser.state.selector.getNormalOrPrivateTabs
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.TabSessionState
@@ -277,20 +279,18 @@ class TabsTrayFragment : Fragment() {
                 }
 
                 override fun onTabClosed(tab: TabSessionState, source: String?) {
+                    val tabs = components.store.state.tabs
+                    val tabIndex = tabs.map { it.id }.indexOf(tab.id)
+
                     components.tabsUseCases.removeTab(tab.id)
 
-                    // Running the above line doesn't seem to immediately close the tab, so we can't check whether the newly selected tab is
-                    // a homepage tab or not, so we switch to the browser fragment just in case and reload so the browser will switch back to
-                    // the homepage if the new tab loads about:homepage
-                    // TODO
-                    if(requireContext().components.store.state.findCustomTabOrSelectedTab()?.content?.url == "about:homepage"){
-                        if (!requireActivity().findNavController(R.id.container).popBackStack(R.id.browserFragment, false)) {
+                    if(tabs.size > 1 && components.store.state.selectedTabId == tab.id) {
+                        val nextTab = if(tabIndex == 0) tabs[1] else tabs[tabIndex - 1]
+                        if(nextTab.content.url == "about:homepage" && nextTab.content.url != tab.content.url){
+                            requireContext().components.sessionUseCases.reload(nextTab.id)
+                        } else if(nextTab.content.url != "about:homepage"){
                             requireActivity().findNavController(R.id.container).navigate(R.id.browserFragment)
                         }
-                    }
-
-                    if(requireActivity().components.store.state.tabs.isEmpty() && UserPreferences(requireActivity()).homepageType == HomepageChoice.VIEW.ordinal){
-                        requireActivity().finish()
                     }
                 }
             }

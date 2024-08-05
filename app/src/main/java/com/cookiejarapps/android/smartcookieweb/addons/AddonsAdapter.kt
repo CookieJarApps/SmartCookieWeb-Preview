@@ -340,7 +340,6 @@ class AddonsAdapter(
         }
     }
 
-    //TODO: simplify this
     private fun sort(array: ArrayList<Addon>, userPreferences: UserPreferences) {
         when(userPreferences.addonSort){
             AddonSortType.RATING.ordinal -> {
