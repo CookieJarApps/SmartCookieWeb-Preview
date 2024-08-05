@@ -26,7 +26,7 @@
 
 ## F-Droid
 
-SCWP needs source code changes to be accepted on F-Droid which have not currently been made (building GV and AC from source instead of fetching from Mozilla Maven, replacing GMS Fido for WebAuthn, etc). Currently, it is available pre-built in the CookieJarApps F-Droid repo instead: https://cookiejarapps.com/fdroid/repo/
+SCWP needs source code changes to be accepted on F-Droid which have not currently been made (building GeckoView and Android Components from source instead of fetching from Mozilla Maven, etc).
 
 ---
 
@@ -40,25 +40,11 @@ Need help? Open an issue here, or:
 
 ---
 
-## Sync
-
-FF Sync support will be included in a future update. This service is not affiliated with or endorsed by Mozilla in any way and CookieJarApps is not required to provide support service, warranty, or updates. The feature may stop working at any time.
-
----
-
 ## Installation
 
 - To get started with this project, import it into Android Studio or build from the command line with Gradle:
  
  `gradlew assembleDebug` or `./gradlew assembleDebug`
-
----
-
-## Add-ons
-
-A limited set of FireFox add-ons are available in SmartCookieWeb Preview. If you would like another add-on already on the Mozilla add-on store to be included, just open an issue here. If you've made your own add-on and want it to be included in the browser, you should either upload it to Mozilla's add-on store and open an issue here, or submit the add-on for signing to Mozilla and open an issue with a link to the signed XPI file.
-
-Add-ons can be rated or reported [here](https://addons.smartcookieweb.com/).
 
 ---
 
