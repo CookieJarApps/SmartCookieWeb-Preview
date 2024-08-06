@@ -1,4 +1,4 @@
-package com.cookiejarapps.android.smartcookieweb.browser
+package com.cookiejarapps.android.smartcookieweb.browser.toolbar
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -6,7 +6,6 @@ import android.animation.ValueAnimator
 import android.app.Activity
 import android.graphics.PointF
 import android.graphics.Rect
-import android.util.Log
 import android.view.View
 import android.view.ViewConfiguration
 import androidx.core.animation.doOnEnd
@@ -16,6 +15,8 @@ import androidx.core.view.isVisible
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.navigation.findNavController
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.browser.FakeTab
+import com.cookiejarapps.android.smartcookieweb.browser.SwipeGestureListener
 import com.cookiejarapps.android.smartcookieweb.ext.getRectWithScreenLocation
 import com.cookiejarapps.android.smartcookieweb.ext.getWindowInsets
 import com.cookiejarapps.android.smartcookieweb.ext.isKeyboardVisible

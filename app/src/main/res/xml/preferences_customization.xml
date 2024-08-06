@@ -65,11 +65,10 @@
         app:singleLineTitle="false"
         app:defaultValue="true" />
 
-    <SwitchPreferenceCompat
-        app:key="@string/key_show_addons_in_bar"
-        app:title="@string/show_addons_in_bar"
-        app:singleLineTitle="false"
-        app:defaultValue="true" />
+    <Preference
+        app:key="@string/key_bar_addon_list"
+        app:title="@string/bar_addon_list"
+        app:singleLineTitle="false" />
 
     <SwitchPreferenceCompat
         app:key="@string/key_shortcuts_visible"

@@ -25,7 +25,7 @@ import androidx.navigation.fragment.findNavController
 import com.cookiejarapps.android.smartcookieweb.*
 import com.cookiejarapps.android.smartcookieweb.addons.WebExtensionPromptFeature
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
-import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
+import com.cookiejarapps.android.smartcookieweb.settings.HomepageChoice
 import com.cookiejarapps.android.smartcookieweb.browser.SwipeGestureLayout
 import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
 import com.cookiejarapps.android.smartcookieweb.components.StoreProvider

@@ -1,13 +1,11 @@
 package com.cookiejarapps.android.smartcookieweb.addons
 
-import android.R.attr.fragment
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.FragmentManager
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
+import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 
 

@@ -2,13 +2,11 @@ package com.cookiejarapps.android.smartcookieweb.settings.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.text.Editable
 import android.text.InputType
-import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
+import com.cookiejarapps.android.smartcookieweb.settings.HomepageChoice
 import com.cookiejarapps.android.smartcookieweb.browser.SearchEngineList
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.google.android.material.dialog.MaterialAlertDialogBuilder

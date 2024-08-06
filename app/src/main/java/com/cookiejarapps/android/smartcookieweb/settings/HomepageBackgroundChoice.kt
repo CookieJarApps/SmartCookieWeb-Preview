@@ -1,4 +1,4 @@
-package com.cookiejarapps.android.smartcookieweb.browser
+package com.cookiejarapps.android.smartcookieweb.settings
 
 enum class HomepageBackgroundChoice {
     NONE,

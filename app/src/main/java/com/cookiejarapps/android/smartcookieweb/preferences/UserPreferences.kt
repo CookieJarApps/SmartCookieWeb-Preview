@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.cookiejarapps.android.smartcookieweb.browser.AddonSortType
-import com.cookiejarapps.android.smartcookieweb.browser.HomepageBackgroundChoice
-import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
-import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
+import com.cookiejarapps.android.smartcookieweb.settings.HomepageBackgroundChoice
+import com.cookiejarapps.android.smartcookieweb.settings.HomepageChoice
+import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.components.toolbar.ToolbarPosition
 import mozilla.components.support.ktx.android.content.*
 
@@ -57,6 +57,7 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var showShortcuts by booleanPreference(SHOW_SHORTCUTS, true)
     var loadShortcutIcons by booleanPreference(LOAD_SHORTCUT_ICONS, true)
     var trustThirdPartyCerts by booleanPreference(TRUST_THIRD_PARTY_CERTS, false)
+    var barAddonsList by stringPreference(BAR_ADDONS_LIST, "")
 
     // TODO: make these configurable & clean up duplicates
     var shouldUseBottomToolbar: Boolean
@@ -108,5 +109,6 @@ class UserPreferences(appContext: Context): PreferencesHolder {
         const val HOMEPAGE_BACKGROUND_CHOICE = "homepage_background_choice"
         const val HOMEPAGE_BACKGROUND_URL = "homepage_background_url"
         const val LOAD_SHORTCUT_ICONS = "load_shortcut_icons"
+        const val BAR_ADDONS_LIST = "bar_addons_list"
     }
 }

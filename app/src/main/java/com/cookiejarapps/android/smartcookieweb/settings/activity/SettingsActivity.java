@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.cookiejarapps.android.smartcookieweb.R;
-import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice;
+import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice;
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences;
 import com.cookiejarapps.android.smartcookieweb.settings.fragment.SettingsFragment;
 

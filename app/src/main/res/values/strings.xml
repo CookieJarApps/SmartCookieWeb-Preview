@@ -8,6 +8,7 @@
   <string name="key_web_theme_type" translatable="false">web_theme_type</string>
   <string name="key_search_engine" translatable="false">search_engine</string>
   <string name="key_show_addons_in_bar" translatable="false">show_addons_in_bar</string>
+  <string name="key_bar_addon_list" translatable="false">bar_addons_list</string>
   <string name="key_clear_tabs" translatable="false">clear_tabs</string>
   <string name="key_clear_history" translatable="false">clear_history</string>
   <string name="key_clear_cookies" translatable="false">clear_cookies</string>
@@ -201,6 +202,7 @@
   <string name="permissions_cleared">Permissions cleared!</string>
 
   <string name="show_addons_in_bar">Show add-ons in navbar</string>
+  <string name="bar_addon_list">Navbar add-on list</string>
 
   <string name="shortcuts">Shortcuts</string>
   <string name="add_shortcut">Add shortcut</string>

@@ -1,35 +1,23 @@
 package com.cookiejarapps.android.smartcookieweb.components.toolbar
 
 import android.content.Intent
-import android.os.Environment
-import android.util.Log
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import com.cookiejarapps.android.smartcookieweb.*
-import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
-import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
-import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
+import com.cookiejarapps.android.smartcookieweb.settings.HomepageChoice
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.history.HistoryActivity
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.settings.activity.SettingsActivity
 import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import mozilla.components.browser.state.action.EngineAction
 import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.store.BrowserStore
-import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineSession.LoadUrlFlags
-import mozilla.components.concept.engine.webextension.MessageHandler
-import mozilla.components.lib.state.ext.flowScoped
-import mozilla.components.support.ktx.kotlinx.coroutines.flow.filterChanged
-import java.io.File
 
 
 interface BrowserToolbarMenuController {

@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
+import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.addons.ui.AddonPermissionsAdapter

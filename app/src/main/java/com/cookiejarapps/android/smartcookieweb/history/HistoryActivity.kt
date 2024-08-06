@@ -1,36 +1,22 @@
 package com.cookiejarapps.android.smartcookieweb.history
 
-import android.R.attr
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.browser.HomepageChoice
-import com.cookiejarapps.android.smartcookieweb.browser.bookmark.items.BookmarkSiteItem
-import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
-import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutEntity
 import com.cookiejarapps.android.smartcookieweb.ext.components
-import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import mozilla.components.browser.state.selector.selectedTab
-import mozilla.components.concept.storage.PageVisit
 import mozilla.components.concept.storage.VisitInfo
-import android.R.attr.label
 
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.content.Context
 import androidx.core.content.ContextCompat.getSystemService
 
 

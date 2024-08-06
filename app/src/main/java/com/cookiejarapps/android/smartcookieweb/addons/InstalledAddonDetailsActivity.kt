@@ -1,7 +1,6 @@
 package com.cookiejarapps.android.smartcookieweb.addons
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -9,9 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
-import com.cookiejarapps.android.smartcookieweb.BuildConfig
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
+import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.google.android.material.switchmaterial.SwitchMaterial

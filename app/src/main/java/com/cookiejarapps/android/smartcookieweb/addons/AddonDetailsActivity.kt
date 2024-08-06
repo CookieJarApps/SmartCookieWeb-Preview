@@ -1,9 +1,6 @@
 package com.cookiejarapps.android.smartcookieweb.addons
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.TransitionDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
@@ -16,8 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.text.HtmlCompat
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
-import com.cookiejarapps.android.smartcookieweb.ext.components
+import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import kotlinx.coroutines.*
 import mozilla.components.feature.addons.Addon

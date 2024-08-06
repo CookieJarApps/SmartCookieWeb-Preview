@@ -10,11 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
+import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.databinding.ActivityAddOnSettingsBinding
-import com.cookiejarapps.android.smartcookieweb.databinding.ActivityMainBinding
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentAddOnSettingsBinding
-import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBrowserBinding
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.feature.addons.Addon

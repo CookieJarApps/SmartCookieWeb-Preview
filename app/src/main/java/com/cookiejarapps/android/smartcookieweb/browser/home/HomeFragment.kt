@@ -10,7 +10,6 @@ import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.Display.FLAG_SECURE
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -39,8 +38,8 @@ import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.addons.AddonsActivity
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
-import com.cookiejarapps.android.smartcookieweb.browser.HomepageBackgroundChoice
-import com.cookiejarapps.android.smartcookieweb.browser.ToolbarGestureHandler
+import com.cookiejarapps.android.smartcookieweb.settings.HomepageBackgroundChoice
+import com.cookiejarapps.android.smartcookieweb.browser.toolbar.ToolbarGestureHandler
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutDatabase
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutEntity
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutGridAdapter

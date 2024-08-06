@@ -5,11 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -32,19 +32,16 @@ import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.ext.nav
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.search.SearchDialogFragmentDirections
+import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.utils.Utils
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import mozilla.components.browser.engine.gecko.GeckoEngineSession
 import mozilla.components.browser.icons.IconRequest
 import mozilla.components.browser.state.search.SearchEngine
-import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
-import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.state.WebExtensionState
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineView
-import mozilla.components.concept.engine.webextension.MessageHandler
 import mozilla.components.concept.engine.webextension.Port
 import mozilla.components.feature.contextmenu.ext.DefaultSelectionActionDelegate
 import mozilla.components.feature.search.ext.createSearchEngine
@@ -55,7 +52,6 @@ import mozilla.components.support.ktx.kotlin.toNormalizedUrl
 import mozilla.components.support.locale.LocaleAwareAppCompatActivity
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupObserver
-import org.json.JSONObject
 
 
 /**

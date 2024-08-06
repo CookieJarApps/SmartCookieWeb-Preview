@@ -1,7 +1,5 @@
 package com.cookiejarapps.android.smartcookieweb.addons
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.browser.ThemeChoice
+import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
 import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.addons.ui.UnsupportedAddonsAdapter
 import mozilla.components.feature.addons.ui.UnsupportedAddonsAdapterDelegate
