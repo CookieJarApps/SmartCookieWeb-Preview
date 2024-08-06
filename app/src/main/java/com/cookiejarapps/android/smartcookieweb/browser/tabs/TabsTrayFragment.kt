@@ -72,7 +72,7 @@ class TabsTrayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        browsingModeManager =  (activity as BrowserActivity).browsingModeManager
+        browsingModeManager = (activity as BrowserActivity).browsingModeManager
         configuration = Configuration(if (browsingModeManager.mode == BrowsingMode.Normal) BrowserTabType.NORMAL else BrowserTabType.PRIVATE)
 
         binding.toolbar.inflateMenu(R.menu.tabstray_menu)
@@ -265,10 +265,17 @@ class TabsTrayFragment : Fragment() {
             thumbnailLoader = thumbnailLoader,
             delegate = object : TabsTray.Delegate {
                 override fun onTabSelected(tab: TabSessionState, source: String?) {
+                    Log.d("TabsTray", "onTabSelected: ${tab.content.url}")
                     components.tabsUseCases.selectTab(tab.id)
                     closeTabsTray()
 
                     if(tab.content.url == "about:homepage"){
+                        // Homepage will not correctly set private / normal mode
+                        if(tab.content.private && browsingModeManager.mode == BrowsingMode.Normal){
+                            (activity as BrowserActivity).browsingModeManager.mode = BrowsingMode.Private
+                        } else if(!tab.content.private && browsingModeManager.mode == BrowsingMode.Private){
+                            (activity as BrowserActivity).browsingModeManager.mode = BrowsingMode.Normal
+                        }
                         requireContext().components.sessionUseCases.reload(tab.id)
                     }
                     else if (requireActivity().findNavController(R.id.container).currentDestination?.id == R.id.browserFragment) {
