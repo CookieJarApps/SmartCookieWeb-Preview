@@ -62,10 +62,10 @@ internal class ShortcutGridAdapter(
 
         val protocolUrl = if(shortcuts[position].url!!.startsWith("http")) shortcuts[position].url else "https://" +  shortcuts[position].url
 
+        val iconPlaceholder =
+            Utils().createImage(name = getUrlCharacter(protocolUrl!!), context = context)
+                .toDrawable(context.resources)
         if(UserPreferences(context).loadShortcutIcons) {
-            val iconPlaceholder =
-                Utils().createImage(name = getUrlCharacter(protocolUrl!!), context = context)
-                    .toDrawable(context.resources)
             context.components.icons.loadIntoView(
                 imageView,
                 IconRequest(protocolUrl),
@@ -73,7 +73,7 @@ internal class ShortcutGridAdapter(
                 iconPlaceholder
             )
         } else {
-            imageView.setImageDrawable(Utils().createImage(name = getUrlCharacter(protocolUrl!!), context = context).toDrawable(context.resources))
+            imageView.setImageDrawable(iconPlaceholder)
         }
 
         nameView.text = shortcuts[position].title

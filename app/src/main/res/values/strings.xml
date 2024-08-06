@@ -136,6 +136,7 @@
   <string name="mozac_reader_view_description_selected">Disable Reader View</string>
 
   <string name="other_addons">Other add-ons</string>
+  <string name="all_extensions">All extensions</string>
 
   <string name="tab_removed">Tab removed</string>
   <string name="undo">Undo</string>

@@ -20,6 +20,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentAddOnsBinding
 import com.cookiejarapps.android.smartcookieweb.ext.components
@@ -92,6 +93,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
         this@AddonsFragment.view?.let { view ->
             bindRecyclerView()
             bindSpinner(view)
+            bindMoreButton(view)
         }
 
         findPreviousPermissionDialogFragment()?.let { dialog ->
@@ -100,6 +102,19 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
         findPreviousInstallationDialogFragment()?.let { dialog ->
             dialog.onConfirmButtonClicked = onConfirmInstallationButtonClicked
+        }
+    }
+
+    private fun bindMoreButton(rootView: View) {
+        val moreButton = rootView.findViewById<View>(R.id.all_extensions)
+        moreButton.setOnClickListener {
+            components.tabsUseCases.addTab(
+                "https://addons.mozilla.org/en-US/android/",
+                selectTab = true
+            )
+            val intent = Intent(requireContext(), BrowserActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            this.startActivity(intent)
         }
     }
 
