@@ -13,6 +13,7 @@ import androidx.core.graphics.contains
 import androidx.core.graphics.toPoint
 import androidx.core.view.isVisible
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
+import androidx.navigation.findNavController
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.ext.getRectWithScreenLocation
 import com.cookiejarapps.android.smartcookieweb.ext.getWindowInsets
@@ -221,6 +222,13 @@ class ToolbarGestureHandler(
             doOnEnd {
                 contentLayout.translationX = 0f
                 selectTabUseCase(tab.id)
+
+                val currentTab = store.state.selectedTab ?: return@doOnEnd
+                if(currentTab.content.url == "about:homepage") {
+                    activity.findNavController(R.id.container).navigate(R.id.browserFragment)
+                } else if(tab.content.url == "about:homepage") {
+                    activity.findNavController(R.id.container).navigate(R.id.homeFragment)
+                }
 
                 val shortAnimationDuration =
                     activity.resources.getInteger(android.R.integer.config_shortAnimTime)

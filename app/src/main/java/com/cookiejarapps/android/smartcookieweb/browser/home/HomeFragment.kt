@@ -40,6 +40,7 @@ import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.addons.AddonsActivity
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
 import com.cookiejarapps.android.smartcookieweb.browser.HomepageBackgroundChoice
+import com.cookiejarapps.android.smartcookieweb.browser.ToolbarGestureHandler
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutDatabase
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutEntity
 import com.cookiejarapps.android.smartcookieweb.browser.shortcuts.ShortcutGridAdapter
@@ -359,6 +360,17 @@ class HomeFragment : Fragment() {
         observeSearchEngineChanges()
         createHomeMenu(requireContext(), WeakReference(binding.menuButton))
         createTabCounterMenu(view)
+
+        binding.gestureLayout.addGestureListener(
+            ToolbarGestureHandler(
+                activity = requireActivity(),
+                contentLayout = binding.homeLayout,
+                tabPreview = binding.tabPreview,
+                toolbarLayout = binding.toolbarLayout,
+                store = components.store,
+                selectTabUseCase = components.tabsUseCases.selectTab
+            )
+        )
 
         binding.menuButton.setColorFilter(
             ContextCompat.getColor(
