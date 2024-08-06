@@ -6,6 +6,7 @@ import android.animation.ValueAnimator
 import android.app.Activity
 import android.graphics.PointF
 import android.graphics.Rect
+import android.util.Log
 import android.view.View
 import android.view.ViewConfiguration
 import androidx.core.animation.doOnEnd
@@ -222,6 +223,7 @@ class ToolbarGestureHandler(
             doOnEnd {
                 contentLayout.translationX = 0f
                 selectTabUseCase(tab.id)
+                Log.d("ToolbarGestureHandler", "Selected tab: ${tab.content}")
 
                 val currentTab = store.state.selectedTab ?: return@doOnEnd
                 if(currentTab.content.url == "about:homepage") {
