@@ -6,6 +6,7 @@ import android.animation.ValueAnimator
 import android.app.Activity
 import android.graphics.PointF
 import android.graphics.Rect
+import android.util.Log
 import android.view.View
 import android.view.ViewConfiguration
 import androidx.core.animation.doOnEnd
@@ -221,14 +222,15 @@ class ToolbarGestureHandler(
         getAnimator(browserFinalXCoordinate, FINISHED_GESTURE_ANIMATION_DURATION).apply {
             doOnEnd {
                 contentLayout.translationX = 0f
-                selectTabUseCase(tab.id)
 
                 val currentTab = store.state.selectedTab ?: return@doOnEnd
-                if(currentTab.content.url == "about:homepage") {
+                if(currentTab.content.url == "about:homepage" && tab.content.url != "about:homepage") {
                     activity.findNavController(R.id.container).navigate(R.id.browserFragment)
-                } else if(tab.content.url == "about:homepage") {
+                } else if(tab.content.url == "about:homepage" && currentTab.content.url != "about:homepage") {
                     activity.findNavController(R.id.container).navigate(R.id.homeFragment)
                 }
+
+                selectTabUseCase(tab.id)
 
                 val shortAnimationDuration =
                     activity.resources.getInteger(android.R.integer.config_shortAnimTime)
