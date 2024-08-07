@@ -1,8 +1,8 @@
 package com.cookiejarapps.android.smartcookieweb.settings.fragment
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.Toast
@@ -12,41 +12,44 @@ import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
 import com.cookiejarapps.android.smartcookieweb.R
-import com.cookiejarapps.android.smartcookieweb.settings.HomepageBackgroundChoice
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import com.cookiejarapps.android.smartcookieweb.settings.HomepageBackgroundChoice
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 class CustomizationSettingsFragment : BaseSettingsFragment() {
 
-    private lateinit var getBackgroundImageUri: ActivityResultLauncher<String>
+    private lateinit var getBackgroundImageUri: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         getBackgroundImageUri =
-            registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-                // Handle the returned Uri
-                if (uri != null) {
-                    requireContext().contentResolver.takePersistableUriPermission(
-                        uri,
-                        Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    )
-                    UserPreferences(requireContext()).homepageBackgroundUrl = uri.toString()
-                    Toast.makeText(
-                        context,
-                        requireContext().resources.getText(R.string.successful),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else {
-                    UserPreferences(requireContext()).homepageBackgroundChoice =
-                        HomepageBackgroundChoice.NONE.ordinal
-                    Toast.makeText(
-                        context,
-                        requireContext().resources.getText(R.string.failed),
-                        Toast.LENGTH_LONG
-                    ).show()
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val uri = result.data?.data
+                    // Handle the returned Uri
+                    if (uri != null) {
+                        requireContext().contentResolver.takePersistableUriPermission(
+                            uri,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        )
+                        UserPreferences(requireContext()).homepageBackgroundUrl = uri.toString()
+                        Toast.makeText(
+                            context,
+                            requireContext().resources.getText(R.string.successful),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        UserPreferences(requireContext()).homepageBackgroundChoice =
+                            HomepageBackgroundChoice.NONE.ordinal
+                        Toast.makeText(
+                            context,
+                            requireContext().resources.getText(R.string.failed),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
             }
     }
@@ -232,7 +235,6 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
     }
 
     private fun pickBarAddonList() {
-
         val context = requireContext()
         val userPreferences = UserPreferences(context)
 
@@ -337,7 +339,13 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
                     }
 
                     HomepageBackgroundChoice.GALLERY.ordinal -> {
-                        getBackgroundImageUri.launch("image/*")
+                        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                            addCategory(Intent.CATEGORY_OPENABLE)
+                            type = "image/*"
+                            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+                        }
+                        getBackgroundImageUri.launch(intent)
                     }
                 }
             }

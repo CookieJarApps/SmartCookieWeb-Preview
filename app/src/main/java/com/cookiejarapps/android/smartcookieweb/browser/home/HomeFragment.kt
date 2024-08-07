@@ -174,11 +174,37 @@ class HomeFragment : Fragment() {
                 val uri = UserPreferences(requireContext()).homepageBackgroundUrl
                 if(uri != ""){
                     if(activity != null) {
-                        val bitmap = MediaStore.Images.Media.getBitmap(
-                            requireContext().contentResolver,
-                            Uri.parse(uri)
-                        )
-                        binding.homeLayout.background = BitmapDrawable(resources, bitmap)
+                        val contentResolver = requireContext().contentResolver
+                        val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, Uri.parse(uri))
+
+                        val customBackground = object : BitmapDrawable(resources, bitmap) {
+                            override fun draw(canvas: Canvas) {
+                                val width = bounds.width()
+                                val height = bounds.height()
+                                val bitmapWidth = bitmap.width
+                                val bitmapHeight = bitmap.height
+
+                                val scale = maxOf(
+                                    width.toFloat() / bitmapWidth.toFloat(),
+                                    height.toFloat() / bitmapHeight.toFloat()
+                                )
+
+                                val scaledWidth = (bitmapWidth * scale).toInt()
+                                val scaledHeight = (bitmapHeight * scale).toInt()
+
+                                val left = (width - scaledWidth) / 2
+                                val top = (height - scaledHeight) / 2
+
+                                val src = Rect(0, 0, bitmapWidth, bitmapHeight)
+                                val dst = Rect(left, top, left + scaledWidth, top + scaledHeight)
+
+                                canvas.drawBitmap(bitmap, src, dst, paint)
+                            }
+                        }
+
+                        customBackground.gravity = Gravity.CENTER
+
+                        binding.homeLayout.background = customBackground
                     }
                 }
             }
