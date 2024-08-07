@@ -129,29 +129,13 @@ class DefaultToolbarIntegration(
             toolbar.display.setUrlBackground(AppCompatResources.getDrawable(context, R.drawable.toolbar_background_private))
         }
 
-        val tabCounterMenu = TabCounterMenu(
-            context = context,
-            onItemTapped = {
-                interactor.onTabCounterMenuItemTapped(it)
-            },
-            iconColor =
-                if (isPrivate) {
-                    ContextCompat.getColor(context, R.color.primary_icon)
-                } else {
-                    null
-                }
-        ).also {
-            it.updateMenu(UserPreferences(context).toolbarPositionType)
-        }
-
         val tabsAction = TabCounterToolbarButton(
             lifecycleOwner = lifecycleOwner,
             showTabs = {
                 toolbar.hideKeyboard()
                 interactor.onTabCounterClicked()
             },
-            store = store,
-            menu = tabCounterMenu
+            store = store
         )
 
         val tabCount = if (isPrivate) {

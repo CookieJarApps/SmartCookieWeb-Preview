@@ -1,11 +1,13 @@
 package com.cookiejarapps.android.smartcookieweb.components.toolbar
 
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.BrowserAnimator.Companion.getToolbarNavOptions
 import com.cookiejarapps.android.smartcookieweb.BrowserFragmentDirections
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.browser.BrowsingMode
+import com.cookiejarapps.android.smartcookieweb.browser.tabs.BrowserTabType
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.ext.nav
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
@@ -17,7 +19,8 @@ import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.support.ktx.kotlin.isUrl
 import mozilla.components.ui.tabcounter.TabCounterMenu.Item
-import com.cookiejarapps.android.smartcookieweb.components.toolbar.TabCounterMenu
+import mozilla.components.browser.state.selector.normalTabs
+import mozilla.components.browser.state.selector.privateTabs
 
 interface BrowserToolbarController {
     fun handleScroll(offset: Int)
@@ -25,7 +28,6 @@ interface BrowserToolbarController {
     fun handleToolbarPasteAndGo(text: String)
     fun handleToolbarClick()
     fun handleTabCounterClick()
-    fun handleTabCounterItemInteraction(item: Item)
 }
 
 class DefaultBrowserToolbarController(
@@ -77,44 +79,6 @@ class DefaultBrowserToolbarController(
 
     override fun handleTabCounterClick() {
         onTabCounterClicked.invoke()
-    }
-
-    override fun handleTabCounterItemInteraction(item: Item) {
-        when (item) {
-            is Item.NewTab -> {
-                activity.browsingModeManager.mode = BrowsingMode.Normal
-                navController.navigate(
-                    BrowserFragmentDirections.actionGlobalHome(focusOnAddressBar = true)
-                )
-            }
-            is Item.NewPrivateTab -> {
-                activity.browsingModeManager.mode = BrowsingMode.Private
-                navController.navigate(
-                    BrowserFragmentDirections.actionGlobalHome(focusOnAddressBar = true)
-                )
-            }
-            is Item.CloseTab -> {
-                store.state.selectedTab?.let {
-                    if (store.state.getNormalOrPrivateTabs(it.content.private).count() == 1) {
-                        navController.navigate(
-                            BrowserFragmentDirections.actionGlobalHome()
-                        )
-                    } else {
-                        activity.components.tabsUseCases.removeTab(it.id, selectParentIfExists = true)
-                    }
-                }
-            }
-            is Item.DuplicateTab -> {
-                store.state.selectedTab?.let {
-                    if(activity.browsingModeManager.mode == BrowsingMode.Normal){
-                        activity.components.tabsUseCases.addTab.invoke(it.content.url, true)
-                    }
-                    else{
-                        activity.components.tabsUseCases.addTab.invoke(it.content.url, true, private = true)
-                    }
-                }
-            }
-        }
     }
 
     override fun handleScroll(offset: Int) {

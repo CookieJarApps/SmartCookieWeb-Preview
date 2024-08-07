@@ -359,7 +359,6 @@ class HomeFragment : Fragment() {
 
         observeSearchEngineChanges()
         createHomeMenu(requireContext(), WeakReference(binding.menuButton))
-        createTabCounterMenu(view)
 
         binding.gestureLayout.addGestureListener(
             ToolbarGestureHandler(
@@ -420,23 +419,6 @@ class HomeFragment : Fragment() {
                         binding.searchEngineIcon.setImageDrawable(null)
                     }
                 }
-        }
-    }
-
-    private fun createTabCounterMenu(view: View) {
-        val browsingModeManager = (activity as BrowserActivity).browsingModeManager
-        val mode = browsingModeManager.mode
-
-        val onItemTapped: (TabCounterMenu.Item) -> Unit = {
-            if (it is TabCounterMenu.Item.NewTab) {
-                browsingModeManager.mode = BrowsingMode.Normal
-            } else if (it is TabCounterMenu.Item.NewPrivateTab) {
-                browsingModeManager.mode = BrowsingMode.Private
-            }
-        }
-
-        binding.tabButton.setOnLongClickListener {
-            true
         }
     }
 

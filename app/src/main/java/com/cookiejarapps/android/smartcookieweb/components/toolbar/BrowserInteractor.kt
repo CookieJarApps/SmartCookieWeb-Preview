@@ -11,10 +11,6 @@ open class BrowserInteractor(
         browserToolbarController.handleTabCounterClick()
     }
 
-    override fun onTabCounterMenuItemTapped(item: TabCounterMenu.Item) {
-        browserToolbarController.handleTabCounterItemInteraction(item)
-    }
-
     override fun onBrowserToolbarPaste(text: String) {
         browserToolbarController.handleToolbarPaste(text)
     }
