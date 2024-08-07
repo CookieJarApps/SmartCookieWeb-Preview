@@ -282,9 +282,13 @@ class TabsTrayFragment : Fragment() {
                         } else if(nextTab.content.url != "about:homepage"){
                             requireActivity().findNavController(R.id.container).navigate(R.id.browserFragment)
                         }
+                        components.tabsUseCases.removeTab(tab.id)
+                    } else if (tabs.size == 1) {
+                        components.tabsUseCases.removeTab(tab.id)
+                        requireActivity().finishAndRemoveTask()
+                    } else {
+                        components.tabsUseCases.removeTab(tab.id)
                     }
-
-                    components.tabsUseCases.removeTab(tab.id)
                 }
             }
         )
