@@ -175,34 +175,41 @@ class HomeFragment : Fragment() {
                 if(uri != ""){
                     if(activity != null) {
                         val contentResolver = requireContext().contentResolver
-                        val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, Uri.parse(uri))
-
-                        val customBackground = object : BitmapDrawable(resources, bitmap) {
-                            override fun draw(canvas: Canvas) {
-                                val width = bounds.width()
-                                val height = bounds.height()
-                                val bitmapWidth = bitmap.width
-                                val bitmapHeight = bitmap.height
-
-                                val scale = maxOf(
-                                    width.toFloat() / bitmapWidth.toFloat(),
-                                    height.toFloat() / bitmapHeight.toFloat()
-                                )
-
-                                val scaledWidth = (bitmapWidth * scale).toInt()
-                                val scaledHeight = (bitmapHeight * scale).toInt()
-
-                                val left = (width - scaledWidth) / 2
-                                val top = (height - scaledHeight) / 2
-
-                                val src = Rect(0, 0, bitmapWidth, bitmapHeight)
-                                val dst = Rect(left, top, left + scaledWidth, top + scaledHeight)
-
-                                canvas.drawBitmap(bitmap, src, dst, paint)
-                            }
+                        val bitmap = try {
+                            MediaStore.Images.Media.getBitmap(contentResolver, Uri.parse(uri))
+                        } catch (e: Exception) {
+                            null
                         }
 
-                        customBackground.gravity = Gravity.CENTER
+                        val customBackground = if(bitmap != null) {
+                            object : BitmapDrawable(resources, bitmap) {
+                                override fun draw(canvas: Canvas) {
+                                    val width = bounds.width()
+                                    val height = bounds.height()
+                                    val bitmapWidth = bitmap.width
+                                    val bitmapHeight = bitmap.height
+
+                                    val scale = maxOf(
+                                        width.toFloat() / bitmapWidth.toFloat(),
+                                        height.toFloat() / bitmapHeight.toFloat()
+                                    )
+
+                                    val scaledWidth = (bitmapWidth * scale).toInt()
+                                    val scaledHeight = (bitmapHeight * scale).toInt()
+
+                                    val left = (width - scaledWidth) / 2
+                                    val top = (height - scaledHeight) / 2
+
+                                    val src = Rect(0, 0, bitmapWidth, bitmapHeight)
+                                    val dst =
+                                        Rect(left, top, left + scaledWidth, top + scaledHeight)
+
+                                    canvas.drawBitmap(bitmap, src, dst, paint)
+                                }
+                            }
+                        } else null
+
+                        customBackground?.gravity = Gravity.CENTER
 
                         binding.homeLayout.background = customBackground
                     }
