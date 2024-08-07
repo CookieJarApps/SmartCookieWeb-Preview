@@ -48,6 +48,7 @@ import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.ext.nav
 import com.cookiejarapps.android.smartcookieweb.history.HistoryActivity
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import com.cookiejarapps.android.smartcookieweb.settings.HomepageChoice
 import com.cookiejarapps.android.smartcookieweb.settings.activity.SettingsActivity
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -463,6 +464,55 @@ class HomeFragment : Fragment() {
             context,
             onItemTapped = {
                 when (it) {
+                    HomeMenu.Item.NewTab -> {
+                        browsingModeManager.mode = BrowsingMode.Normal
+                        when(UserPreferences(requireContext()).homepageType){
+                            HomepageChoice.VIEW.ordinal -> {
+                                components.tabsUseCases.addTab.invoke(
+                                    "about:homepage",
+                                    selectTab = true
+                                )
+                            }
+                            HomepageChoice.BLANK_PAGE.ordinal -> {
+                                components.tabsUseCases.addTab.invoke(
+                                    "about:blank",
+                                    selectTab = true
+                                )
+                            }
+                            HomepageChoice.CUSTOM_PAGE.ordinal -> {
+                                components.tabsUseCases.addTab.invoke(
+                                    UserPreferences(requireContext()).customHomepageUrl,
+                                    selectTab = true
+                                )
+                            }
+                        }
+                    }
+                    HomeMenu.Item.NewPrivateTab -> {
+                        browsingModeManager.mode = BrowsingMode.Private
+                        when(UserPreferences(requireContext()).homepageType){
+                            HomepageChoice.VIEW.ordinal -> {
+                                components.tabsUseCases.addTab.invoke(
+                                    "about:homepage",
+                                    selectTab = true,
+                                    private = true
+                                )
+                            }
+                            HomepageChoice.BLANK_PAGE.ordinal -> {
+                                components.tabsUseCases.addTab.invoke(
+                                    "about:blank",
+                                    selectTab = true,
+                                    private = true
+                                )
+                            }
+                            HomepageChoice.CUSTOM_PAGE.ordinal -> {
+                                components.tabsUseCases.addTab.invoke(
+                                    UserPreferences(requireContext()).customHomepageUrl,
+                                    selectTab = true,
+                                    private = true
+                                )
+                            }
+                        }
+                    }
                     HomeMenu.Item.Settings -> {
                         val settings = Intent(activity, SettingsActivity::class.java)
                         settings.flags = Intent.FLAG_ACTIVITY_NEW_TASK

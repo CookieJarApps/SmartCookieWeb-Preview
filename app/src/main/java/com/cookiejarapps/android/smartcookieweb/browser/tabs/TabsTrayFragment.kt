@@ -25,6 +25,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import mozilla.components.browser.state.selector.normalTabs
+import mozilla.components.browser.state.selector.privateTabs
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.browser.tabstray.TabsTray
@@ -263,9 +265,9 @@ class TabsTrayFragment : Fragment() {
                     if(tab.content.url == "about:homepage"){
                         // Homepage will not correctly set private / normal mode
                         if(tab.content.private && browsingModeManager.mode == BrowsingMode.Normal){
-                            (activity as BrowserActivity).browsingModeManager.mode = BrowsingMode.Private
+                            browsingModeManager.mode = BrowsingMode.Private
                         } else if(!tab.content.private && browsingModeManager.mode == BrowsingMode.Private){
-                            (activity as BrowserActivity).browsingModeManager.mode = BrowsingMode.Normal
+                            browsingModeManager.mode = BrowsingMode.Normal
                         }
                         requireContext().components.sessionUseCases.reload(tab.id)
                     }
@@ -277,7 +279,7 @@ class TabsTrayFragment : Fragment() {
                 }
 
                 override fun onTabClosed(tab: TabSessionState, source: String?) {
-                    val tabs = components.store.state.tabs
+                    val tabs = if(configuration.browserTabType == BrowserTabType.NORMAL) components.store.state.normalTabs else components.store.state.privateTabs
                     val tabIndex = tabs.map { it.id }.indexOf(tab.id)
 
                     if(tabs.size > 1 && components.store.state.selectedTabId == tab.id) {
@@ -289,9 +291,20 @@ class TabsTrayFragment : Fragment() {
                             requireActivity().findNavController(R.id.container).navigate(R.id.browserFragment)
                         }
                         components.tabsUseCases.removeTab(tab.id)
-                    } else if (tabs.size == 1) {
+                    } else if (tabs.size == 1 && configuration.browserTabType == BrowserTabType.NORMAL) {
                         components.tabsUseCases.removeTab(tab.id)
                         requireActivity().finishAndRemoveTask()
+                    } else if (tabs.size == 1 && configuration.browserTabType == BrowserTabType.PRIVATE) {
+                        components.tabsUseCases.removeTab(tab.id)
+                        browsingModeManager.mode = BrowsingMode.Normal
+                        val lastNormalTab = components.store.state.normalTabs.last()
+                        components.tabsUseCases.selectTab(lastNormalTab.id)
+                        // Update private / normal status
+                        if(lastNormalTab.content.url == "about:homepage"){
+                            requireContext().components.sessionUseCases.reload(lastNormalTab.id)
+                        } else {
+                            requireActivity().findNavController(R.id.container).navigate(R.id.browserFragment)
+                        }
                     } else {
                         components.tabsUseCases.removeTab(tab.id)
                     }

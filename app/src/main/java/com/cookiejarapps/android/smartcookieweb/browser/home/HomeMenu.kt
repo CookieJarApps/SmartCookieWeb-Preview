@@ -18,20 +18,33 @@ class HomeMenu(
     private val onHighlightPresent: (BrowserMenuHighlight) -> Unit = {}
 ) {
     sealed class Item {
-        data object WhatsNew : Item()
-        data object Help : Item()
+        data object NewTab : Item()
+        data object NewPrivateTab : Item()
         data object AddonsManager : Item()
         data object Settings : Item()
-        data object SyncedTabs : Item()
         data object History : Item()
         data object Bookmarks : Item()
-        data object Downloads : Item()
-        data object Quit : Item()
     }
 
     private val shouldUseBottomToolbar = UserPreferences(context).shouldUseBottomToolbar
 
     private val coreMenuItems by lazy {
+
+        val newTabItem = BrowserMenuImageText(
+            context.getString(R.string.mozac_browser_menu_new_tab),
+            R.drawable.mozac_ic_tab_new_24,
+            R.color.primary_icon
+        ) {
+            onItemTapped.invoke(Item.NewTab)
+        }
+
+        val newPrivateTabItem = BrowserMenuImageText(
+            context.getString(R.string.mozac_browser_menu_new_private_tab),
+            R.drawable.ic_incognito,
+            R.color.primary_icon
+        ) {
+            onItemTapped.invoke(Item.NewPrivateTab)
+        }
 
         val bookmarksIcon = R.drawable.ic_baseline_bookmark
 
@@ -68,7 +81,8 @@ class HomeMenu(
         }
 
         val menuItems = listOfNotNull(
-            BrowserMenuDivider(),
+            newTabItem,
+            newPrivateTabItem,
             BrowserMenuDivider(),
             historyItem,
             bookmarksItem,
