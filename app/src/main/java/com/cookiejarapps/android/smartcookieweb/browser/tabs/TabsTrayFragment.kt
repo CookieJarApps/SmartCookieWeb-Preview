@@ -182,21 +182,31 @@ class TabsTrayFragment : Fragment() {
             .setItems(items) { dialog, which ->
                 when (which) {
                     0 -> {
-                        components.store.state.selectedTabId?.let { id ->
-                            components.tabsUseCases.removeTab(
-                                id
-                            )
-                        }
-                        if (view.context.components.store.state.tabs.isEmpty() && UserPreferences(
-                                requireContext()
-                            ).homepageType == HomepageChoice.VIEW.ordinal
-                        ) {
-                            findNavController().navigate(
-                                HomeFragmentDirections.actionGlobalHome(
-                                    focusOnAddressBar = false
+                        val tabs = components.store.state.tabs
+                        val tabIndex = tabs.map { it.id }.indexOf(components.store.state.selectedTabId)
+
+                        if(tabs.size > 1) {
+                            val nextTab = if(tabIndex == 0) tabs[1] else tabs[tabIndex - 1]
+
+                            if(nextTab.content.url == "about:homepage" && nextTab.content.url != components.store.state.selectedTab?.content?.url){
+                                requireContext().components.sessionUseCases.reload(nextTab.id)
+                            } else if(nextTab.content.url != "about:homepage"){
+                                requireActivity().findNavController(R.id.container).navigate(R.id.browserFragment)
+                            }
+                            components.store.state.selectedTabId?.let {
+                                components.tabsUseCases.removeTab(
+                                    it
                                 )
-                            )
+                            }
+                        } else {
+                            components.store.state.selectedTabId?.let {
+                                components.tabsUseCases.removeTab(
+                                    it
+                                )
+                            }
+                            requireActivity().finishAndRemoveTask()
                         }
+
                         // TODO: this doesn't appear if the last tab is closed and bottom toolbar is on, as the toolbar view on the homepage is R.id.toolbarLayout
                         val snackbar = Snackbar.make(
                             view,
@@ -221,11 +231,7 @@ class TabsTrayFragment : Fragment() {
                     }
                     2 -> {
                         components.tabsUseCases.removeAllTabs.invoke()
-                        findNavController().navigate(
-                            HomeFragmentDirections.actionGlobalHome(
-                                focusOnAddressBar = false
-                            )
-                        )
+                        requireActivity().finishAndRemoveTask()
                     }
                     3 -> {
                         requireActivity().finishAndRemoveTask()
