@@ -251,7 +251,6 @@ class TabsTrayFragment : Fragment() {
             thumbnailLoader = thumbnailLoader,
             delegate = object : TabsTray.Delegate {
                 override fun onTabSelected(tab: TabSessionState, source: String?) {
-                    Log.d("TabsTray", "onTabSelected: ${tab.content.url}")
                     components.tabsUseCases.selectTab(tab.id)
                     closeTabsTray()
 
@@ -275,16 +274,17 @@ class TabsTrayFragment : Fragment() {
                     val tabs = components.store.state.tabs
                     val tabIndex = tabs.map { it.id }.indexOf(tab.id)
 
-                    components.tabsUseCases.removeTab(tab.id)
-
                     if(tabs.size > 1 && components.store.state.selectedTabId == tab.id) {
                         val nextTab = if(tabIndex == 0) tabs[1] else tabs[tabIndex - 1]
+
                         if(nextTab.content.url == "about:homepage" && nextTab.content.url != tab.content.url){
                             requireContext().components.sessionUseCases.reload(nextTab.id)
                         } else if(nextTab.content.url != "about:homepage"){
                             requireActivity().findNavController(R.id.container).navigate(R.id.browserFragment)
                         }
                     }
+
+                    components.tabsUseCases.removeTab(tab.id)
                 }
             }
         )
