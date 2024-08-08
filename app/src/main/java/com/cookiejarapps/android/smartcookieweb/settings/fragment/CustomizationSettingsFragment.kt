@@ -112,7 +112,6 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
         switchPreference(
             preference = requireContext().resources.getString(R.string.key_show_tabs_in_grid),
             isChecked = UserPreferences(requireContext()).showTabsInGrid,
-            isEnabled = !UserPreferences(requireContext()).stackFromBottom,
             onCheckChange = {
                 UserPreferences(requireContext()).showTabsInGrid = it
                 Toast.makeText(
@@ -120,11 +119,6 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
                     requireContext().resources.getText(R.string.app_restart),
                     Toast.LENGTH_LONG
                 ).show()
-                preferenceScreen.findPreference<SwitchPreferenceCompat>(
-                    requireContext().resources.getString(
-                        R.string.key_stack_from_bottom
-                    )
-                )?.isEnabled = !it
             }
         )
 
@@ -157,7 +151,6 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
         switchPreference(
             preference = requireContext().resources.getString(R.string.key_stack_from_bottom),
             isChecked = UserPreferences(requireContext()).stackFromBottom,
-            isEnabled = !UserPreferences(requireContext()).showTabsInGrid,
             onCheckChange = {
                 UserPreferences(requireContext()).stackFromBottom = it
                 Toast.makeText(
@@ -165,11 +158,6 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
                     requireContext().resources.getText(R.string.app_restart),
                     Toast.LENGTH_LONG
                 ).show()
-                preferenceScreen.findPreference<SwitchPreferenceCompat>(
-                    requireContext().resources.getString(
-                        R.string.key_show_tabs_in_grid
-                    )
-                )?.isEnabled = !it
             }
         )
 

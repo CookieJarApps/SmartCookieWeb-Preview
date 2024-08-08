@@ -50,7 +50,7 @@ class TabsTrayFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View{
+    ): View {
         _binding = FragmentTabstrayBinding.inflate(inflater, container, false)
         val view = binding.root
 
@@ -61,67 +61,74 @@ class TabsTrayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         browsingModeManager = (activity as BrowserActivity).browsingModeManager
-        configuration = Configuration(if (browsingModeManager.mode == BrowsingMode.Normal) BrowserTabType.NORMAL else BrowserTabType.PRIVATE)
+        configuration =
+            Configuration(if (browsingModeManager.mode == BrowsingMode.Normal) BrowserTabType.NORMAL else BrowserTabType.PRIVATE)
 
         binding.toolbar.inflateMenu(R.menu.tabstray_menu)
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.newTab -> {
                     when (binding.tabLayout.selectedTabPosition) {
-                            0 -> {
-                                browsingModeManager.mode = BrowsingMode.Normal
-                                when(UserPreferences(requireContext()).homepageType){
-                                    HomepageChoice.VIEW.ordinal -> {
-                                        components.tabsUseCases.addTab.invoke(
-                                            "about:homepage",
-                                            selectTab = true
-                                        )
-                                    }
-                                    HomepageChoice.BLANK_PAGE.ordinal -> {
-                                        components.tabsUseCases.addTab.invoke(
-                                            "about:blank",
-                                            selectTab = true
-                                        )
-                                    }
-                                    HomepageChoice.CUSTOM_PAGE.ordinal -> {
-                                        components.tabsUseCases.addTab.invoke(
-                                            UserPreferences(requireContext()).customHomepageUrl,
-                                            selectTab = true
-                                        )
-                                    }
+                        0 -> {
+                            browsingModeManager.mode = BrowsingMode.Normal
+                            when (UserPreferences(requireContext()).homepageType) {
+                                HomepageChoice.VIEW.ordinal -> {
+                                    components.tabsUseCases.addTab.invoke(
+                                        "about:homepage",
+                                        selectTab = true
+                                    )
+                                }
+
+                                HomepageChoice.BLANK_PAGE.ordinal -> {
+                                    components.tabsUseCases.addTab.invoke(
+                                        "about:blank",
+                                        selectTab = true
+                                    )
+                                }
+
+                                HomepageChoice.CUSTOM_PAGE.ordinal -> {
+                                    components.tabsUseCases.addTab.invoke(
+                                        UserPreferences(requireContext()).customHomepageUrl,
+                                        selectTab = true
+                                    )
                                 }
                             }
-                            1 -> {
-                                browsingModeManager.mode = BrowsingMode.Private
-                                when(UserPreferences(requireContext()).homepageType){
-                                    HomepageChoice.VIEW.ordinal -> {
-                                        components.tabsUseCases.addTab.invoke(
-                                            "about:homepage",
-                                            selectTab = true,
-                                            private = true
-                                        )
-                                    }
-                                    HomepageChoice.BLANK_PAGE.ordinal -> {
-                                        components.tabsUseCases.addTab.invoke(
-                                            "about:blank",
-                                            selectTab = true,
-                                            private = true
-                                        )
-                                    }
-                                    HomepageChoice.CUSTOM_PAGE.ordinal -> {
-                                        components.tabsUseCases.addTab.invoke(
-                                            UserPreferences(requireContext()).customHomepageUrl,
-                                            selectTab = true,
-                                            private = true
-                                        )
-                                    }
+                        }
+
+                        1 -> {
+                            browsingModeManager.mode = BrowsingMode.Private
+                            when (UserPreferences(requireContext()).homepageType) {
+                                HomepageChoice.VIEW.ordinal -> {
+                                    components.tabsUseCases.addTab.invoke(
+                                        "about:homepage",
+                                        selectTab = true,
+                                        private = true
+                                    )
                                 }
+
+                                HomepageChoice.BLANK_PAGE.ordinal -> {
+                                    components.tabsUseCases.addTab.invoke(
+                                        "about:blank",
+                                        selectTab = true,
+                                        private = true
+                                    )
+                                }
+
+                                HomepageChoice.CUSTOM_PAGE.ordinal -> {
+                                    components.tabsUseCases.addTab.invoke(
+                                        UserPreferences(requireContext()).customHomepageUrl,
+                                        selectTab = true,
+                                        private = true
+                                    )
+                                }
+                            }
                         }
                     }
                     closeTabsTray()
                 }
+
                 R.id.removeTabs -> {
-                   removeTabsDialog(view)
+                    removeTabsDialog(view)
                 }
             }
             true
@@ -152,6 +159,7 @@ class TabsTrayFragment : Fragment() {
                             )
                         }
                     }
+
                     1 -> {
                         tabsFeature.get()?.filterTabs {
                             it.filterFromConfig(
@@ -185,15 +193,17 @@ class TabsTrayFragment : Fragment() {
                 when (which) {
                     0 -> {
                         val tabs = components.store.state.tabs
-                        val tabIndex = tabs.map { it.id }.indexOf(components.store.state.selectedTabId)
+                        val tabIndex =
+                            tabs.map { it.id }.indexOf(components.store.state.selectedTabId)
 
-                        if(tabs.size > 1) {
-                            val nextTab = if(tabIndex == 0) tabs[1] else tabs[tabIndex - 1]
+                        if (tabs.size > 1) {
+                            val nextTab = if (tabIndex == 0) tabs[1] else tabs[tabIndex - 1]
 
-                            if(nextTab.content.url == "about:homepage" && nextTab.content.url != components.store.state.selectedTab?.content?.url){
+                            if (nextTab.content.url == "about:homepage" && nextTab.content.url != components.store.state.selectedTab?.content?.url) {
                                 requireContext().components.sessionUseCases.reload(nextTab.id)
-                            } else if(nextTab.content.url != "about:homepage"){
-                                requireActivity().findNavController(R.id.container).navigate(R.id.browserFragment)
+                            } else if (nextTab.content.url != "about:homepage") {
+                                requireActivity().findNavController(R.id.container)
+                                    .navigate(R.id.browserFragment)
                             }
                             components.store.state.selectedTabId?.let {
                                 components.tabsUseCases.removeTab(
@@ -219,10 +229,11 @@ class TabsTrayFragment : Fragment() {
                         ) {
                             components.tabsUseCases.undo.invoke()
                         }
-                        if(UserPreferences(requireContext()).shouldUseBottomToolbar) snackbar.anchorView =
+                        if (UserPreferences(requireContext()).shouldUseBottomToolbar) snackbar.anchorView =
                             requireActivity().findViewById(R.id.toolbar)
                         snackbar.show()
                     }
+
                     1 -> {
                         val tabList = components.store.state.tabs.toMutableList()
                         tabList.remove(components.store.state.selectedTab)
@@ -231,10 +242,12 @@ class TabsTrayFragment : Fragment() {
                         for (i in tabList) idList.add(i.id)
                         components.tabsUseCases.removeTabs.invoke(idList.toList())
                     }
+
                     2 -> {
                         components.tabsUseCases.removeAllTabs.invoke()
                         requireActivity().finishAndRemoveTask()
                     }
+
                     3 -> {
                         requireActivity().finishAndRemoveTask()
                     }
@@ -262,33 +275,37 @@ class TabsTrayFragment : Fragment() {
                     components.tabsUseCases.selectTab(tab.id)
                     closeTabsTray()
 
-                    if(tab.content.url == "about:homepage"){
+                    if (tab.content.url == "about:homepage") {
                         // Homepage will not correctly set private / normal mode
-                        if(tab.content.private && browsingModeManager.mode == BrowsingMode.Normal){
+                        if (tab.content.private && browsingModeManager.mode == BrowsingMode.Normal) {
                             browsingModeManager.mode = BrowsingMode.Private
-                        } else if(!tab.content.private && browsingModeManager.mode == BrowsingMode.Private){
+                        } else if (!tab.content.private && browsingModeManager.mode == BrowsingMode.Private) {
                             browsingModeManager.mode = BrowsingMode.Normal
                         }
                         requireContext().components.sessionUseCases.reload(tab.id)
-                    }
-                    else if (requireActivity().findNavController(R.id.container).currentDestination?.id == R.id.browserFragment) {
+                    } else if (requireActivity().findNavController(R.id.container).currentDestination?.id == R.id.browserFragment) {
                         return
-                    } else if (!requireActivity().findNavController(R.id.container).popBackStack(R.id.browserFragment, false)) {
-                        requireActivity().findNavController(R.id.container).navigate(R.id.browserFragment)
+                    } else if (!requireActivity().findNavController(R.id.container)
+                            .popBackStack(R.id.browserFragment, false)
+                    ) {
+                        requireActivity().findNavController(R.id.container)
+                            .navigate(R.id.browserFragment)
                     }
                 }
 
                 override fun onTabClosed(tab: TabSessionState, source: String?) {
-                    val tabs = if(configuration.browserTabType == BrowserTabType.NORMAL) components.store.state.normalTabs else components.store.state.privateTabs
+                    val tabs =
+                        if (configuration.browserTabType == BrowserTabType.NORMAL) components.store.state.normalTabs else components.store.state.privateTabs
                     val tabIndex = tabs.map { it.id }.indexOf(tab.id)
 
-                    if(tabs.size > 1 && components.store.state.selectedTabId == tab.id) {
-                        val nextTab = if(tabIndex == 0) tabs[1] else tabs[tabIndex - 1]
+                    if (tabs.size > 1 && components.store.state.selectedTabId == tab.id) {
+                        val nextTab = if (tabIndex == 0) tabs[1] else tabs[tabIndex - 1]
 
-                        if(nextTab.content.url == "about:homepage" && nextTab.content.url != tab.content.url){
+                        if (nextTab.content.url == "about:homepage" && nextTab.content.url != tab.content.url) {
                             requireContext().components.sessionUseCases.reload(nextTab.id)
-                        } else if(nextTab.content.url != "about:homepage"){
-                            requireActivity().findNavController(R.id.container).navigate(R.id.browserFragment)
+                        } else if (nextTab.content.url != "about:homepage") {
+                            requireActivity().findNavController(R.id.container)
+                                .navigate(R.id.browserFragment)
                         }
                         components.tabsUseCases.removeTab(tab.id)
                     } else if (tabs.size == 1 && configuration.browserTabType == BrowserTabType.NORMAL) {
@@ -300,10 +317,11 @@ class TabsTrayFragment : Fragment() {
                         val lastNormalTab = components.store.state.normalTabs.last()
                         components.tabsUseCases.selectTab(lastNormalTab.id)
                         // Update private / normal status
-                        if(lastNormalTab.content.url == "about:homepage"){
+                        if (lastNormalTab.content.url == "about:homepage") {
                             requireContext().components.sessionUseCases.reload(lastNormalTab.id)
                         } else {
-                            requireActivity().findNavController(R.id.container).navigate(R.id.browserFragment)
+                            requireActivity().findNavController(R.id.container)
+                                .navigate(R.id.browserFragment)
                         }
                     } else {
                         components.tabsUseCases.removeTab(tab.id)
@@ -313,11 +331,15 @@ class TabsTrayFragment : Fragment() {
         )
 
         binding.tabsTray.adapter = adapter
-        val layoutManager = if(UserPreferences(requireContext()).showTabsInGrid) GridLayoutManager(
+        val layoutManager = if (UserPreferences(requireContext()).showTabsInGrid) GridLayoutManager(
             context,
             2
         ) else LinearLayoutManager(context)
-        layoutManager.stackFromEnd = !UserPreferences(requireContext()).showTabsInGrid && UserPreferences(
+        if (UserPreferences(requireContext()).showTabsInGrid) layoutManager.reverseLayout =
+            UserPreferences(
+                requireContext()
+            ).stackFromBottom
+        else layoutManager.stackFromEnd = UserPreferences(
             requireContext()
         ).stackFromBottom
         binding.tabsTray.layoutManager = layoutManager
@@ -326,8 +348,9 @@ class TabsTrayFragment : Fragment() {
     }
 
     fun notifyBrowsingModeStateChanged() {
-        browsingModeManager =  (activity as BrowserActivity).browsingModeManager
-        configuration = Configuration(if (browsingModeManager.mode == BrowsingMode.Normal) BrowserTabType.NORMAL else BrowserTabType.PRIVATE)
+        browsingModeManager = (activity as BrowserActivity).browsingModeManager
+        configuration =
+            Configuration(if (browsingModeManager.mode == BrowsingMode.Normal) BrowserTabType.NORMAL else BrowserTabType.PRIVATE)
 
         binding.tabLayout.selectTab(binding.tabLayout.getTabAt(browsingModeManager.mode.ordinal))
     }

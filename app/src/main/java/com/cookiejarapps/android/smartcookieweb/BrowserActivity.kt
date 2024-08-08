@@ -109,7 +109,6 @@ open class BrowserActivity : LocaleAwareAppCompatActivity(), ComponentCallbacks2
         if(UserPreferences(this).firstLaunch){
             UserPreferences(this).firstLaunch = false
         }
-        if(UserPreferences(this).showTabsInGrid && UserPreferences(this).stackFromBottom) UserPreferences(this).stackFromBottom = false
 
         //TODO: Move to settings page so app restart no longer required
         //TODO: Differentiate between using search engine / adding to list - the code below removes all from list as I don't support adding to list, only setting as default
