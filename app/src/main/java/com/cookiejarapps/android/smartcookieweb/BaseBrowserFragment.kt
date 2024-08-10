@@ -64,10 +64,8 @@ import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.app.links.AppLinksFeature
 import mozilla.components.feature.downloads.DownloadsFeature
 import mozilla.components.feature.downloads.manager.FetchDownloadManager
-import mozilla.components.feature.downloads.temporary.ShareDownloadFeature
 import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
 import mozilla.components.feature.media.fullscreen.MediaSessionFullscreenFeature
-import mozilla.components.feature.privatemode.feature.SecureWindowFeature
 import mozilla.components.feature.prompts.PromptFeature
 import mozilla.components.feature.search.SearchFeature
 import mozilla.components.feature.session.FullScreenFeature
@@ -87,7 +85,6 @@ import mozilla.components.support.ktx.android.view.hideKeyboard
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 import mozilla.components.support.locale.ActivityContextWrapper
 import mozilla.components.support.utils.ext.requestInPlacePermissions
-import com.cookiejarapps.android.smartcookieweb.browser.home.HomeScreenViewModel
 import com.cookiejarapps.android.smartcookieweb.browser.home.SharedViewModel
 import java.lang.ref.WeakReference
 import mozilla.components.ui.widgets.behavior.EngineViewClippingBehavior as OldEngineViewClippingBehavior
@@ -121,7 +118,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private val sessionFeature = ViewBoundFeatureWrapper<SessionFeature>()
     private val contextMenuIntegration = ViewBoundFeatureWrapper<ContextMenuIntegration>()
     private val downloadsFeature = ViewBoundFeatureWrapper<DownloadsFeature>()
-    private val shareDownloadFeature = ViewBoundFeatureWrapper<ShareDownloadFeature>()
     private val appLinksFeature = ViewBoundFeatureWrapper<AppLinksFeature>()
     private val promptsFeature = ViewBoundFeatureWrapper<PromptFeature>()
     private val findInPageIntegration = ViewBoundFeatureWrapper<FindInPageIntegration>()
@@ -130,7 +126,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     private val fullScreenFeature = ViewBoundFeatureWrapper<FullScreenFeature>()
     private val swipeRefreshFeature = ViewBoundFeatureWrapper<SwipeRefreshFeature>()
     private val webExtensionPromptFeature = ViewBoundFeatureWrapper<WebExtensionPromptFeature>()
-    private val secureWindowFeature = ViewBoundFeatureWrapper<SecureWindowFeature>()
     private var fullScreenMediaSessionFeature =
         ViewBoundFeatureWrapper<MediaSessionFullscreenFeature>()
     private val searchFeature = ViewBoundFeatureWrapper<SearchFeature>()
@@ -145,7 +140,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
     protected var webAppToolbarShouldBeVisible = true
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
-    private val homeViewModel: HomeScreenViewModel by activityViewModels()
 
     private var _binding: FragmentBrowserBinding? = null
     protected val binding get() = _binding!!
@@ -654,9 +648,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             view?.let { view ->
                 fullScreenChanged(false)
                 browserToolbarView.expand()
-
-                val toolbarHeight = resources.getDimensionPixelSize(R.dimen.browser_toolbar_height)
-                val context = requireContext()
                 resumeDownloadDialogState(selectedTab.id)
             }
         } else {

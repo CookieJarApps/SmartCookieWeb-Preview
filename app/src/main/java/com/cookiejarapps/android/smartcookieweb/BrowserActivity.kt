@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.annotation.VisibleForTesting
@@ -42,7 +41,6 @@ import mozilla.components.browser.state.state.SessionState
 import mozilla.components.browser.state.state.WebExtensionState
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineView
-import mozilla.components.concept.engine.webextension.Port
 import mozilla.components.feature.contextmenu.ext.DefaultSelectionActionDelegate
 import mozilla.components.feature.search.ext.createSearchEngine
 import mozilla.components.support.base.feature.ActivityResultHandler
@@ -80,8 +78,6 @@ open class BrowserActivity : LocaleAwareAppCompatActivity(), ComponentCallbacks2
     private val webExtensionPopupFeature by lazy {
         WebExtensionPopupObserver(components.store, ::openPopup)
     }
-
-    private var mPort: Port? = null
 
     private var originalContext: Context? = null
 
@@ -345,8 +341,6 @@ open class BrowserActivity : LocaleAwareAppCompatActivity(), ComponentCallbacks2
             forceSearch: Boolean,
             flags: EngineSession.LoadUrlFlags = EngineSession.LoadUrlFlags.none()
     ) {
-        val mode = browsingModeManager.mode
-
         if ((!forceSearch && searchTermOrURL.isUrl()) || engine == null) {
             if(newTab) {
                 components.tabsUseCases.addTab.invoke(
