@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
   <string name="more">Plus d’informations</string>
   <string name="version">Version de l’application</string>
   <string name="licenses">Licences open-source</string>
@@ -38,6 +39,8 @@
   <string name="cancel">Annuler</string>
   <string name="export_bookmarks">Exporter les favoris</string>
   <string name="import_backup">Importer des favoris</string>
+  <string name="clear_bookmarks">Effacer les favoris</string>
+  <string name="clear_bookmarks_confirm">Voulez-vous vraiment supprimer tous les favoris ?</string>
   <string name="export_tabs">Exporter les onglets à sauvegarder</string>
   <string name="import_tabs">Importer les onglets</string>
   <string name="settings_general">Paramètres généraux</string>
@@ -69,6 +72,7 @@
   <string name="mozac_reader_view_description">Activer le mode lecteur</string>
   <string name="mozac_reader_view_description_selected">Désactiver le mode lecteur</string>
   <string name="other_addons">Autres modules</string>
+  <string name="all_extensions">Plus d\'extensions</string>
   <string name="tab_removed">Onglet supprimé</string>
   <string name="undo">Annuler</string>
   <string name="hide_url_bar">Mode plein écran</string>
@@ -98,10 +102,10 @@
   <string name="delete_folder">Supprimer le dossier</string>
   <string name="open">Ouvrir</string>
   <string name="open_new">Ouvrir dans un nouvel onglet</string>
+  <string name="open_new_private">Ouvrir dans un nouvel onglet privé</string>
   <string name="open_bg">Ouvrir en arrière-plan</string>
   <string name="confirm">Voulez-vous vraiment supprimer cet élément ?</string>
   <string name="start_sort">Tri en cours</string>
-  <string name="end_sort">Not sorting</string>
   <string name="successful">Réussi</string>
   <string name="failed">Échec</string>
   <string name="search_engine">Moteur de recherche</string>
@@ -126,12 +130,8 @@
   <string name="default_word">Défaut</string>
   <string name="blank_page">Page vierge</string>
   <string name="custom_page">Page personnalisée</string>
+  <string name="homepage_background_image">Image de fond de la page d\'accueil</string>
   <string name="move_navbar">Ancrer la barre de navigation en bas de l’écran</string>
-  <string-array name="homepage_types">
-    <item>@string/default_word</item>
-    <item>@string/blank_page</item>
-    <item>@string/custom_page</item>
-  </string-array>
   <string name="custom_collection">Collection d’extensions personnalisée</string>
   <string name="use_custom_collection">Utiliser un magasin de modules personnalisé</string>
   <string name="use_custom_collection_disclaimer">Lorsque vous utilisez un magasin de modules personnalisé, le navigateur récupère les extensions depuis les serveurs de Mozilla. Nous ne pouvons pas vous garantir que ces extensions sont sûres, ni même qu’elles fonctionneront correctement sur votre appareil.</string>
@@ -147,11 +147,6 @@
   <string name="auto">Selon le système</string>
   <string name="auto_font">Taille du texte automatique</string>
   <string name="font_size">Taille du texte</string>
-  <string-array name="theme_types">
-    <item>@string/light_theme</item>
-    <item>@string/dark_theme</item>
-    <item>@string/auto</item>
-  </string-array>
   <string name="rate">Évaluer</string>
   <string name="report">Signaler</string>
   <string name="swap_bookmarks_and_tabs">Inverser les panneaux de favoris et de navigation</string>
@@ -191,4 +186,7 @@
   <string name="custom_search_engine_details">Entrer l\'URL, en remplaçant la requête par \'{searchTerms}\'</string>
   <string name="custom_search_engine_error">L\'URL ne contient pas \'{searchTerms}\'</string>
   <string name="clear">Effacer</string>
+  <string name="show_site_icons">Afficher les icônes des sites web?</string>
+  <string name="allow_shortcut_favicons_prompt">SmartCookieWeb Preview peut maintenant afficher les icônes des sites dont vous avez des raccourcis sur la page d\'accueil. Cependant, cette fonctionnalité nécessite que l\'application envoie les URL de vos raccourcis à un service externe (par1.cookiejarapps.com/favicon/). Aucun journal n\'est conservé à propos des sites envoyés au service. Souhaitez-vous activer cette fonctionnalité ?</string>
+  <string name="save_as_pdf">Enregistrer en PDF</string>
 </resources>

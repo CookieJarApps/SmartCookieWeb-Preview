@@ -220,7 +220,7 @@
 
   <string name="load_shortcut_icons">Load website icons for shortcuts</string>
 
-  <string-array name="homepage_background_image_types">
+  <string-array name="homepage_background_image_types" translatable="false">
     <item>@string/none</item>
     <item>@string/homepage_background_gallery</item>
     <item>@string/homepage_background_url</item>
@@ -228,7 +228,7 @@
 
   <string name="move_navbar">Move navbar to bottom</string>
 
-  <string-array name="homepage_types">
+  <string-array name="homepage_types" translatable="false">
     <item>@string/default_word</item>
     <item>@string/blank_page</item>
     <item>@string/custom_page</item>
@@ -253,7 +253,7 @@
   <string name="auto_font">Auto font size</string>
   <string name="font_size">Font size</string>
 
-  <string-array name="theme_types">
+  <string-array name="theme_types" translatable="false">
     <item>@string/light_theme</item>
     <item>@string/dark_theme</item>
     <item>@string/auto</item>

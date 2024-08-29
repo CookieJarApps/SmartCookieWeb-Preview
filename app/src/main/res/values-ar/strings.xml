@@ -13,7 +13,9 @@
     <string name="license_gpl">رخصة جنو العمومية العامة</string>
     <string name="no_ads">لا توجد إعلانات أو تتبعات</string>
     <string name="infinity">∞</string>
+    <string name="custom">مخصص</string>
     <string name="tabs">التبويبات</string>
+    <string name="tab_grid">إظهار علامات التبويب في الشبكة</string>
     <string name="action_print">طباعة</string>
     <string name="action_add_to_homescreen">إضافة إلى الشاشة الرئيسية</string>
     <string name="action_history">السجل</string>
@@ -25,6 +27,7 @@
     <string name="reload">إعادة تحميل</string>
     <string name="settings">الإعدادات</string>
     <string name="new_tab">تبويب جديد</string>
+    <string name="duplicate_tab">تكرار التبويب</string>
     <string name="move_to_private">نقل إلى الوضع الخاص</string>
     <string name="move_to_normal">الانتقال إلى الوضع العادي</string>
     <string name="close_tab">إغلاق التبويب</string>
@@ -56,10 +59,16 @@
     <string name="follow_system">اتبع سمة النظام</string>
     <string name="follow_system_summary">واجهة مستخدم المتصفح المظلم عند تمكين الوضع المظلم للنظام</string>
     <string name="javascript_enabled">تمكين جافا سكريبت</string>
+    <string name="clear_tabs">محو علامات التبويب المفتوحة</string>
     <string name="clear_history">مسح سجل التصفح</string>
+    <string name="clear_cookies">مسح ملفات تعريف الارتباط</string>
+    <string name="clear_cache">مسح ذاكرة التخزين المؤقت</string>
+    <string name="clear_permissions">مسح الأذونات</string>
+    <string name="sites">المواقع (%1$s)</string>
     <string name="app_restart">الرجاء إعادة تشغيل التطبيق ليصبح التغيير نافذ المفعول.</string>
     <string name="mozac_reader_view_description">تمكين عرض القارئ</string>
     <string name="mozac_reader_view_description_selected">تعطيل عرض القارئ</string>
+    <string name="other_addons">إضافات أخرى</string>
     <string name="tab_removed">تم إزالة التبويب</string>
     <string name="undo">تراجع</string>
     <string name="hide_url_bar">إخفاء شريط عنوان URL أثناء التمرير</string>
@@ -72,12 +81,16 @@
     <string name="add_to_top">إضافة في أعلى القائمة</string>
     <string name="add_bookmark">إضافة إشارة مرجعية</string>
     <string name="edit_bookmark">تعديل الإشارة المرجعية</string>
+    <string name="remove_history_item">إزالة عنصر التاريخ</string>
     <string name="edit_folder">تحرير المجلد</string>
     <string name="add_folder">إضافة مجلد</string>
     <string name="new_folder_name">مجلد جديد</string>
     <string name="url_empty_mes">عنوان URL فارغ!</string>
     <string name="title_empty_mes">العنوان فارغ!</string>
     <string name="sort">فرز</string>
+    <string name="sort_rating">التقييم</string>
+    <string name="sort_a_z">أ-ي</string>
+    <string name="sort_z_a">ي-أ</string>
     <string name="select_this_item">تحديد هذا العنصر</string>
     <string name="move_bookmark">الانتقال إلى مجلد</string>
     <string name="open_all_new">فتح الكل في علامات التبويب الجديدة</string>
@@ -93,8 +106,18 @@
     <string name="successful">تم بنجاح</string>
     <string name="failed">فشل</string>
     <string name="search_engine">محرك البحث</string>
+    <string name="fill_from_clipboard">ملء من الحافظة</string>
+    <string name="copy">نسخ</string>
+    <string name="paste">لصق</string>
+    <string name="paste_and_go">لصق و أذهب</string>
+    <string name="copied">تم النسخ إلى الحافظة</string>
     <string name="loading_addons">جاري تحميل الإضافات…</string>
+    <string name="loading">جاري التحميل…</string>
+    <string name="tabs_cleared">تم مسح التبويبات!</string>
     <string name="history_cleared">تم مسح سجل التصفح!</string>
+    <string name="cookies_cleared">تم مسح ملفات تعريف الارتباط!</string>
+    <string name="cache_cleared">تم مسح ذاكرة التخزين المؤقت!</string>
+    <string name="permissions_cleared">تم مسح الصلاحيات!</string>
     <string name="show_addons_in_bar">إظهار الإضافات في شريط التنقل</string>
     <string name="shortcuts">الاختصارات</string>
     <string name="add_shortcut">إضافة اختصار</string>
@@ -103,11 +126,8 @@
     <string name="homepage_type">نوع الصفحة الرئيسية</string>
     <string name="default_word">إفتراضي</string>
     <string name="blank_page">صفحة فارغة</string>
+    <string name="custom_page">صفحة مخصصة</string>
     <string name="move_navbar">تحريك شريط التنقل إلى الأسفل</string>
-    <string-array name="homepage_types">
-        <item>@string/default_word</item>
-        <item>@string/blank_page</item>
-    </string-array>
     <string name="custom_collection">مجموعة إضافات مخصصة</string>
     <string name="use_custom_collection">استخدام مجموعة إضافات مخصصة</string>
     <string name="use_custom_collection_disclaimer">عند استخدام مجموعة إضافات مخصصة، يبحث المتصفح عن خوادم موزيلا للإضافات. لا يمكن لـ CookieJarApps ضمان أن هذه الإضافات آمنة أو ستعمل بشكل صحيح على جهازك.</string>
@@ -123,13 +143,49 @@
     <string name="auto">اتبع النظام</string>
     <string name="auto_font">حجم نص تلقائي</string>
     <string name="font_size">حجم الخط</string>
-    <string-array name="theme_types">
-        <item>@string/light_theme</item>
-        <item>@string/dark_theme</item>
-        <item>@string/auto</item>
-    </string-array>
     <string name="rate">تقييم</string>
     <string name="report">إبلاغ</string>
     <string name="swap_bookmarks_and_tabs">تبديل درج الإشارات المرجعية وعلامة التبويب</string>
     <string name="stack_items_reverse">تكدس العناصر من أسفل القائمة</string>
+    <string name="browser_sync">مزامنة المتصفح</string>
+    <string name="browser_sync_disclaimer">عند استخدام المزامنة، يزامن المتصفح علامات التبويب الخاصة بك مع حساب Firefox الخاص بك. هذا يعني أن المتصفح سيقوم بتخزين بياناتك في شكل مشفر على خوادم مزامنة Firefox التي تشغلها موزيلا. هذه الخدمة غير مرتبطة بموزيلا أو معتمدة من قبل CookieJarApps غير مطلوب لتقديم خدمة الدعم أو الضمان أو التحديثات.</string>
+    <string name="load_xpi">خيارات Slideload</string>
+    <string name="load_xpi_description">هل أنت متأكد من أنك تريد تثبيت %1$s إلى هذا المتصفح؟ هذه الإضافة لم يتم التحقق من الأمان أو الاستقرار من قبل CookieJarApps.</string>
+    <string name="addon_not_available">هذه الإضافة غير متوفرة من متجر الإضافات. هل ترغب في تحميلها؟</string>
+    <string name="swipe_to_refresh">اسحب للتحديث</string>
+    <string name="sideloaded_addons">الإضافات المحملة بشكل جانبي</string>
+    <string name="already_available">هذه الإضافة متوفرة بالفعل في متجر الإضافات الرسمي. لا يمكن تحميل الإضافات المتاحة في المتجر الرسمي جانباً.</string>
+    <string name="installed">تم التثبيت بنجاح</string>
+    <string name="error">خطأ</string>
+    <string name="remote_debugging">تصحيح الأخطاء عن بُعد</string>
+    <string name="export_settings">تصدير الإعدادات إلى النسخة الاحتياطية</string>
+    <string name="import_settings">استيراد الإعدادات من النسخة الاحتياطية</string>
+    <string name="clear_settings">إعادة تعيين الإعدادات</string>
+    <string name="backup_settings">النسخ الاحتياطي للإعدادات</string>
+    <string name="prompt_external_downloader">اسأل أي تطبيق يمكن استخدامه لتنزيل الملفات</string>
+    <string name="close_current_tab">اغلق التبويب الحالي</string>
+    <string name="close_all_tabs">قُم بإغلاق كُل التبويبات</string>
+    <string name="close_other_tabs">أغلق علامات التبويب الأخرى</string>
+    <string name="close_app">إغلاق المتصفح</string>
+    <string name="dialog_title_close_browser">إغلاق علامة التبويب</string>
+    <string name="show_protocol_in_url">إظهار بروتوكول URL في شريط الأدوات</string>
+    <string name="search_suggestions">اقتراحات البحث</string>
+    <string name="safe_browsing">التصفح الآمن</string>
+    <string name="tracking_protection">الحماية من التتبع</string>
+    <string name="show_newsfeed">إظهار موجز الأخبار</string>
+    <string name="show_shortcuts">إظهار الاختصارات</string>
+    <string name="disable_newsfeed">تعطيل موجز الأخبار</string>
+    <string name="configure">تهيئة</string>
+    <string name="newsfeed_privacy">يحترم CookieJarApps خصوصيتك، ولا يجمع أو يخزن أي بيانات تتعلق بك. لهذا السبب ، لاستخدام ميزة تغذية الأخبار ، ستحتاج إلى ملء بعض المعلومات العامة عن الأخبار التي تريد تلقيها.</string>
+    <string name="trust_third_party_certs">الثقة بشهادات الطرف الثالث CA</string>
+    <string name="custom_search_engine">محرك بحث مخصص</string>
+    <string name="custom_search_engine_details">أدخل عنوان URL باستخدام \'{searchTerms}\' بدلا من الاستعلام</string>
+    <string name="custom_search_engine_error">عنوان URL للبحث لا يحتوي على \'{searchTerms}\'</string>
+    <string name="clear">تنظيف</string>
+    <string name="name">الاسم</string>
+    <string name="show_site_icons">إظهار أيقونات الموقع؟</string>
+    <string name="allow_shortcut_favicons">تحميل الأيقونات للاختصارات</string>
+    <string name="allow_shortcut_favicons_prompt">يمكن الآن عرض معاينة SmartCookieWeb رموز المواقع التي لديك اختصارات لها على الصفحة الرئيسية. ومع ذلك، تتطلب هذه الميزة من التطبيق إرسال عناوين URL للاختصارات إلى خدمة خارجية (الفقرة 1). ookiejarapps.com/favicon/). لا يتم الاحتفاظ بسجلات حول المواقع المرسلة إلى الخدمة. هل ترغب في تمكين هذه الميزة؟</string>
+    <string name="flex_mode">وضع Flex</string>
+    <string name="save_as_pdf">حفظ كملف PDF</string>
 </resources>
