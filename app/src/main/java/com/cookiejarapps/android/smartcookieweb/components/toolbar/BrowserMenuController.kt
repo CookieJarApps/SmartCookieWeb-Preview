@@ -129,7 +129,7 @@ class DefaultBrowserToolbarMenuController(
                     appLinksUseCases.openAppLink.invoke(redirect.appIntent)
                 }
             }
-            is ToolbarMenu.Item.Bookmarks -> browserAnimator.captureEngineViewAndDrawStatically {
+            is ToolbarMenu.Item.Bookmarks -> {
                 val drawerLayout = activity.findViewById<DrawerLayout>(R.id.drawer_layout)
                 val bookmarksDrawer =
                     if (UserPreferences(activity).swapDrawers) activity.findViewById<FrameLayout>(
