@@ -34,13 +34,16 @@ class AddonSettingsActivity : AppCompatActivity() {
 
         setContentView(view)
 
-
-        if(UserPreferences(this).appThemeChoice == ThemeChoice.SYSTEM.ordinal) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        } else if(UserPreferences(this).appThemeChoice == ThemeChoice.LIGHT.ordinal) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        when (UserPreferences(this).appThemeChoice) {
+            ThemeChoice.SYSTEM.ordinal -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            }
+            ThemeChoice.LIGHT.ordinal -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+            else -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
         }
 
         val addon = requireNotNull(intent.getParcelableExtra<Addon>("add_on"))
