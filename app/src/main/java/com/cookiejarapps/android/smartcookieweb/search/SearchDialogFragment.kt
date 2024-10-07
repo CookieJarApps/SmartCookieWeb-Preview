@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -186,15 +187,27 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
         }
 
         binding.fillLinkFromClipboard.setOnClickListener {
-            view.hideKeyboard()
-            toolbarView.view.clearFocus()
-            (activity as BrowserActivity)
-                .openToBrowserAndLoad(
-                    searchTermOrURL = requireContext().components.clipboardHandler.url ?: "",
-                    newTab = store.state.tabId == null,
-                    from = BrowserDirection.FromSearchDialog
-                )
+            val clipboardUrl = requireContext().components.clipboardHandler.extractURL() ?: ""
+            val urlView = toolbarView.view
+                .findViewById<InlineAutocompleteEditText>(R.id.mozac_browser_toolbar_edit_url_view)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                toolbarView.view.edit.updateUrl(clipboardUrl)
+                hideClipboardSection()
+                urlView.setSelection(clipboardUrl.length)
+            } else {
+                view.hideKeyboard()
+                toolbarView.view.clearFocus()
+                (activity as BrowserActivity)
+                    .openToBrowserAndLoad(
+                        searchTermOrURL = clipboardUrl,
+                        newTab = store.state.tabId == null,
+                        from = BrowserDirection.FromSearchDialog,
+                    )
+            }
+            requireContext().components.clipboardHandler.text = null
         }
+
         consumeFrom(store) {
             /*
             * firstUpdate is used to make sure we keep the awesomebar hidden on the first run
@@ -203,7 +216,7 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
             * */
             if (it.url != it.query) firstUpdate = false
             binding.awesomeBar.visibility = if (shouldShowAwesomebar(it)) View.VISIBLE else View.INVISIBLE
-            updateClipboardSuggestion(it, requireContext().components.clipboardHandler.url)
+            updateClipboardSuggestion(it, requireContext().components.clipboardHandler.containsURL())
             updateToolbarContentDescription(it)
             updateSearchShortcutsIcon(it)
             toolbarView.update(it)
@@ -218,6 +231,14 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
     override fun onPause() {
         super.onPause()
         view?.hideKeyboard()
+    }
+
+    private fun hideClipboardSection() {
+        binding.fillLinkFromClipboard.isVisible = false
+        binding.fillLinkDivider.isVisible = false
+        binding.clipboardUrl.isVisible = false
+        binding.clipboardTitle.isVisible = false
+        binding.linkIcon.isVisible = false
     }
 
     /*
@@ -279,10 +300,10 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
         }
     }
 
-    private fun updateClipboardSuggestion(searchState: SearchFragmentState, clipboardUrl: String?) {
+    private fun updateClipboardSuggestion(searchState: SearchFragmentState, containsUrl: Boolean) {
         val shouldShowView = searchState.showClipboardSuggestions &&
                 searchState.query.isEmpty() &&
-                !clipboardUrl.isNullOrEmpty()
+                !containsUrl
 
         binding.fillLinkFromClipboard.isVisible = shouldShowView
         binding.fillLinkDivider.isVisible = shouldShowView
@@ -292,12 +313,21 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
         binding.clipboardTitle.isVisible = shouldShowView
         binding.linkIcon.isVisible = shouldShowView
 
-        binding.clipboardUrl.text = clipboardUrl
+        if (shouldShowView) {
+            val contentDescription = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                "${binding.clipboardTitle.text}."
+            } else {
+                val clipboardUrl = context?.components?.clipboardHandler?.extractURL()
 
-        binding.fillLinkFromClipboard.contentDescription = "${binding.clipboardTitle.text}, ${binding.clipboardUrl.text}."
+                if (clipboardUrl != null && !((activity as BrowserActivity).browsingModeManager.mode.isPrivate)) {
+                    components.engine.speculativeConnect(clipboardUrl)
+                }
+                binding.clipboardUrl.text = clipboardUrl
+                binding.clipboardUrl.isVisible = shouldShowView
+                "${binding.clipboardTitle.text}, ${binding.clipboardUrl.text}."
+            }
 
-        if (clipboardUrl != null && !((activity as BrowserActivity).browsingModeManager.mode.isPrivate)) {
-            components.engine.speculativeConnect(clipboardUrl)
+            binding.fillLinkFromClipboard.contentDescription = contentDescription
         }
     }
 

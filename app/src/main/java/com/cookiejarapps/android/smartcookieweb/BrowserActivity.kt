@@ -199,11 +199,11 @@ open class BrowserActivity : LocaleAwareAppCompatActivity(), ComponentCallbacks2
         components.notificationsDelegate.bindToActivity(this)
     }
 
-    final override fun onNewIntent(intent: Intent?) {
+    final override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         // TODO: temporary fix
         openToBrowser(BrowserDirection.FromGlobal)
-        intent?.let {
+        intent.let {
             handleNewIntent(it)
         }
     }
