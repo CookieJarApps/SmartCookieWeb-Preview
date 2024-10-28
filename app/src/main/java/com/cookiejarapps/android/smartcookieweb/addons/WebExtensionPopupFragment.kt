@@ -1,5 +1,6 @@
 package com.cookiejarapps.android.smartcookieweb.addons
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -81,6 +82,7 @@ class WebExtensionPopupFragment : BottomSheetDialogFragment(), UserInteractionHa
                 PromptFeature(
                     fragment = this,
                     store = components.store,
+                    customTabId = it.id,
                     tabsUseCases = components.tabsUseCases,
                     fragmentManager = parentFragmentManager,
                     fileUploadsDirCleaner = components.fileUploadsDirCleaner,
