@@ -1,6 +1,7 @@
-<p align="center"><a href="#"><img src="https://user-images.githubusercontent.com/44752343/112723990-1d100980-8f09-11eb-94d3-a77cfdb00cd3.png" height="180" title="SmartCookieWeb" alt="SmartCookieWeb"></a></p>
+<p align="center"><a href="#"><img src="![14-149823_naruto-eye-png-television-the-drug-of-the](https://github.com/user-attachments/assets/034a0d85-9748-4fa2-b17e-ca6194faa22f)
+" height="180" title="SmartCookieWeb" alt="SmartCookieWeb"></a></p>
 
-<h2 align="center"><b>SmartCookieWeb Preview</b></h2>
+<h2 align="center"><b>Kyubi Browser</b></h2>
 <p align="center">
 <img src="https://img.shields.io/github/issues-raw/cookiejarapps/SmartCookieWeb-Preview" />
 <img src="hhttps://img.shields.io/github/v/release/cookiejarapps/SmartCookieWeb-Preview" />
