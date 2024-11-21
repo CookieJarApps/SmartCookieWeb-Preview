@@ -10,9 +10,9 @@
 
 <table>
  <tr>
- <td><img src="photo_5908883884509085941_y.jpg" /></td>
- <td><img src="photo_5908883884509085940_y.jpg" /></td>
- <td><img src="photo_5908883884509085939_y.jpg" /></td>
+ <td><img src="Images/photo_5908883884509085941_y.jpg" /></td>
+ <td><img src="Images/photo_5908883884509085940_y.jpg" /></td>
+ <td><img src="Images/photo_5908883884509085939_y.jpg" /></td>
  </tr>
 </table>
 
