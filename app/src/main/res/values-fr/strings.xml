@@ -187,6 +187,6 @@
   <string name="custom_search_engine_error">L\'URL ne contient pas \'{searchTerms}\'</string>
   <string name="clear">Effacer</string>
   <string name="show_site_icons">Afficher les icônes des sites web?</string>
-  <string name="allow_shortcut_favicons_prompt">SmartCookieWeb Preview peut maintenant afficher les icônes des sites dont vous avez des raccourcis sur la page d\'accueil. Cependant, cette fonctionnalité nécessite que l\'application envoie les URL de vos raccourcis à un service externe (par1.cookiejarapps.com/favicon/). Aucun journal n\'est conservé à propos des sites envoyés au service. Souhaitez-vous activer cette fonctionnalité ?</string>
+  <string name="allow_shortcut_favicons_prompt">Kyubi peut maintenant afficher les icônes des sites dont vous avez des raccourcis sur la page d\'accueil. Cependant, cette fonctionnalité nécessite que l\'application envoie les URL de vos raccourcis à un service externe (par1.cookiejarapps.com/favicon/). Aucun journal n\'est conservé à propos des sites envoyés au service. Souhaitez-vous activer cette fonctionnalité ?</string>
   <string name="save_as_pdf">Enregistrer en PDF</string>
 </resources>

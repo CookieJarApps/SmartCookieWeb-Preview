@@ -8,7 +8,7 @@
             android:title="@string/more">
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="https://github.com/CookieJarApps/SmartCookieWeb-preview">
+                android:data="https://github.com/Khalylexe/Kyubi">
                 <extra
                     android:name="SOURCE"
                     android:value="SELF" />

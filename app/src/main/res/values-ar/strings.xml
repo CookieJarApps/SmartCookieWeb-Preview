@@ -185,7 +185,7 @@
     <string name="name">الاسم</string>
     <string name="show_site_icons">إظهار أيقونات الموقع؟</string>
     <string name="allow_shortcut_favicons">تحميل الأيقونات للاختصارات</string>
-    <string name="allow_shortcut_favicons_prompt">يمكن الآن عرض معاينة SmartCookieWeb رموز المواقع التي لديك اختصارات لها على الصفحة الرئيسية. ومع ذلك، تتطلب هذه الميزة من التطبيق إرسال عناوين URL للاختصارات إلى خدمة خارجية (الفقرة 1). ookiejarapps.com/favicon/). لا يتم الاحتفاظ بسجلات حول المواقع المرسلة إلى الخدمة. هل ترغب في تمكين هذه الميزة؟</string>
+    <string name="allow_shortcut_favicons_prompt">يمكن الآن عرض معاينة Kyubi رموز المواقع التي لديك اختصارات لها على الصفحة الرئيسية. ومع ذلك، تتطلب هذه الميزة من التطبيق إرسال عناوين URL للاختصارات إلى خدمة خارجية (الفقرة 1). ookiejarapps.com/favicon/). لا يتم الاحتفاظ بسجلات حول المواقع المرسلة إلى الخدمة. هل ترغب في تمكين هذه الميزة؟</string>
     <string name="flex_mode">وضع Flex</string>
     <string name="save_as_pdf">حفظ كملف PDF</string>
 </resources>
