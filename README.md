@@ -3,11 +3,6 @@
 
 <h2 align="center"><b>Kyubi Browser</b></h2>
 <p align="center">
-<img src="https://img.shields.io/github/issues-raw/cookiejarapps/SmartCookieWeb-Preview" />
-<img src="hhttps://img.shields.io/github/v/release/cookiejarapps/SmartCookieWeb-Preview" />
-<a href="https://liberapay.com/CookieJarApps"><img src="https://img.shields.io/liberapay/patrons/CookieJarApps" /></a>
-<img src="https://img.shields.io/github/stars/cookiejarapps/SmartCookieWeb-Preview?style=social" />
- </p>
 
 ---
 
