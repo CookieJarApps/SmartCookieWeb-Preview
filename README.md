@@ -1,5 +1,5 @@
 <p align="center"><a href="#"><img src="![14-149823_naruto-eye-png-television-the-drug-of-the](https://github.com/user-attachments/assets/034a0d85-9748-4fa2-b17e-ca6194faa22f)
-" height="180" title="SmartCookieWeb" alt="SmartCookieWeb"></a></p>
+" height="180" title="Kyubi Browser" alt="SmartCookieWeb"></a></p>
 
 <h2 align="center"><b>Kyubi Browser</b></h2>
 <p align="center">
