@@ -20,22 +20,6 @@
 
 ---
 
-## F-Droid
-
-SCWP needs source code changes to be accepted on F-Droid which have not currently been made (building GeckoView and Android Components from source instead of fetching from Mozilla Maven, etc).
-
----
-
-## Support
-
-Need help? Open an issue here, or:
-
-- Email me at `support@cookiejarapps.com`
-- Join the [Telegram chat](https://t.me/scwgroup)
-- Join the [Matrix chat](https://matrix.to/#/#smartcookieweb:matrix.org)
-
----
-
 ## Installation
 
 - To get started with this project, import it into Android Studio or build from the command line with Gradle:
@@ -46,20 +30,14 @@ Need help? Open an issue here, or:
 
 ## Features
 
-- Modern, clean UI
-- Blocks ads and trackers
-
----
-
-## Contributing
-
-Contributions are greatly appreciated. Feel free to open an issue or pull request or help translate at (translate.cookiejarapps.com)
+- Different UI from your typical Firefox Fork
 
 ---
 
 ## Disclaimers
 
-This is an open-source project intended to provide freedom of web browser configuration on mobile. It is worked on in my free time and there are no guarantees of stability or updates. Please see below, as in the MPL 2.0 license:
+This is my fork of SmartCookieWeb Preview which just changes the name and the logo because smartcookieweb is a shit name
+tho if u want the original its this <link>https://github.com/CookieJarApps/SmartCookieWeb-Preview</link>
 
 ## Warranty
 
@@ -91,8 +69,5 @@ SUCH DAMAGES.`
 ## License
 
 - **[Mozilla Public License Version 2.0](https://www.mozilla.org/en-US/MPL/2.0/)**
-
-
-Copyright 2022 © CookieJarApps.
 
 ---
