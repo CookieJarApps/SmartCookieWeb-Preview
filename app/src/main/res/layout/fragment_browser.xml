@@ -1,4 +1,4 @@
-<com.cookiejarapps.android.smartcookieweb.browser.SwipeGestureLayout
+<com.khalyl.android.kyubi.browser.SwipeGestureLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -81,11 +81,11 @@
         android:src="@drawable/mozac_ic_font"
         android:visibility="gone" />
 
-    <com.cookiejarapps.android.smartcookieweb.browser.FakeTab
+    <com.khalyl.android.kyubi.browser.FakeTab
         android:id="@+id/tabPreview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="false"
         android:focusable="false"
         android:visibility="gone" />
-</com.cookiejarapps.android.smartcookieweb.browser.SwipeGestureLayout>
+</com.khalyl.android.kyubi.browser.SwipeGestureLayout>

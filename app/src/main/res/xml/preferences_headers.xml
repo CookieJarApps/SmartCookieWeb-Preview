@@ -2,43 +2,43 @@
 <androidx.preference.PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
     <androidx.preference.Preference
-        android:fragment="com.cookiejarapps.android.smartcookieweb.settings.fragment.GeneralSettingsFragment"
+        android:fragment="com.khalyl.android.kyubi.settings.fragment.GeneralSettingsFragment"
         android:icon="@drawable/ic_settings_general_layers"
         android:title="@string/settings_general"
         android:singleLineTitle="false"
         android:summary="@string/settings_general_explain"/>
     <androidx.preference.Preference
-        android:fragment="com.cookiejarapps.android.smartcookieweb.settings.fragment.PrivacyAndSecuritySettingsFragment"
+        android:fragment="com.khalyl.android.kyubi.settings.fragment.PrivacyAndSecuritySettingsFragment"
         android:icon="@drawable/ic_settings_privacy_and_security_layers"
         android:title="@string/settings_privacy_and_security"
         android:singleLineTitle="false"
         android:summary="@string/settings_privacy_and_security_explain"/>
     <androidx.preference.Preference
-        android:fragment="com.cookiejarapps.android.smartcookieweb.settings.fragment.ImportExportSettingsFragment"
+        android:fragment="com.khalyl.android.kyubi.settings.fragment.ImportExportSettingsFragment"
         android:icon="@drawable/ic_settings_import_export_layers"
         android:title="@string/settings_import_and_export"
         android:singleLineTitle="false"
         android:summary="@string/settings_import_and_export_explain"/>
     <androidx.preference.Preference
-        android:fragment="com.cookiejarapps.android.smartcookieweb.settings.fragment.CustomizationSettingsFragment"
+        android:fragment="com.khalyl.android.kyubi.settings.fragment.CustomizationSettingsFragment"
         android:icon="@drawable/ic_settings_customize_layers"
         android:title="@string/settings_customization"
         android:singleLineTitle="false"
         android:summary="@string/settings_customization_explain"/>
     <androidx.preference.Preference
-        android:fragment="com.cookiejarapps.android.smartcookieweb.settings.fragment.AdvancedSettingsFragment"
+        android:fragment="com.khalyl.android.kyubi.settings.fragment.AdvancedSettingsFragment"
         android:icon="@drawable/ic_settings_advanced_layers"
         android:title="@string/settings_advanced"
         android:singleLineTitle="false"
         android:summary="@string/settings_advanced_explain"/>
     <androidx.preference.Preference
-        android:fragment="com.cookiejarapps.android.smartcookieweb.addons.AddonsFragment"
+        android:fragment="com.khalyl.android.kyubi.addons.AddonsFragment"
         android:icon="@drawable/ic_settings_addons_layers"
         android:title="@string/settings_addons"
         android:singleLineTitle="false"
         android:summary="@string/settings_addons_explain"/>
     <androidx.preference.Preference
-        android:fragment="com.cookiejarapps.android.smartcookieweb.settings.fragment.AboutSettingsFragment"
+        android:fragment="com.khalyl.android.kyubi.settings.fragment.AboutSettingsFragment"
         android:icon="@drawable/ic_settings_about_layers"
         android:title="@string/settings_about"
         android:singleLineTitle="false"

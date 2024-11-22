@@ -26,7 +26,7 @@
   <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
   <application
-    android:name=".BrowserApp"
+    android:name="com.khalyl.android.kyubi.BrowserApp"
     android:allowBackup="true"
     android:fullBackupContent="@xml/backup_rules"
     android:icon="@mipmap/ic_launcher"
@@ -34,7 +34,7 @@
     android:supportsRtl="true"
     android:theme="@style/AppThemeNotActionBar">
 
-    <activity android:name=".BrowserActivity"
+    <activity android:name="com.khalyl.android.kyubi.BrowserActivity"
         android:launchMode="singleTask"
         android:resizeableActivity="true"
         android:supportsPictureInPicture="true"
@@ -48,48 +48,48 @@
     </activity>
 
     <activity
-        android:name=".addons.AddonsActivity"
+        android:name="com.khalyl.android.kyubi.addons.AddonsActivity"
         android:label="@string/mozac_feature_addons_addons"
-        android:parentActivityName=".BrowserActivity"
+        android:parentActivityName="com.khalyl.android.kyubi.BrowserActivity"
         android:theme="@style/AppThemeAddons" />
 
     <activity
-        android:name=".settings.activity.SettingsActivity"
+        android:name="com.khalyl.android.kyubi.settings.activity.SettingsActivity"
         android:label="@string/settings"
         android:theme="@style/AppThemeSettings"/>
 
     <activity
-        android:name=".addons.AddonDetailsActivity"
+        android:name="com.khalyl.android.kyubi.addons.AddonDetailsActivity"
         android:label="@string/mozac_feature_addons_addons"
         android:theme="@style/AppThemeAddons" />
 
-    <activity android:name=".addons.InstalledAddonDetailsActivity"
+    <activity android:name="com.khalyl.android.kyubi.addons.InstalledAddonDetailsActivity"
         android:label="@string/mozac_feature_addons_addons"
-        android:parentActivityName=".addons.AddonsActivity"
-        android:theme="@style/AppThemeAddons" />
-
-    <activity
-        android:name=".addons.PermissionsDetailsActivity"
-        android:label="@string/mozac_feature_addons_addons"
+        android:parentActivityName="com.khalyl.android.kyubi.addons.AddonsActivity"
         android:theme="@style/AppThemeAddons" />
 
     <activity
-        android:name=".addons.AddonSettingsActivity"
+        android:name="com.khalyl.android.kyubi.addons.PermissionsDetailsActivity"
         android:label="@string/mozac_feature_addons_addons"
         android:theme="@style/AppThemeAddons" />
 
     <activity
-        android:name=".addons.NotYetSupportedAddonActivity"
+        android:name="com.khalyl.android.kyubi.addons.AddonSettingsActivity"
         android:label="@string/mozac_feature_addons_addons"
         android:theme="@style/AppThemeAddons" />
 
     <activity
-        android:name=".history.HistoryActivity"
+        android:name="com.khalyl.android.kyubi.addons.NotYetSupportedAddonActivity"
+        android:label="@string/mozac_feature_addons_addons"
+        android:theme="@style/AppThemeAddons" />
+
+    <activity
+        android:name="com.khalyl.android.kyubi.history.HistoryActivity"
         android:label="@string/action_history"
         android:theme="@style/AppThemeAddons" />
 
     <activity
-        android:name=".IntentReceiverActivity"
+        android:name="com.khalyl.android.kyubi.IntentReceiverActivity"
         android:relinquishTaskIdentity="true"
         android:taskAffinity=""
         android:exported="true"
@@ -161,12 +161,12 @@
     </activity>
 
     <service
-        android:name=".media.MediaSessionService"
+        android:name="com.khalyl.android.kyubi.media.MediaSessionService"
         android:foregroundServiceType="mediaPlayback"
         android:exported="false" />
 
     <service
-        android:name=".downloads.DownloadService"
+        android:name="com.khalyl.android.kyubi.downloads.DownloadService"
         android:foregroundServiceType="dataSync"
         android:exported="false" />
 

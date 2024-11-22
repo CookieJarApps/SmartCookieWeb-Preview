@@ -7,9 +7,9 @@
         android:shortcutShortLabel="@string/mozac_browser_menu_new_private_tab"
         android:shortcutLongLabel="@string/mozac_browser_menu_new_private_tab">
         <intent
-            android:action="com.cookiejarapps.android.smartcookieweb.NEWPRIVATETAB"
-            android:targetPackage="com.cookiejarapps.android.smartcookieweb"
-            android:targetClass="com.cookiejarapps.android.smartcookieweb.IntentReceiverActivity" />
+            android:action="com.khalyl.android.kyubi.NEWPRIVATETAB"
+            android:targetPackage="com.khalyl.android.kyubi"
+            android:targetClass="com.khalyl.android.kyubi.IntentReceiverActivity" />
     </shortcut>
     <shortcut
         android:shortcutId="new_tab"
@@ -18,8 +18,8 @@
         android:shortcutShortLabel="@string/new_tab"
         android:shortcutLongLabel="@string/new_tab">
         <intent
-            android:action="com.cookiejarapps.android.smartcookieweb.NEWTAB"
-            android:targetPackage="com.cookiejarapps.android.smartcookieweb"
-            android:targetClass="com.cookiejarapps.android.smartcookieweb.IntentReceiverActivity" />
+            android:action="com.khalyl.android.kyubi.NEWTAB"
+            android:targetPackage="com.khalyl.android.kyubi"
+            android:targetClass="com.khalyl.android.kyubi.IntentReceiverActivity" />
     </shortcut>
 </shortcuts>

@@ -43,7 +43,7 @@
                 app:layout_constraintEnd_toStartOf="@id/mozac_browser_tabstray_close"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="SmartCookieWeb" />
+                tools:text="Kyubi" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/mozac_browser_tabstray_close"

@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_scrollFlags="scroll|enterAlways|snap|exitUntilCollapsed" />
 
-    <com.cookiejarapps.android.smartcookieweb.search.awesomebar.AwesomeBarWrapper
+    <com.khalyl.android.kyubi.search.awesomebar.AwesomeBarWrapper
         android:id="@+id/awesome_bar"
         android:layout_width="0dp"
         android:layout_height="0dp"

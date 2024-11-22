@@ -9,7 +9,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
-        android:name="com.cookiejarapps.android.smartcookieweb.HistoryFragment"
+        android:name="com.khalyl.android.kyubi.HistoryFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"

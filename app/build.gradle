@@ -12,8 +12,8 @@ android {
         compose true
     }
     defaultConfig {
-        applicationId "com.cookiejarapps.android.smartcookieweb"
-        minSdkVersion 21
+        applicationId "com.khalyl.android.kyubi"
+        minSdkVersion 24
         targetSdkVersion 34
         // Increment by 4 with each update
         versionCode 120
@@ -53,7 +53,7 @@ android {
     lint {
         abortOnError false
     }
-    namespace 'com.cookiejarapps.android.smartcookieweb'
+    namespace 'com.khalyl.android.kyubi'
 }
 
 ext.abiCodes = ['arm64-v8a':1, x86:2, x86_64:3]

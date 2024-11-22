@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context="com.cookiejarapps.android.smartcookieweb.settings.fragment.AboutSettingsFragment">
+    tools:context="com.khalyl.android.kyubi.settings.fragment.AboutSettingsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
