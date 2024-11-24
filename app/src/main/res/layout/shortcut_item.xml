@@ -10,12 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/shortcuts"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/shortcut_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:singleLine="true"
         android:textAlignment="center" />
