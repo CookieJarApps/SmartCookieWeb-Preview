@@ -34,7 +34,7 @@
 
 ## Disclaimers
 
-This is my fork of SmartCookieWeb Preview which just changes the name and the logo because smartcookieweb is a shit name
+This is my fork of SmartCookieWeb Preview which just changes the name and the logo because smartcookieweb is a goofy name
 tho if u want the original its this <link>https://github.com/CookieJarApps/SmartCookieWeb-Preview</link>
 
 ## Warranty
