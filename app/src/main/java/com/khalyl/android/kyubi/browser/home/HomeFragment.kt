@@ -112,12 +112,10 @@ class HomeFragment : Fragment() {
         updateLayout(view)
 
         if(!UserPreferences(requireContext()).showShortcuts){
-            binding.shortcutName.visibility = View.GONE
             binding.shortcutGrid.visibility = View.GONE
         }
 
         if(!UserPreferences(requireContext()).shortcutDrawerOpen){
-            binding.shortcutName.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_shortcuts, 0, R.drawable.ic_baseline_chevron_up, 0)
             binding.shortcutGrid.visibility = View.GONE
         }
 
@@ -216,7 +214,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        binding.shortcutName.setOnClickListener {
+        /*binding.shortcutName.setOnClickListener {
             if(UserPreferences(requireContext()).shortcutDrawerOpen){
                 UserPreferences(requireContext()).shortcutDrawerOpen = false
                 binding.shortcutName.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_shortcuts, 0, R.drawable.ic_baseline_chevron_up, 0)
@@ -227,7 +225,7 @@ class HomeFragment : Fragment() {
                 binding.shortcutName.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_shortcuts, 0, R.drawable.ic_baseline_chevron_down, 0)
                 binding.shortcutGrid.visibility = View.VISIBLE
             }
-        }
+        }*/
 
         GlobalScope.launch {
             // Update shortcut database to hold name

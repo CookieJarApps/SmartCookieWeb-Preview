@@ -21,46 +21,6 @@
             android:background="@null"
             android:fitsSystemWindows="false"
             app:elevation="0dp">
-
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_scrollFlags="scroll">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="156dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="64dp"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/app_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_weight="1"
-                        android:adjustViewBounds="false"
-                        android:cropToPadding="false"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@mipmap/ic_launcher_foreground" />
-
-                    <TextView
-                        android:id="@+id/app_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:maxLines="2"
-                        android:singleLine="false"
-                        android:text="@string/app_name"
-                        android:textAlignment="center"
-                        android:textColor="?android:attr/textColorPrimary"
-                        android:textSize="35sp" />
-                </LinearLayout>
-
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-
         </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
@@ -75,41 +35,27 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/shortcut_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawablePadding="4dp"
-                    android:text="@string/shortcuts"
-                    android:textSize="18sp"
-                    app:drawableEndCompat="@drawable/ic_baseline_chevron_down"
-                    app:drawableStartCompat="@drawable/ic_baseline_shortcuts" />
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/add_shortcut"
-                    android:layout_width="64dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0"
+                    android:paddingBottom="10dp"
+                    android:visibility="visible"
                     app:srcCompat="@drawable/ic_round_add" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical">
 
                 <GridView
                     android:id="@+id/shortcut_grid"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@drawable/rounded_bg_shortcuts"
                     android:horizontalSpacing="8dp"
-                    android:numColumns="5"
-                    android:verticalSpacing="8dp" />
+                    android:numColumns="4"
+                    android:verticalSpacing="15dp" />
             </LinearLayout>
 
         </LinearLayout>
