@@ -20,10 +20,24 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
-    - name: Upload APK
-      uses: actions/upload-artifact@v4
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+          GITHUB_TOKEN: ${{ secrets.PUSH_TOKEN }}
       with:
-        name: app
-        path: app/build/outputs/apk/debug/*.apk
-    - name: release-please-action
-      uses: googleapis/release-please-action@v4.1.3
+          tag_name: newtag
+          release_name: Automatic Release
+          draft: false
+          prerelease: false
+
+    - name: Upload APK to Release
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+          GITHUB_TOKEN: ${{ secrets.PUSH_TOKEN }}
+      with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./app/build/outputs/apk/debug/app-arm64-v8a-debug.apk
+          asset_name: app-debug.apk
+          asset_content_type: application/zip
