@@ -1,7 +1,11 @@
 package com.khalyl.android.kyubi.browser.shortcuts
 
 import android.content.Context
+import android.content.res.AssetManager
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +18,9 @@ import com.khalyl.android.kyubi.ext.components
 import com.khalyl.android.kyubi.preferences.UserPreferences
 import com.khalyl.android.kyubi.utils.Utils
 import mozilla.components.browser.icons.IconRequest
+import mozilla.components.browser.icons.preparer.TippyTopIconPreparer
 import mozilla.components.support.ktx.android.net.hostWithoutCommonPrefixes
+import okhttp3.internal.wait
 
 internal class ShortcutGridAdapter(
         private val context: Context,

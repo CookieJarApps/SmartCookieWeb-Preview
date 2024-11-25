@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="45dp"
-    android:layout_height="35dp"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/shortcut_icon"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="35dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/shortcuts"
         tools:srcCompat="@tools:sample/avatars" />
@@ -16,7 +16,8 @@
     <TextView
         android:id="@+id/shortcut_name"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
         android:layout_weight="1"
         android:singleLine="true"
         android:textAlignment="center" />
