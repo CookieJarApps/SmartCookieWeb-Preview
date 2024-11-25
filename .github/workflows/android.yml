@@ -25,8 +25,5 @@ jobs:
       with:
         name: app
         path: app/build/outputs/apk/debug/*.apk
-    - name: Publish APK
-    - uses: googleapis/release-please-action@v4
-      with:
-        token: ${{ secrets.PUSH_TOKEN }}
-        release-type: simple
+    - name: release-please-action
+      uses: googleapis/release-please-action@v4.1.3
