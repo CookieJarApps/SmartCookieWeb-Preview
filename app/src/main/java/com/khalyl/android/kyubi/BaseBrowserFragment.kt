@@ -242,7 +242,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         _browserInteractor = BrowserInteractor(
             browserToolbarController,
-            browserToolbarMenuController
+            browserToolbarMenuController,
+            components,
         )
 
         _browserToolbarView = BrowserToolbarView(

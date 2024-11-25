@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mozilla.components.browser.toolbar.BrowserToolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<mozilla.components.browser.toolbar.BrowserToolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
@@ -14,4 +13,15 @@
     app:browserToolbarInsecureColor="?android:attr/textColorPrimary"
     app:browserToolbarMenuColor="?android:attr/textColorPrimary"
     app:browserToolbarProgressBarGravity="bottom"
-    app:browserToolbarSecureColor="?android:attr/textColorPrimary" />
+    app:browserToolbarSecureColor="?android:attr/textColorPrimary">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/newtabbutton" />
+
+    </RelativeLayout>
+
+
+
+</mozilla.components.browser.toolbar.BrowserToolbar>

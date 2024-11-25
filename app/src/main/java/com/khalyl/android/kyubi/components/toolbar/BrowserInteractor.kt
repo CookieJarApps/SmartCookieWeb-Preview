@@ -1,8 +1,11 @@
 package com.khalyl.android.kyubi.components.toolbar
 
-open class BrowserInteractor(
+import com.khalyl.android.kyubi.components.Components
+
+ class BrowserInteractor(
     private val browserToolbarController: BrowserToolbarController,
-    private val menuController: BrowserToolbarMenuController
+    private val menuController: BrowserToolbarMenuController,
+    private val components: Components,
 ) : BrowserToolbarViewInteractor {
 
     override fun onTabCounterClicked() {
@@ -27,5 +30,11 @@ open class BrowserInteractor(
 
     override fun onScrolled(offset: Int) {
         browserToolbarController.handleScroll(offset)
+    }
+    override fun onNewTabClicked() {
+        components.tabsUseCases.addTab(
+            url = "about:homepage",
+            selectTab = true,
+        )
     }
 }

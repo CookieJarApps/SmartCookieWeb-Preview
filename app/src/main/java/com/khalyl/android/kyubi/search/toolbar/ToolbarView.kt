@@ -1,5 +1,4 @@
 package com.khalyl.android.kyubi.search.toolbar
-
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
@@ -8,12 +7,13 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import com.khalyl.android.kyubi.R
 import mozilla.components.browser.toolbar.BrowserToolbar
-import mozilla.components.concept.engine.Engine
-import mozilla.components.concept.storage.HistoryStorage
 import mozilla.components.support.ktx.android.content.getColorFromAttr
+import mozilla.components.concept.engine.Engine
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import mozilla.components.support.ktx.android.view.hideKeyboard
 import com.khalyl.android.kyubi.search.SearchFragmentState
+import mozilla.components.concept.storage.HistoryStorage
+import mozilla.components.concept.toolbar.Toolbar
 
 interface ToolbarInteractor {
     fun onUrlCommitted(url: String)

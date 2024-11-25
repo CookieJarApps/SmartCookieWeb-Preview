@@ -2,7 +2,7 @@
 <resources>
   <string name="app_name" translatable="false">Kyubi Browser</string>
   <string name="url_project" translatable="false">https://github.com/Khalylexe/Kyubi</string>
-
+  <string name="shortcut_name" translatable="false">shortcut_name</string>
   <string name="key_javascript_enabled" translatable="false">javascript_enabled</string>
   <string name="key_app_theme_type" translatable="false">app_theme_type</string>
   <string name="key_web_theme_type" translatable="false">web_theme_type</string>

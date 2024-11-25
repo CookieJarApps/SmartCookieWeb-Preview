@@ -9,6 +9,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
+import com.khalyl.android.kyubi.browser.toolbar.NewtabButton
 import com.khalyl.android.kyubi.R
 import com.khalyl.android.kyubi.ext.components
 import com.khalyl.android.kyubi.preferences.UserPreferences
@@ -30,6 +31,7 @@ interface BrowserToolbarViewInteractor {
     fun onBrowserToolbarMenuItemTapped(item: ToolbarMenu.Item)
     fun onTabCounterClicked()
     fun onScrolled(offset: Int)
+    fun onNewTabClicked()
 }
 
 @ExperimentalCoroutinesApi
@@ -159,6 +161,10 @@ class BrowserToolbarView(
                     interactor = interactor,
                     engine = components.engine
                 )
+        }
+        val newTabButton = layout.findViewById<NewtabButton>(R.id.new_tab_button)
+        newTabButton.setOnClickListener {
+            interactor.onNewTabClicked()
         }
     }
 

@@ -15,4 +15,10 @@
     app:browserToolbarMenuColor="?android:attr/textColorPrimary"
     app:browserToolbarProgressBarGravity="top"
     app:browserToolbarSecureColor="?android:attr/textColorPrimary"
-    app:browserToolbarTrackingProtectionAndSecurityIndicatorSeparatorColor="?android:attr/textColorSecondary" />
+    app:browserToolbarTrackingProtectionAndSecurityIndicatorSeparatorColor="?android:attr/textColorSecondary" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/newtabbutton" />
+    </RelativeLayout>
+</mozilla.components.browser.toolbar.BrowserToolbar>

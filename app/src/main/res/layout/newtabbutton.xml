@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.khalyl.android.kyubi.browser.toolbar.NewtabButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/new_tab_button"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:layout_gravity="center_vertical"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="30dp"
+    android:layout_alignParentEnd="true"
+    android:drawableStart="@drawable/shortcut_new_tab"
+    android:drawablePadding="4dp"
+    android:padding="8dp"
+    android:text=""
+    android:visibility="visible"
+    android:textColor="?attr/colorPrimary"
+    tools:ignore="SpeakableTextPresentCheck" />
