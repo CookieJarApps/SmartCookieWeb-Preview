@@ -21,17 +21,18 @@ jobs:
     - name: Cache Gradle dependencies
       uses: actions/cache@v2
       with:
-        path: C:\\Users\\runneradmin\\.gradle\\caches
+        path: C:/Users/runneradmin/.gradle/caches
         key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
         restore-keys: |
           gradle-${{ runner.os }}-
+
 
     - name: Grant execute permission for gradlew
       run: |
         chmod +x gradlew
 
     - name: Build with Gradle
-      run: gradlew.bat assembleDebug --no-daemon --parallel
+      run: gradlew assembleDebug --no-daemon --parallel
 
     - name: Optimize APK
       run: |
