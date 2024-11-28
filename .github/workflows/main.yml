@@ -54,7 +54,8 @@ jobs:
             distribution: 'temurin'
             java-version: 17
       - name: Release
-        uses: kyze8439690/action-release-releaseapk@master
+        id: create_release
+        uses: actions/create-release@v1
         env:
          GITHUB_TOKEN: ${{ secrets.KYUBI_TOKEN }}
          APP_FOLDER: app/build/outputs/apk/debug/
