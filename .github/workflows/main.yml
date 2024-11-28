@@ -20,7 +20,7 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Cache Gradle dependencies  # Add a name here for clarity
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: |
           ~/.gradle/caches
