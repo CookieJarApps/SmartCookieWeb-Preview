@@ -48,6 +48,7 @@ jobs:
         with:
           tag
           draft: true
-          files: app/build/outputs/apk/debug/app-arm64-v8a-debug.apk 
+          files: |
+            app/build/outputs/apk/debug/app-arm64-v8a-debug.apk 
         env:
           GITHUB_TOKEN: ${{ secrets.KYUBI_TOKEN }}
