@@ -30,10 +30,23 @@ jobs:
       with:
         gradlePath: app/build.gradle
         versionCode: ${{ github.run_number }}
-    - name: Release
-      uses: softprops/action-gh-release@v2
-      with:
-        draft: true
-        files: app/build/outputs/apk/debug/*.apk 
-      env:
-        GITHUB_TOKEN: ${{ secrets.KYUBI_TOKEN }}
+  release:
+    name: release to GitHub
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+            distribution: 'temurin'
+            java-version: 17
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: app/build/outputs/apk/debug/*.apk 
+        env:
+          GITHUB_TOKEN: ${{ secrets.KYUBI_TOKEN }}
