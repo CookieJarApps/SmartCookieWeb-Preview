@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="more">المزيد من المعلومات</string>
     <string name="version">إصدار التطبيق</string>
     <string name="licenses">تراخيص البرامج مفتوحة المصدر</string>
@@ -38,6 +38,7 @@
     <string name="cancel">إلغاء</string>
     <string name="export_bookmarks">تصدير الإشارات المرجعية إلى نسخة احتياطية</string>
     <string name="import_backup">استيراد الإشارات المرجعية من النسخة الاحتياطية</string>
+    <string name="clear_bookmarks_confirm">هل أنت متأكد أنك تريد حذف كافة المفضلة؟</string>
     <string name="export_tabs">تصدير علامات التبويب إلى النسخة الاحتياطية</string>
     <string name="import_tabs">استيراد علامات التبويب من النسخة الاحتياطية</string>
     <string name="settings_general">الاعدادات العامة</string>
@@ -69,6 +70,7 @@
     <string name="mozac_reader_view_description">تمكين عرض القارئ</string>
     <string name="mozac_reader_view_description_selected">تعطيل عرض القارئ</string>
     <string name="other_addons">إضافات أخرى</string>
+    <string name="all_extensions">جميع الامتدادات</string>
     <string name="tab_removed">تم إزالة التبويب</string>
     <string name="undo">تراجع</string>
     <string name="hide_url_bar">إخفاء شريط عنوان URL أثناء التمرير</string>
@@ -99,6 +101,7 @@
     <string name="delete_folder">حذف المجلد</string>
     <string name="open">فتح</string>
     <string name="open_new">فتح في علامة تبويب جديدة</string>
+    <string name="open_new_private">افتح في علامة تبويب خاصة جديدة</string>
     <string name="open_bg">فتح في علامة التبويب الخلفية</string>
     <string name="confirm">هل أنت متأكد من أنك تريد حذف هذا العنصر؟</string>
     <string name="start_sort">الفرز</string>
@@ -107,7 +110,7 @@
     <string name="failed">فشل</string>
     <string name="search_engine">محرك البحث</string>
     <string name="fill_from_clipboard">ملء من الحافظة</string>
-    <string name="copy">نسخ</string>
+    <string name="copy" tools:ignore="PrivateResource">نسخ</string>
     <string name="paste">لصق</string>
     <string name="paste_and_go">لصق و أذهب</string>
     <string name="copied">تم النسخ إلى الحافظة</string>
@@ -119,6 +122,7 @@
     <string name="cache_cleared">تم مسح ذاكرة التخزين المؤقت!</string>
     <string name="permissions_cleared">تم مسح الصلاحيات!</string>
     <string name="show_addons_in_bar">إظهار الإضافات في شريط التنقل</string>
+    <string name="bar_addon_list">قائمة ملحقات الشريط</string>
     <string name="shortcuts">الاختصارات</string>
     <string name="add_shortcut">إضافة اختصار</string>
     <string name="edit_shortcut">تعديل الاختصار</string>
@@ -183,9 +187,15 @@
     <string name="custom_search_engine_error">عنوان URL للبحث لا يحتوي على \'{searchTerms}\'</string>
     <string name="clear">تنظيف</string>
     <string name="name">الاسم</string>
+    <string name="none">لا شيء</string>
     <string name="show_site_icons">إظهار أيقونات الموقع؟</string>
     <string name="allow_shortcut_favicons">تحميل الأيقونات للاختصارات</string>
     <string name="allow_shortcut_favicons_prompt">يمكن الآن عرض معاينة kyubi رموز المواقع التي لديك اختصارات لها على الصفحة الرئيسية. ومع ذلك، تتطلب هذه الميزة من التطبيق إرسال عناوين URL للاختصارات إلى خدمة خارجية (الفقرة 1). ookiejarapps.com/favicon/). لا يتم الاحتفاظ بسجلات حول المواقع المرسلة إلى الخدمة. هل ترغب في تمكين هذه الميزة؟</string>
     <string name="flex_mode">وضع Flex</string>
     <string name="save_as_pdf">حفظ كملف PDF</string>
+    <string name="clear_bookmarks">مسح المفضلة</string>
+    <string name="homepage_background_image">صورة خلفية للصفحة الرئيسية</string>
+    <string name="homepage_background_gallery">معرض خلفية الصفحة الرئيسية</string>
+    <string name="homepage_background_url">عنوان URL لخلفية الصفحة الرئيسية</string>
+    <string name="load_shortcut_icons">تحميل أيقونات الاختصار</string>
 </resources>
