@@ -271,7 +271,7 @@
   <string name="load_xpi">Sideload XPI</string>
   <string name="load_xpi_description">Are you sure you want to install %1$s to this browser? This add-on has not been checked for security or stability by CookieJarApps.</string>
 
-  <string name="addon_not_available">This add-on is not available from the add-on store. Kyubi cannot confirm the permissions it requests. Only proceed if you trust this extension.</string>
+  <string name="addon_not_available">This add-on is not available from the add-on store. kyubi cannot confirm the permissions it requests. Only proceed if you trust this extension.</string>
 
   <string name="swipe_to_refresh">Swipe to refresh</string>
 
@@ -320,7 +320,7 @@
 
   <string name="show_site_icons">Show site icons?</string>
   <string name="allow_shortcut_favicons">Load icons for shortcuts</string>
-  <string name="allow_shortcut_favicons_prompt">Kyubi can now show icons of the sites you have shortcuts for on the homepage. However, this feature requires the app to send the URLs of your shortcuts to an external service (par1.cookiejarapps.com/favicon/). No logs are kept about sites sent to the service. Would you like to enable this feature?</string>
+  <string name="allow_shortcut_favicons_prompt">kyubi can now show icons of the sites you have shortcuts for on the homepage. However, this feature requires the app to send the URLs of your shortcuts to an external service (par1.cookiejarapps.com/favicon/). No logs are kept about sites sent to the service. Would you like to enable this feature?</string>
 
   <string name="flex_mode">Flex mode</string>
 

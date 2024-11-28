@@ -13,11 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        app:strokeColor="@color/photonLightGrey30"
-        app:strokeWidth="1dp"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="0dp">
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/photonLightGrey30"
+        app:strokeWidth="1dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/tab_grid_item"
@@ -43,12 +43,13 @@
                 app:layout_constraintEnd_toStartOf="@id/mozac_browser_tabstray_close"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Kyubi" />
+                tools:text="kyubi" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/mozac_browser_tabstray_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="36dp"
+                android:layout_height="43dp"
+                android:layout_marginEnd="4dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/close_tab"
                 app:layout_constraintBottom_toTopOf="@+id/horizonatal_divider"

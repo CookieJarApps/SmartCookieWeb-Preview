@@ -1,7 +1,7 @@
 <p align="center"><a href="#"><img src="Images/14-149823_naruto-eye-png-television-the-drug-of-the.png"
-" height="180" title="Kyubi Browser" alt="Kyubi Browser"></a></p>
+" height="180" title="kyubi Browser" alt="kyubi Browser"></a></p>
 
-<h2 align="center"><b>Kyubi Browser</b></h2>
+<h2 align="center"><b>kyubi Browser</b></h2>
 <p align="center">
 
 ---

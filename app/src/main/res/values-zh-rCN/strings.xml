@@ -195,7 +195,7 @@
     <string name="none">无</string>
     <string name="show_site_icons">显示站点图标？</string>
     <string name="allow_shortcut_favicons">加载快捷方式图标</string>
-    <string name="allow_shortcut_favicons_prompt">Kyubi 现在可以显示主页上站点快捷方式的图标。 然而，此功能需要应用将您的快捷方式的 URL 发送到外部服务 (par1.cookiejarapps.com/favicon/)。我们不会保存发送到该服务的站点的日志。您想要启用此功能吗？</string>
+    <string name="allow_shortcut_favicons_prompt">kyubi 现在可以显示主页上站点快捷方式的图标。 然而，此功能需要应用将您的快捷方式的 URL 发送到外部服务 (par1.cookiejarapps.com/favicon/)。我们不会保存发送到该服务的站点的日志。您想要启用此功能吗？</string>
     <string name="flex_mode">弹性模式</string>
     <string name="save_as_pdf">另存为 PDF</string>
 </resources>

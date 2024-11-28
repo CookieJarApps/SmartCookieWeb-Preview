@@ -185,7 +185,7 @@
   <string name="name">Nome</string>
   <string name="show_site_icons">Mostrar ícones do site?</string>
   <string name="allow_shortcut_favicons">Carregar ícones para atalhos</string>
-  <string name="allow_shortcut_favicons_prompt">Kyubi agora pode mostrar ícones dos sites que você tem atalhos na página inicial. No entanto, este recurso requer que o aplicativo envie as URLs dos seus atalhos para um serviço externo (par1. ookiejarapps.com/favicon/). Nenhum registro é mantido sobre sites enviados para o serviço. Você gostaria de habilitar este recurso?</string>
+  <string name="allow_shortcut_favicons_prompt">kyubi agora pode mostrar ícones dos sites que você tem atalhos na página inicial. No entanto, este recurso requer que o aplicativo envie as URLs dos seus atalhos para um serviço externo (par1. ookiejarapps.com/favicon/). Nenhum registro é mantido sobre sites enviados para o serviço. Você gostaria de habilitar este recurso?</string>
   <string name="flex_mode">Modo Flexível</string>
   <string name="save_as_pdf">Salvar em PDF</string>
 </resources>

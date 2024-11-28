@@ -70,6 +70,28 @@
             android:elevation="5dp"
             tools:context=".home.HomeFragment">
 
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/relativeLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.khalyl.android.kyubi.browser.toolbar.NewtabButton
+                    android:id="@+id/new_tab_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="280dp"
+                    android:drawableStart="@drawable/shortcut_new_tab"
+                    android:drawablePadding="4dp"
+                    android:padding="8dp"
+                    android:text=""
+                    android:textColor="?attr/colorPrimary"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <View
                 android:id="@+id/bottom_bar"
                 android:layout_width="0dp"
@@ -108,6 +130,7 @@
                     android:layout_height="24dp"
                     android:layout_gravity="start|center_vertical"
                     android:layout_marginStart="8dp"
+
                     android:clickable="false"
                     android:focusable="false"
                     android:importantForAccessibility="no" />
@@ -126,6 +149,7 @@
                     android:text="@string/search"
                     android:textColor="?android:attr/textColorSecondary"
                     android:textSize="15sp" />
+
             </FrameLayout>
 
             <mozilla.components.browser.menu.view.MenuButton
