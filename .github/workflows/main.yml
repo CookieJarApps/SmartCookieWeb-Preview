@@ -19,16 +19,21 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build --parallel
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: app
-        path: app/build/outputs/apk/debug/*.apk
+        path: app/build/outputs/apk/debug/*.apk    
+    - name: Version Bump
+      uses: chkfung/android-version-actions@v1.2.3
+      with:
+        gradlePath: app/build.gradle
+        versionCode: ${{ github.run_number }}
     - name: Release
       uses: softprops/action-gh-release@v2
       with:
         draft: true
-        files: app/build/outputs/apk/debug/*.apk
+        files: app/build/outputs/apk/debug/*.apk 
       env:
         GITHUB_TOKEN: ${{ secrets.KYUBI_TOKEN }}
