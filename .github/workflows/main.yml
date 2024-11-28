@@ -12,18 +12,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: set up JDK 17
-      uses: actions/setup-java@v1
+    - name: Set up JDK 17
+      uses: actions/setup-java@v2  # Use v2 instead of v1
       with:
         java-version: 17
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: cache
-    - uses: actions/cache@v2
+    - name: Cache Gradle dependencies  # Add a name here for clarity
+      uses: actions/cache@v2
       with:
         path: |
           ~/.gradle/caches
-          ~/.gradle/wrapper 
+          ~/.gradle/wrapper
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
         restore-keys: |
             ${{ runner.os }}-gradle-
@@ -39,16 +39,16 @@ jobs:
       with:
         gradlePath: app/build.gradle
         versionCode: ${{ github.run_number }}
+
   release:
-    name: release to GitHub
+    name: Release to GitHub
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-
+      - uses: actions/checkout@v2  # Use v2 instead of v4
       - name: Setup JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v2  # Use v2 instead of v4
         with:
             distribution: 'temurin'
             java-version: 17
