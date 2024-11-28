@@ -25,3 +25,10 @@ jobs:
       with:
         name: app
         path: app/build/outputs/apk/debug/*.apk
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      with:
+        draft: true
+        files: app/build/outputs/apk/debug/*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.KYUBI_TOKEN }}
