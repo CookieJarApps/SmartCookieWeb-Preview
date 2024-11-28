@@ -54,7 +54,7 @@ jobs:
             distribution: 'temurin'
             java-version: 17
       - name: Release
-        uses: sangatdesai/release-apk@main
+        uses: jebarpg/release-apk@1.0.29
         env:
          GITHUB_TOKEN: ${{ secrets.KYUBI_TOKEN }}
          APP_FOLDER: app
