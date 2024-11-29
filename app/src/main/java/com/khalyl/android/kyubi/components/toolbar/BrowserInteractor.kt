@@ -1,8 +1,9 @@
 package com.khalyl.android.kyubi.components.toolbar
 
 import com.khalyl.android.kyubi.components.Components
+import mozilla.components.browser.state.selector.selectedTab
 
- class BrowserInteractor(
+class BrowserInteractor(
     private val browserToolbarController: BrowserToolbarController,
     private val menuController: BrowserToolbarMenuController,
     private val components: Components,
@@ -32,6 +33,11 @@ import com.khalyl.android.kyubi.components.Components
         browserToolbarController.handleScroll(offset)
     }
     override fun onNewTabClicked() {
+        components.store.state.selectedTab?.let {
+            components.tabsUseCases.removeTab(
+                tabId = it.id,
+            )
+        }
         components.tabsUseCases.addTab(
             url = "about:homepage",
             selectTab = true,

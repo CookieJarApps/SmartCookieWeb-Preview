@@ -9,7 +9,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
-import com.khalyl.android.kyubi.browser.toolbar.NewtabButton
+import com.khalyl.android.kyubi.browser.toolbar.HomeButton
 import com.khalyl.android.kyubi.R
 import com.khalyl.android.kyubi.ext.components
 import com.khalyl.android.kyubi.preferences.UserPreferences
@@ -41,7 +41,7 @@ class BrowserToolbarView(
     private val toolbarPosition: ToolbarPosition,
     private val interactor: BrowserToolbarViewInteractor,
     private val customTabSession: CustomTabSessionState?,
-    private val lifecycleOwner: LifecycleOwner
+    private val lifecycleOwner: LifecycleOwner,
 ) {
 
     private val settings = UserPreferences(container.context)
@@ -162,7 +162,7 @@ class BrowserToolbarView(
                     engine = components.engine
                 )
         }
-        val newTabButton = layout.findViewById<NewtabButton>(R.id.new_tab_button)
+        val newTabButton = layout.findViewById<HomeButton>(R.id.new_tab_button)
         newTabButton.setOnClickListener {
             interactor.onNewTabClicked()
         }

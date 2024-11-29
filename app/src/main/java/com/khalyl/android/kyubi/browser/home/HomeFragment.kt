@@ -53,18 +53,14 @@ import com.khalyl.android.kyubi.settings.activity.SettingsActivity
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import mozilla.components.browser.menu.view.MenuButton
 import mozilla.components.browser.state.selector.normalTabs
 import mozilla.components.browser.state.selector.privateTabs
 import mozilla.components.browser.state.state.BrowserState
-import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.concept.fetch.Request
 import mozilla.components.lib.fetch.httpurlconnection.HttpURLConnectionClient
-import mozilla.components.lib.state.ext.consumeFlow
 import mozilla.components.lib.state.ext.consumeFrom
 import org.mozilla.gecko.util.ThreadUtils
 import java.lang.ref.WeakReference
@@ -386,8 +382,6 @@ class HomeFragment : Fragment() {
     @Suppress("LongMethod", "ComplexMethod")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        observeSearchEngineChanges()
         createHomeMenu(requireContext(), WeakReference(binding.menuButton))
 
         binding.gestureLayout.addGestureListener(
@@ -431,25 +425,20 @@ class HomeFragment : Fragment() {
         if (bundleArgs.getBoolean(FOCUS_ON_ADDRESS_BAR)) {
             navigateToSearch()
         }
+        setSearchIcon()
     }
 
-    private fun observeSearchEngineChanges() {
-        consumeFlow(store) { flow ->
-            flow.map { state -> state.search.selectedOrDefaultSearchEngine }
-                .distinctUntilChanged()
-                .collect { searchEngine ->
-                    if (searchEngine != null) {
-                        val iconSize =
-                            requireContext().resources.getDimensionPixelSize(R.dimen.icon_width)
-                        val searchIcon =
-                            BitmapDrawable(requireContext().resources, searchEngine.icon)
-                        searchIcon.setBounds(0, 0, iconSize, iconSize)
-                        binding.searchEngineIcon.setImageDrawable(searchIcon)
-                    } else {
-                        binding.searchEngineIcon.setImageDrawable(null)
-                    }
-                }
-        }
+    private fun setSearchIcon() {
+        val iconSize = requireContext().resources.getDimensionPixelSize(R.dimen.icon_width)
+
+        // Set the search icon (ic_round_search)
+        val drawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_round_search)
+
+        // Set bounds to control the size
+        drawable?.setBounds(0, 0, iconSize, iconSize)
+
+        // Set the drawable to the ImageView
+        binding.searchEngineIcon.setImageDrawable(drawable)
     }
 
     override fun onDestroyView() {
@@ -548,7 +537,6 @@ class HomeFragment : Fragment() {
                         settings.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                         activity?.startActivity(settings)
                     }
-                    else -> {}
                 }
             },
             onHighlightPresent = { menuButtonView.get()?.setHighlight(it) },

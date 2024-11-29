@@ -19,6 +19,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <include layout="@layout/newtabbutton" />
+        <include layout="@layout/homebutton" />
     </RelativeLayout>
 </mozilla.components.browser.toolbar.BrowserToolbar>
