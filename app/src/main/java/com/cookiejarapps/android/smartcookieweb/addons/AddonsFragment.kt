@@ -80,6 +80,9 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                 provideAddons = { addons },
                 context = requireContext(),
                 fragmentManager = parentFragmentManager,
+                onLinkClicked = { url, _ ->
+                    components.tabsUseCases.addTab(url, selectTab = true)
+                },
                 view = rootView,
             ),
             owner = this,
@@ -386,17 +389,9 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
         }
     }
 
-    private val onConfirmInstallationButtonClicked: ((Addon, Boolean) -> Unit) =
-        { addon, allowInPrivateBrowsing ->
-            if (allowInPrivateBrowsing) {
-                requireContext().components.addonManager.setAddonAllowedInPrivateBrowsing(
-                    addon,
-                    allowInPrivateBrowsing
-                )
-            }
-        }
+    private val onConfirmInstallationButtonClicked: ((Addon) -> Unit) = {  }
 
-    private val onConfirmPermissionButtonClicked: ((Addon) -> Unit) = { addon ->
+    private val onConfirmPermissionButtonClicked: ((Addon, Boolean) -> Unit) = { addon, allowInPrivateBrowsing ->
         binding.addonProgressOverlay.root.visibility = View.VISIBLE
         isInstallationInProgress = true
 
@@ -427,6 +422,13 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                 isInstallationInProgress = false
             }
         )
+
+        if (allowInPrivateBrowsing) {
+            requireContext().components.addonManager.setAddonAllowedInPrivateBrowsing(
+                addon,
+                allowInPrivateBrowsing
+            )
+        }
 
         binding.addonProgressOverlay.cancelButton.setOnClickListener {
             MainScope().launch {

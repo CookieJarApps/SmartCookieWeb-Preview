@@ -482,6 +482,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 provideAddons = ::provideAddons,
                 context = requireContext(),
                 fragmentManager = parentFragmentManager,
+                onLinkClicked = { url, _ ->
+                    components.tabsUseCases.addTab.invoke(url, selectTab = true)
+                },
                 view = view,
             ),
             owner = this,

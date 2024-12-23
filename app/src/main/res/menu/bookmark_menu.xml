@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/sortBookmarks"
+        android:title="@string/sort"
+        android:icon="@drawable/ic_baseline_sort"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/addBookmark"
         android:title="@string/add_bookmark"
         android:icon="@drawable/ic_baseline_bookmark_add"

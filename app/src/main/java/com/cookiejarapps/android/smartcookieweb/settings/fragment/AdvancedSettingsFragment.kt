@@ -227,6 +227,9 @@ class AdvancedSettingsFragment : BaseSettingsFragment() {
                 provideAddons = { listOf() },
                 context = requireContext(),
                 fragmentManager = parentFragmentManager,
+                onLinkClicked = { url, _ ->
+                    components.tabsUseCases.addTab(url, selectTab = true)
+                },
                 view = view,
             ),
             owner = this,

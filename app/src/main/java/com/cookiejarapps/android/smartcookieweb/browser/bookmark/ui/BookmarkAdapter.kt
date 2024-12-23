@@ -10,6 +10,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.browser.BookmarkSortType
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.items.BookmarkFolderItem
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.items.BookmarkItem
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.items.BookmarkSiteItem
@@ -103,6 +104,15 @@ open class BookmarkAdapter(
             super.setUp(item)
             title.text = item.title
         }
+    }
+
+    fun sortBookmarks(sortType: BookmarkSortType) {
+        when (sortType) {
+            BookmarkSortType.A_Z -> items.sortBy { it.title?.toLowerCase() }
+            BookmarkSortType.Z_A -> items.sortByDescending { it.title?.toLowerCase() }
+            BookmarkSortType.MANUAL -> {} // Do nothing, keep the manual order
+        }
+        notifyDataSetChanged()
     }
 
     interface OnBookmarkRecyclerListener : BookmarkRecyclerViewClickInterface {

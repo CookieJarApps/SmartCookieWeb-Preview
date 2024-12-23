@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.cookiejarapps.android.smartcookieweb.browser.AddonSortType
+import com.cookiejarapps.android.smartcookieweb.browser.BookmarkSortType
 import com.cookiejarapps.android.smartcookieweb.settings.HomepageBackgroundChoice
 import com.cookiejarapps.android.smartcookieweb.settings.HomepageChoice
 import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
@@ -58,6 +59,7 @@ class UserPreferences(appContext: Context): PreferencesHolder {
     var loadShortcutIcons by booleanPreference(LOAD_SHORTCUT_ICONS, true)
     var trustThirdPartyCerts by booleanPreference(TRUST_THIRD_PARTY_CERTS, false)
     var barAddonsList by stringPreference(BAR_ADDONS_LIST, "")
+    var bookmarkSortType by intPreference(BOOKMARK_SORT_TYPE, BookmarkSortType.MANUAL.ordinal)
 
     // TODO: make these configurable & clean up duplicates
     var shouldUseBottomToolbar: Boolean
@@ -110,5 +112,6 @@ class UserPreferences(appContext: Context): PreferencesHolder {
         const val HOMEPAGE_BACKGROUND_URL = "homepage_background_url"
         const val LOAD_SHORTCUT_ICONS = "load_shortcut_icons"
         const val BAR_ADDONS_LIST = "bar_addons_list"
+        const val BOOKMARK_SORT_TYPE = "bookmark_sort_type"
     }
 }
