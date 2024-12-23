@@ -258,7 +258,7 @@ class TabsTrayFragment : Fragment() {
 
     private fun closeTabsTray() {
         val drawerLayout = activity?.findViewById<DrawerLayout>(R.id.drawer_layout)
-        val tabsDrawer = activity?.findViewById<FrameLayout>(R.id.left_drawer)
+        val tabsDrawer = if(UserPreferences(requireContext()).swapDrawers) requireActivity().findViewById<FrameLayout>(R.id.right_drawer) else requireActivity().findViewById<FrameLayout>(R.id.left_drawer)
 
         if (tabsDrawer != null) {
             drawerLayout?.closeDrawer(tabsDrawer)
