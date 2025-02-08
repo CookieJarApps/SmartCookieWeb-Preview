@@ -15,6 +15,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.OnApplyWindowInsetsListener
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -830,7 +831,11 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             // Close find in page bar if opened
             findInPageIntegration.onBackPressed()
 
-            activity?.enterImmersiveMode()
+            requireActivity().enterImmersiveMode(
+                setOnApplyWindowInsetsListener = { key: String, listener: OnApplyWindowInsetsListener ->
+                    binding.engineView.addWindowInsetsListener(key, listener)
+                },
+            )
             (view as? SwipeGestureLayout)?.isSwipeEnabled = false
 
             browserToolbarView.collapse()
@@ -840,10 +845,14 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             browserEngine.topMargin = 0
             binding.swipeRefresh.translationY = 0f
 
+            browserEngine.behavior = null
+
             binding.engineView.setDynamicToolbarMaxHeight(0)
             binding.engineView.setVerticalClipping(0)
         } else {
-            activity?.exitImmersiveMode()
+            requireActivity().exitImmersiveMode(
+                unregisterOnApplyWindowInsetsListener = binding.engineView::removeWindowInsetsListener,
+            )
             (view as? SwipeGestureLayout)?.isSwipeEnabled = true
 
             if (webAppToolbarShouldBeVisible) {
