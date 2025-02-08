@@ -71,7 +71,7 @@ class CustomBookmarksStorage(context: Context): BookmarksStorage {
         for(i in manager.root.itemList){
             if(i is BookmarkSiteItem){
                 bookmarks.add(BookmarkNode(BookmarkNodeType.ITEM, UUID.randomUUID().toString(), "",
-                    0u, i.title, i.url, 0, null))
+                    0u, i.title, i.url, 0, 0, null))
             }
         }
 

@@ -3,6 +3,7 @@ package com.cookiejarapps.android.smartcookieweb.addons
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.TransitionDrawable
@@ -106,7 +107,8 @@ class AddonsAdapter(
         val reviewCountView = view.findViewById<TextView>(R.id.review_count)
         val addButton = view.findViewById<ImageView>(R.id.add_button)
         val allowedInPrivateBrowsingLabel = view.findViewById<ImageView>(R.id.allowed_in_private_browsing_label)
-        val statusErrorView = view.findViewById<View>(R.id.add_on_status_error)
+        val messageBarWarningView = view.findViewById<View>(R.id.add_on_messagebar_warning)
+        val messageBarErrorView = view.findViewById<View>(R.id.add_on_messagebar_error)
         return AddonViewHolder(
             view,
             contentWrapperView,
@@ -118,7 +120,8 @@ class AddonsAdapter(
             reviewCountView,
             addButton,
             allowedInPrivateBrowsingLabel,
-            statusErrorView,
+            messageBarWarningView,
+            messageBarErrorView
         )
     }
 
@@ -205,39 +208,16 @@ class AddonsAdapter(
         style?.maybeSetAddonNameTextColor(holder.titleView)
         style?.maybeSetAddonSummaryTextColor(holder.summaryView)
 
-        val statusErrorMessage = holder.statusErrorView.findViewById<TextView>(R.id.add_on_status_error_message)
-        val statusErrorLearnMoreLink = holder.statusErrorView.findViewById<TextView>(
-            R.id.add_on_status_error_learn_more_link,
+        bindMessageBars(
+            context,
+            holder.messageBarWarningView,
+            holder.messageBarErrorView,
+            onLearnMoreLinkClicked = { link -> addonsManagerDelegate.onLearnMoreLinkClicked(link, addon) },
+            addon,
+            addonName,
+            appName,
+            appVersion,
         )
-        if (addon.isDisabledAsBlocklisted()) {
-            statusErrorMessage.text = context.getString(R.string.mozac_feature_addons_status_blocklisted, addonName)
-            statusErrorLearnMoreLink.setOnClickListener {
-                addonsManagerDelegate.onLearnMoreLinkClicked(
-                    AddonsManagerAdapterDelegate.LearnMoreLinks.BLOCKLISTED_ADDON,
-                    addon,
-                )
-            }
-            holder.statusErrorView.isVisible = true
-        } else if (addon.isDisabledAsNotCorrectlySigned()) {
-            statusErrorMessage.text = context.getString(R.string.mozac_feature_addons_status_unsigned, addonName)
-            statusErrorLearnMoreLink.setOnClickListener {
-                addonsManagerDelegate.onLearnMoreLinkClicked(
-                    AddonsManagerAdapterDelegate.LearnMoreLinks.ADDON_NOT_CORRECTLY_SIGNED,
-                    addon,
-                )
-            }
-            holder.statusErrorView.isVisible = true
-        } else if (addon.isDisabledAsIncompatible()) {
-            statusErrorMessage.text = context.getString(
-                R.string.mozac_feature_addons_status_incompatible,
-                addonName,
-                appName,
-                appVersion,
-            )
-            holder.statusErrorView.isVisible = true
-            // There is no link when the add-on is disabled because it isn't compatible with the application version.
-            statusErrorLearnMoreLink.isVisible = false
-        }
     }
 
     internal fun createListWithSections(addons: List<Addon>): List<Any> {
@@ -394,6 +374,97 @@ class AddonsAdapter(
     fun updateAddons(addons: List<Addon>) {
         addonsMap = addons.associateBy({ it.id }, { it }).toMutableMap()
         submitList(createListWithSections(addons))
+    }
+
+    companion object {
+        /**
+         * Bind an add-on to the message bars layout.
+         *
+         * @param context UI context
+         * @param messageBarWarningView The view of the "warning" message bar.
+         * @param messageBarErrorView The view of the "error" messagebar.
+         * @param onLearnMoreLinkClicked A callback function that reacts to a click on a learn more link. The link is
+         * passed to this function. In most cases, we'll want to open the link in a tab.
+         * @param addon The [Addon] to bind.
+         * @param addonName The add-on name.
+         * @param appName The application name.
+         * @param appVersion The application version.
+         */
+        @Suppress("LongParameterList")
+        fun bindMessageBars(
+            context: Context,
+            messageBarWarningView: View,
+            messageBarErrorView: View,
+            onLearnMoreLinkClicked: (AddonsManagerAdapterDelegate.LearnMoreLinks) -> Unit,
+            addon: Addon,
+            addonName: String,
+            appName: String,
+            appVersion: String,
+        ) {
+            // Make the message-bars invisible by default.
+            messageBarWarningView.isVisible = false
+            messageBarErrorView.isVisible = false
+
+            val messageBarErrorTextView = messageBarErrorView.findViewById<TextView>(
+                R.id.add_on_messagebar_error_text,
+            )
+            val messageBarErrorLearnMoreLink = messageBarErrorView.findViewById<TextView>(
+                R.id.add_on_messagebar_error_learn_more_link,
+            )
+            // Ensure the link is visible when this view holder gets recycled.
+            messageBarErrorLearnMoreLink.isVisible = true
+            // This learn more link should be underlined.
+            messageBarErrorLearnMoreLink.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+            messageBarErrorLearnMoreLink.text = context.getString(R.string.mozac_feature_addons_status_learn_more)
+
+            if (addon.isDisabledAsBlocklisted()) {
+                messageBarErrorTextView.text = context.getString(R.string.mozac_feature_addons_status_blocklisted_1)
+                // We need to adjust the link text because the BLOCKLISTED_ADDON link isn't a SUMO page.
+                messageBarErrorLearnMoreLink.text = context.getString(R.string.mozac_feature_addons_status_see_details)
+                messageBarErrorLearnMoreLink.setOnClickListener {
+                    onLearnMoreLinkClicked(AddonsManagerAdapterDelegate.LearnMoreLinks.BLOCKLISTED_ADDON)
+                }
+                messageBarErrorView.isVisible = true
+            } else if (addon.isDisabledAsNotCorrectlySigned()) {
+                messageBarErrorTextView.text =
+                    context.getString(R.string.mozac_feature_addons_status_unsigned, addonName)
+                messageBarErrorLearnMoreLink.setOnClickListener {
+                    onLearnMoreLinkClicked(AddonsManagerAdapterDelegate.LearnMoreLinks.ADDON_NOT_CORRECTLY_SIGNED)
+                }
+                messageBarErrorView.isVisible = true
+            } else if (addon.isDisabledAsIncompatible()) {
+                messageBarErrorTextView.text = context.getString(
+                    R.string.mozac_feature_addons_status_incompatible,
+                    addonName,
+                    appName,
+                    appVersion,
+                )
+                // There is no link when the add-on is disabled because it isn't compatible with the application
+                // version.
+                messageBarErrorLearnMoreLink.isVisible = false
+                messageBarErrorView.isVisible = true
+            } else if (addon.isSoftBlocked()) {
+                messageBarWarningView.findViewById<TextView>(R.id.add_on_messagebar_warning_text).text =
+                    context.getString(
+                        // Soft-blocked add-ons can be re-enabled. That's why we check whether the add-on is enabled
+                        // first.
+                        if (addon.isEnabled()) {
+                            R.string.mozac_feature_addons_status_softblocked_re_enabled
+                        } else {
+                            R.string.mozac_feature_addons_status_softblocked_1
+                        },
+                    )
+                // This learn more link should be underlined.
+                messageBarWarningView.findViewById<TextView>(
+                    R.id.add_on_messagebar_warning_learn_more_link,
+                ).paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                messageBarWarningView.findViewById<TextView>(R.id.add_on_messagebar_warning_learn_more_link)
+                    .setOnClickListener {
+                        onLearnMoreLinkClicked(AddonsManagerAdapterDelegate.LearnMoreLinks.BLOCKLISTED_ADDON)
+                    }
+                messageBarWarningView.isVisible = true
+            }
+        }
     }
 
     internal object DifferCallback : DiffUtil.ItemCallback<Any>() {

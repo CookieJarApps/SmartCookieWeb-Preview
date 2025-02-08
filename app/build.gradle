@@ -110,7 +110,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
-    final def mozComponentsVersion = "133.0"
+    final def mozComponentsVersion = "135.0"
 
     // Mozilla compose components
     implementation "org.mozilla.components:compose-awesomebar:$mozComponentsVersion"
