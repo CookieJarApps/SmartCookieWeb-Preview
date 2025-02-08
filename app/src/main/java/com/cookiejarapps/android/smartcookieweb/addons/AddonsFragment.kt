@@ -16,7 +16,11 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +29,7 @@ import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentAddOnsBinding
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -73,6 +78,22 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
     override fun onViewCreated(rootView: View, savedInstanceState: Bundle?) {
         super.onViewCreated(rootView, savedInstanceState)
         bindRecyclerView()
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.addOnsContainer) { v, insets ->
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars()
+                        or WindowInsetsCompat.Type.displayCutout()
+            )
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+                bottom = bars.bottom,
+            )
+            val insetsController = WindowCompat.getInsetsController(requireActivity().window, rootView)
+            insetsController.isAppearanceLightStatusBars = UserPreferences(requireContext()).appThemeChoice == ThemeChoice.LIGHT.ordinal
+            WindowInsetsCompat.CONSUMED
+        }
 
         webExtensionPromptFeature.set(
             feature = WebExtensionPromptFeature(

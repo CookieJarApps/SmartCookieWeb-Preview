@@ -31,6 +31,8 @@ class AddonsActivity : AppCompatActivity() {
             }
         }
 
+        supportActionBar?.elevation = 0f
+
         if (savedInstanceState == null) {
             val fm: FragmentManager = supportFragmentManager
             val arguments = Bundle()

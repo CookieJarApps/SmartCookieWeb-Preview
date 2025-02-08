@@ -134,7 +134,7 @@ class DefaultBrowserToolbarMenuController(
                 val bookmarksDrawer =
                     if (UserPreferences(activity).swapDrawers) activity.findViewById<FrameLayout>(
                         R.id.left_drawer
-                    ) else activity.findViewById<FrameLayout>(R.id.right_drawer)
+                    ) else activity.findViewById(R.id.right_drawer)
 
                 if (bookmarksDrawer != null) {
                     drawerLayout?.openDrawer(bookmarksDrawer)

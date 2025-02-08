@@ -37,7 +37,6 @@
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             android:weightSum="1"
-            android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +46,6 @@
             android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="end"
-            android:background="@color/white"
             android:fitsSystemWindows="true"
             android:weightSum="1"
             app:layout_constraintBottom_toBottomOf="parent"
