@@ -18,6 +18,12 @@ import mozilla.components.concept.storage.VisitInfo
 import android.content.ClipData
 import android.content.ClipboardManager
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
+import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
 
 
 class HistoryActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
@@ -27,7 +33,24 @@ class HistoryActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
-        if (supportActionBar != null) supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        if (supportActionBar != null) supportActionBar!!.setDisplayHomeAsUpEnabled(true); supportActionBar!!.elevation = 0f
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.history)) { v, insets ->
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars()
+                        or WindowInsetsCompat.Type.displayCutout()
+            )
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+                bottom = bars.bottom
+            )
+            val insetsController = WindowCompat.getInsetsController(window, v)
+            insetsController.isAppearanceLightStatusBars =
+                UserPreferences(this).appThemeChoice != ThemeChoice.LIGHT.ordinal
+            WindowInsetsCompat.CONSUMED
+        }
 
         val recyclerView = findViewById<RecyclerView>(R.id.list)
         recyclerView.layoutManager = LinearLayoutManager(this)
