@@ -3,9 +3,14 @@ package com.cookiejarapps.android.smartcookieweb.addons
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cookiejarapps.android.smartcookieweb.R
@@ -35,6 +40,27 @@ class PermissionsDetailsActivity : AppCompatActivity(), View.OnClickListener {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
 
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.addon_permissions)) { v, insets ->
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars()
+                        or WindowInsetsCompat.Type.displayCutout()
+            )
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+                bottom = bars.bottom,
+            )
+            val insetsController = WindowCompat.getInsetsController(window, v)
+            insetsController.isAppearanceLightStatusBars = UserPreferences(this).appThemeChoice != ThemeChoice.LIGHT.ordinal
+            WindowInsetsCompat.CONSUMED
+        }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        supportActionBar?.elevation = 0f
+
         val recyclerView = findViewById<RecyclerView>(R.id.add_ons_permissions)
         recyclerView.layoutManager = LinearLayoutManager(this)
         val sortedPermissions = addon.translatePermissions(this).sorted()
@@ -47,5 +73,15 @@ class PermissionsDetailsActivity : AppCompatActivity(), View.OnClickListener {
         val intent =
             Intent(Intent.ACTION_VIEW).setData(Uri.parse(LEARN_MORE_URL))
         startActivity(intent)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                super.onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
