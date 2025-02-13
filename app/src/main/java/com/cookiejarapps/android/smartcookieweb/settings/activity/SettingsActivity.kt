@@ -50,7 +50,7 @@ class SettingsActivity : AppCompatActivity() {
                 bottom = bars.bottom
             )
             val insetsController = WindowCompat.getInsetsController(window, v)
-            insetsController.isAppearanceLightStatusBars = UserPreferences(this).appThemeChoice == ThemeChoice.LIGHT.ordinal
+            insetsController.isAppearanceLightStatusBars = UserPreferences(this).appThemeChoice != ThemeChoice.LIGHT.ordinal
             WindowInsetsCompat.CONSUMED
         }
         supportActionBar?.elevation = 0f

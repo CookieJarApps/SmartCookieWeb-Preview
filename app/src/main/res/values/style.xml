@@ -4,13 +4,14 @@
     <style name="AppThemeNotActionBar" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorAccent">@color/colorAccent</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
-        <item name="android:statusBarColor">@color/statusbar_background</item>
-    </style>
+        <item name="android:statusBarColor">@color/statusbar_background</item></style>
 
     <style name="AppThemeAddons" parent="Theme.Material3.DayNight">
         <item name="colorAccent">@color/colorAccent</item>
         <item name="actionBarTheme">@style/LightActionBar</item>
         <item name="android:statusBarColor">@color/statusbar_background</item>
+
+        <item name="mozac_primary_text_color">?android:attr/textColorPrimary</item>
     </style>
 
     <style name="SearchDialogStyle">

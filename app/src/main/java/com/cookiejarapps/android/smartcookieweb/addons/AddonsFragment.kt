@@ -91,7 +91,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                 bottom = bars.bottom,
             )
             val insetsController = WindowCompat.getInsetsController(requireActivity().window, rootView)
-            insetsController.isAppearanceLightStatusBars = UserPreferences(requireContext()).appThemeChoice == ThemeChoice.LIGHT.ordinal
+            insetsController.isAppearanceLightStatusBars = UserPreferences(requireContext()).appThemeChoice != ThemeChoice.LIGHT.ordinal
             WindowInsetsCompat.CONSUMED
         }
 

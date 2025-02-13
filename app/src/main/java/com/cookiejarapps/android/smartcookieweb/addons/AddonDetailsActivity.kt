@@ -12,6 +12,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.text.HtmlCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
@@ -40,15 +44,37 @@ class AddonDetailsActivity : AppCompatActivity() {
             ThemeChoice.SYSTEM.ordinal -> {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             }
+
             ThemeChoice.LIGHT.ordinal -> {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
+
             else -> {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             }
         }
 
         setContentView(R.layout.activity_add_on_details)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.addon_details)) { v, insets ->
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars()
+                        or WindowInsetsCompat.Type.displayCutout()
+            )
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+                bottom = bars.bottom
+            )
+            val insetsController = WindowCompat.getInsetsController(window, v)
+            insetsController.isAppearanceLightStatusBars =
+                UserPreferences(this).appThemeChoice != ThemeChoice.LIGHT.ordinal
+            WindowInsetsCompat.CONSUMED
+        }
+
+        supportActionBar?.elevation = 0f
+
         val addon = requireNotNull(intent.getParcelableExtra<Addon>("add_on"))
         initViews(addon)
     }
@@ -92,7 +118,7 @@ class AddonDetailsActivity : AppCompatActivity() {
 
         findViewById<View>(R.id.home_page_text).setOnClickListener {
             val intent =
-                    Intent(Intent.ACTION_VIEW).setData(Uri.parse(addon.homepageUrl))
+                Intent(Intent.ACTION_VIEW).setData(Uri.parse(addon.homepageUrl))
             startActivity(intent)
         }
 
@@ -102,7 +128,8 @@ class AddonDetailsActivity : AppCompatActivity() {
 
             ratingNum.text = "(${getFormattedAmount(it.reviews)})"
 
-            val ratingContentDescription = getString(R.string.mozac_feature_addons_rating_content_description_2)
+            val ratingContentDescription =
+                getString(R.string.mozac_feature_addons_rating_content_description_2)
             ratingView.contentDescription = String.format(ratingContentDescription, it.average)
             ratingView.rating = it.average
         }
