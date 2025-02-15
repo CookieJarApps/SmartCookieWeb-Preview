@@ -353,7 +353,6 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                 isInstallationInProgress = false
                 adapter?.updateAddon(it)
                 binding.addonProgressOverlay.root.visibility = View.GONE
-                showInstallationDialog(it)
             },
             onError = { e ->
                 this.view?.let {
