@@ -247,6 +247,7 @@ class WebExtensionPromptFeature(
         val dialog = PermissionsDialogFragment.newInstance(
             addon = addon,
             forOptionalPermissions = forOptionalPermissions,
+            origins = TODO(),
             permissions = permissions,
             promptsStyling = AddonDialogFragment.PromptsStyling(
                 gravity = Gravity.BOTTOM,
@@ -267,6 +268,7 @@ class WebExtensionPromptFeature(
                 )
             },
         )
+
         dialog.show(
             fragmentManager,
             PERMISSIONS_DIALOG_FRAGMENT_TAG,
