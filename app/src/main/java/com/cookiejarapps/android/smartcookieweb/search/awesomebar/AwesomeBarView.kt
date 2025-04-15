@@ -45,8 +45,7 @@ class AwesomeBarView(
         override fun invoke(
             url: String,
             flags: EngineSession.LoadUrlFlags,
-            additionalHeaders: Map<String, String>?,
-            originalInput: String?
+            additionalHeaders: Map<String, String>?
         ) {
             interactor.onUrlTapped(url)
         }

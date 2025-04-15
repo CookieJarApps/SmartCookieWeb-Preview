@@ -239,6 +239,7 @@ class WebExtensionPromptFeature(
         promptRequest: WebExtensionPromptRequest.AfterInstallation.Permissions,
         forOptionalPermissions: Boolean = false,
         permissions: List<String> = emptyList(),
+        origins: List<String> = emptyList()
     ) {
         if (isInstallationInProgress || hasExistingPermissionDialogFragment()) {
             return
@@ -247,7 +248,7 @@ class WebExtensionPromptFeature(
         val dialog = PermissionsDialogFragment.newInstance(
             addon = addon,
             forOptionalPermissions = forOptionalPermissions,
-            origins = TODO(),
+            origins = origins,
             permissions = permissions,
             promptsStyling = AddonDialogFragment.PromptsStyling(
                 gravity = Gravity.BOTTOM,
