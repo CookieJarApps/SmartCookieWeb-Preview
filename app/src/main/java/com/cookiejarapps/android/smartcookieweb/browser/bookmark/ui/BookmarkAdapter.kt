@@ -22,6 +22,8 @@ import kotlinx.coroutines.withContext
 import mozilla.components.browser.icons.IconRequest
 import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
 import java.net.IDN
+import java.util.Locale
+
 
 open class BookmarkAdapter(
     protected val context: Context,
@@ -108,8 +110,8 @@ open class BookmarkAdapter(
 
     fun sortBookmarks(sortType: BookmarkSortType) {
         when (sortType) {
-            BookmarkSortType.A_Z -> items.sortBy { it.title?.toLowerCase() }
-            BookmarkSortType.Z_A -> items.sortByDescending { it.title?.toLowerCase() }
+            BookmarkSortType.A_Z -> items.sortBy { it.title?.lowercase(Locale.getDefault()) }
+            BookmarkSortType.Z_A -> items.sortByDescending { it.title?.lowercase(Locale.getDefault()) }
             BookmarkSortType.MANUAL -> {} // Do nothing, keep the manual order
         }
         notifyDataSetChanged()

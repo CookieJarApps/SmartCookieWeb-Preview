@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.9.25'
+    ext.kotlin_version = '2.1.20'
     repositories {
         maven {
             name "Mozilla"
@@ -10,9 +10,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.9.1'
+        classpath 'com.android.tools.build:gradle:8.9.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.8.9"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.9.0"
 
         classpath "org.mozilla.components:tooling-glean-gradle:95.0.5"
         // NOTE: Do not place your application dependencies here; they belong
@@ -21,7 +21,8 @@ buildscript {
 }
 
 plugins {
-    id("com.google.devtools.ksp") version "1.9.25-1.0.20" apply false
+    id("com.google.devtools.ksp") version "2.1.20-1.0.31" apply false
+    id 'org.jetbrains.kotlin.plugin.compose' version '2.1.0' apply false
 }
 
 allprojects {

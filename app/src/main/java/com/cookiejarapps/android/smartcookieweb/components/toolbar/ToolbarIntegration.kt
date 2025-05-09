@@ -107,8 +107,8 @@ class DefaultToolbarIntegration(
 
 
         toolbar.display.colors = toolbar.display.colors.copy(
-            securityIconInsecure = 0xFFd9534f.toInt(),
-            securityIconSecure = 0xFF5cb85c.toInt(),
+            siteInfoIconInsecure = 0xFFd9534f.toInt(),
+            siteInfoIconSecure = 0xFF5cb85c.toInt(),
             text = context.getColorFromAttr(android.R.attr.textColorPrimary),
             menu = context.getColorFromAttr(android.R.attr.textColorPrimary),
             separator = 0x1E15141a,

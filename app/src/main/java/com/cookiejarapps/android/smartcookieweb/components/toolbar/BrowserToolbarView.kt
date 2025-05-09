@@ -77,6 +77,14 @@ class BrowserToolbarView(
             true
         }
 
+        //TODO: add security_icon resource
+        /*
+        val securityIcon = layout.findViewById<ImageView>(R.id.security_icon)
+        securityIcon?.setOnClickListener {
+            container.context.showSslDialog()
+        }
+        */
+
         with(container.context) {
             val isPinningSupported = components.webAppUseCases.isPinningSupported()
 
@@ -121,8 +129,8 @@ class BrowserToolbarView(
 
                 display.colors = display.colors.copy(
                     text = primaryTextColor,
-                    securityIconSecure = primaryTextColor,
-                    securityIconInsecure = primaryTextColor,
+                    siteInfoIconSecure = primaryTextColor,
+                    siteInfoIconInsecure = primaryTextColor,
                     menu = primaryTextColor,
                     hint = secondaryTextColor,
                     separator = separatorColor,
