@@ -77,7 +77,7 @@ class BrowserToolbarView(
             true
         }
 
-        //TODO: add security_icon resource
+        // TODO: add security_icon resource
         /*
         val securityIcon = layout.findViewById<ImageView>(R.id.security_icon)
         securityIcon?.setOnClickListener {
