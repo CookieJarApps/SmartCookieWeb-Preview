@@ -78,11 +78,7 @@ class BrowserToolbarView(
             true
         }
 
-        // TODO: add security_icon resource
-        val securityIcon = layout.findViewById<ImageView>(R.id.security_icon)
-        securityIcon?.setOnClickListener {
-            container.context.showSslDialog()
-        }
+        // TODO: add a handler for the ssl button.
 
 
         with(container.context) {
