@@ -4,6 +4,7 @@ import android.view.HapticFeedbackConstants
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.annotation.LayoutRes
 import androidx.annotation.VisibleForTesting
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -12,6 +13,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import com.cookiejarapps.android.smartcookieweb.ssl.showSslDialog
 import com.cookiejarapps.android.smartcookieweb.utils.ToolbarPopupWindow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import mozilla.components.browser.state.selector.selectedTab
@@ -19,7 +21,6 @@ import mozilla.components.browser.state.state.CustomTabSessionState
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.browser.toolbar.display.DisplayToolbar
 import mozilla.components.support.ktx.util.URLStringUtils.toDisplayUrl
-import mozilla.components.ui.tabcounter.TabCounterMenu
 import mozilla.components.ui.widgets.behavior.EngineViewScrollingBehavior
 import java.lang.ref.WeakReference
 import mozilla.components.ui.widgets.behavior.ViewPosition as MozacToolbarPosition
@@ -78,12 +79,11 @@ class BrowserToolbarView(
         }
 
         // TODO: add security_icon resource
-        /*
         val securityIcon = layout.findViewById<ImageView>(R.id.security_icon)
         securityIcon?.setOnClickListener {
             container.context.showSslDialog()
         }
-        */
+
 
         with(container.context) {
             val isPinningSupported = components.webAppUseCases.isPinningSupported()
