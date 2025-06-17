@@ -31,7 +31,6 @@ import com.cookiejarapps.android.smartcookieweb.browser.SwipeGestureLayout
 import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
 import com.cookiejarapps.android.smartcookieweb.components.StoreProvider
 import com.cookiejarapps.android.smartcookieweb.components.toolbar.*
-import com.cookiejarapps.android.smartcookieweb.components.toolbar.ToolbarPosition
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBrowserBinding
 import com.cookiejarapps.android.smartcookieweb.downloads.DownloadService
 import com.cookiejarapps.android.smartcookieweb.ext.components
@@ -254,6 +253,8 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             lifecycleOwner = viewLifecycleOwner
         )
 
+        //TODO: show ssl dialog
+
         toolbarIntegration.set(
             feature = browserToolbarView.toolbarIntegration,
             owner = this,
@@ -453,9 +454,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             view = view
         )
 
-        browserToolbarView.view.display.setOnSiteSecurityClickedListener {
-            activity.showSslDialog()
-        }
 
         expandToolbarOnNavigation(store)
 

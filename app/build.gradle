@@ -1,25 +1,36 @@
-apply plugin: 'com.android.application'
+import com.android.build.api.variant.FilterConfiguration
 
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'com.google.devtools.ksp'
-apply plugin: 'androidx.navigation.safeargs.kotlin'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'org.jetbrains.kotlin.plugin.compose'
+}
+
 
 android {
+
     compileSdkVersion 35
     buildFeatures {
+        buildConfig true
         viewBinding true
         compose true
     }
+
+    namespace 'com.cookiejarapps.android.smartcookieweb'
+
     defaultConfig {
         applicationId "com.cookiejarapps.android.smartcookieweb"
         minSdkVersion 21
         targetSdkVersion 35
         // Increment by 4 with each update
-        versionCode 120
-        versionName "28.0"
+        versionCode 124
+        versionName "29.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
@@ -35,6 +46,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     flavorDimensions "abi"
 
     splits {
@@ -47,29 +59,34 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = '1.5.15'
     }
+
     androidResources {
-        noCompress 'ja'
+        noCompress += 'ja'
     }
+
     lint {
         abortOnError false
     }
-    namespace 'com.cookiejarapps.android.smartcookieweb'
 }
 
-ext.abiCodes = ['arm64-v8a':1, x86:2, x86_64:3]
+def abiBaseMap = [
+        "arm64-v8a": 1,
+        "x86"      : 2,
+        "x86_64"   : 3
+]
 
-import com.android.build.OutputFile
+androidComponents {
+    onVariants(selector().all()) { variant ->
+        variant.outputs.each { output ->
+            def abi = output.getFilters()
+                    .find { it.filterType == FilterConfiguration.FilterType.ABI }
+                    ?.identifier
 
-android.applicationVariants.configureEach { variant ->
-
-    variant.outputs.each { output ->
-
-        def baseAbiVersionCode =
-                project.ext.abiCodes.get(output.getFilter(OutputFile.ABI))
-
-        if (baseAbiVersionCode != null) {
-            output.versionCodeOverride =
-                    baseAbiVersionCode + variant.versionCode
+            if (abi != null) {
+                def base = abiBaseMap[abi] ?: 0
+                def orig = output.versionCode.get()
+                output.versionCode.set(base * 1000 + orig)
+            }
         }
     }
 }
@@ -83,20 +100,20 @@ dependencies {
 
     // Support libraries
     implementation "androidx.recyclerview:recyclerview:1.4.0"
-    implementation 'androidx.core:core-ktx:1.15.0'
+    implementation 'androidx.core:core-ktx:1.16.0'
     implementation "androidx.constraintlayout:constraintlayout:2.2.1"
     implementation "androidx.drawerlayout:drawerlayout:1.2.0"
     implementation "androidx.preference:preference-ktx:1.2.1"
     implementation "androidx.palette:palette-ktx:1.0.0"
     implementation "androidx.annotation:annotation:1.9.1"
-    implementation "androidx.appcompat:appcompat:1.7.0"
+    implementation "androidx.appcompat:appcompat:1.7.1"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.8.9'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.8.9'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.9.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.9.0'
 
     // Room
-    implementation "androidx.room:room-runtime:2.6.1"
-    ksp "androidx.room:room-compiler:2.6.1"
+    implementation "androidx.room:room-runtime:2.7.1"
+    ksp "androidx.room:room-compiler:2.7.1"
 
     final def daggerVersion = '2.48.1'
     implementation "com.google.dagger:dagger:$daggerVersion"
@@ -110,7 +127,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
-    final def mozComponentsVersion = "137.0"
+    final def mozComponentsVersion = "139.0"
 
     // Mozilla compose components
     implementation "org.mozilla.components:compose-awesomebar:$mozComponentsVersion"
@@ -125,7 +142,7 @@ dependencies {
     implementation "org.mozilla.components:concept-fetch:$mozComponentsVersion"
     implementation "org.mozilla.components:concept-awesomebar:$mozComponentsVersion"
 
-    // Mozilla components
+    // Mozilla browser components
     implementation "org.mozilla.components:browser-engine-gecko:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-icons:$mozComponentsVersion"
     implementation "org.mozilla.components:browser-domains:$mozComponentsVersion"
@@ -194,7 +211,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 
     // JSON parsing
-    implementation"com.squareup.moshi:moshi:1.11.0"
+    implementation "com.squareup.moshi:moshi:1.11.0"
 
     // OkHTTP
     implementation "com.squareup.okhttp3:okhttp:4.9.3"
@@ -203,9 +220,9 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.4.0'
 
-    implementation "androidx.compose.ui:ui:1.7.8"
-    implementation "androidx.compose.foundation:foundation:1.7.8"
-    implementation "androidx.compose.material:material:1.7.8"
+    implementation "androidx.compose.ui:ui:1.8.2"
+    implementation "androidx.compose.foundation:foundation:1.8.2"
+    implementation "androidx.compose.material:material:1.8.2"
 
     implementation 'org.jsoup:jsoup:1.14.3'
 }

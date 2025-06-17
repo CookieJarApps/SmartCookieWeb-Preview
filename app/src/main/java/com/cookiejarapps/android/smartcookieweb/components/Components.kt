@@ -104,7 +104,7 @@ open class Components(private val applicationContext: Context) {
     }
 
     // Engine Settings
-    val engineSettings by lazy {
+    private val engineSettings by lazy {
         DefaultSettings().apply {
             historyTrackingDelegate = HistoryDelegate(lazyHistoryStorage)
             requestInterceptor = appRequestInterceptor
@@ -308,7 +308,7 @@ open class Components(private val applicationContext: Context) {
     }
 
     val webAppManifestStorage by lazy { ManifestStorage(applicationContext) }
-    val webAppShortcutManager by lazy { WebAppShortcutManager(
+    private val webAppShortcutManager by lazy { WebAppShortcutManager(
             applicationContext,
             client,
             webAppManifestStorage
