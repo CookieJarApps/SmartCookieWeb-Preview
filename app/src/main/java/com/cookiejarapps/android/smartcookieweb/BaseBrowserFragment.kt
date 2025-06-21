@@ -454,6 +454,9 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
             view = view
         )
 
+        browserToolbarView.view.display.setOnSiteInfoClickedListener {
+            activity.showSslDialog()
+        }
 
         expandToolbarOnNavigation(store)
 

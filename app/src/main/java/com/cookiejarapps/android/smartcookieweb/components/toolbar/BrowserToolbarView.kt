@@ -77,9 +77,6 @@ class BrowserToolbarView(
             true
         }
 
-        // TODO: add a handler for the ssl button.
-
-
         with(container.context) {
             val isPinningSupported = components.webAppUseCases.isPinningSupported()
 
