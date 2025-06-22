@@ -76,6 +76,14 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
         setStyle(STYLE_NO_TITLE, R.style.SearchDialogStyle)
     }
 
+    override fun onResume() {
+        super.onResume()
+        dialog?.window?.let { win ->
+            win.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            WindowCompat.getInsetsController(win, win.decorView).isAppearanceLightStatusBars = !requireContext().isAppInDarkTheme()
+        }
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return object : Dialog(requireContext(), this.theme) {
             override fun onBackPressed() {
@@ -169,21 +177,6 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
     @SuppressWarnings("LongMethod")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.searchWrapper) { v, insets ->
-            val bars = insets.getInsets(
-                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
-            )
-            v.updatePadding(
-                left = bars.left,
-                top = bars.top,
-                right = bars.right,
-                bottom = bars.bottom,
-            )
-            val insetsController = WindowCompat.getInsetsController(requireActivity().window, v)
-            insetsController.isAppearanceLightStatusBars = !requireContext().isAppInDarkTheme()
-            WindowInsetsCompat.CONSUMED
-        }
 
         consumeFlow(components.store) { flow ->
             flow.map { state -> state.search }
@@ -289,7 +282,6 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
     private fun historyStorageProvider(): HistoryStorage {
         return components.historyStorage
     }
-
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
