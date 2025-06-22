@@ -14,6 +14,7 @@ import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cookiejarapps.android.smartcookieweb.R
+import com.cookiejarapps.android.smartcookieweb.ext.isAppInDarkTheme
 import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import mozilla.components.feature.addons.Addon
@@ -52,7 +53,7 @@ class PermissionsDetailsActivity : AppCompatActivity(), View.OnClickListener {
                 bottom = bars.bottom,
             )
             val insetsController = WindowCompat.getInsetsController(window, v)
-            insetsController.isAppearanceLightStatusBars = UserPreferences(this).appThemeChoice != ThemeChoice.LIGHT.ordinal
+            insetsController.isAppearanceLightStatusBars = !isAppInDarkTheme()
             WindowInsetsCompat.CONSUMED
         }
 

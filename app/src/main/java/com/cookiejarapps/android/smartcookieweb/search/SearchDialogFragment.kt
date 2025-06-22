@@ -17,7 +17,11 @@ import androidx.constraintlayout.widget.ConstraintProperties.BOTTOM
 import androidx.constraintlayout.widget.ConstraintProperties.PARENT_ID
 import androidx.constraintlayout.widget.ConstraintProperties.TOP
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
@@ -25,10 +29,12 @@ import com.cookiejarapps.android.smartcookieweb.BrowserDirection
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentSearchDialogBinding
 import com.cookiejarapps.android.smartcookieweb.ext.components
+import com.cookiejarapps.android.smartcookieweb.ext.isAppInDarkTheme
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.search.*
 import com.cookiejarapps.android.smartcookieweb.search.awesomebar.AwesomeBarView
 import com.cookiejarapps.android.smartcookieweb.search.toolbar.ToolbarView
+import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import mozilla.components.concept.storage.HistoryStorage
@@ -163,6 +169,21 @@ class SearchDialogFragment : AppCompatDialogFragment(), UserInteractionHandler {
     @SuppressWarnings("LongMethod")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.searchWrapper) { v, insets ->
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+            )
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+                bottom = bars.bottom,
+            )
+            val insetsController = WindowCompat.getInsetsController(requireActivity().window, v)
+            insetsController.isAppearanceLightStatusBars = !requireContext().isAppInDarkTheme()
+            WindowInsetsCompat.CONSUMED
+        }
 
         consumeFlow(components.store) { flow ->
             flow.map { state -> state.search }

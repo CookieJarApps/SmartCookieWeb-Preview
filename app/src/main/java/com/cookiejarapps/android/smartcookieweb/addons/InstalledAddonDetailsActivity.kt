@@ -15,6 +15,7 @@ import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.ext.components
+import com.cookiejarapps.android.smartcookieweb.ext.isAppInDarkTheme
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.google.android.material.switchmaterial.SwitchMaterial
 import kotlinx.coroutines.CoroutineScope
@@ -56,7 +57,7 @@ class InstalledAddonDetailsActivity : AppCompatActivity() {
                 bottom = bars.bottom,
             )
             val insetsController = WindowCompat.getInsetsController(window, v)
-            insetsController.isAppearanceLightStatusBars = UserPreferences(this).appThemeChoice != ThemeChoice.LIGHT.ordinal
+            insetsController.isAppearanceLightStatusBars = !isAppInDarkTheme()
             WindowInsetsCompat.CONSUMED
         }
 

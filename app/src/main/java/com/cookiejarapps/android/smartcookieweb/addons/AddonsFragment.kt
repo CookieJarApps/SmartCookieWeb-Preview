@@ -28,6 +28,7 @@ import com.cookiejarapps.android.smartcookieweb.BrowserActivity
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentAddOnsBinding
 import com.cookiejarapps.android.smartcookieweb.ext.components
+import com.cookiejarapps.android.smartcookieweb.ext.isAppInDarkTheme
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -91,7 +92,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                 bottom = bars.bottom,
             )
             val insetsController = WindowCompat.getInsetsController(requireActivity().window, rootView)
-            insetsController.isAppearanceLightStatusBars = UserPreferences(requireContext()).appThemeChoice != ThemeChoice.LIGHT.ordinal
+            insetsController.isAppearanceLightStatusBars = !requireContext().isAppInDarkTheme()
             WindowInsetsCompat.CONSUMED
         }
 
