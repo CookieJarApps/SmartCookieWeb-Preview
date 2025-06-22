@@ -234,7 +234,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         val browserToolbarMenuController = DefaultBrowserToolbarMenuController(
             activity = activity,
             navController = findNavController(),
-            findInPageLauncher = { findInPageIntegration.withFeature { it.launch() } },
+            findInPageLauncher = { findInPageIntegration.withFeature { it.launch() }; },
             browserAnimator = browserAnimator,
             customTabSessionId = customTabSessionId,
             store = store,
@@ -271,7 +271,33 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                     browserToolbarView.view,
                     UserPreferences(context).hideBarWhileScrolling,
                     !UserPreferences(context).shouldUseBottomToolbar
-                )
+                ),
+                prepareLayout = {
+                    browserToolbarView.view.translationY = -browserToolbarView.view.height.toFloat()
+                    browserToolbarView.view.isVisible = false
+                    val browserEngine = binding.swipeRefresh.layoutParams as CoordinatorLayout.LayoutParams
+                    browserEngine.behavior = null
+                    browserEngine.bottomMargin = toolbarHeight
+                    browserEngine.topMargin = 0
+                    binding.swipeRefresh.apply {
+                        translationY = 0f
+                        requestLayout()
+                    }
+
+                    binding.engineView.apply {
+                        setDynamicToolbarMaxHeight(0)
+                        setVerticalClipping(0)
+                    }
+                },
+                restorePreviousLayout = {
+                    val browserEngine = binding.swipeRefresh.layoutParams as CoordinatorLayout.LayoutParams
+                    browserEngine.bottomMargin = 0
+                    browserToolbarView.view.translationY = 0f
+                    browserToolbarView.view.isVisible = webAppToolbarShouldBeVisible
+                    initializeEngineView(
+                        toolbarHeight = toolbarHeight
+                    )
+                }
             ),
             owner = this,
             view = view
