@@ -87,6 +87,8 @@ open class BrowserActivity : LocaleAwareAppCompatActivity(), ComponentCallbacks2
 
     private var originalContext: Context? = null
 
+    private var lastToolbarPosition: Int = 0
+
     protected open fun getIntentSessionId(intent: SafeIntent): String? = null
 
     @VisibleForTesting
@@ -111,6 +113,8 @@ open class BrowserActivity : LocaleAwareAppCompatActivity(), ComponentCallbacks2
         if(UserPreferences(this).firstLaunch){
             UserPreferences(this).firstLaunch = false
         }
+
+        lastToolbarPosition = UserPreferences(this).toolbarPosition
 
         //TODO: Move to settings page so app restart no longer required
         //TODO: Differentiate between using search engine / adding to list - the code below removes all from list as I don't support adding to list, only setting as default
@@ -210,6 +214,15 @@ open class BrowserActivity : LocaleAwareAppCompatActivity(), ComponentCallbacks2
         lifecycle.addObserver(webExtensionPopupFeature)
 
         components.notificationsDelegate.bindToActivity(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val currentPosition = UserPreferences(this).toolbarPosition
+        if (currentPosition != lastToolbarPosition) {
+            lastToolbarPosition = currentPosition
+            recreate()
+        }
     }
 
     final override fun onNewIntent(intent: Intent) {

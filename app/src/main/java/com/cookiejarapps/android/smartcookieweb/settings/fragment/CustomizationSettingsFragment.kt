@@ -63,11 +63,6 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
             isChecked = UserPreferences(requireContext()).shouldUseBottomToolbar,
             onCheckChange = {
                 UserPreferences(requireContext()).shouldUseBottomToolbar = it
-                Toast.makeText(
-                    context,
-                    requireContext().resources.getText(R.string.app_restart),
-                    Toast.LENGTH_LONG
-                ).show()
             }
         )
 
