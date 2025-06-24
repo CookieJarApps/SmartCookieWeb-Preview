@@ -17,6 +17,7 @@ import mozilla.components.feature.addons.ui.UnsupportedAddonsAdapter
 import mozilla.components.feature.addons.ui.UnsupportedAddonsAdapterDelegate
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import com.cookiejarapps.android.smartcookieweb.theme.applyAppTheme
 
 // Activity for managing unsupported add-ons, or add-ons that were installed but are no longer available.
 
@@ -27,13 +28,7 @@ class NotYetSupportedAddonActivity : AppCompatActivity() {
 
         val addons = requireNotNull(intent.getParcelableArrayListExtra<Addon>("add_ons"))
 
-        if(UserPreferences(this).appThemeChoice == ThemeChoice.SYSTEM.ordinal) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        } else if(UserPreferences(this).appThemeChoice == ThemeChoice.LIGHT.ordinal) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }
+        applyAppTheme(this)
 
         supportFragmentManager
             .beginTransaction()

@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import com.cookiejarapps.android.smartcookieweb.theme.applyAppTheme
 
 
 // An activity to manage add-ons.
@@ -19,17 +20,7 @@ class AddonsActivity : AppCompatActivity() {
         val addonId = intent.getStringExtra("ADDON_ID")
         val addonUrl = intent.getStringExtra("ADDON_URL")
 
-        when (UserPreferences(this).appThemeChoice) {
-            ThemeChoice.SYSTEM.ordinal -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            }
-            ThemeChoice.LIGHT.ordinal -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-            else -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-        }
+        applyAppTheme(this)
 
         supportActionBar?.elevation = 0f
 

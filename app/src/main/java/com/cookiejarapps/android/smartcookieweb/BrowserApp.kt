@@ -3,6 +3,7 @@ package com.cookiejarapps.android.smartcookieweb
 
 import android.app.Application
 import com.cookiejarapps.android.smartcookieweb.components.Components
+import com.cookiejarapps.android.smartcookieweb.theme.applyAppTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -35,6 +36,8 @@ class BrowserApp : LocaleAwareApplication() {
 
         components.engine.warmUp()
         restoreBrowserState()
+
+        applyAppTheme(this)
 
         GlobalScope.launch(Dispatchers.IO) {
             components.webAppManifestStorage.warmUpScopes(System.currentTimeMillis())

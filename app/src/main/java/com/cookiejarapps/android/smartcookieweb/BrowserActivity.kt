@@ -37,6 +37,7 @@ import com.cookiejarapps.android.smartcookieweb.ext.nav
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.cookiejarapps.android.smartcookieweb.search.SearchDialogFragmentDirections
 import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
+import com.cookiejarapps.android.smartcookieweb.theme.applyAppTheme
 import com.cookiejarapps.android.smartcookieweb.utils.Utils
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -160,17 +161,7 @@ open class BrowserActivity : LocaleAwareAppCompatActivity(), ComponentCallbacks2
             navigateToBrowserOnColdStart()
         }
 
-        when (UserPreferences(this).appThemeChoice) {
-            ThemeChoice.SYSTEM.ordinal -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            }
-            ThemeChoice.LIGHT.ordinal -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-            else -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-        }
+        applyAppTheme(this)
 
         ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
             val bars = insets.getInsets(

@@ -20,6 +20,7 @@ import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.ext.isAppInDarkTheme
 import com.cookiejarapps.android.smartcookieweb.settings.ThemeChoice
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import com.cookiejarapps.android.smartcookieweb.theme.applyAppTheme
 import kotlinx.coroutines.*
 import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.addons.ui.setIcon
@@ -41,19 +42,7 @@ class AddonDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        when (UserPreferences(this).appThemeChoice) {
-            ThemeChoice.SYSTEM.ordinal -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            }
-
-            ThemeChoice.LIGHT.ordinal -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-
-            else -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-        }
+        applyAppTheme(this)
 
         setContentView(R.layout.activity_add_on_details)
 

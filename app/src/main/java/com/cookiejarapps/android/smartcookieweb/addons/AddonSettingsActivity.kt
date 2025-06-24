@@ -23,6 +23,7 @@ import mozilla.components.feature.addons.Addon
 import mozilla.components.feature.addons.ui.translateName
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
+import com.cookiejarapps.android.smartcookieweb.theme.applyAppTheme
 
 // An activity to show the settings of an add-on.
 
@@ -38,17 +39,7 @@ class AddonSettingsActivity : AppCompatActivity() {
 
         setContentView(view)
 
-        when (UserPreferences(this).appThemeChoice) {
-            ThemeChoice.SYSTEM.ordinal -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            }
-            ThemeChoice.LIGHT.ordinal -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-            else -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-        }
+        applyAppTheme(this)
 
         val addon = requireNotNull(intent.getParcelableExtra<Addon>("add_on"))
         title = addon.translateName(this)
