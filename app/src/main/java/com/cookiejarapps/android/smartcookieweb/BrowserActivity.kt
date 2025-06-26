@@ -66,6 +66,7 @@ open class BrowserActivity : LocaleAwareAppCompatActivity(), ComponentCallbacks2
     lateinit var binding: ActivityMainBinding
 
     lateinit var browsingModeManager: BrowsingModeManager
+    lateinit private var currentTheme: BrowsingMode
 
     private var isToolbarInflated = false
     private lateinit var navigationToolbar: Toolbar
@@ -104,6 +105,7 @@ open class BrowserActivity : LocaleAwareAppCompatActivity(), ComponentCallbacks2
         browsingModeManager = createBrowsingModeManager(
             if (UserPreferences(this).lastKnownPrivate) BrowsingMode.Private else BrowsingMode.Normal
         )
+        currentTheme = browsingModeManager.mode
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
@@ -256,7 +258,11 @@ open class BrowserActivity : LocaleAwareAppCompatActivity(), ComponentCallbacks2
     }
 
     protected open fun createBrowsingModeManager(initialMode: BrowsingMode): BrowsingModeManager {
-        return DefaultBrowsingModeManager(initialMode, UserPreferences(this)) {}
+        return DefaultBrowsingModeManager(initialMode, UserPreferences(this)) { newMode ->
+            if (newMode != currentTheme) {
+                if(!isFinishing) recreate()
+            }
+        }
     }
 
     final override fun onBackPressed() {

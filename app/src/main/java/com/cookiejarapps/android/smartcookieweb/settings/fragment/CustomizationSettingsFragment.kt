@@ -360,7 +360,7 @@ class CustomizationSettingsFragment : BaseSettingsFragment() {
         val checkedItem = UserPreferences(requireContext()).webThemeChoice
 
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(resources.getString(R.string.theme))
+            .setTitle(resources.getString(R.string.web_theme))
             .setNeutralButton(resources.getString(R.string.cancel)) { _, _ ->
                 UserPreferences(requireContext()).webThemeChoice = startingChoice
             }
