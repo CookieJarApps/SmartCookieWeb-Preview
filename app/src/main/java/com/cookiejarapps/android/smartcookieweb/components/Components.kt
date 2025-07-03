@@ -61,6 +61,7 @@ import mozilla.components.browser.engine.gecko.ext.toContentBlockingSetting
 import mozilla.components.browser.engine.gecko.permission.GeckoSitePermissionsStorage
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.feature.addons.amo.AMOAddonsProvider
+import mozilla.components.feature.downloads.DefaultFileSizeFormatter
 import mozilla.components.feature.prompts.PromptMiddleware
 import mozilla.components.feature.prompts.file.FileUploadsDirCleaner
 import mozilla.components.feature.sitepermissions.OnDiskSitePermissionsStorage
@@ -82,6 +83,8 @@ open class Components(private val applicationContext: Context) {
     val publicSuffixList by lazy { PublicSuffixList(applicationContext) }
 
     val clipboardHandler by lazy { ClipboardHandler(applicationContext) }
+
+    val fileSizeFormatter by lazy { DefaultFileSizeFormatter(applicationContext) }
 
     val preferences: SharedPreferences =
             applicationContext.getSharedPreferences(BROWSER_PREFERENCES, Context.MODE_PRIVATE)
