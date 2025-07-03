@@ -11,5 +11,6 @@ class DownloadService : AbstractFetchDownloadService() {
     override val store: BrowserStore by lazy { components.store }
     override val style: Style by lazy { Style(R.color.photonBlue40) }
     override val fileSizeFormatter by lazy { components.fileSizeFormatter }
+    override val dateTimeProvider by lazy { components.dateTimeProvider }
     override val notificationsDelegate: NotificationsDelegate by lazy { components.notificationsDelegate }
 }

@@ -21,7 +21,7 @@
         android:foregroundGravity="bottom"
         android:orientation="horizontal">
 
-        <mozilla.components.ui.tabcounter.TabCounter
+        <mozilla.components.ui.tabcounter.TabCounterView
             android:id="@+id/tab_button"
             android:layout_width="48dp"
             android:layout_height="48dp"

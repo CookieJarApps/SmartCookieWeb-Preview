@@ -9,7 +9,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.core.content.getSystemService
 import mozilla.components.support.utils.SafeUrl
 import mozilla.components.support.utils.WebURLFinder
-import mozilla.components.support.ktx.kotlin.MAX_URI_LENGTH
+import mozilla.components.support.base.utils.MAX_URI_LENGTH
 
 private const val MIME_TYPE_TEXT_PLAIN = "text/plain"
 private const val MIME_TYPE_TEXT_HTML = "text/html"

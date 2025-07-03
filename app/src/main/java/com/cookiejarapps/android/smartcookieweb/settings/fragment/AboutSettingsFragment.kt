@@ -30,7 +30,7 @@ class AboutSettingsFragment : BaseSettingsFragment() {
 
         clickablePreference(
             preference = "pref_version_mozac",
-            summary = mozilla.components.Build.version + ", " + mozilla.components.Build.gitHash,
+            summary = mozilla.components.Build.VERSION + ", " + mozilla.components.Build.GIT_HASH,
             onClick = { }
         )
 
