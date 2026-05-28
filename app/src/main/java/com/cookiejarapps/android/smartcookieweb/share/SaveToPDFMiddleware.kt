@@ -10,7 +10,7 @@ import mozilla.components.browser.state.action.BrowserAction
 import mozilla.components.browser.state.action.EngineAction
 import mozilla.components.browser.state.state.BrowserState
 import mozilla.components.lib.state.Middleware
-import mozilla.components.lib.state.MiddlewareContext
+import mozilla.components.lib.state.Store
 
 /**
  * [BrowserAction] middleware reacting in response to Save to PDF related [Action]s.
@@ -22,7 +22,7 @@ class SaveToPDFMiddleware(
 ) : Middleware<BrowserState, BrowserAction> {
 
     override fun invoke(
-        ctx: MiddlewareContext<BrowserState, BrowserAction>,
+        store: Store<BrowserState, BrowserAction>,
         next: (BrowserAction) -> Unit,
         action: BrowserAction,
     ) {

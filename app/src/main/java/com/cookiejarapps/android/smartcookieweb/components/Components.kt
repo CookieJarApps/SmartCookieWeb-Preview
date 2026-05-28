@@ -14,6 +14,7 @@ import com.cookiejarapps.android.smartcookieweb.media.MediaSessionService
 import mozilla.components.browser.engine.gecko.GeckoEngine
 import mozilla.components.browser.engine.gecko.fetch.GeckoViewFetchClient
 import mozilla.components.browser.icons.BrowserIcons
+import mozilla.components.browser.state.action.SearchAction
 import mozilla.components.browser.state.engine.EngineMiddleware
 import mozilla.components.browser.session.storage.SessionStorage
 import mozilla.components.browser.state.store.BrowserStore
@@ -63,6 +64,7 @@ import mozilla.components.concept.engine.EngineSession
 import mozilla.components.feature.addons.amo.AMOAddonsProvider
 import mozilla.components.feature.downloads.DefaultDateTimeProvider
 import mozilla.components.feature.downloads.DefaultFileSizeFormatter
+import mozilla.components.feature.downloads.DownloadEstimator
 import mozilla.components.feature.prompts.PromptMiddleware
 import mozilla.components.feature.prompts.file.FileUploadsDirCleaner
 import mozilla.components.feature.sitepermissions.OnDiskSitePermissionsStorage
@@ -88,6 +90,8 @@ open class Components(private val applicationContext: Context) {
     val fileSizeFormatter by lazy { DefaultFileSizeFormatter(applicationContext) }
 
     val dateTimeProvider by lazy { DefaultDateTimeProvider() }
+
+    val downloadEstimator by lazy { DownloadEstimator(dateTimeProvider) }
 
     val preferences: SharedPreferences =
             applicationContext.getSharedPreferences(BROWSER_PREFERENCES, Context.MODE_PRIVATE)
@@ -180,6 +184,10 @@ open class Components(private val applicationContext: Context) {
                 )
         ).apply{
             icons.install(engine, this)
+
+            // RegionMiddleware no longer reacts to InitAction since a-c 149,
+            // so kick off region/search-engine loading explicitly.
+            dispatch(SearchAction.RefreshSearchEnginesAction)
 
             WebNotificationFeature(
                     applicationContext, engine, icons, R.drawable.ic_notification,
