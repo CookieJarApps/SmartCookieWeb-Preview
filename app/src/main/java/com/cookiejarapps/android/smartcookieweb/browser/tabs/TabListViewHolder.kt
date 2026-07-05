@@ -40,7 +40,9 @@ class TabListViewHolder(
         this.tab = tab
         this.styling = styling
 
-        val title = if (tab.content.title.isNotEmpty()) {
+        val title = if (tab.content.url == "about:homepage") {
+            itemView.context.getString(R.string.homepage_title)
+        } else if (tab.content.title.isNotEmpty()) {
             tab.content.title
         } else {
             tab.content.url

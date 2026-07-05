@@ -210,6 +210,7 @@
   <string name="delete_shortcut">Delete shortcut</string>
   
   <string name="homepage_type">Homepage type</string>
+  <string name="homepage_title">Homepage</string>
   <string name="default_word">Default</string>
   <string name="blank_page">Blank page</string>
   <string name="custom_page">Custom page</string>
