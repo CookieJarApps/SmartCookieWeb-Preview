@@ -268,7 +268,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
                 scope.launch(Dispatchers.Main) {
                     Toast.makeText(
                         activity,
-                        R.string.mozac_feature_addons_failed_to_query_extensions,
+                        R.string.mozac_feature_addons_failed_to_load_extensions,
                         Toast.LENGTH_SHORT
                     ).show()
                     binding.addOnsNoResults.isVisible = true
@@ -412,7 +412,7 @@ class AddonsFragment : Fragment(), AddonsManagerAdapterDelegate {
 
     private val onConfirmInstallationButtonClicked: ((Addon) -> Unit) = {  }
 
-    private val onConfirmPermissionButtonClicked: ((Addon, Boolean) -> Unit) = { addon, allowInPrivateBrowsing ->
+    private val onConfirmPermissionButtonClicked: ((Addon, Boolean, Boolean) -> Unit) = { addon, allowInPrivateBrowsing, _ ->
         binding.addonProgressOverlay.root.visibility = View.VISIBLE
         isInstallationInProgress = true
 

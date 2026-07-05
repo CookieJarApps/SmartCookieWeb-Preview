@@ -88,12 +88,12 @@ class AwesomeBarView(
         }
         sessionProvider =
             SessionSuggestionProvider(
-                activity.resources,
-                components.store,
-                selectTabUseCase,
-                components.icons,
-                getDrawable(activity, R.drawable.ic_round_search),
-                excludeSelectedSession = true
+                store = components.store,
+                selectTabUseCase = selectTabUseCase,
+                icons = components.icons,
+                indicatorIcon = getDrawable(activity, R.drawable.ic_round_search),
+                excludeSelectedSession = true,
+                switchToTabDescription = activity.getString(R.string.switch_to_tab_description)
             )
 
         historyStorageProvider =
@@ -118,7 +118,6 @@ class AwesomeBarView(
 
         defaultSearchSuggestionProvider =
             SearchSuggestionProvider(
-                context = activity,
                 store = components.store,
                 searchUseCase = searchUseCase,
                 fetchClient = components.client,

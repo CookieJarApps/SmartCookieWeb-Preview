@@ -87,8 +87,7 @@ import mozilla.components.support.locale.ActivityContextWrapper
 import mozilla.components.support.utils.ext.requestInPlacePermissions
 import com.cookiejarapps.android.smartcookieweb.browser.home.SharedViewModel
 import java.lang.ref.WeakReference
-import mozilla.components.ui.widgets.behavior.EngineViewClippingBehavior as OldEngineViewClippingBehavior
-import mozilla.components.ui.widgets.behavior.ToolbarPosition as OldToolbarPosition
+import mozilla.components.ui.widgets.behavior.EngineViewClippingBehavior
 
 /**
  * Base fragment extended by [BrowserFragment].
@@ -247,6 +246,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
 
         _browserToolbarView = BrowserToolbarView(
             container = binding.browserLayout,
+            engineView = binding.engineView,
             toolbarPosition = if(UserPreferences(context).toolbarPosition == ToolbarPosition.BOTTOM.ordinal) ToolbarPosition.BOTTOM else ToolbarPosition.TOP,
             interactor = browserInteractor,
             customTabSession = customTabSessionId?.let { store.state.findCustomTab(it) },
@@ -449,6 +449,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                 requireContext().applicationContext,
                 store = components.store,
                 useCases = components.downloadsUseCases,
+                downloadFileUtils = components.downloadFileUtils,
                 fragmentManager = childFragmentManager,
                 shouldForwardToThirdParties = { UserPreferences(requireContext()).promptExternalDownloader },
                 onDownloadStopped = { download, id, status ->
@@ -585,18 +586,19 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
         if (UserPreferences(context).hideBarWhileScrolling) {
             binding.engineView.setDynamicToolbarMaxHeight(toolbarHeight)
 
-            val toolbarPosition = if (UserPreferences(context).shouldUseBottomToolbar) {
-                OldToolbarPosition.BOTTOM
-            } else {
-                OldToolbarPosition.TOP
-            }
+            val (topToolbarHeight, bottomToolbarHeight) =
+                if (UserPreferences(context).shouldUseBottomToolbar) {
+                    0 to toolbarHeight
+                } else {
+                    toolbarHeight to 0
+                }
             (binding.swipeRefresh.layoutParams as CoordinatorLayout.LayoutParams).behavior =
-                OldEngineViewClippingBehavior(
+                EngineViewClippingBehavior(
                     context,
                     null,
                     binding.swipeRefresh,
-                    toolbarHeight,
-                    toolbarPosition
+                    topToolbarHeight,
+                    bottomToolbarHeight
                 )
         } else {
             binding.engineView.setDynamicToolbarMaxHeight(0)

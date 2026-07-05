@@ -7,13 +7,18 @@ import mozilla.components.concept.storage.BookmarkInfo
 import mozilla.components.concept.storage.BookmarkNode
 import mozilla.components.concept.storage.BookmarkNodeType
 import mozilla.components.concept.storage.BookmarksStorage
+import mozilla.components.concept.storage.bookmarks.InsertableBookmarkTreeRoot
 import java.util.*
 
 class CustomBookmarksStorage(context: Context): BookmarksStorage {
 
     private val manager = BookmarkManager.getInstance(context)
 
-    override suspend fun addFolder(parentGuid: String, title: String, position: UInt?): String {
+    override suspend fun addFolder(parentGuid: String, title: String, position: UInt?): Result<String> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun insertTree(tree: InsertableBookmarkTreeRoot): Result<String> {
         TODO("Not yet implemented")
     }
 
@@ -22,11 +27,11 @@ class CustomBookmarksStorage(context: Context): BookmarksStorage {
         url: String,
         title: String,
         position: UInt?
-    ): String {
+    ): Result<String> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun addSeparator(parentGuid: String, position: UInt?): String {
+    override suspend fun addSeparator(parentGuid: String, position: UInt?): Result<String> {
         TODO("Not yet implemented")
     }
 
@@ -38,15 +43,15 @@ class CustomBookmarksStorage(context: Context): BookmarksStorage {
         TODO("Not yet implemented")
     }
 
-    override suspend fun deleteNode(guid: String): Boolean {
+    override suspend fun deleteNode(guid: String): Result<Boolean> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getBookmark(guid: String): BookmarkNode? {
+    override suspend fun getBookmark(guid: String): Result<BookmarkNode?> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getBookmarksWithUrl(url: String): List<BookmarkNode> {
+    override suspend fun getBookmarksWithUrl(url: String): Result<List<BookmarkNode>> {
         TODO("Not yet implemented")
     }
 
@@ -54,11 +59,11 @@ class CustomBookmarksStorage(context: Context): BookmarksStorage {
         limit: Int,
         maxAge: Long?,
         currentTime: Long
-    ): List<BookmarkNode> {
+    ): Result<List<BookmarkNode>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getTree(guid: String, recursive: Boolean): BookmarkNode? {
+    override suspend fun getTree(guid: String, recursive: Boolean): Result<BookmarkNode?> {
         TODO("Not yet implemented")
     }
 
@@ -66,7 +71,7 @@ class CustomBookmarksStorage(context: Context): BookmarksStorage {
         TODO("Not yet implemented")
     }
 
-    override suspend fun searchBookmarks(query: String, limit: Int): List<BookmarkNode> {
+    override suspend fun searchBookmarks(query: String, limit: Int): Result<List<BookmarkNode>> {
         val bookmarks: MutableList<BookmarkNode> = emptyList<BookmarkNode>().toMutableList()
         for(i in manager.root.itemList){
             if(i is BookmarkSiteItem){
@@ -75,10 +80,12 @@ class CustomBookmarksStorage(context: Context): BookmarksStorage {
             }
         }
 
-        return bookmarks.filter { s -> s.title?.contains(query) == true || s.url?.contains(query) == true }.take(limit)
+        return Result.success(
+            bookmarks.filter { s -> s.title?.contains(query) == true || s.url?.contains(query) == true }.take(limit)
+        )
     }
 
-    override suspend fun updateNode(guid: String, info: BookmarkInfo) {
+    override suspend fun updateNode(guid: String, info: BookmarkInfo): Result<Unit> {
         TODO("Not yet implemented")
     }
 

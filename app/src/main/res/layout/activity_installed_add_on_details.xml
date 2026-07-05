@@ -39,7 +39,7 @@
             android:clickable="true"
             android:focusable="true"
             android:padding="16dp"
-            android:text="@string/mozac_feature_addons_settings_allow_in_private_browsing"
+            android:text="@string/mozac_feature_addons_settings_allow_in_private_browsing_2"
             android:textSize="18sp" />
 
         <TextView

@@ -14,6 +14,7 @@ import com.cookiejarapps.android.smartcookieweb.media.MediaSessionService
 import mozilla.components.browser.engine.gecko.GeckoEngine
 import mozilla.components.browser.engine.gecko.fetch.GeckoViewFetchClient
 import mozilla.components.browser.icons.BrowserIcons
+import mozilla.components.browser.state.action.SearchAction
 import mozilla.components.browser.state.engine.EngineMiddleware
 import mozilla.components.browser.session.storage.SessionStorage
 import mozilla.components.browser.state.store.BrowserStore
@@ -61,18 +62,33 @@ import mozilla.components.browser.engine.gecko.ext.toContentBlockingSetting
 import mozilla.components.browser.engine.gecko.permission.GeckoSitePermissionsStorage
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.feature.addons.amo.AMOAddonsProvider
-import mozilla.components.feature.downloads.DefaultDateTimeProvider
 import mozilla.components.feature.downloads.DefaultFileSizeFormatter
 import mozilla.components.feature.prompts.PromptMiddleware
 import mozilla.components.feature.prompts.file.FileUploadsDirCleaner
 import mozilla.components.feature.sitepermissions.OnDiskSitePermissionsStorage
 import mozilla.components.support.base.android.NotificationsDelegate
+import mozilla.components.support.utils.DefaultDateTimeProvider
+import mozilla.components.support.utils.DefaultDownloadFileUtils
+import mozilla.components.support.utils.DownloadFileUtils
 import mozilla.components.support.base.worker.Frequency
 import org.mozilla.geckoview.ContentBlocking
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 
 private const val DAY_IN_MINUTES = 24 * 60L
+
+/**
+ * A [LocationService] that derives the region from the device locale.
+ */
+private class LocaleLocationService : LocationService {
+    override suspend fun fetchRegion(readFromCache: Boolean): LocationService.Region {
+        val country = Locale.getDefault().country.ifBlank { "US" }
+        return LocationService.Region(country, country)
+    }
+
+    override fun hasRegionCached(): Boolean = false
+}
 
 @Suppress("LargeClass")
 open class Components(private val applicationContext: Context) {
@@ -88,6 +104,8 @@ open class Components(private val applicationContext: Context) {
     val fileSizeFormatter by lazy { DefaultFileSizeFormatter(applicationContext) }
 
     val dateTimeProvider by lazy { DefaultDateTimeProvider() }
+
+    val downloadFileUtils: DownloadFileUtils by lazy { DefaultDownloadFileUtils(applicationContext) }
 
     val preferences: SharedPreferences =
             applicationContext.getSharedPreferences(BROWSER_PREFERENCES, Context.MODE_PRIVATE)
@@ -161,13 +179,18 @@ open class Components(private val applicationContext: Context) {
     val store by lazy {
         BrowserStore(
                 middleware = listOf(
-                        DownloadMiddleware(applicationContext, DownloadService::class.java),
+                        DownloadMiddleware(
+                                applicationContext,
+                                DownloadService::class.java,
+                                deleteFileFromStorage = { false },
+                                downloadFileUtils = downloadFileUtils,
+                        ),
                         ReaderViewMiddleware(),
                         ThumbnailsMiddleware(thumbnailStorage),
                         UndoMiddleware(),
                         RegionMiddleware(
                                 applicationContext,
-                                LocationService.default()
+                                LocaleLocationService()
                         ),
                         SearchMiddleware(applicationContext),
                         RecordingDevicesMiddleware(applicationContext, notificationsDelegate),
@@ -180,6 +203,8 @@ open class Components(private val applicationContext: Context) {
                 )
         ).apply{
             icons.install(engine, this)
+
+            dispatch(SearchAction.RefreshSearchEnginesAction)
 
             WebNotificationFeature(
                     applicationContext, engine, icons, R.drawable.ic_notification,
@@ -321,6 +346,6 @@ open class Components(private val applicationContext: Context) {
     val webAppUseCases by lazy { WebAppUseCases(applicationContext, store, webAppShortcutManager) }
 
     val tabsUseCases: TabsUseCases by lazy { TabsUseCases(store) }
-    val downloadsUseCases: DownloadsUseCases by lazy { DownloadsUseCases(store) }
+    val downloadsUseCases: DownloadsUseCases by lazy { DownloadsUseCases(store, downloadFileUtils) }
     val contextMenuUseCases: ContextMenuUseCases by lazy { ContextMenuUseCases(store) }
 }

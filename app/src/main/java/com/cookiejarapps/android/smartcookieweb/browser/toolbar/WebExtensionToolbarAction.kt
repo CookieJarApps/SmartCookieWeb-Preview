@@ -74,7 +74,7 @@ open class WebExtensionToolbarAction(
             } catch (throwable: Throwable) {
                 MainScope().launch {
                     imageView.setImageResource(
-                        R.drawable.mozac_ic_web_extension_default_icon,
+                        R.drawable.mozac_ic_extension_24,
                     )
                 }
                 Log.log(

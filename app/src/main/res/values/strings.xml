@@ -325,4 +325,8 @@
   <string name="flex_mode">Flex mode</string>
 
   <string name="save_as_pdf">Save as PDF</string>
+
+  <string name="addon_successfully_enabled">Successfully enabled %1$s</string>
+  <string name="addon_successfully_disabled">Successfully disabled %1$s</string>
+  <string name="addon_successfully_uninstalled">Successfully uninstalled %1$s</string>
 </resources>

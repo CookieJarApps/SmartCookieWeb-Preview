@@ -23,7 +23,7 @@ android {
 
     defaultConfig {
         applicationId "com.cookiejarapps.android.smartcookieweb"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 37
         // Increment by 4 with each update
         versionCode 128
@@ -100,22 +100,22 @@ dependencies {
 
     // Support libraries
     implementation "androidx.recyclerview:recyclerview:1.4.0"
-    implementation 'androidx.core:core-ktx:1.16.0'
+    implementation 'androidx.core:core-ktx:1.19.0'
     implementation "androidx.constraintlayout:constraintlayout:2.2.1"
     implementation "androidx.drawerlayout:drawerlayout:1.2.0"
     implementation "androidx.preference:preference-ktx:1.2.1"
     implementation "androidx.palette:palette-ktx:1.0.0"
-    implementation "androidx.annotation:annotation:1.9.1"
+    implementation "androidx.annotation:annotation:1.10.0"
     implementation "androidx.appcompat:appcompat:1.7.1"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.9.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.9.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.9.8'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.9.8'
 
     // Room
-    implementation "androidx.room:room-runtime:2.7.1"
-    ksp "androidx.room:room-compiler:2.7.1"
+    implementation "androidx.room:room-runtime:2.8.4"
+    ksp "androidx.room:room-compiler:2.8.4"
 
-    final def daggerVersion = '2.48.1'
+    final def daggerVersion = '2.60'
     implementation "com.google.dagger:dagger:$daggerVersion"
     implementation "com.google.dagger:dagger-android:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
@@ -127,7 +127,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
-    final def mozComponentsVersion = "140.0"
+    final def mozComponentsVersion = "153.0b8"
 
     // Mozilla compose components
     implementation "org.mozilla.components:compose-awesomebar:$mozComponentsVersion"

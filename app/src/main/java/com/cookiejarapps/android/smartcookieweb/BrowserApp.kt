@@ -2,6 +2,8 @@
 package com.cookiejarapps.android.smartcookieweb
 
 import android.app.Application
+import android.content.Context
+import android.content.res.Configuration
 import com.cookiejarapps.android.smartcookieweb.components.Components
 import com.cookiejarapps.android.smartcookieweb.theme.applyAppTheme
 import kotlinx.coroutines.Dispatchers
@@ -15,15 +17,24 @@ import mozilla.components.support.base.facts.processor.LogFactProcessor
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.ktx.android.content.isMainProcess
 import mozilla.components.support.ktx.android.content.runOnlyInMainProcess
-import mozilla.components.support.locale.LocaleAwareApplication
+import mozilla.components.support.locale.LocaleManager
 import mozilla.components.support.webextensions.WebExtensionSupport
 import java.util.concurrent.TimeUnit
 
-class BrowserApp : LocaleAwareApplication() {
+class BrowserApp : Application() {
 
     private val logger = Logger("BrowserApp")
 
     val components by lazy { Components(this) }
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(LocaleManager.updateResources(base))
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        LocaleManager.updateResources(this)
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -54,13 +65,13 @@ class BrowserApp : LocaleAwareApplication() {
                 WebExtensionSupport.initialize(
                     components.engine,
                     components.store,
-                    onNewTabOverride = { _, engineSession, url ->
+                    onNewTabOverride = { _, engineSession, url, active ->
                         val shouldCreatePrivateSession =
                             components.store.state.selectedTab?.content?.private ?: false
 
                         components.tabsUseCases.addTab(
                             url = url,
-                            selectTab = true,
+                            selectTab = active,
                             engineSession = engineSession,
                             private = shouldCreatePrivateSession,
                         )

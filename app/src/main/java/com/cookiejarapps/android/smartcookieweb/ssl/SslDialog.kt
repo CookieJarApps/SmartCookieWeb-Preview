@@ -20,7 +20,7 @@ fun Context.showSslDialog() {
     val securityInfo = this.components.store.state.selectedTab?.content?.securityInfo
     val host = this.components.store.state.selectedTab?.content?.url?.tryGetHostFromUrl() ?: ""
 
-    val icon = if(securityInfo?.secure == true) R.drawable.ic_baseline_lock else R.drawable.ic_baseline_lock_open
+    val icon = if(securityInfo?.isSecure == true) R.drawable.ic_baseline_lock else R.drawable.ic_baseline_lock_open
     val certAuthority = securityInfo?.issuer
     val certHost = securityInfo?.host
 

@@ -69,7 +69,7 @@ import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.ui.tabcounter.TabCounterMenu
 import org.mozilla.gecko.util.ThreadUtils
 import java.lang.ref.WeakReference
-import mozilla.components.ui.widgets.behavior.ToolbarPosition as OldToolbarPosition
+import com.cookiejarapps.android.smartcookieweb.components.toolbar.ToolbarPosition
 
 
 @ExperimentalCoroutinesApi
@@ -359,7 +359,7 @@ class HomeFragment : Fragment() {
 
     private fun updateLayout(view: View) {
         when (UserPreferences(view.context).toolbarPosition) {
-            OldToolbarPosition.TOP.ordinal -> {
+            ToolbarPosition.TOP.ordinal -> {
                 binding.toolbarLayout.layoutParams = CoordinatorLayout.LayoutParams(
                     ConstraintLayout.LayoutParams.MATCH_PARENT,
                     ConstraintLayout.LayoutParams.WRAP_CONTENT
@@ -382,7 +382,7 @@ class HomeFragment : Fragment() {
                         resources.getDimensionPixelSize(R.dimen.home_fragment_top_toolbar_header_margin)
                 }
             }
-            OldToolbarPosition.BOTTOM.ordinal -> { }
+            ToolbarPosition.BOTTOM.ordinal -> { }
         }
     }
 
