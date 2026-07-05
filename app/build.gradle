@@ -12,7 +12,7 @@ plugins {
 
 android {
 
-    compileSdkVersion 35
+    compileSdkVersion 37
     buildFeatures {
         buildConfig true
         viewBinding true
@@ -24,7 +24,7 @@ android {
     defaultConfig {
         applicationId "com.cookiejarapps.android.smartcookieweb"
         minSdkVersion 21
-        targetSdkVersion 35
+        targetSdkVersion 37
         // Increment by 4 with each update
         versionCode 128
         versionName "29.1"
