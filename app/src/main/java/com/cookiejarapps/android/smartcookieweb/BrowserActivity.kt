@@ -27,6 +27,8 @@ import com.cookiejarapps.android.smartcookieweb.addons.WebExtensionPopupFragment
 import com.cookiejarapps.android.smartcookieweb.addons.WebExtensionTabletPopupFragment
 import com.cookiejarapps.android.smartcookieweb.browser.*
 import com.cookiejarapps.android.smartcookieweb.browser.bookmark.ui.BookmarkFragment
+import androidx.lifecycle.lifecycleScope
+import com.cookiejarapps.android.smartcookieweb.browser.applySelectedSearchEngine
 import com.cookiejarapps.android.smartcookieweb.browser.home.HomeFragmentDirections
 import com.cookiejarapps.android.smartcookieweb.browser.tabs.TabsTrayFragment
 import com.cookiejarapps.android.smartcookieweb.databinding.ActivityMainBinding
@@ -118,49 +120,10 @@ open class BrowserActivity : LocaleAwareAppCompatActivity(), ComponentCallbacks2
 
         lastToolbarPosition = UserPreferences(this).toolbarPosition
 
-        //TODO: Move to settings page so app restart no longer required
-        //TODO: Differentiate between using search engine / adding to list - the code below removes all from list as I don't support adding to list, only setting as default
-        for(i in components.store.state.search.customSearchEngines){
-            components.searchUseCases.removeSearchEngine(i)
-        }
-
-        if(UserPreferences(this).customSearchEngine){
-            GlobalScope.launch {
-                val customSearch =
-                    createSearchEngine(
-                        name = "Custom Search",
-                        url = UserPreferences(this@BrowserActivity).customSearchEngineURL,
-                        icon = components.icons.loadIcon(IconRequest(UserPreferences(this@BrowserActivity).customSearchEngineURL))
-                            .await().bitmap
-                    )
-
-                runOnUiThread {
-                    components.searchUseCases.addSearchEngine(
-                        customSearch
-                    )
-                    components.searchUseCases.selectSearchEngine(
-                        customSearch
-                    )
-                }
-            }
-        }
-        else{
-            if(SearchEngineList().getEngines()[UserPreferences(this).searchEngineChoice].type == SearchEngine.Type.BUNDLED){
-                components.searchUseCases.selectSearchEngine(
-                    SearchEngineList().getEngines()[UserPreferences(this).searchEngineChoice]
-                )
-            }
-            else{
-                components.searchUseCases.addSearchEngine(
-                    SearchEngineList().getEngines()[UserPreferences(
-                        this
-                    ).searchEngineChoice]
-                )
-                components.searchUseCases.selectSearchEngine(
-                    SearchEngineList().getEngines()[UserPreferences(this).searchEngineChoice]
-                )
-            }
-        }
+        // Differentiate between using search engine / adding to list - applySelectedSearchEngine
+        // removes all custom engines from the list as adding to the list isn't supported, only
+        // setting one as default. Shared with settings so no app restart is required on change.
+        applySelectedSearchEngine(lifecycleScope)
 
         if (isActivityColdStarted(intent, savedInstanceState) &&
             !externalSourceIntentProcessors.any { it.process(intent, navHost.navController, this.intent) }) {

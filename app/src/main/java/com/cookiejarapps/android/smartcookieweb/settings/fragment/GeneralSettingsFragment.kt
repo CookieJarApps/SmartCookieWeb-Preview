@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.text.InputType
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.cookiejarapps.android.smartcookieweb.R
 import com.cookiejarapps.android.smartcookieweb.settings.HomepageChoice
 import com.cookiejarapps.android.smartcookieweb.browser.SearchEngineList
+import com.cookiejarapps.android.smartcookieweb.browser.applySelectedSearchEngine
 import com.cookiejarapps.android.smartcookieweb.preferences.UserPreferences
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -124,7 +126,7 @@ class GeneralSettingsFragment : BaseSettingsFragment() {
                 UserPreferences(requireContext()).searchEngineChoice = startingChoice
             }
             .setPositiveButton(resources.getString(R.string.mozac_feature_prompts_ok)) { _, _ ->
-                Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
+                requireContext().applySelectedSearchEngine(lifecycleScope)
             }
             .setSingleChoiceItems(singleItems.toTypedArray(), checkedItem) { dialog, which ->
                 if(which == singleItems.size - 1){
@@ -156,7 +158,7 @@ class GeneralSettingsFragment : BaseSettingsFragment() {
             if(input.text.toString().contains("{searchTerms}")){
                 UserPreferences(requireContext()).customSearchEngine = true
                 UserPreferences(requireContext()).customSearchEngineURL = input.text.toString()
-                Toast.makeText(context, requireContext().resources.getText(R.string.app_restart), Toast.LENGTH_LONG).show()
+                requireContext().applySelectedSearchEngine(lifecycleScope)
             }
             else{
                 Toast.makeText(context, R.string.custom_search_engine_error, Toast.LENGTH_LONG).show()
