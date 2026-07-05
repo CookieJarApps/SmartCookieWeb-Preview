@@ -33,6 +33,7 @@ import com.cookiejarapps.android.smartcookieweb.components.StoreProvider
 import com.cookiejarapps.android.smartcookieweb.components.toolbar.*
 import com.cookiejarapps.android.smartcookieweb.databinding.FragmentBrowserBinding
 import com.cookiejarapps.android.smartcookieweb.downloads.DownloadService
+import com.cookiejarapps.android.smartcookieweb.ext.alreadyOnDestination
 import com.cookiejarapps.android.smartcookieweb.ext.components
 import com.cookiejarapps.android.smartcookieweb.integration.ContextMenuIntegration
 import com.cookiejarapps.android.smartcookieweb.integration.FindInPageIntegration
@@ -651,6 +652,16 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler, Activit
                                     )
                                 }
                             }
+                        } else if (store.state.selectedTab?.content?.url == "about:homepage" &&
+                            !navController.alreadyOnDestination(R.id.homeFragment)
+                        ) {
+                            // On session restore GeckoView does not re-load "about:homepage", so
+                            // we navigate to it explicitly here.
+                            navController.navigate(
+                                HomeFragmentDirections.actionGlobalHome(
+                                    focusOnAddressBar = false
+                                )
+                            )
                         }
                     }
                 }
