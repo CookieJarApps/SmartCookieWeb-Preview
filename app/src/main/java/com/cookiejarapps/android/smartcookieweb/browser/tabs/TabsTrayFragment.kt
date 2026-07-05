@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.cookiejarapps.android.smartcookieweb.ext.alreadyOnDestination
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cookiejarapps.android.smartcookieweb.BrowserActivity
@@ -282,7 +283,11 @@ class TabsTrayFragment : Fragment() {
                         } else if (!tab.content.private && browsingModeManager.mode == BrowsingMode.Private) {
                             browsingModeManager.mode = BrowsingMode.Normal
                         }
-                        requireContext().components.sessionUseCases.reload(tab.id)
+
+                        val navController = requireActivity().findNavController(R.id.container)
+                        if (!navController.alreadyOnDestination(R.id.homeFragment)) {
+                            navController.navigate(R.id.homeFragment)
+                        }
                     } else if (requireActivity().findNavController(R.id.container).currentDestination?.id == R.id.browserFragment) {
                         return
                     } else if (!requireActivity().findNavController(R.id.container)
